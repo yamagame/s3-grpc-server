@@ -3,56 +3,35 @@ package s3
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"io"
 	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/credentials"
-	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
 type Client struct {
-	ctx           context.Context
-	bucket        string
-	s3client      *s3.Client
-	cognitoClient *cognitoidentityprovider.Client
-	userPoolId    string
+	ctx      context.Context
+	bucket   string
+	s3client *s3.Client
 }
 
 func NewClient(ctx context.Context, bucket string) (*Client, error) {
 	resolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-		fmt.Println("service", service)
 		if service == s3.ServiceID {
 			url := os.Getenv("S3_ENDPOINT")
 			if url != "" {
-				fmt.Println("S3_ENDPOINT:", url)
-				return aws.Endpoint{URL: url, HostnameImmutable: true}, nil
-			}
-		}
-		if service == cognitoidentityprovider.ServiceID {
-			url := os.Getenv("COGNITO_ENDPOINT")
-			if url != "" {
-				fmt.Println("COGNITO_ENDPOINT:", url)
-				// Authorization: AWS4-HMAC-SHA256 Credential=mock_access_key/20220524/us-east-1/cognito-idp/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date, Signature=asdf
-				return aws.Endpoint{URL: url, HostnameImmutable: true}, nil
+				return aws.Endpoint{URL: url}, nil
 			}
 		}
 		return aws.Endpoint{}, &aws.EndpointNotFoundError{}
 	})
 
-	cred := aws.NewCredentialsCache(credentials.NewStaticCredentialsProvider("AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_SESSION_TOKEN"))
-	if cred == nil {
-		panic("failed to fetch credentials provider")
-	}
-
 	cfg, err := config.LoadDefaultConfig(
 		ctx,
 		config.WithEndpointResolverWithOptions(resolver),
-		config.WithCredentialsProvider(cred),
 	)
 	if err != nil {
 		return nil, err
@@ -60,19 +39,12 @@ func NewClient(ctx context.Context, bucket string) (*Client, error) {
 
 	s3client := s3.NewFromConfig(cfg)
 
-	var userPoolId = "ap-northeast-1_XXXXXXXXX"
-	cognitoClient := cognitoidentityprovider.NewFromConfig(cfg)
-
 	return &Client{
-		ctx:           ctx,
-		s3client:      s3client,
-		bucket:        bucket,
-		cognitoClient: cognitoClient,
-		userPoolId:    userPoolId,
+		ctx:      ctx,
+		s3client: s3client,
+		bucket:   bucket,
 	}, nil
 }
-
-// s3 -----------------------------------------------------------------------------------
 
 func (x *Client) ListBuckets() (*s3.ListBucketsOutput, error) {
 	return x.s3client.ListBuckets(x.ctx, &s3.ListBucketsInput{})
@@ -123,17 +95,4 @@ func (x *Client) DeleteObject(key string) (*s3.DeleteObjectOutput, error) {
 		Bucket: aws.String(x.bucket),
 		Key:    aws.String(key),
 	})
-}
-
-// cognito -----------------------------------------------------------------------------------
-
-func (x *Client) ListUsers() (*cognitoidentityprovider.ListUsersOutput, error) {
-	input := &cognitoidentityprovider.ListUsersInput{
-		UserPoolId: &x.userPoolId,
-	}
-	output, err := x.cognitoClient.ListUsers(x.ctx, input)
-	if err != nil {
-		return nil, err
-	}
-	return output, nil
 }

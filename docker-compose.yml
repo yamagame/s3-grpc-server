@@ -1,5 +1,3 @@
-# docker-compose up -d
-# docker compose exec grpc-server /bin/bash
 version: '3.8'
 
 services:
@@ -20,12 +18,14 @@ services:
       - 50051:50051
     tty: true
     environment:
-      AWS_SDK_LOAD_CONFIG: true #自動的に.aws/configを読みに行く設定
-      AWS_PROFILE:
+      AWS_SDK_LOAD_CONFIG: false
+      AWS_PROFILE: default
+      AWS_REGION: ap-northeast-1
+      AWS_ACCESS_KEY_ID: my-access-key
+      AWS_SECRET_ACCESS_KEY: my-secret-key
       S3_BUCKET_NAME: sample-bucket
       S3_ENDPOINT: http://moto:5000
       COGNITO_ENDPOINT: http://moto:5000
     volumes:
       - ./:/app
-      # - ~/.aws/:/root/.aws:ro
     working_dir: /app
