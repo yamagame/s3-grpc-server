@@ -1,0 +1,31 @@
+# docker-compose up -d
+# docker compose exec grpc-server /bin/bash
+version: '3.8'
+
+services:
+  moto:
+    restart: always
+    hostname: moto
+    image: "motoserver/moto:4.1.6"
+    ports:
+      - 5000:5000
+
+  grpc-server:
+    restart: always
+    hostname: grpc-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 50051:50051
+    tty: true
+    environment:
+      AWS_SDK_LOAD_CONFIG: true #自動的に.aws/configを読みに行く設定
+      AWS_PROFILE:
+      S3_BUCKET_NAME: sample-bucket
+      S3_ENDPOINT: http://moto:5000
+      COGNITO_ENDPOINT: http://moto:5000
+    volumes:
+      - ./:/app
+      # - ~/.aws/:/root/.aws:ro
+    working_dir: /app
