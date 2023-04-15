@@ -11,6 +11,13 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+function errorHandler(err, req, res, next) {
+  res.status(500)
+  res.render("error", { error: err })
+}
+
+app.use(errorHandler)
+
 interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
 }
@@ -53,46 +60,60 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get("/api", (req, res) => {
-  console.log(req.method, req.url)
-  res.json({ count: 100, name: "test name" })
-})
-
-app.post("/api/createBucket", async (req, res) => {
-  const ret = await awsClient.CreateBucket({})
-  res.json(ret)
-})
-
-app.get("/api/listBuckets", async (req, res) => {
-  const ret = await awsClient.ListBuckets({})
-  res.json(ret)
-})
-
-app.post("/api/putObject/:key", async (req, res) => {
-  if (!req.body) {
-    return res.json({})
+app.post("/api/createBucket", async (req, res, next) => {
+  try {
+    const ret = await awsClient.CreateBucket({})
+    res.json(ret)
+  } catch (err) {
+    next(err)
   }
-  const { key } = req.params
-  const { content } = req.body
-  console.log(content)
-  const ret = await awsClient.PutObject({ key, content })
-  res.json(ret)
 })
 
-app.post("/api/deleteObject/:key", async (req, res) => {
-  const { key } = req.params
-  const ret = await awsClient.DeleteObject({ key })
-  res.json(ret)
+app.get("/api/listBuckets", async (req, res, next) => {
+  try {
+    const ret = await awsClient.ListBuckets({})
+    res.json(ret)
+  } catch (err) {
+    next(err)
+  }
 })
 
-app.get("/api/getObject/:key", async (req, res) => {
-  const { key } = req.params
-  const ret = await awsClient.GetObject({ key })
-  res.json(ret)
+app.post("/api/putObject/:key", async (req, res, next) => {
+  try {
+    if (!req.body) {
+      return res.json({})
+    }
+    const { key } = req.params
+    const { content } = req.body
+    console.log(content)
+    const ret = await awsClient.PutObject({ key, content })
+    res.json(ret)
+  } catch (err) {
+    next(err)
+  }
+})
+
+app.post("/api/deleteObject/:key", async (req, res, next) => {
+  try {
+    const { key } = req.params
+    const ret = await awsClient.DeleteObject({ key })
+    res.json(ret)
+  } catch (err) {
+    next(err)
+  }
+})
+
+app.get("/api/getObject/:key", async (req, res, next) => {
+  try {
+    const { key } = req.params
+    const ret = await awsClient.GetObject({ key })
+    res.json(ret)
+  } catch (err) {
+    next(err)
+  }
 })
 
 app.get("/", (req, res) => {
-  console.log(req.method, req.url)
   res.send("Hello World!")
 })
 
