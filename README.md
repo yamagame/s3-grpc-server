@@ -1,4 +1,16 @@
 # GRPC-S3 サンプル
+
+## 構成
+
+```mermaid
+graph LR;
+  front("front
+  (vue3/typescript)")-->bff("bff
+  (typescript/express)")-->grpc("grpc server
+  (golang)")-->s3("s3
+  (moto)");
+```
+
 ## 実行方法
 
 ```bash
@@ -14,7 +26,7 @@ $ docker compose exec grpc-server /bin/bash
 /app # ./scripts/repl.sh
 ```
 
-## bffの起動
+## bff の起動
 
 ```bash
 $ docker compose exec grpc-bff /bin/bash
@@ -22,7 +34,7 @@ $ docker compose exec grpc-bff /bin/bash
 /app # yarn start
 ```
 
-## frontの起動
+## front の起動
 
 ```bash
 $ docker compose exec grpc-front /bin/bash
