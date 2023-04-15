@@ -5,4 +5,5 @@ RUN apk add --no-cache nodejs=18.14.2-r0 npm=9.1.2-r0
 RUN npm install -g yarn
 RUN go install github.com/ktr0731/evans@0.10.11
 RUN apk add protobuf
-RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30
+RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2

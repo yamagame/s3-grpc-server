@@ -22,9 +22,7 @@ enum result {
   ERR = 2;
 }
 
-message CreateBucketRequest {
-  string name = 1;
-}
+message CreateBucketRequest {}
 
 message CreateBucketResponse {
   result result = 1;
@@ -47,6 +45,7 @@ message PutObjectRequest {
 
 message PutObjectResponse {
   result result = 1;
+  string key = 2;
 }
 
 message GetObjectRequest {
@@ -65,4 +64,5 @@ message DeleteObjectRequest {
 
 message DeleteObjectResponse {
   result result = 1;
+  string key = 2;
 }

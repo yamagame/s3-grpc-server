@@ -23,7 +23,7 @@ func NewClient(ctx context.Context, bucket string) (*Client, error) {
 		if service == s3.ServiceID {
 			url := os.Getenv("S3_ENDPOINT")
 			if url != "" {
-				return aws.Endpoint{URL: url}, nil
+				return aws.Endpoint{URL: url, HostnameImmutable: true}, nil
 			}
 		}
 		return aws.Endpoint{}, &aws.EndpointNotFoundError{}
@@ -50,9 +50,9 @@ func (x *Client) ListBuckets() (*s3.ListBucketsOutput, error) {
 	return x.s3client.ListBuckets(x.ctx, &s3.ListBucketsInput{})
 }
 
-func (x *Client) CreateBucket(name string) (*s3.CreateBucketOutput, error) {
+func (x *Client) CreateBucket() (*s3.CreateBucketOutput, error) {
 	return x.s3client.CreateBucket(x.ctx, &s3.CreateBucketInput{
-		Bucket: aws.String(name),
+		Bucket: aws.String(x.bucket),
 	})
 }
 

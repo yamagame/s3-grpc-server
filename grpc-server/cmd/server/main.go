@@ -7,8 +7,8 @@ import (
 	"net"
 	"os"
 
-	aws "sample/s3-grpc-server/grpc-server"
-	"sample/s3-grpc-server/s3"
+	aws "sample/s3-grpc-server/grpc-server/proto/grpc-server"
+	"sample/s3-grpc-server/grpc-server/s3"
 
 	"go.uber.org/zap"
 	"google.golang.org/grpc"

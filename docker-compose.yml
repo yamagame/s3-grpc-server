@@ -29,3 +29,33 @@ services:
     volumes:
       - ./:/app
     working_dir: /app
+
+  grpc-bff:
+    restart: always
+    hostname: grpc-bff
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 7000:7000
+    tty: true
+    environment:
+      GRPC_HOST: grpc-server:50051
+    volumes:
+      - ./grpc-bff:/app
+    working_dir: /app
+
+  grpc-front:
+    restart: always
+    hostname: grpc-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    tty: true
+    environment:
+      GRPC_HOST: grpc-server:50051
+    volumes:
+      - ./grpc-front:/app
+    working_dir: /app

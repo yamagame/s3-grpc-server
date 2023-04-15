@@ -3,7 +3,7 @@ package s3
 import (
 	"context"
 	"fmt"
-	aws "sample/s3-grpc-server/grpc-server"
+	aws "sample/s3-grpc-server/grpc-server/proto/grpc-server"
 
 	"go.uber.org/zap"
 )
@@ -20,7 +20,7 @@ func NewAWSServer(client *Client) *awsServer {
 
 // CreateBucket implements awsServer.ListBuckets
 func (s *awsServer) CreateBucket(ctx context.Context, in *aws.CreateBucketRequest) (*aws.CreateBucketResponse, error) {
-	_, err := s.aws.CreateBucket(in.Name)
+	_, err := s.aws.CreateBucket()
 	if err != nil {
 		fmt.Println(err)
 		return &aws.CreateBucketResponse{Result: aws.Result_ERR}, nil
@@ -52,7 +52,7 @@ func (s *awsServer) PutObject(ctx context.Context, in *aws.PutObjectRequest) (*a
 		fmt.Println(err)
 		return &aws.PutObjectResponse{Result: aws.Result_ERR}, nil
 	}
-	return &aws.PutObjectResponse{Result: aws.Result_OK}, nil
+	return &aws.PutObjectResponse{Result: aws.Result_OK, Key: in.GetKey()}, nil
 }
 
 // GetObject implements awsServer.GetObject
@@ -63,7 +63,7 @@ func (s *awsServer) GetObject(ctx context.Context, in *aws.GetObjectRequest) (*a
 		fmt.Println(err)
 		return &aws.GetObjectResponse{Result: aws.Result_ERR}, nil
 	}
-	return &aws.GetObjectResponse{Result: aws.Result_OK, Content: ret}, nil
+	return &aws.GetObjectResponse{Result: aws.Result_OK, Key: in.GetKey(), Content: ret}, nil
 }
 
 // DeleteObject implements awsServer.DeleteObject
@@ -74,5 +74,5 @@ func (s *awsServer) DeleteObject(ctx context.Context, in *aws.DeleteObjectReques
 		fmt.Println(err)
 		return &aws.DeleteObjectResponse{Result: aws.Result_ERR}, nil
 	}
-	return &aws.DeleteObjectResponse{Result: aws.Result_OK}, nil
+	return &aws.DeleteObjectResponse{Result: aws.Result_OK, Key: in.GetKey()}, nil
 }

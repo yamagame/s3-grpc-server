@@ -1,0 +1,11 @@
+{
+  "name": "s3-grpc-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/yamagame/s3-grpc-server.git",
+  "author": "yamagame <yamagame@mac.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ts-proto": "^1.146.0"
+  }
+}
