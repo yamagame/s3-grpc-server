@@ -14,9 +14,26 @@ $ docker compose exec grpc-server /bin/bash
 /app # ./scripts/repl.sh
 ```
 
+## bffの起動
+
+```bash
+$ docker compose exec grpc-bff /bin/bash
+/app # yarn install
+/app # yarn start
+```
+
+## frontの起動
+
+```bash
+$ docker compose exec grpc-front /bin/bash
+/app # yarn install
+/app # yarn dev
+```
+
 ## gRPCコード生成
 
 ```bash
-$ yarn install
-$ ./scripts/genproto.sh
+$ docker compose exec grpc-server /bin/bash
+/app # yarn install
+/app # ./scripts/genproto.sh
 ```
