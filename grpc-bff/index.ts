@@ -2,14 +2,44 @@ import * as express from "express"
 import * as aws from "./proto/grpc-server/aws"
 import * as grpc from "@grpc/grpc-js"
 import { UnaryCallback } from "@grpc/grpc-js/build/src/client"
+import * as session from "express-session"
+import * as Keycloak from "keycloak-connect"
+const cors = require("cors")
 
 const port = 7000
 const grpcHost = process.env.GRPC_HOST || `localhost:50051`
+const appHost = process.env.APP_HOST || `http://localhost:3000`
+const memoryStore = new session.MemoryStore()
+const keycloak = new Keycloak({ store: memoryStore }, "./keycloak.json")
+const config = keycloak.getConfig()
+config["realmUrl"] = "http://localhost:8180/realms/test"
 
 const app = express()
 
+app.use(
+  session({
+    secret: "my-bff-secret",
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStore,
+  })
+)
+
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.use((req, res, next) => {
+  console.log(req.method, req.url, req.hostname)
+  console.log(req.headers)
+  console.log(req.body)
+  req.headers.host = `${req.headers["x-forwarded-host"]}`
+  next()
+})
+
+app.set("trust proxy", true)
+
+app.use(keycloak.middleware({ logout: "/api/logoff" }))
 
 function errorHandler(err, req, res, next) {
   res.status(500)
@@ -54,13 +84,11 @@ const sendRequest: RpcImpl = (service, method, data) => {
 const rpc: Rpc = { request: sendRequest }
 const awsClient = new aws.awsClientImpl(rpc, { service: "aws" })
 
-app.use((req, res, next) => {
-  console.log(req.method, req.url)
-  console.log(req.body)
-  next()
+app.get("/api/login", keycloak.protect(), async (req, res, next) => {
+  res.redirect(appHost)
 })
 
-app.post("/api/createBucket", async (req, res, next) => {
+app.post("/api/createBucket", keycloak.protect(), async (req, res, next) => {
   try {
     const ret = await awsClient.CreateBucket({})
     res.json(ret)
@@ -69,7 +97,7 @@ app.post("/api/createBucket", async (req, res, next) => {
   }
 })
 
-app.get("/api/listBuckets", async (req, res, next) => {
+app.get("/api/listBuckets", keycloak.protect(), async (req, res, next) => {
   try {
     const ret = await awsClient.ListBuckets({})
     res.json(ret)
@@ -78,7 +106,7 @@ app.get("/api/listBuckets", async (req, res, next) => {
   }
 })
 
-app.post("/api/putObject/:key", async (req, res, next) => {
+app.post("/api/putObject/:key", keycloak.protect(), async (req, res, next) => {
   try {
     if (!req.body) {
       return res.json({})
@@ -93,7 +121,7 @@ app.post("/api/putObject/:key", async (req, res, next) => {
   }
 })
 
-app.post("/api/deleteObject/:key", async (req, res, next) => {
+app.post("/api/deleteObject/:key", keycloak.protect(), async (req, res, next) => {
   try {
     const { key } = req.params
     const ret = await awsClient.DeleteObject({ key })
@@ -103,7 +131,7 @@ app.post("/api/deleteObject/:key", async (req, res, next) => {
   }
 })
 
-app.get("/api/getObject/:key", async (req, res, next) => {
+app.get("/api/getObject/:key", keycloak.protect(), async (req, res, next) => {
   try {
     const { key } = req.params
     const ret = await awsClient.GetObject({ key })

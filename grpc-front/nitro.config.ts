@@ -4,7 +4,6 @@ import { defineNitroConfig } from "nitropack"
 // https://github.com/http-party/node-http-proxy#options
 export default defineNitroConfig({
   devProxy: {
-    // "/proxy/test": "http://localhost:7000/api",
     "/api": {
       target: "http://grpc-bff:7000/api",
       changeOrigin: true,

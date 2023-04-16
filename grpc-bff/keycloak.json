@@ -1,0 +1,10 @@
+{
+  "realm": "test",
+  "auth-server-url": "http://grpc-keycloak:8080",
+  "ssl-required": "external",
+  "resource": "test-app",
+  "public-client": true,
+  "enable-cors": false,
+  "cors-allowed-methods": "POST,PUT,DELETE,GET",
+  "confidential-port": 0
+}
