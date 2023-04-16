@@ -20,9 +20,16 @@ graph LR;
 
 ## 実行方法
 
+docker-compose up -d で開発用のコンテナが稼働する。コンテナのメモリは3Gは欲しい。
+
+```bash
+$ docker-compose up -d
+```
+
+## gRPC の起動
+
 ```bash
 # grpsサーバー起動
-$ docker-compose up -d
 $ docker compose exec grpc-server /bin/bash
 /app # ./scripts/start-server.sh
 ```
@@ -47,14 +54,6 @@ $ docker compose exec grpc-bff /bin/bash
 $ docker compose exec grpc-front /bin/bash
 /app # yarn install
 /app # yarn dev
-```
-
-## gRPCコード生成
-
-```bash
-$ docker compose exec grpc-server /bin/bash
-/app # yarn install
-/app # ./scripts/genproto.sh
 ```
 
 ## keycloakのセットアップ
@@ -84,3 +83,11 @@ Dcoker 内で認可できるように keycloak-connect/middleware/auth-utils/gra
 testレルムにユーザーを追加する。
 
 http://localhost:8180
+
+## gRPC コード生成
+
+```bash
+$ docker compose exec grpc-server /bin/bash
+/app # yarn install
+/app # ./scripts/genproto.sh
+```
