@@ -5,10 +5,17 @@
 ```mermaid
 graph LR;
   front("front
-  (vue3/typescript)")-->bff("bff
-  (typescript/express)")-->grpc("grpc server
-  (golang)")-->s3("s3
-  (moto)");
+  (vue3/typescript)
+  3000:3000")-->bff("bff
+  (typescript/express)
+  7000:7000")-->grpc("grpc server
+  (golang)
+  50051:50051")-->s3("s3
+  (moto)
+  5000:5000");
+  bff-->keycloak("keycloak
+  8180:8080")
+  login("ログイン画面")--->keycloak
 ```
 
 ## 実行方法
