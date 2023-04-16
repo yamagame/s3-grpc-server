@@ -6,7 +6,7 @@
 graph LR;
   front("front
   (vue3/typescript)
-  3000:3000")-->bff("bff
+  3000:3000")-->|dev/proxy|bff("bff
   (typescript/express)
   7000:7000")-->grpc("grpc server
   (golang)
