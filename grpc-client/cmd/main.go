@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"sample/s3-grpc-server/grpc-client/cmd/service"
+	"sample/s3-grpc-server/grpc-client/service"
 	aws "sample/s3-grpc-server/grpc-server/proto/grpc-server"
 
 	"google.golang.org/grpc"
