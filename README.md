@@ -70,7 +70,7 @@ $ ./scripts/keycloak-import.sh
 $ ./scripts/keycloak-export.sh
 ```
 
-Dcoker 内で認可できるように keycloak-connect/middleware/auth-utils/grant-manager.js の以下のコードをコメントアウト
+Dcoker 内で認可できるように grpc-buff/node_modules/keycloak-connect/middleware/auth-utils/grant-manager.js の以下のコードをコメントアウト
 
 ```js
                        :
