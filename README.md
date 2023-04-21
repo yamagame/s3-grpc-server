@@ -30,20 +30,20 @@ $ docker-compose up -d
 
 ```bash
 # grpsサーバー起動
-$ docker compose exec grpc-server /bin/bash
+$ docker compose exec grpc-server //bin/bash
 /app # ./scripts/start-server.sh
 ```
 
 ```bash
 # evans起動
-$ docker compose exec grpc-server /bin/bash
+$ docker compose exec grpc-server //bin/bash
 /app # ./scripts/repl.sh
 ```
 
 ## bff の起動
 
 ```bash
-$ docker compose exec grpc-bff /bin/bash
+$ docker compose exec grpc-bff //bin/bash
 /app # yarn install
 /app # yarn start
 ```
@@ -51,7 +51,7 @@ $ docker compose exec grpc-bff /bin/bash
 ## front の起動
 
 ```bash
-$ docker compose exec grpc-front /bin/bash
+$ docker compose exec grpc-front //bin/bash
 /app # yarn install
 /app # yarn dev
 ```
@@ -87,7 +87,7 @@ http://localhost:8180
 ## gRPC コード生成
 
 ```bash
-$ docker compose exec grpc-server /bin/bash
+$ docker compose exec grpc-server //bin/bash
 /app # yarn install
 /app # ./scripts/genproto.sh
 ```
