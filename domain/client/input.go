@@ -12,21 +12,12 @@ func NewAwsClientInput() *AwsClientInput {
 	return &AwsClientInput{}
 }
 
-type CreateBucketInput struct{}
-
 func (x *AwsClientInput) CreateBucket(_ *domain.CreateBucketEntity) *aws.CreateBucketRequest {
 	return &aws.CreateBucketRequest{}
 }
 
-type ListBucketsInput struct{}
-
 func (x *AwsClientInput) ListBuckets(_ *domain.ListBucketsEntity) *aws.ListBucketsRequest {
 	return &aws.ListBucketsRequest{}
-}
-
-type PutObjectInput struct {
-	Key     string
-	Content string
 }
 
 func (x *AwsClientInput) PutObject(req *domain.PutObjectEntity) *aws.PutObjectRequest {
@@ -36,18 +27,10 @@ func (x *AwsClientInput) PutObject(req *domain.PutObjectEntity) *aws.PutObjectRe
 	}
 }
 
-type GetObjectInput struct {
-	Key string
-}
-
 func (x *AwsClientInput) GetObject(req *domain.GetObjectEntity) *aws.GetObjectRequest {
 	return &aws.GetObjectRequest{
 		Key: req.Key,
 	}
-}
-
-type DeleteObjectInput struct {
-	Key string
 }
 
 func (x *AwsClientInput) DeleteObject(req *domain.DeleteObjectEntity) *aws.DeleteObjectRequest {

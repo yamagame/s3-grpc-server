@@ -12,15 +12,11 @@ func NewAwsClientOutput() *AwsClientOutput {
 	return &AwsClientOutput{}
 }
 
-type CreateBucketOutput struct{}
-
 func (x *AwsClientOutput) CreateBucket(res *aws.CreateBucketResponse) *domain.CreateBucketEntity {
 	return &domain.CreateBucketEntity{
 		Result: domain.AwsResult(res.Result),
 	}
 }
-
-type ListBucketsOutput struct{}
 
 func (x *AwsClientOutput) ListBuckets(res *aws.ListBucketsResponse) *domain.ListBucketsEntity {
 	buckets := make([]domain.Bucket, len(res.Buckets))
@@ -33,19 +29,10 @@ func (x *AwsClientOutput) ListBuckets(res *aws.ListBucketsResponse) *domain.List
 	}
 }
 
-type PutObjectOutput struct {
-	Key     string
-	Content string
-}
-
 func (x *AwsClientOutput) PutObject(res *aws.PutObjectResponse) *domain.PutObjectEntity {
 	return &domain.PutObjectEntity{
 		Result: domain.AwsResult(res.Result),
 	}
-}
-
-type GetObjectOutput struct {
-	Key string
 }
 
 func (x *AwsClientOutput) GetObject(res *aws.GetObjectResponse) *domain.GetObjectEntity {
@@ -53,10 +40,6 @@ func (x *AwsClientOutput) GetObject(res *aws.GetObjectResponse) *domain.GetObjec
 		Result:  domain.AwsResult(res.Result),
 		Content: res.Content,
 	}
-}
-
-type DeleteObjectOutput struct {
-	Key string
 }
 
 func (x *AwsClientOutput) DeleteObject(res *aws.DeleteObjectResponse) *domain.DeleteObjectEntity {
