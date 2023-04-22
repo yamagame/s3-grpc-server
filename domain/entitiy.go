@@ -1,15 +1,15 @@
 package domain
 
-type AwsResult int32
+type StorageResult int32
 
 const (
-	Result_UNDEFINED AwsResult = 0
-	Result_OK        AwsResult = 1
-	Result_ERR       AwsResult = 2
+	Result_UNDEFINED StorageResult = 0
+	Result_OK        StorageResult = 1
+	Result_ERR       StorageResult = 2
 )
 
 type CreateBucketEntity struct {
-	Result AwsResult
+	Result StorageResult
 }
 
 type Bucket struct {
@@ -17,29 +17,29 @@ type Bucket struct {
 }
 
 type ListBucketsEntity struct {
-	Result  AwsResult
+	Result  StorageResult
 	Buckets []Bucket
 }
 
 type PutObjectEntity struct {
-	Result  AwsResult
+	Result  StorageResult
 	Key     string
 	Content string
 }
 
 type GetObjectEntity struct {
-	Result  AwsResult
+	Result  StorageResult
 	Key     string
 	Content string
 }
 
 type DeleteObjectEntity struct {
-	Result AwsResult
+	Result StorageResult
 	Key    string
 }
 
 type ListObjectsEntity struct {
-	Result AwsResult
+	Result StorageResult
 	Prefix string
 	Keys   []string
 	Next   *string

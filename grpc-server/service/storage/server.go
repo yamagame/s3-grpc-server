@@ -3,33 +3,33 @@ package storage
 import (
 	"context"
 	"sample/s3-grpc-server/domain"
-	aws "sample/s3-grpc-server/grpc-server/proto/grpc-server"
+	server "sample/s3-grpc-server/grpc-server/proto/grpc-server"
 )
 
-type awsServerDomain struct {
-	createBucket domain.AwsCreateBucketServerData
-	listBuckets  domain.AwsListBucketsServerData
-	putObject    domain.AwsPutObjectServerData
-	getObject    domain.AwsGetObjectServerData
-	deleteObject domain.AwsDeleteObjectServerData
-	listObjects  domain.AwsListObjectsServerData
+type storageServerDomain struct {
+	createBucket domain.StorageCreateBucketServerData
+	listBuckets  domain.StorageListBucketsServerData
+	putObject    domain.StoragePutObjectServerData
+	getObject    domain.StorageGetObjectServerData
+	deleteObject domain.StorageDeleteObjectServerData
+	listObjects  domain.StorageListObjectsServerData
 }
 
-type awsServer struct {
-	service *awsService
-	domain  *awsServerDomain
-	aws.UnimplementedAwsServer
+type storageServer struct {
+	service *storageService
+	domain  *storageServerDomain
+	server.UnimplementedStorageServer
 }
 
-func NewAWSServer(client *Client) *awsServer {
-	return &awsServer{
-		service: NewAWSService(client),
-		domain:  &awsServerDomain{},
+func NewStorageServer(client ClientInterface) *storageServer {
+	return &storageServer{
+		service: NewStorageService(client),
+		domain:  &storageServerDomain{},
 	}
 }
 
 // CreateBucket implements awsServer.ListBuckets
-func (s *awsServer) CreateBucket(ctx context.Context, in *aws.CreateBucketRequest) (*aws.CreateBucketResponse, error) {
+func (s *storageServer) CreateBucket(ctx context.Context, in *server.CreateBucketRequest) (*server.CreateBucketResponse, error) {
 	entity := s.domain.createBucket.Input(in)
 	entity, err := s.service.CreateBucket(entity)
 	if err != nil {
@@ -39,7 +39,7 @@ func (s *awsServer) CreateBucket(ctx context.Context, in *aws.CreateBucketReques
 }
 
 // ListBuckets implements awsServer.ListBuckets
-func (s *awsServer) ListBuckets(ctx context.Context, in *aws.ListBucketsRequest) (*aws.ListBucketsResponse, error) {
+func (s *storageServer) ListBuckets(ctx context.Context, in *server.ListBucketsRequest) (*server.ListBucketsResponse, error) {
 	entity := s.domain.listBuckets.Input(in)
 	entity, err := s.service.ListBuckets(entity)
 	if err != nil {
@@ -49,7 +49,7 @@ func (s *awsServer) ListBuckets(ctx context.Context, in *aws.ListBucketsRequest)
 }
 
 // PutObject implements awsServer.PutObject
-func (s *awsServer) PutObject(ctx context.Context, in *aws.PutObjectRequest) (*aws.PutObjectResponse, error) {
+func (s *storageServer) PutObject(ctx context.Context, in *server.PutObjectRequest) (*server.PutObjectResponse, error) {
 	entity := s.domain.putObject.Input(in)
 	entity, err := s.service.PutObject(entity)
 	if err != nil {
@@ -59,7 +59,7 @@ func (s *awsServer) PutObject(ctx context.Context, in *aws.PutObjectRequest) (*a
 }
 
 // GetObject implements awsServer.GetObject
-func (s *awsServer) GetObject(ctx context.Context, in *aws.GetObjectRequest) (*aws.GetObjectResponse, error) {
+func (s *storageServer) GetObject(ctx context.Context, in *server.GetObjectRequest) (*server.GetObjectResponse, error) {
 	entity := s.domain.getObject.Input(in)
 	entity, err := s.service.GetObject(entity)
 	if err != nil {
@@ -69,7 +69,7 @@ func (s *awsServer) GetObject(ctx context.Context, in *aws.GetObjectRequest) (*a
 }
 
 // DeleteObject implements awsServer.DeleteObject
-func (s *awsServer) DeleteObject(ctx context.Context, in *aws.DeleteObjectRequest) (*aws.DeleteObjectResponse, error) {
+func (s *storageServer) DeleteObject(ctx context.Context, in *server.DeleteObjectRequest) (*server.DeleteObjectResponse, error) {
 	entity := s.domain.deleteObject.Input(in)
 	entity, err := s.service.DeleteObject(entity)
 	if err != nil {
@@ -79,7 +79,7 @@ func (s *awsServer) DeleteObject(ctx context.Context, in *aws.DeleteObjectReques
 }
 
 // ListObjects implements awsServer.ListObjects
-func (s *awsServer) ListObjects(ctx context.Context, in *aws.ListObjectsRequest) (*aws.ListObjectsResponse, error) {
+func (s *storageServer) ListObjects(ctx context.Context, in *server.ListObjectsRequest) (*server.ListObjectsResponse, error) {
 	entity := s.domain.listObjects.Input(in)
 	entity, err := s.service.ListObjects(entity)
 	if err != nil {

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-option go_package = "grpc-server/aws";
+option go_package = "grpc-server/storage";
 
 // The greeting service definition.
-service aws {
+service storage {
   // CreateBucket
   rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {}
   // ListBuckets

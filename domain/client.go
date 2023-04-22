@@ -1,99 +1,99 @@
 package domain
 
 import (
-	aws "sample/s3-grpc-server/grpc-server/proto/grpc-server"
+	server "sample/s3-grpc-server/grpc-server/proto/grpc-server"
 )
 
-type AwsCreateBucketClientData struct {
+type StorageCreateBucketClientData struct {
 }
 
-func (x *AwsCreateBucketClientData) Input(_ *CreateBucketEntity) *aws.CreateBucketRequest {
-	return &aws.CreateBucketRequest{}
+func (x *StorageCreateBucketClientData) Input(_ *CreateBucketEntity) *server.CreateBucketRequest {
+	return &server.CreateBucketRequest{}
 }
 
-func (x *AwsCreateBucketClientData) Output(res *aws.CreateBucketResponse) *CreateBucketEntity {
+func (x *StorageCreateBucketClientData) Output(res *server.CreateBucketResponse) *CreateBucketEntity {
 	return &CreateBucketEntity{
-		Result: AwsResult(res.Result),
+		Result: StorageResult(res.Result),
 	}
 }
 
-type AwsListBucketsClientData struct {
+type StorageListBucketsClientData struct {
 }
 
-func (x *AwsListBucketsClientData) Input(_ *ListBucketsEntity) *aws.ListBucketsRequest {
-	return &aws.ListBucketsRequest{}
+func (x *StorageListBucketsClientData) Input(_ *ListBucketsEntity) *server.ListBucketsRequest {
+	return &server.ListBucketsRequest{}
 }
 
-func (x *AwsListBucketsClientData) Output(res *aws.ListBucketsResponse) *ListBucketsEntity {
+func (x *StorageListBucketsClientData) Output(res *server.ListBucketsResponse) *ListBucketsEntity {
 	buckets := make([]Bucket, len(res.Buckets))
 	for i, v := range res.Buckets {
 		buckets[i].Name = v.Name
 	}
 	return &ListBucketsEntity{
-		Result:  AwsResult(res.Result),
+		Result:  StorageResult(res.Result),
 		Buckets: buckets,
 	}
 }
 
-type AwsPutObjectClientData struct {
+type StoragePutObjectClientData struct {
 }
 
-func (x *AwsPutObjectClientData) Input(req *PutObjectEntity) *aws.PutObjectRequest {
-	return &aws.PutObjectRequest{
+func (x *StoragePutObjectClientData) Input(req *PutObjectEntity) *server.PutObjectRequest {
+	return &server.PutObjectRequest{
 		Key:     req.Key,
 		Content: req.Content,
 	}
 }
 
-func (x *AwsPutObjectClientData) Output(res *aws.PutObjectResponse) *PutObjectEntity {
+func (x *StoragePutObjectClientData) Output(res *server.PutObjectResponse) *PutObjectEntity {
 	return &PutObjectEntity{
-		Result: AwsResult(res.Result),
+		Result: StorageResult(res.Result),
 	}
 }
 
-type AwsGetObjectClientData struct {
+type StorageGetObjectClientData struct {
 }
 
-func (x *AwsGetObjectClientData) Input(req *GetObjectEntity) *aws.GetObjectRequest {
-	return &aws.GetObjectRequest{
+func (x *StorageGetObjectClientData) Input(req *GetObjectEntity) *server.GetObjectRequest {
+	return &server.GetObjectRequest{
 		Key: req.Key,
 	}
 }
 
-func (x *AwsGetObjectClientData) Output(res *aws.GetObjectResponse) *GetObjectEntity {
+func (x *StorageGetObjectClientData) Output(res *server.GetObjectResponse) *GetObjectEntity {
 	return &GetObjectEntity{
-		Result:  AwsResult(res.Result),
+		Result:  StorageResult(res.Result),
 		Content: res.Content,
 	}
 }
 
-type AwsDeleteObjectClientData struct {
+type StorageDeleteObjectClientData struct {
 }
 
-func (x *AwsDeleteObjectClientData) Input(req *DeleteObjectEntity) *aws.DeleteObjectRequest {
-	return &aws.DeleteObjectRequest{
+func (x *StorageDeleteObjectClientData) Input(req *DeleteObjectEntity) *server.DeleteObjectRequest {
+	return &server.DeleteObjectRequest{
 		Key: req.Key,
 	}
 }
 
-func (x *AwsDeleteObjectClientData) Output(res *aws.DeleteObjectResponse) *DeleteObjectEntity {
+func (x *StorageDeleteObjectClientData) Output(res *server.DeleteObjectResponse) *DeleteObjectEntity {
 	return &DeleteObjectEntity{
-		Result: AwsResult(res.Result),
+		Result: StorageResult(res.Result),
 	}
 }
 
-type AwsListObjectsClientData struct {
+type StorageListObjectsClientData struct {
 }
 
-func (x *AwsListObjectsClientData) Input(req *ListObjectsEntity) *aws.ListObjectsRequest {
-	return &aws.ListObjectsRequest{
+func (x *StorageListObjectsClientData) Input(req *ListObjectsEntity) *server.ListObjectsRequest {
+	return &server.ListObjectsRequest{
 		Prefix: req.Prefix,
 	}
 }
 
-func (x *AwsListObjectsClientData) Output(res *aws.ListObjectsResponse) *ListObjectsEntity {
+func (x *StorageListObjectsClientData) Output(res *server.ListObjectsResponse) *ListObjectsEntity {
 	return &ListObjectsEntity{
-		Result: AwsResult(res.Result),
+		Result: StorageResult(res.Result),
 		Prefix: res.Prefix,
 		Keys:   res.Keys,
 		Next:   res.Next,

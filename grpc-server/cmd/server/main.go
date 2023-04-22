@@ -32,12 +32,12 @@ func main() {
 	}
 	bucket := os.Getenv("S3_BUCKET_NAME")
 	s := grpc.NewServer()
-	client, err := storage.NewClient(context.Background(), bucket)
+	client, err := storage.NewS3Client(context.Background(), bucket)
 	if err != nil {
 		// log.Fatalf("failed to listen: %v", err)
 		sugar.Infof("failed to listen: %v", err)
 	}
-	aws.RegisterAwsServer(s, storage.NewAWSServer(client))
+	aws.RegisterStorageServer(s, storage.NewStorageServer(client))
 	// log.Printf("server listening at %v", lis.Addr())
 	sugar.Infof("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {

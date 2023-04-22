@@ -18,7 +18,7 @@ type Client struct {
 	s3client *s3.Client
 }
 
-func NewClient(ctx context.Context, bucket string) (*Client, error) {
+func NewS3Client(ctx context.Context, bucket string) (*Client, error) {
 	resolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
 		if service == s3.ServiceID {
 			url := os.Getenv("S3_ENDPOINT")

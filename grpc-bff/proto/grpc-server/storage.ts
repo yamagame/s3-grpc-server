@@ -961,7 +961,7 @@ export const ListObjectsResponse = {
 };
 
 /** The greeting service definition. */
-export interface aws {
+export interface storage {
   /** CreateBucket */
   CreateBucket(request: CreateBucketRequest): Promise<CreateBucketResponse>;
   /** ListBuckets */
@@ -976,11 +976,11 @@ export interface aws {
   ListObjects(request: ListObjectsRequest): Promise<ListObjectsResponse>;
 }
 
-export class awsClientImpl implements aws {
+export class storageClientImpl implements storage {
   private readonly rpc: Rpc;
   private readonly service: string;
   constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "aws";
+    this.service = opts?.service || "storage";
     this.rpc = rpc;
     this.CreateBucket = this.CreateBucket.bind(this);
     this.ListBuckets = this.ListBuckets.bind(this);

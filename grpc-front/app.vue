@@ -3,6 +3,7 @@ const host = import.meta.env.VITE_HOST || "localhost"
 const port = import.meta.env.VITE_PORT || 3000
 const protocol = import.meta.env.VITE_PROTOCOL || "http"
 const baseurl = `${protocol}://${host}:${port}`
+const useKeycloak = false
 
 const listBucketsRef = ref({})
 const createBucketRef = ref({})
@@ -14,7 +15,9 @@ const objectContentRef = ref("hello world")
 async function callApi(url, options) {
   const { data, pending, error, refresh } = await useFetch(url, options)
   if (error.value != null) {
-    login()
+    if (useKeycloak) {
+      login()
+    }
     return
   }
   return data

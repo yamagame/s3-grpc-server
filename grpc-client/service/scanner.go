@@ -6,7 +6,7 @@ import (
 	"sample/s3-grpc-server/domain"
 )
 
-type AwsScannerInterface interface {
+type StorageScannerInterface interface {
 	CreateBucket() *domain.CreateBucketEntity
 	ListBuckets() *domain.ListBucketsEntity
 	PutObject() *domain.PutObjectEntity
@@ -15,25 +15,25 @@ type AwsScannerInterface interface {
 	ListObjects() *domain.ListObjectsEntity
 }
 
-type AwsScanner struct {
+type StorageScanner struct {
 	scanner *bufio.Scanner
 }
 
-func NewAwsScanner(scanner *bufio.Scanner) *AwsScanner {
-	return &AwsScanner{
+func NewAwsScanner(scanner *bufio.Scanner) *StorageScanner {
+	return &StorageScanner{
 		scanner: scanner,
 	}
 }
 
-func (x *AwsScanner) CreateBucket() *domain.CreateBucketEntity {
+func (x *StorageScanner) CreateBucket() *domain.CreateBucketEntity {
 	return &domain.CreateBucketEntity{}
 }
 
-func (x *AwsScanner) ListBuckets() *domain.ListBucketsEntity {
+func (x *StorageScanner) ListBuckets() *domain.ListBucketsEntity {
 	return &domain.ListBucketsEntity{}
 }
 
-func (x *AwsScanner) PutObject() *domain.PutObjectEntity {
+func (x *StorageScanner) PutObject() *domain.PutObjectEntity {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
@@ -46,7 +46,7 @@ func (x *AwsScanner) PutObject() *domain.PutObjectEntity {
 	}
 }
 
-func (x *AwsScanner) GetObject() *domain.GetObjectEntity {
+func (x *StorageScanner) GetObject() *domain.GetObjectEntity {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
@@ -55,7 +55,7 @@ func (x *AwsScanner) GetObject() *domain.GetObjectEntity {
 	}
 }
 
-func (x *AwsScanner) DeleteObject() *domain.DeleteObjectEntity {
+func (x *StorageScanner) DeleteObject() *domain.DeleteObjectEntity {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
@@ -64,7 +64,7 @@ func (x *AwsScanner) DeleteObject() *domain.DeleteObjectEntity {
 	}
 }
 
-func (x *AwsScanner) ListObjects() *domain.ListObjectsEntity {
+func (x *StorageScanner) ListObjects() *domain.ListObjectsEntity {
 	fmt.Print("prefix >")
 	x.scanner.Scan()
 	prefix := x.scanner.Text()

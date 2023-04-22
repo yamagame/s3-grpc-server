@@ -1,5 +1,5 @@
 import * as express from "express"
-import * as aws from "./proto/grpc-server/aws"
+import * as storage from "./proto/grpc-server/storage"
 import * as grpc from "@grpc/grpc-js"
 import { UnaryCallback } from "@grpc/grpc-js/build/src/client"
 import * as session from "express-session"
@@ -7,12 +7,20 @@ import * as Keycloak from "keycloak-connect"
 const cors = require("cors")
 
 const port = 7000
+const useKeycloak = false
 const grpcHost = process.env.GRPC_HOST || `localhost:50051`
 const appHost = process.env.APP_HOST || `http://localhost:3000`
 const memoryStore = new session.MemoryStore()
-const keycloak = new Keycloak({ store: memoryStore }, "./keycloak.json")
-const config = keycloak.getConfig()
-config["realmUrl"] = "http://localhost:8180/realms/test"
+
+const keycloak = (() => {
+  if (useKeycloak) {
+    const keycloak = new Keycloak({ store: memoryStore }, "./keycloak.json")
+    const config = keycloak.getConfig()
+    config["realmUrl"] = "http://localhost:8180/realms/test"
+    return keycloak
+  }
+  return null
+})()
 
 const app = express()
 
@@ -37,9 +45,10 @@ app.use((req, res, next) => {
   next()
 })
 
-app.set("trust proxy", true)
-
-app.use(keycloak.middleware({ logout: "/api/logoff" }))
+if (useKeycloak) {
+  app.set("trust proxy", true)
+  app.use(keycloak.middleware({ logout: "/api/logoff" }))
+}
 
 function errorHandler(err, req, res, next) {
   res.status(500)
@@ -82,59 +91,69 @@ const sendRequest: RpcImpl = (service, method, data) => {
 }
 
 const rpc: Rpc = { request: sendRequest }
-const awsClient = new aws.awsClientImpl(rpc, { service: "aws" })
+const storageClient = new storage.storageClientImpl(rpc, { service: "storage" })
 
-app.get("/api/login", keycloak.protect(), async (req, res, next) => {
+const protect = () => {
+  if (useKeycloak) {
+    return keycloak.protect
+  }
+  return (req, res, next) => {
+    next()
+  }
+}
+
+app.get("/api/login", protect(), async (req, res, next) => {
   res.redirect(appHost)
 })
 
-app.post("/api/createBucket", keycloak.protect(), async (req, res, next) => {
+app.post("/api/createBucket", protect(), async (req, res, next) => {
   try {
-    const ret = await awsClient.CreateBucket({})
+    const ret = await storageClient.CreateBucket({})
     res.json(ret)
   } catch (err) {
     next(err)
   }
 })
 
-app.get("/api/listBuckets", keycloak.protect(), async (req, res, next) => {
+app.get("/api/listBuckets", protect(), async (req, res, next) => {
   try {
-    const ret = await awsClient.ListBuckets({})
+    const ret = await storageClient.ListBuckets({})
     res.json(ret)
   } catch (err) {
     next(err)
   }
 })
 
-app.post("/api/putObject/:key", keycloak.protect(), async (req, res, next) => {
+app.post("/api/putObject/*", protect(), async (req, res, next) => {
   try {
     if (!req.body) {
       return res.json({})
     }
-    const { key } = req.params
+    const key = req.params[0]
     const { content } = req.body
     console.log(content)
-    const ret = await awsClient.PutObject({ key, content })
+    const ret = await storageClient.PutObject({ key, content })
     res.json(ret)
   } catch (err) {
     next(err)
   }
 })
 
-app.post("/api/deleteObject/:key", keycloak.protect(), async (req, res, next) => {
+app.post("/api/deleteObject/*", protect(), async (req, res, next) => {
   try {
-    const { key } = req.params
-    const ret = await awsClient.DeleteObject({ key })
+    const key = req.params[0]
+    const ret = await storageClient.DeleteObject({ key })
     res.json(ret)
   } catch (err) {
     next(err)
   }
 })
 
-app.get("/api/getObject/:key", keycloak.protect(), async (req, res, next) => {
+app.get("/api/getObject/*", protect(), async (req, res, next) => {
   try {
-    const { key } = req.params
-    const ret = await awsClient.GetObject({ key })
+    const key = req.params[0]
+    console.log("getObject", key)
+    const ret = await storageClient.GetObject({ key })
     res.json(ret)
   } catch (err) {
     next(err)

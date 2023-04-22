@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"sample/s3-grpc-server/grpc-client/service"
-	aws "sample/s3-grpc-server/grpc-server/proto/grpc-server"
+	storage "sample/s3-grpc-server/grpc-server/proto/grpc-server"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -37,10 +37,10 @@ func main() {
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
-	client := aws.NewAwsClient(conn)
+	client := storage.NewStorageClient(conn)
 
 	// 5. gRPCサービスを生成
-	storage := service.NewAwsService(client, service.NewAwsScanner(scanner))
+	storage := service.NewStorageService(client, service.NewAwsScanner(scanner))
 
 	for {
 		fmt.Println("1: CreateBucket")

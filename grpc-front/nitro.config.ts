@@ -5,7 +5,8 @@ import { defineNitroConfig } from "nitropack"
 export default defineNitroConfig({
   devProxy: {
     "/api": {
-      target: "http://grpc-bff:7000/api",
+      target: "http://localhost:7000/api",
+      // target: "http://grpc-bff:7000/api",
       changeOrigin: true,
       hostRewrite: true,
       cookieDomainRewrite: true,
