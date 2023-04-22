@@ -14,6 +14,8 @@ service aws {
   rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {}
   // DeleteObject
   rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {}
+  // ListObjects
+  rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {}
 }
 
 enum result {
@@ -65,4 +67,16 @@ message DeleteObjectRequest {
 message DeleteObjectResponse {
   result result = 1;
   string key = 2;
+}
+
+message ListObjectsRequest {
+  string prefix = 1;
+  optional string next = 2;
+}
+
+message ListObjectsResponse {
+  result result = 1;
+  string prefix = 2;
+  repeated string keys = 3;
+  optional string next = 4;
 }

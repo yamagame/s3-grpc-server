@@ -12,6 +12,7 @@ type AwsScannerInterface interface {
 	PutObject() *domain.PutObjectEntity
 	GetObject() *domain.GetObjectEntity
 	DeleteObject() *domain.DeleteObjectEntity
+	ListObjects() *domain.ListObjectsEntity
 }
 
 type AwsScanner struct {
@@ -60,5 +61,14 @@ func (x *AwsScanner) DeleteObject() *domain.DeleteObjectEntity {
 	key := x.scanner.Text()
 	return &domain.DeleteObjectEntity{
 		Key: key,
+	}
+}
+
+func (x *AwsScanner) ListObjects() *domain.ListObjectsEntity {
+	fmt.Print("prefix >")
+	x.scanner.Scan()
+	prefix := x.scanner.Text()
+	return &domain.ListObjectsEntity{
+		Prefix: prefix,
 	}
 }

@@ -48,7 +48,8 @@ func main() {
 		fmt.Println("3: PutObject")
 		fmt.Println("4: GetObject")
 		fmt.Println("5: DeleteObject")
-		fmt.Println("6: exit")
+		fmt.Println("6: ListObjects")
+		fmt.Println("9: exit")
 		fmt.Print("please enter >")
 
 		scanner.Scan()
@@ -70,8 +71,11 @@ func main() {
 		case "5":
 			ent, _ := storage.DeleteObject(ctx)
 			fmt.Println(ent)
-
 		case "6":
+			ent, _ := storage.ListObjects(ctx)
+			fmt.Println(ent)
+
+		default:
 			fmt.Println("bye.")
 			os.Exit(0)
 		}

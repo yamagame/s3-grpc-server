@@ -90,6 +90,18 @@ export interface DeleteObjectResponse {
   key: string;
 }
 
+export interface ListObjectsRequest {
+  prefix: string;
+  next?: string | undefined;
+}
+
+export interface ListObjectsResponse {
+  result: result;
+  prefix: string;
+  keys: string[];
+  next?: string | undefined;
+}
+
 function createBaseCreateBucketRequest(): CreateBucketRequest {
   return {};
 }
@@ -776,6 +788,178 @@ export const DeleteObjectResponse = {
   },
 };
 
+function createBaseListObjectsRequest(): ListObjectsRequest {
+  return { prefix: "", next: undefined };
+}
+
+export const ListObjectsRequest = {
+  encode(message: ListObjectsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.prefix !== "") {
+      writer.uint32(10).string(message.prefix);
+    }
+    if (message.next !== undefined) {
+      writer.uint32(18).string(message.next);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListObjectsRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListObjectsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 10) {
+            break;
+          }
+
+          message.prefix = reader.string();
+          continue;
+        case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.next = reader.string();
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListObjectsRequest {
+    return {
+      prefix: isSet(object.prefix) ? String(object.prefix) : "",
+      next: isSet(object.next) ? String(object.next) : undefined,
+    };
+  },
+
+  toJSON(message: ListObjectsRequest): unknown {
+    const obj: any = {};
+    message.prefix !== undefined && (obj.prefix = message.prefix);
+    message.next !== undefined && (obj.next = message.next);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListObjectsRequest>, I>>(base?: I): ListObjectsRequest {
+    return ListObjectsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ListObjectsRequest>, I>>(object: I): ListObjectsRequest {
+    const message = createBaseListObjectsRequest();
+    message.prefix = object.prefix ?? "";
+    message.next = object.next ?? undefined;
+    return message;
+  },
+};
+
+function createBaseListObjectsResponse(): ListObjectsResponse {
+  return { result: 0, prefix: "", keys: [], next: undefined };
+}
+
+export const ListObjectsResponse = {
+  encode(message: ListObjectsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.result !== 0) {
+      writer.uint32(8).int32(message.result);
+    }
+    if (message.prefix !== "") {
+      writer.uint32(18).string(message.prefix);
+    }
+    for (const v of message.keys) {
+      writer.uint32(26).string(v!);
+    }
+    if (message.next !== undefined) {
+      writer.uint32(34).string(message.next);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListObjectsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListObjectsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.result = reader.int32() as any;
+          continue;
+        case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.prefix = reader.string();
+          continue;
+        case 3:
+          if (tag != 26) {
+            break;
+          }
+
+          message.keys.push(reader.string());
+          continue;
+        case 4:
+          if (tag != 34) {
+            break;
+          }
+
+          message.next = reader.string();
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListObjectsResponse {
+    return {
+      result: isSet(object.result) ? resultFromJSON(object.result) : 0,
+      prefix: isSet(object.prefix) ? String(object.prefix) : "",
+      keys: Array.isArray(object?.keys) ? object.keys.map((e: any) => String(e)) : [],
+      next: isSet(object.next) ? String(object.next) : undefined,
+    };
+  },
+
+  toJSON(message: ListObjectsResponse): unknown {
+    const obj: any = {};
+    message.result !== undefined && (obj.result = resultToJSON(message.result));
+    message.prefix !== undefined && (obj.prefix = message.prefix);
+    if (message.keys) {
+      obj.keys = message.keys.map((e) => e);
+    } else {
+      obj.keys = [];
+    }
+    message.next !== undefined && (obj.next = message.next);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListObjectsResponse>, I>>(base?: I): ListObjectsResponse {
+    return ListObjectsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ListObjectsResponse>, I>>(object: I): ListObjectsResponse {
+    const message = createBaseListObjectsResponse();
+    message.result = object.result ?? 0;
+    message.prefix = object.prefix ?? "";
+    message.keys = object.keys?.map((e) => e) || [];
+    message.next = object.next ?? undefined;
+    return message;
+  },
+};
+
 /** The greeting service definition. */
 export interface aws {
   /** CreateBucket */
@@ -788,6 +972,8 @@ export interface aws {
   GetObject(request: GetObjectRequest): Promise<GetObjectResponse>;
   /** DeleteObject */
   DeleteObject(request: DeleteObjectRequest): Promise<DeleteObjectResponse>;
+  /** ListObjects */
+  ListObjects(request: ListObjectsRequest): Promise<ListObjectsResponse>;
 }
 
 export class awsClientImpl implements aws {
@@ -801,6 +987,7 @@ export class awsClientImpl implements aws {
     this.PutObject = this.PutObject.bind(this);
     this.GetObject = this.GetObject.bind(this);
     this.DeleteObject = this.DeleteObject.bind(this);
+    this.ListObjects = this.ListObjects.bind(this);
   }
   CreateBucket(request: CreateBucketRequest): Promise<CreateBucketResponse> {
     const data = CreateBucketRequest.encode(request).finish();
@@ -830,6 +1017,12 @@ export class awsClientImpl implements aws {
     const data = DeleteObjectRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeleteObject", data);
     return promise.then((data) => DeleteObjectResponse.decode(_m0.Reader.create(data)));
+  }
+
+  ListObjects(request: ListObjectsRequest): Promise<ListObjectsResponse> {
+    const data = ListObjectsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "ListObjects", data);
+    return promise.then((data) => ListObjectsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

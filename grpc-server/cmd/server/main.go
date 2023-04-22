@@ -8,7 +8,7 @@ import (
 	"os"
 
 	aws "sample/s3-grpc-server/grpc-server/proto/grpc-server"
-	"sample/s3-grpc-server/grpc-server/s3"
+	"sample/s3-grpc-server/grpc-server/service/storage"
 
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -32,12 +32,12 @@ func main() {
 	}
 	bucket := os.Getenv("S3_BUCKET_NAME")
 	s := grpc.NewServer()
-	client, err := s3.NewClient(context.Background(), bucket)
+	client, err := storage.NewClient(context.Background(), bucket)
 	if err != nil {
 		// log.Fatalf("failed to listen: %v", err)
 		sugar.Infof("failed to listen: %v", err)
 	}
-	aws.RegisterAwsServer(s, s3.NewAWSServer(client))
+	aws.RegisterAwsServer(s, storage.NewAWSServer(client))
 	// log.Printf("server listening at %v", lis.Addr())
 	sugar.Infof("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {

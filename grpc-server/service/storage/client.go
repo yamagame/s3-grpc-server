@@ -1,4 +1,4 @@
-package s3
+package storage
 
 import (
 	"bytes"
@@ -94,5 +94,13 @@ func (x *Client) DeleteObject(key string) (*s3.DeleteObjectOutput, error) {
 	return x.s3client.DeleteObject(x.ctx, &s3.DeleteObjectInput{
 		Bucket: aws.String(x.bucket),
 		Key:    aws.String(key),
+	})
+}
+
+func (x *Client) ListObjects(prefix string, nexttoken *string) (*s3.ListObjectsV2Output, error) {
+	return x.s3client.ListObjectsV2(x.ctx, &s3.ListObjectsV2Input{
+		Bucket:            aws.String(x.bucket),
+		Prefix:            aws.String(prefix),
+		ContinuationToken: nexttoken,
 	})
 }

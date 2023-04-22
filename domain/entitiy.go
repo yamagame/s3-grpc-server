@@ -37,3 +37,10 @@ type DeleteObjectEntity struct {
 	Result AwsResult
 	Key    string
 }
+
+type ListObjectsEntity struct {
+	Result AwsResult
+	Prefix string
+	Keys   []string
+	Next   *string
+}

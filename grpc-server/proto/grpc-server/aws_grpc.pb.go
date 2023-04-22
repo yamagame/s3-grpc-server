@@ -24,6 +24,7 @@ const (
 	Aws_PutObject_FullMethodName    = "/aws/PutObject"
 	Aws_GetObject_FullMethodName    = "/aws/GetObject"
 	Aws_DeleteObject_FullMethodName = "/aws/DeleteObject"
+	Aws_ListObjects_FullMethodName  = "/aws/ListObjects"
 )
 
 // AwsClient is the client API for Aws service.
@@ -40,6 +41,8 @@ type AwsClient interface {
 	GetObject(ctx context.Context, in *GetObjectRequest, opts ...grpc.CallOption) (*GetObjectResponse, error)
 	// DeleteObject
 	DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error)
+	// ListObjects
+	ListObjects(ctx context.Context, in *ListObjectsRequest, opts ...grpc.CallOption) (*ListObjectsResponse, error)
 }
 
 type awsClient struct {
@@ -95,6 +98,15 @@ func (c *awsClient) DeleteObject(ctx context.Context, in *DeleteObjectRequest, o
 	return out, nil
 }
 
+func (c *awsClient) ListObjects(ctx context.Context, in *ListObjectsRequest, opts ...grpc.CallOption) (*ListObjectsResponse, error) {
+	out := new(ListObjectsResponse)
+	err := c.cc.Invoke(ctx, Aws_ListObjects_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AwsServer is the server API for Aws service.
 // All implementations must embed UnimplementedAwsServer
 // for forward compatibility
@@ -109,6 +121,8 @@ type AwsServer interface {
 	GetObject(context.Context, *GetObjectRequest) (*GetObjectResponse, error)
 	// DeleteObject
 	DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error)
+	// ListObjects
+	ListObjects(context.Context, *ListObjectsRequest) (*ListObjectsResponse, error)
 	mustEmbedUnimplementedAwsServer()
 }
 
@@ -130,6 +144,9 @@ func (UnimplementedAwsServer) GetObject(context.Context, *GetObjectRequest) (*Ge
 }
 func (UnimplementedAwsServer) DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteObject not implemented")
+}
+func (UnimplementedAwsServer) ListObjects(context.Context, *ListObjectsRequest) (*ListObjectsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListObjects not implemented")
 }
 func (UnimplementedAwsServer) mustEmbedUnimplementedAwsServer() {}
 
@@ -234,6 +251,24 @@ func _Aws_DeleteObject_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Aws_ListObjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListObjectsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AwsServer).ListObjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Aws_ListObjects_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AwsServer).ListObjects(ctx, req.(*ListObjectsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Aws_ServiceDesc is the grpc.ServiceDesc for Aws service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -260,6 +295,10 @@ var Aws_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteObject",
 			Handler:    _Aws_DeleteObject_Handler,
+		},
+		{
+			MethodName: "ListObjects",
+			Handler:    _Aws_ListObjects_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
