@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 
-	"sample/s3-grpc-server/grpc-client/service"
-	storage "sample/s3-grpc-server/grpc-server/proto/grpc-server"
+	scanner "sample/s3-grpc-server/grpc-client/service/storage"
+	storage "sample/s3-grpc-server/proto/grpc-server"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -19,8 +19,8 @@ func main() {
 
 	fmt.Println("start gRPC Client.")
 
-	// 1. 標準入力から文字列を受け取るスキャナを用意
-	scanner := bufio.NewScanner(os.Stdin)
+	// 1. キーボード入力準備
+	keyboard := bufio.NewScanner(os.Stdin)
 
 	// 2. gRPCサーバーとのコネクションを確立
 	address := "localhost:50051"
@@ -37,10 +37,7 @@ func main() {
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
-	client := storage.NewStorageClient(conn)
-
-	// 5. gRPCサービスを生成
-	storage := service.NewStorageService(client, service.NewAwsScanner(scanner))
+	client := scanner.NewStorageClient(storage.NewStorageClient(conn), scanner.NewScanner(keyboard))
 
 	for {
 		fmt.Println("1: CreateBucket")
@@ -52,27 +49,27 @@ func main() {
 		fmt.Println("9: exit")
 		fmt.Print("please enter >")
 
-		scanner.Scan()
-		in := scanner.Text()
+		keyboard.Scan()
+		in := keyboard.Text()
 
 		switch in {
 		case "1":
-			ent, _ := storage.CreateBucket(ctx)
+			ent, _ := client.CreateBucket(ctx)
 			fmt.Println(ent)
 		case "2":
-			ent, _ := storage.ListBuckets(ctx)
+			ent, _ := client.ListBuckets(ctx)
 			fmt.Println(ent)
 		case "3":
-			ent, _ := storage.PutObject(ctx)
+			ent, _ := client.PutObject(ctx)
 			fmt.Println(ent)
 		case "4":
-			ent, _ := storage.GetObject(ctx)
+			ent, _ := client.GetObject(ctx)
 			fmt.Println(ent)
 		case "5":
-			ent, _ := storage.DeleteObject(ctx)
+			ent, _ := client.DeleteObject(ctx)
 			fmt.Println(ent)
 		case "6":
-			ent, _ := storage.ListObjects(ctx)
+			ent, _ := client.ListObjects(ctx)
 			fmt.Println(ent)
 
 		default:

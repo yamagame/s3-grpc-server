@@ -1,4 +1,4 @@
-package domain
+package storage
 
 type StorageResult int32
 
@@ -19,6 +19,11 @@ type Bucket struct {
 type ListBucketsEntity struct {
 	Result  StorageResult
 	Buckets []Bucket
+}
+
+type Object struct {
+	Key     string
+	Content string
 }
 
 type PutObjectEntity struct {

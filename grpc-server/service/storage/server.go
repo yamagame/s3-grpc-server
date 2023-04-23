@@ -2,17 +2,17 @@ package storage
 
 import (
 	"context"
-	"sample/s3-grpc-server/domain"
-	server "sample/s3-grpc-server/grpc-server/proto/grpc-server"
+	"sample/s3-grpc-server/external/storage"
+	server "sample/s3-grpc-server/proto/grpc-server"
 )
 
 type storageServerDomain struct {
-	createBucket domain.StorageCreateBucketServerData
-	listBuckets  domain.StorageListBucketsServerData
-	putObject    domain.StoragePutObjectServerData
-	getObject    domain.StorageGetObjectServerData
-	deleteObject domain.StorageDeleteObjectServerData
-	listObjects  domain.StorageListObjectsServerData
+	createBucket storage.StorageCreateBucketServerData
+	listBuckets  storage.StorageListBucketsServerData
+	putObject    storage.StoragePutObjectServerData
+	getObject    storage.StorageGetObjectServerData
+	deleteObject storage.StorageDeleteObjectServerData
+	listObjects  storage.StorageListObjectsServerData
 }
 
 type storageServer struct {
@@ -21,14 +21,14 @@ type storageServer struct {
 	server.UnimplementedStorageServer
 }
 
-func NewStorageServer(client ClientInterface) *storageServer {
+func NewStorageServer(client storage.ClientInterface) *storageServer {
 	return &storageServer{
 		service: NewStorageService(client),
 		domain:  &storageServerDomain{},
 	}
 }
 
-// CreateBucket implements awsServer.ListBuckets
+// CreateBucket implements awsServer.CreateBucket
 func (s *storageServer) CreateBucket(ctx context.Context, in *server.CreateBucketRequest) (*server.CreateBucketResponse, error) {
 	entity := s.domain.createBucket.Input(in)
 	entity, err := s.service.CreateBucket(entity)

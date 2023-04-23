@@ -8,6 +8,16 @@ services:
     ports:
       - 5000:5000
 
+  fake-gcs:
+    restart: always
+    hostname: fake-gcs
+    image: fsouza/fake-gcs-server:1.44
+    command: -scheme http -public-host ${URL:-localhost}:4443
+    ports:
+      - 4443:4443
+    volumes:
+      - ${PWD}/.gcs:/storage
+
   grpc-server:
     restart: always
     hostname: grpc-server
@@ -23,7 +33,7 @@ services:
       AWS_REGION: ap-northeast-1
       AWS_ACCESS_KEY_ID: my-access-key
       AWS_SECRET_ACCESS_KEY: my-secret-key
-      S3_BUCKET_NAME: sample-bucket
+      BUCKET_NAME: sample-bucket
       S3_ENDPOINT: http://moto:5000
       COGNITO_ENDPOINT: http://moto:5000
     volumes:

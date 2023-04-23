@@ -9,3 +9,7 @@ dist
 .DS_Store
 .vscode
 keycloak/config/**/*-users-*.json
+work/*
+!work/.gitkeep
+.gcs/*
+!.gcs/.gitkeep

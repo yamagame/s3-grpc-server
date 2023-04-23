@@ -1,7 +1,7 @@
-package domain
+package storage
 
 import (
-	server "sample/s3-grpc-server/grpc-server/proto/grpc-server"
+	server "sample/s3-grpc-server/proto/grpc-server"
 )
 
 type StorageCreateBucketServerData struct {
