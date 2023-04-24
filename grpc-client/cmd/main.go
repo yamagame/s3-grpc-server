@@ -23,7 +23,7 @@ func main() {
 	keyboard := bufio.NewScanner(os.Stdin)
 
 	// 2. gRPCサーバーとのコネクションを確立
-	address := "localhost:50051"
+	address := os.Getenv("GRPC_HOST")
 	conn, err := grpc.Dial(
 		address,
 

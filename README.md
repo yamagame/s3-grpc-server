@@ -31,7 +31,12 @@ $ docker-compose up -d
 ```bash
 # grpsサーバー起動
 $ docker compose exec grpc-server /bin/bash
+# S3 使用の場合
 /app # ./scripts/start-server.sh
+# GCS 使用の場合
+/app # ./scripts/start-server.sh gcs
+# SFTP 使用の場合
+/app # ./scripts/start-server.sh sftp
 ```
 
 ```bash
@@ -57,6 +62,8 @@ $ docker compose exec grpc-front /bin/bash
 ```
 
 ## keycloakのセットアップ
+
+フロントとBFFのソースコード中の「useKeycloak」をtrueにすると KeyCloak が有効になる
 
 ```bash
 # レルムとアカウントの設定を読み込む
@@ -91,10 +98,6 @@ $ docker compose exec grpc-server /bin/bash
 /app # yarn install
 /app # ./scripts/genproto.sh
 ```
-
-## Keycloak
-
-ソースコード中の「useKeycloak」をtrueにすると KeyCloak が有効になる
 
 ## Windowsの場合の注意
 

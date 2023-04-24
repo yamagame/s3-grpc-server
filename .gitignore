@@ -13,3 +13,5 @@ work/*
 !work/.gitkeep
 .gcs/*
 !.gcs/.gitkeep
+.sftp/upload/*
+!.sftp/upload/.gitkeep

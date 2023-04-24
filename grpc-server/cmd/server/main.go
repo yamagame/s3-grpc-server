@@ -20,6 +20,10 @@ var (
 )
 
 func main() {
+	mode := "s3"
+	if len(os.Args) > 1 {
+		mode = os.Args[1]
+	}
 	logger, _ := zap.NewProduction()
 	defer logger.Sync() // flushes buffer, if any
 	sugar := logger.Sugar()
@@ -31,10 +35,32 @@ func main() {
 		// log.Fatalf("failed to listen: %v", err)
 		sugar.Infof("failed to listen: %v", err)
 	}
-	bucket := os.Getenv("BUCKET_NAME")
 	s := grpc.NewServer()
-	client, err := storage.NewGCSClient(context.Background(), bucket)
-	// client, err := domain.NewS3Client(context.Background(), bucket)
+	getClient := func(mode string) (storage.ClientInterface, error) {
+		if mode == "sftp" {
+			fmt.Println("start sftp")
+			return storage.NewSFTPClient(context.Background(), storage.SFTPClientConfig{
+				Host:  os.Getenv("SFTP_HOST"),
+				Port:  os.Getenv("SFTP_PORT"),
+				User:  os.Getenv("SFTP_USERNAME"),
+				Pass:  os.Getenv("SFTP_PASSWORD"),
+				Share: os.Getenv("SFTP_SHAREDIR"),
+			})
+		}
+		if mode == "gcs" {
+			fmt.Println("start gcs")
+			return storage.NewGCSClient(context.Background(), storage.GCSClientConfig{
+				Bucket:    os.Getenv("BUCKET_NAME"),
+				ProjectID: os.Getenv("GCS_PROJECT_ID"),
+			})
+		}
+		fmt.Println("start s3")
+		return storage.NewS3Client(context.Background(), storage.S3ClientConfig{
+			Bucket:   os.Getenv("BUCKET_NAME"),
+			Endpoint: os.Getenv("S3_ENDPOINT"),
+		})
+	}
+	client, err := getClient(mode)
 	if err != nil {
 		// log.Fatalf("failed to listen: %v", err)
 		sugar.Infof("failed to listen: %v", err)

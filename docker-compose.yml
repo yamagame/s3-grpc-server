@@ -4,7 +4,7 @@ services:
   moto:
     restart: always
     hostname: moto
-    image: "motoserver/moto:4.1.6"
+    image: motoserver/moto:4.1.6
     ports:
       - 5000:5000
 
@@ -20,6 +20,17 @@ services:
     volumes:
       - ${PWD}/.gcs:/storage
 
+  sftp-server:
+    hostname: sftp-server
+    image: atmoz/sftp:alpine
+    ports:
+      - 2222:22
+    cap_add:
+      - SYS_CHROOT
+    # volumes:
+      # - ${PWD}/.sftp/share:/home/username/share
+    command: username:password:::share
+
   grpc-server:
     restart: always
     hostname: grpc-server
@@ -30,14 +41,20 @@ services:
       - 50051:50051
     tty: true
     environment:
+      BUCKET_NAME: sample-bucket
       AWS_SDK_LOAD_CONFIG: false
       AWS_PROFILE: default
       AWS_REGION: ap-northeast-1
       AWS_ACCESS_KEY_ID: my-access-key
       AWS_SECRET_ACCESS_KEY: my-secret-key
-      BUCKET_NAME: sample-bucket
       S3_ENDPOINT: http://moto:5000
-      COGNITO_ENDPOINT: http://moto:5000
+      GCS_PROJECT_ID:
+      STORAGE_EMULATOR_HOST: fake-gcs:4443
+      SFTP_HOST: sftp-server
+      SFTP_PORT: 22
+      SFTP_USERNAME: username
+      SFTP_PASSWORD: password
+      SFTP_SHAREDIR: share
     volumes:
       - ./:/app
     working_dir: /app

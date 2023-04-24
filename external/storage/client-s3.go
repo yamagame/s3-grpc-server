@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"io"
-	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -12,16 +11,21 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
+type S3ClientConfig struct {
+	Bucket   string
+	Endpoint string
+}
+
 type S3Client struct {
 	ctx      context.Context
 	bucket   string
 	s3client *s3.Client
 }
 
-func NewS3Client(ctx context.Context, bucket string) (*S3Client, error) {
-	resolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-		if service == s3.ServiceID {
-			url := os.Getenv("S3_ENDPOINT")
+func NewS3Client(ctx context.Context, options S3ClientConfig) (*S3Client, error) {
+	resolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, opt ...interface{}) (aws.Endpoint, error) {
+		if service == s3.ServiceID && options.Endpoint != "" {
+			url := options.Endpoint
 			if url != "" {
 				return aws.Endpoint{URL: url, HostnameImmutable: true}, nil
 			}
@@ -42,7 +46,7 @@ func NewS3Client(ctx context.Context, bucket string) (*S3Client, error) {
 	return &S3Client{
 		ctx:      ctx,
 		s3client: s3client,
-		bucket:   bucket,
+		bucket:   options.Bucket,
 	}, nil
 }
 

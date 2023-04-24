@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"os"
 	"strings"
 
 	"cloud.google.com/go/storage"
@@ -13,21 +12,26 @@ import (
 	"google.golang.org/api/iterator"
 )
 
+type GCSClientConfig struct {
+	Bucket    string
+	ProjectID string
+}
+
 type GCSClient struct {
 	ctx       context.Context
 	bucket    string
-	client    *storage.Client
 	projectID string
+	client    *storage.Client
 }
 
-func NewGCSClient(ctx context.Context, bucket string) (*GCSClient, error) {
+func NewGCSClient(ctx context.Context, options GCSClientConfig) (*GCSClient, error) {
 	// FakeGCSを使用する場合はSTORAGE_EMULATOR_HOSTに値をセットする
-	err := os.Setenv("STORAGE_EMULATOR_HOST", "localhost:4443")
-	if err != nil {
-		return nil, err
-	}
+	// err := os.Setenv("STORAGE_EMULATOR_HOST", "localhost:4443")
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	client, err := storage.NewClient(ctx) // option.WithEndpoint("http://localhost:8080/storage/v1/")
+	client, err := storage.NewClient(ctx)
 
 	if err != nil {
 		return nil, err
@@ -36,8 +40,8 @@ func NewGCSClient(ctx context.Context, bucket string) (*GCSClient, error) {
 	return &GCSClient{
 		ctx:       ctx,
 		client:    client,
-		bucket:    bucket,
-		projectID: "kobo-2022",
+		bucket:    options.Bucket,
+		projectID: options.ProjectID,
 	}, nil
 }
 
