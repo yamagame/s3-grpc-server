@@ -15,3 +15,5 @@ work/*
 !.gcs/.gitkeep
 .sftp/upload/*
 !.sftp/upload/.gitkeep
+*.cert
+*.crt

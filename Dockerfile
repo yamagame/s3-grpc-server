@@ -1,5 +1,7 @@
 FROM golang:1.20.3-alpine3.17
 
+# COPY self-signed.cert /usr/local/share/ca-certificates/self-signed.cert
+# RUN update-ca-certificates
 RUN apk add bash curl
 RUN apk add --no-cache nodejs=18.14.2-r0 npm=9.1.2-r0
 RUN npm install -g yarn
