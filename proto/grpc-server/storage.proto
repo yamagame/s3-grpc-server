@@ -16,6 +16,15 @@ service storage {
   rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {}
   // ListObjects
   rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {}
+
+  // CreateFileInfo
+  rpc CreateFileInfo(CreateFileInfoRequest) returns (CreateFileInfoResponse) {}
+  // GetFileInfo
+  rpc GetFileInfo(GetFileInfoRequest) returns (GetFileInfoResponse) {}
+  // UpdateFileInfo
+  rpc UpdateFileInfo(UpdateFileInfoRequest) returns (UpdateFileInfoResponse) {}
+  // DeleteFileInfo
+  rpc DeleteFileInfo(DeleteFileInfoRequest) returns (DeleteFileInfoResponse) {}
 }
 
 enum result {
@@ -79,4 +88,45 @@ message ListObjectsResponse {
   string prefix = 2;
   repeated string keys = 3;
   optional string next = 4;
+}
+
+message FileInfo {
+  int64 id = 1;
+  string filename = 2;
+}
+
+message CreateFileInfoRequest {
+  FileInfo file = 1;
+}
+
+message CreateFileInfoResponse {
+  result result = 1;
+  FileInfo file = 2;
+}
+
+message GetFileInfoRequest {
+  int64 id = 1;
+}
+
+message GetFileInfoResponse {
+  result result = 1;
+  FileInfo file = 2;
+}
+
+message UpdateFileInfoRequest {
+  int64 id = 1;
+  FileInfo file = 2;
+}
+
+message UpdateFileInfoResponse {
+  result result = 1;
+  FileInfo file = 2;
+}
+
+message DeleteFileInfoRequest {
+  int64 id = 1;
+}
+
+message DeleteFileInfoResponse {
+  result result = 1;
 }

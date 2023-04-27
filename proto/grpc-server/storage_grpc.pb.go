@@ -19,12 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Storage_CreateBucket_FullMethodName = "/storage/CreateBucket"
-	Storage_ListBuckets_FullMethodName  = "/storage/ListBuckets"
-	Storage_PutObject_FullMethodName    = "/storage/PutObject"
-	Storage_GetObject_FullMethodName    = "/storage/GetObject"
-	Storage_DeleteObject_FullMethodName = "/storage/DeleteObject"
-	Storage_ListObjects_FullMethodName  = "/storage/ListObjects"
+	Storage_CreateBucket_FullMethodName   = "/storage/CreateBucket"
+	Storage_ListBuckets_FullMethodName    = "/storage/ListBuckets"
+	Storage_PutObject_FullMethodName      = "/storage/PutObject"
+	Storage_GetObject_FullMethodName      = "/storage/GetObject"
+	Storage_DeleteObject_FullMethodName   = "/storage/DeleteObject"
+	Storage_ListObjects_FullMethodName    = "/storage/ListObjects"
+	Storage_CreateFileInfo_FullMethodName = "/storage/CreateFileInfo"
+	Storage_GetFileInfo_FullMethodName    = "/storage/GetFileInfo"
+	Storage_UpdateFileInfo_FullMethodName = "/storage/UpdateFileInfo"
+	Storage_DeleteFileInfo_FullMethodName = "/storage/DeleteFileInfo"
 )
 
 // StorageClient is the client API for Storage service.
@@ -43,6 +47,14 @@ type StorageClient interface {
 	DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error)
 	// ListObjects
 	ListObjects(ctx context.Context, in *ListObjectsRequest, opts ...grpc.CallOption) (*ListObjectsResponse, error)
+	// CreateFileInfo
+	CreateFileInfo(ctx context.Context, in *CreateFileInfoRequest, opts ...grpc.CallOption) (*CreateFileInfoResponse, error)
+	// GetFileInfo
+	GetFileInfo(ctx context.Context, in *GetFileInfoRequest, opts ...grpc.CallOption) (*GetFileInfoResponse, error)
+	// UpdateFileInfo
+	UpdateFileInfo(ctx context.Context, in *UpdateFileInfoRequest, opts ...grpc.CallOption) (*UpdateFileInfoResponse, error)
+	// DeleteFileInfo
+	DeleteFileInfo(ctx context.Context, in *DeleteFileInfoRequest, opts ...grpc.CallOption) (*DeleteFileInfoResponse, error)
 }
 
 type storageClient struct {
@@ -107,6 +119,42 @@ func (c *storageClient) ListObjects(ctx context.Context, in *ListObjectsRequest,
 	return out, nil
 }
 
+func (c *storageClient) CreateFileInfo(ctx context.Context, in *CreateFileInfoRequest, opts ...grpc.CallOption) (*CreateFileInfoResponse, error) {
+	out := new(CreateFileInfoResponse)
+	err := c.cc.Invoke(ctx, Storage_CreateFileInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) GetFileInfo(ctx context.Context, in *GetFileInfoRequest, opts ...grpc.CallOption) (*GetFileInfoResponse, error) {
+	out := new(GetFileInfoResponse)
+	err := c.cc.Invoke(ctx, Storage_GetFileInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) UpdateFileInfo(ctx context.Context, in *UpdateFileInfoRequest, opts ...grpc.CallOption) (*UpdateFileInfoResponse, error) {
+	out := new(UpdateFileInfoResponse)
+	err := c.cc.Invoke(ctx, Storage_UpdateFileInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) DeleteFileInfo(ctx context.Context, in *DeleteFileInfoRequest, opts ...grpc.CallOption) (*DeleteFileInfoResponse, error) {
+	out := new(DeleteFileInfoResponse)
+	err := c.cc.Invoke(ctx, Storage_DeleteFileInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StorageServer is the server API for Storage service.
 // All implementations must embed UnimplementedStorageServer
 // for forward compatibility
@@ -123,6 +171,14 @@ type StorageServer interface {
 	DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error)
 	// ListObjects
 	ListObjects(context.Context, *ListObjectsRequest) (*ListObjectsResponse, error)
+	// CreateFileInfo
+	CreateFileInfo(context.Context, *CreateFileInfoRequest) (*CreateFileInfoResponse, error)
+	// GetFileInfo
+	GetFileInfo(context.Context, *GetFileInfoRequest) (*GetFileInfoResponse, error)
+	// UpdateFileInfo
+	UpdateFileInfo(context.Context, *UpdateFileInfoRequest) (*UpdateFileInfoResponse, error)
+	// DeleteFileInfo
+	DeleteFileInfo(context.Context, *DeleteFileInfoRequest) (*DeleteFileInfoResponse, error)
 	mustEmbedUnimplementedStorageServer()
 }
 
@@ -147,6 +203,18 @@ func (UnimplementedStorageServer) DeleteObject(context.Context, *DeleteObjectReq
 }
 func (UnimplementedStorageServer) ListObjects(context.Context, *ListObjectsRequest) (*ListObjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListObjects not implemented")
+}
+func (UnimplementedStorageServer) CreateFileInfo(context.Context, *CreateFileInfoRequest) (*CreateFileInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateFileInfo not implemented")
+}
+func (UnimplementedStorageServer) GetFileInfo(context.Context, *GetFileInfoRequest) (*GetFileInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFileInfo not implemented")
+}
+func (UnimplementedStorageServer) UpdateFileInfo(context.Context, *UpdateFileInfoRequest) (*UpdateFileInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateFileInfo not implemented")
+}
+func (UnimplementedStorageServer) DeleteFileInfo(context.Context, *DeleteFileInfoRequest) (*DeleteFileInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteFileInfo not implemented")
 }
 func (UnimplementedStorageServer) mustEmbedUnimplementedStorageServer() {}
 
@@ -269,6 +337,78 @@ func _Storage_ListObjects_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Storage_CreateFileInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateFileInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).CreateFileInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_CreateFileInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).CreateFileInfo(ctx, req.(*CreateFileInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_GetFileInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFileInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).GetFileInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_GetFileInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).GetFileInfo(ctx, req.(*GetFileInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_UpdateFileInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFileInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).UpdateFileInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_UpdateFileInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).UpdateFileInfo(ctx, req.(*UpdateFileInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_DeleteFileInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteFileInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).DeleteFileInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Storage_DeleteFileInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).DeleteFileInfo(ctx, req.(*DeleteFileInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Storage_ServiceDesc is the grpc.ServiceDesc for Storage service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -299,6 +439,22 @@ var Storage_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListObjects",
 			Handler:    _Storage_ListObjects_Handler,
+		},
+		{
+			MethodName: "CreateFileInfo",
+			Handler:    _Storage_CreateFileInfo_Handler,
+		},
+		{
+			MethodName: "GetFileInfo",
+			Handler:    _Storage_GetFileInfo_Handler,
+		},
+		{
+			MethodName: "UpdateFileInfo",
+			Handler:    _Storage_UpdateFileInfo_Handler,
+		},
+		{
+			MethodName: "DeleteFileInfo",
+			Handler:    _Storage_DeleteFileInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

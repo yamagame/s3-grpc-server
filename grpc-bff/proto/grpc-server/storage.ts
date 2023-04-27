@@ -1,4 +1,5 @@
 /* eslint-disable */
+import * as Long from "long";
 import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "";
@@ -100,6 +101,47 @@ export interface ListObjectsResponse {
   prefix: string;
   keys: string[];
   next?: string | undefined;
+}
+
+export interface FileInfo {
+  id: number;
+  filename: string;
+}
+
+export interface CreateFileInfoRequest {
+  file: FileInfo | undefined;
+}
+
+export interface CreateFileInfoResponse {
+  result: result;
+  file: FileInfo | undefined;
+}
+
+export interface GetFileInfoRequest {
+  id: number;
+}
+
+export interface GetFileInfoResponse {
+  result: result;
+  file: FileInfo | undefined;
+}
+
+export interface UpdateFileInfoRequest {
+  id: number;
+  file: FileInfo | undefined;
+}
+
+export interface UpdateFileInfoResponse {
+  result: result;
+  file: FileInfo | undefined;
+}
+
+export interface DeleteFileInfoRequest {
+  id: number;
+}
+
+export interface DeleteFileInfoResponse {
+  result: result;
 }
 
 function createBaseCreateBucketRequest(): CreateBucketRequest {
@@ -960,6 +1002,585 @@ export const ListObjectsResponse = {
   },
 };
 
+function createBaseFileInfo(): FileInfo {
+  return { id: 0, filename: "" };
+}
+
+export const FileInfo = {
+  encode(message: FileInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).int64(message.id);
+    }
+    if (message.filename !== "") {
+      writer.uint32(18).string(message.filename);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): FileInfo {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFileInfo();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.id = longToNumber(reader.int64() as Long);
+          continue;
+        case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.filename = reader.string();
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): FileInfo {
+    return {
+      id: isSet(object.id) ? Number(object.id) : 0,
+      filename: isSet(object.filename) ? String(object.filename) : "",
+    };
+  },
+
+  toJSON(message: FileInfo): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = Math.round(message.id));
+    message.filename !== undefined && (obj.filename = message.filename);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<FileInfo>, I>>(base?: I): FileInfo {
+    return FileInfo.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<FileInfo>, I>>(object: I): FileInfo {
+    const message = createBaseFileInfo();
+    message.id = object.id ?? 0;
+    message.filename = object.filename ?? "";
+    return message;
+  },
+};
+
+function createBaseCreateFileInfoRequest(): CreateFileInfoRequest {
+  return { file: undefined };
+}
+
+export const CreateFileInfoRequest = {
+  encode(message: CreateFileInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.file !== undefined) {
+      FileInfo.encode(message.file, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CreateFileInfoRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateFileInfoRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 10) {
+            break;
+          }
+
+          message.file = FileInfo.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateFileInfoRequest {
+    return { file: isSet(object.file) ? FileInfo.fromJSON(object.file) : undefined };
+  },
+
+  toJSON(message: CreateFileInfoRequest): unknown {
+    const obj: any = {};
+    message.file !== undefined && (obj.file = message.file ? FileInfo.toJSON(message.file) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateFileInfoRequest>, I>>(base?: I): CreateFileInfoRequest {
+    return CreateFileInfoRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<CreateFileInfoRequest>, I>>(object: I): CreateFileInfoRequest {
+    const message = createBaseCreateFileInfoRequest();
+    message.file = (object.file !== undefined && object.file !== null) ? FileInfo.fromPartial(object.file) : undefined;
+    return message;
+  },
+};
+
+function createBaseCreateFileInfoResponse(): CreateFileInfoResponse {
+  return { result: 0, file: undefined };
+}
+
+export const CreateFileInfoResponse = {
+  encode(message: CreateFileInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.result !== 0) {
+      writer.uint32(8).int32(message.result);
+    }
+    if (message.file !== undefined) {
+      FileInfo.encode(message.file, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CreateFileInfoResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCreateFileInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.result = reader.int32() as any;
+          continue;
+        case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.file = FileInfo.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CreateFileInfoResponse {
+    return {
+      result: isSet(object.result) ? resultFromJSON(object.result) : 0,
+      file: isSet(object.file) ? FileInfo.fromJSON(object.file) : undefined,
+    };
+  },
+
+  toJSON(message: CreateFileInfoResponse): unknown {
+    const obj: any = {};
+    message.result !== undefined && (obj.result = resultToJSON(message.result));
+    message.file !== undefined && (obj.file = message.file ? FileInfo.toJSON(message.file) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateFileInfoResponse>, I>>(base?: I): CreateFileInfoResponse {
+    return CreateFileInfoResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<CreateFileInfoResponse>, I>>(object: I): CreateFileInfoResponse {
+    const message = createBaseCreateFileInfoResponse();
+    message.result = object.result ?? 0;
+    message.file = (object.file !== undefined && object.file !== null) ? FileInfo.fromPartial(object.file) : undefined;
+    return message;
+  },
+};
+
+function createBaseGetFileInfoRequest(): GetFileInfoRequest {
+  return { id: 0 };
+}
+
+export const GetFileInfoRequest = {
+  encode(message: GetFileInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).int64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetFileInfoRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetFileInfoRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.id = longToNumber(reader.int64() as Long);
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetFileInfoRequest {
+    return { id: isSet(object.id) ? Number(object.id) : 0 };
+  },
+
+  toJSON(message: GetFileInfoRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = Math.round(message.id));
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetFileInfoRequest>, I>>(base?: I): GetFileInfoRequest {
+    return GetFileInfoRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GetFileInfoRequest>, I>>(object: I): GetFileInfoRequest {
+    const message = createBaseGetFileInfoRequest();
+    message.id = object.id ?? 0;
+    return message;
+  },
+};
+
+function createBaseGetFileInfoResponse(): GetFileInfoResponse {
+  return { result: 0, file: undefined };
+}
+
+export const GetFileInfoResponse = {
+  encode(message: GetFileInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.result !== 0) {
+      writer.uint32(8).int32(message.result);
+    }
+    if (message.file !== undefined) {
+      FileInfo.encode(message.file, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetFileInfoResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetFileInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.result = reader.int32() as any;
+          continue;
+        case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.file = FileInfo.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetFileInfoResponse {
+    return {
+      result: isSet(object.result) ? resultFromJSON(object.result) : 0,
+      file: isSet(object.file) ? FileInfo.fromJSON(object.file) : undefined,
+    };
+  },
+
+  toJSON(message: GetFileInfoResponse): unknown {
+    const obj: any = {};
+    message.result !== undefined && (obj.result = resultToJSON(message.result));
+    message.file !== undefined && (obj.file = message.file ? FileInfo.toJSON(message.file) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<GetFileInfoResponse>, I>>(base?: I): GetFileInfoResponse {
+    return GetFileInfoResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GetFileInfoResponse>, I>>(object: I): GetFileInfoResponse {
+    const message = createBaseGetFileInfoResponse();
+    message.result = object.result ?? 0;
+    message.file = (object.file !== undefined && object.file !== null) ? FileInfo.fromPartial(object.file) : undefined;
+    return message;
+  },
+};
+
+function createBaseUpdateFileInfoRequest(): UpdateFileInfoRequest {
+  return { id: 0, file: undefined };
+}
+
+export const UpdateFileInfoRequest = {
+  encode(message: UpdateFileInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).int64(message.id);
+    }
+    if (message.file !== undefined) {
+      FileInfo.encode(message.file, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateFileInfoRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateFileInfoRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.id = longToNumber(reader.int64() as Long);
+          continue;
+        case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.file = FileInfo.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateFileInfoRequest {
+    return {
+      id: isSet(object.id) ? Number(object.id) : 0,
+      file: isSet(object.file) ? FileInfo.fromJSON(object.file) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateFileInfoRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = Math.round(message.id));
+    message.file !== undefined && (obj.file = message.file ? FileInfo.toJSON(message.file) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateFileInfoRequest>, I>>(base?: I): UpdateFileInfoRequest {
+    return UpdateFileInfoRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<UpdateFileInfoRequest>, I>>(object: I): UpdateFileInfoRequest {
+    const message = createBaseUpdateFileInfoRequest();
+    message.id = object.id ?? 0;
+    message.file = (object.file !== undefined && object.file !== null) ? FileInfo.fromPartial(object.file) : undefined;
+    return message;
+  },
+};
+
+function createBaseUpdateFileInfoResponse(): UpdateFileInfoResponse {
+  return { result: 0, file: undefined };
+}
+
+export const UpdateFileInfoResponse = {
+  encode(message: UpdateFileInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.result !== 0) {
+      writer.uint32(8).int32(message.result);
+    }
+    if (message.file !== undefined) {
+      FileInfo.encode(message.file, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateFileInfoResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateFileInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.result = reader.int32() as any;
+          continue;
+        case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.file = FileInfo.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateFileInfoResponse {
+    return {
+      result: isSet(object.result) ? resultFromJSON(object.result) : 0,
+      file: isSet(object.file) ? FileInfo.fromJSON(object.file) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateFileInfoResponse): unknown {
+    const obj: any = {};
+    message.result !== undefined && (obj.result = resultToJSON(message.result));
+    message.file !== undefined && (obj.file = message.file ? FileInfo.toJSON(message.file) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateFileInfoResponse>, I>>(base?: I): UpdateFileInfoResponse {
+    return UpdateFileInfoResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<UpdateFileInfoResponse>, I>>(object: I): UpdateFileInfoResponse {
+    const message = createBaseUpdateFileInfoResponse();
+    message.result = object.result ?? 0;
+    message.file = (object.file !== undefined && object.file !== null) ? FileInfo.fromPartial(object.file) : undefined;
+    return message;
+  },
+};
+
+function createBaseDeleteFileInfoRequest(): DeleteFileInfoRequest {
+  return { id: 0 };
+}
+
+export const DeleteFileInfoRequest = {
+  encode(message: DeleteFileInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).int64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteFileInfoRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteFileInfoRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.id = longToNumber(reader.int64() as Long);
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteFileInfoRequest {
+    return { id: isSet(object.id) ? Number(object.id) : 0 };
+  },
+
+  toJSON(message: DeleteFileInfoRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = Math.round(message.id));
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteFileInfoRequest>, I>>(base?: I): DeleteFileInfoRequest {
+    return DeleteFileInfoRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DeleteFileInfoRequest>, I>>(object: I): DeleteFileInfoRequest {
+    const message = createBaseDeleteFileInfoRequest();
+    message.id = object.id ?? 0;
+    return message;
+  },
+};
+
+function createBaseDeleteFileInfoResponse(): DeleteFileInfoResponse {
+  return { result: 0 };
+}
+
+export const DeleteFileInfoResponse = {
+  encode(message: DeleteFileInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.result !== 0) {
+      writer.uint32(8).int32(message.result);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteFileInfoResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDeleteFileInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 8) {
+            break;
+          }
+
+          message.result = reader.int32() as any;
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeleteFileInfoResponse {
+    return { result: isSet(object.result) ? resultFromJSON(object.result) : 0 };
+  },
+
+  toJSON(message: DeleteFileInfoResponse): unknown {
+    const obj: any = {};
+    message.result !== undefined && (obj.result = resultToJSON(message.result));
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DeleteFileInfoResponse>, I>>(base?: I): DeleteFileInfoResponse {
+    return DeleteFileInfoResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DeleteFileInfoResponse>, I>>(object: I): DeleteFileInfoResponse {
+    const message = createBaseDeleteFileInfoResponse();
+    message.result = object.result ?? 0;
+    return message;
+  },
+};
+
 /** The greeting service definition. */
 export interface storage {
   /** CreateBucket */
@@ -974,6 +1595,14 @@ export interface storage {
   DeleteObject(request: DeleteObjectRequest): Promise<DeleteObjectResponse>;
   /** ListObjects */
   ListObjects(request: ListObjectsRequest): Promise<ListObjectsResponse>;
+  /** CreateFileInfo */
+  CreateFileInfo(request: CreateFileInfoRequest): Promise<CreateFileInfoResponse>;
+  /** GetFileInfo */
+  GetFileInfo(request: GetFileInfoRequest): Promise<GetFileInfoResponse>;
+  /** UpdateFileInfo */
+  UpdateFileInfo(request: UpdateFileInfoRequest): Promise<UpdateFileInfoResponse>;
+  /** DeleteFileInfo */
+  DeleteFileInfo(request: DeleteFileInfoRequest): Promise<DeleteFileInfoResponse>;
 }
 
 export class storageClientImpl implements storage {
@@ -988,6 +1617,10 @@ export class storageClientImpl implements storage {
     this.GetObject = this.GetObject.bind(this);
     this.DeleteObject = this.DeleteObject.bind(this);
     this.ListObjects = this.ListObjects.bind(this);
+    this.CreateFileInfo = this.CreateFileInfo.bind(this);
+    this.GetFileInfo = this.GetFileInfo.bind(this);
+    this.UpdateFileInfo = this.UpdateFileInfo.bind(this);
+    this.DeleteFileInfo = this.DeleteFileInfo.bind(this);
   }
   CreateBucket(request: CreateBucketRequest): Promise<CreateBucketResponse> {
     const data = CreateBucketRequest.encode(request).finish();
@@ -1024,11 +1657,54 @@ export class storageClientImpl implements storage {
     const promise = this.rpc.request(this.service, "ListObjects", data);
     return promise.then((data) => ListObjectsResponse.decode(_m0.Reader.create(data)));
   }
+
+  CreateFileInfo(request: CreateFileInfoRequest): Promise<CreateFileInfoResponse> {
+    const data = CreateFileInfoRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreateFileInfo", data);
+    return promise.then((data) => CreateFileInfoResponse.decode(_m0.Reader.create(data)));
+  }
+
+  GetFileInfo(request: GetFileInfoRequest): Promise<GetFileInfoResponse> {
+    const data = GetFileInfoRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "GetFileInfo", data);
+    return promise.then((data) => GetFileInfoResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateFileInfo(request: UpdateFileInfoRequest): Promise<UpdateFileInfoResponse> {
+    const data = UpdateFileInfoRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateFileInfo", data);
+    return promise.then((data) => UpdateFileInfoResponse.decode(_m0.Reader.create(data)));
+  }
+
+  DeleteFileInfo(request: DeleteFileInfoRequest): Promise<DeleteFileInfoResponse> {
+    const data = DeleteFileInfoRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeleteFileInfo", data);
+    return promise.then((data) => DeleteFileInfoResponse.decode(_m0.Reader.create(data)));
+  }
 }
 
 interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
+
+declare var self: any | undefined;
+declare var window: any | undefined;
+declare var global: any | undefined;
+var tsProtoGlobalThis: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
@@ -1040,6 +1716,20 @@ export type DeepPartial<T> = T extends Builtin ? T
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
+
+// If you get a compile-error about 'Constructor<Long> and ... have no overlap',
+// add '--ts_proto_opt=esModuleInterop=true' as a flag when calling 'protoc'.
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
+}
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;

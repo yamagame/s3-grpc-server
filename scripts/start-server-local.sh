@@ -20,4 +20,8 @@ export SFTP_USERNAME=username
 export SFTP_PASSWORD=password
 export SFTP_SHAREDIR=share
 
+export MYSQL_HOST=localhost:3306
+export MYSQL_ROOT_PASSWORD=pass
+export MYSQL_DATABASE=mysqldb
+
 go run grpc-server/cmd/server/main.go $1

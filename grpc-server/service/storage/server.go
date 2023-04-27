@@ -87,3 +87,23 @@ func (s *storageServer) ListObjects(ctx context.Context, in *server.ListObjectsR
 	}
 	return s.domain.listObjects.Output(entity), nil
 }
+
+// CreateFileInfo implements awsServer.CreateFileInfo
+func (s *storageServer) CreateFileInfo(ctx context.Context, in *server.CreateFileInfoRequest) (*server.CreateFileInfoResponse, error) {
+	return &server.CreateFileInfoResponse{}, nil
+}
+
+// GetFileInfo implements awsServer.GetFileInfo
+func (s *storageServer) GetFileInfo(ctx context.Context, in *server.GetFileInfoRequest) (*server.GetFileInfoResponse, error) {
+	return &server.GetFileInfoResponse{}, nil
+}
+
+// UpdateFileInfo implements awsServer.UpdateFileInfo
+func (s *storageServer) UpdateFileInfo(ctx context.Context, in *server.UpdateFileInfoRequest) (*server.UpdateFileInfoResponse, error) {
+	return &server.UpdateFileInfoResponse{}, nil
+}
+
+// DeleteFileInfo implements awsServer.DeleteFileInfo
+func (s *storageServer) DeleteFileInfo(ctx context.Context, in *server.DeleteFileInfoRequest) (*server.DeleteFileInfoResponse, error) {
+	return &server.DeleteFileInfoResponse{}, nil
+}
