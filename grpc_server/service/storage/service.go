@@ -3,7 +3,7 @@ package storage
 import (
 	"fmt"
 	"sample/s3-grpc-server/infra/storage"
-	aws "sample/s3-grpc-server/proto/grpc-server"
+	aws "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type storageService struct {

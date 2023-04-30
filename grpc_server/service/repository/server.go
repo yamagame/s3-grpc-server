@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sample/s3-grpc-server/infra/repository"
-	server "sample/s3-grpc-server/proto/grpc-server"
+	server "sample/s3-grpc-server/proto/grpc_server"
 
 	"gorm.io/gorm"
 )

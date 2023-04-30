@@ -6,11 +6,11 @@ import (
 	"net"
 	"os"
 
-	repositoryService "sample/s3-grpc-server/grpc-server/service/repository"
-	storageService "sample/s3-grpc-server/grpc-server/service/storage"
+	repositoryService "sample/s3-grpc-server/grpc_server/service/repository"
+	storageService "sample/s3-grpc-server/grpc_server/service/storage"
 	"sample/s3-grpc-server/infra/repository"
 	"sample/s3-grpc-server/infra/storage"
-	aws "sample/s3-grpc-server/proto/grpc-server"
+	aws "sample/s3-grpc-server/proto/grpc_server"
 
 	"go.uber.org/zap"
 	"google.golang.org/grpc"

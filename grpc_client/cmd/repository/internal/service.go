@@ -3,7 +3,7 @@ package internal
 import (
 	"context"
 	"sample/s3-grpc-server/infra/repository"
-	server "sample/s3-grpc-server/proto/grpc-server"
+	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type repositoryClientDomain struct {

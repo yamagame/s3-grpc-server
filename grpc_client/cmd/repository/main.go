@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 
-	"sample/s3-grpc-server/grpc-client/cmd/repository/internal"
-	grpc_server "sample/s3-grpc-server/proto/grpc-server"
+	"sample/s3-grpc-server/grpc_client/cmd/repository/internal"
+	grpc_server "sample/s3-grpc-server/proto/grpc_server"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
