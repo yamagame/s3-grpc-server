@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+option go_package = "sample/grpc-server";
+
+import "proto/grpc-server/model.proto";
+
+// The greeting service definition.
+service storage {
+  // CreateBucket
+  rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {}
+  // ListBuckets
+  rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {}
+  // PutObject
+  rpc PutObject(PutObjectRequest) returns (PutObjectResponse) {}
+  // GetObject
+  rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {}
+  // DeleteObject
+  rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {}
+  // ListObjects
+  rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {}
+}
+
+message CreateBucketRequest {}
+
+message CreateBucketResponse {
+  Result result = 1;
+}
+
+message ListBucketsRequest {}
+
+message ListBucketsResponse {
+  Result result = 1;
+  message bucket {
+    string name = 1;
+  }
+  repeated bucket buckets = 2;
+}
+
+message PutObjectRequest {
+  string key = 1;
+  string content = 2;
+}
+
+message PutObjectResponse {
+  Result result = 1;
+  string key = 2;
+}
+
+message GetObjectRequest {
+  string key = 1;
+}
+
+message GetObjectResponse {
+  Result result = 1;
+  string key = 2;
+  string content = 3;
+}
+
+message DeleteObjectRequest {
+  string key = 1;
+}
+
+message DeleteObjectResponse {
+  Result result = 1;
+  string key = 2;
+}
+
+message ListObjectsRequest {
+  string prefix = 1;
+  optional string next = 2;
+}
+
+message ListObjectsResponse {
+  Result result = 1;
+  string prefix = 2;
+  repeated string keys = 3;
+  optional string next = 4;
+}

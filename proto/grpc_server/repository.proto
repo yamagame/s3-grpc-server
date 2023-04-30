@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option go_package = "sample/grpc-server";
+
+// The greeting service definition.
+service repository {
+  // CreateFileInfo
+  rpc CreateFileInfo(CreateFileInfoRequest) returns (CreateFileInfoResponse) {}
+  // ReadFileInfo
+  rpc ReadFileInfo(ReadFileInfoRequest) returns (ReadFileInfoResponse) {}
+  // UpdateFileInfo
+  rpc UpdateFileInfo(UpdateFileInfoRequest) returns (UpdateFileInfoResponse) {}
+  // DeleteFileInfo
+  rpc DeleteFileInfo(DeleteFileInfoRequest) returns (DeleteFileInfoResponse) {}
+}
+
+message FileInfo {
+  string filename = 1;
+}
+
+message CreateFileInfoRequest {
+  FileInfo file = 1;
+}
+
+message CreateFileInfoResponse {
+  int64 ID = 1;
+}
+
+message ReadFileInfoRequest {
+  int64 ID = 1;
+}
+
+message ReadFileInfoResponse {
+  int64 ID = 1;
+  FileInfo file = 2;
+}
+
+message UpdateFileInfoRequest {
+  int64 ID = 1;
+  FileInfo file = 2;
+}
+
+message UpdateFileInfoResponse {
+  int64 ID = 1;
+}
+
+message DeleteFileInfoRequest {
+  int64 ID = 1;
+}
+
+message DeleteFileInfoResponse {
+  int64 ID = 1;
+}
