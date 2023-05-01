@@ -1,4 +1,4 @@
-package internal
+package storage
 
 import (
 	"context"
@@ -21,11 +21,11 @@ type StorageClient struct {
 	client  server.StorageClient
 }
 
-func NewStorageClient(aws server.StorageClient, scanner StorageScannerInterface) *StorageClient {
+func NewStorageClient(client server.StorageClient, scanner StorageScannerInterface) *StorageClient {
 	return &StorageClient{
 		scanner: scanner,
 		domain:  storageClientDomain{},
-		client:  aws,
+		client:  client,
 	}
 }
 

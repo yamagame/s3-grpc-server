@@ -1,4 +1,4 @@
-package internal
+package repository
 
 import (
 	"context"
@@ -19,11 +19,11 @@ type RepositoryClient struct {
 	client  server.RepositoryClient
 }
 
-func NewRepositoryClient(aws server.RepositoryClient, scanner RepositoryScannerInterface) *RepositoryClient {
+func NewRepositoryClient(client server.RepositoryClient, scanner RepositoryScannerInterface) *RepositoryClient {
 	return &RepositoryClient{
 		scanner: scanner,
 		domain:  repositoryClientDomain{},
-		client:  aws,
+		client:  client,
 	}
 }
 
