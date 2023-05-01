@@ -6,8 +6,8 @@ import (
 	"os"
 )
 
-func GetClient(mode string) ClientInterface {
-	getClient := func(mode string) (ClientInterface, error) {
+func GetClient(mode string) StorageInterface {
+	getClient := func(mode string) (StorageInterface, error) {
 		if mode == "sftp" {
 			fmt.Println("start sftp")
 			return NewSFTPClient(context.Background(), SFTPClientConfig{

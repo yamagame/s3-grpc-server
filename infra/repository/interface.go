@@ -1,6 +1,6 @@
 package repository
 
-type ClientInterface interface {
+type RepositoryInterface interface {
 	CreateFileInfo() error
 	ReadFileInfo() (*FileInfo, error)
 	UpdateFileInfo(file *FileInfo) error

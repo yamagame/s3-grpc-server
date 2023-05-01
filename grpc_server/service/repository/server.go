@@ -2,11 +2,8 @@ package repository
 
 import (
 	"context"
-	"fmt"
 	"sample/s3-grpc-server/infra/repository"
 	server "sample/s3-grpc-server/proto/grpc_server"
-
-	"gorm.io/gorm"
 )
 
 type repositoryServerDomain struct {
@@ -22,18 +19,16 @@ type repositoryServer struct {
 	server.UnimplementedRepositoryServer
 }
 
-func NewRepositoryServer(db *gorm.DB) *repositoryServer {
+func NewRepositoryServer(service *repositoryService) *repositoryServer {
 	return &repositoryServer{
+		service: service,
 		domain:  &repositoryServerDomain{},
-		service: NewRepositoryService(db),
 	}
 }
 
 // CreateFileInfo implements repositoryServer.CreateFileInfo
 func (s *repositoryServer) CreateFileInfo(ctx context.Context, in *server.CreateFileInfoRequest) (*server.CreateFileInfoResponse, error) {
-	fmt.Println(in)
 	fileInfo := s.domain.createFileInfo.Input(in)
-	fmt.Println(in)
 	fileInfo, err := s.service.CreateFileInfo(fileInfo)
 	if err != nil {
 		return nil, err

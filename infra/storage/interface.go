@@ -4,7 +4,7 @@ import (
 	"io"
 )
 
-type ClientInterface interface {
+type StorageInterface interface {
 	ListBuckets() ([]Bucket, error)
 	CreateBucket() error
 	PutObject(key string, content io.Reader) error

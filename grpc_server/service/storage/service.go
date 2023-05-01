@@ -7,89 +7,89 @@ import (
 )
 
 type storageService struct {
-	client storage.ClientInterface
+	client storage.StorageInterface
 }
 
-func NewStorageService(client storage.ClientInterface) *storageService {
+func NewStorageService(client storage.StorageInterface) *storageService {
 	return &storageService{
 		client: client,
 	}
 }
 
 // CreateBucket implements awsService.ListBuckets
-func (s *storageService) CreateBucket(entity *storage.CreateBucketEntity) (*storage.CreateBucketEntity, error) {
+func (s *storageService) CreateBucket(req *storage.CreateBucketEntity) (*storage.CreateBucketEntity, error) {
 	err := s.client.CreateBucket()
 	if err != nil {
 		fmt.Println(err)
-		entity.Result = storage.StorageResult(aws.Result_ERR)
+		req.Result = storage.StorageResult(aws.Result_ERR)
 	} else {
-		entity.Result = storage.StorageResult(aws.Result_OK)
+		req.Result = storage.StorageResult(aws.Result_OK)
 	}
-	return entity, nil
+	return req, nil
 }
 
 // ListBuckets implements awsService.ListBuckets
-func (s *storageService) ListBuckets(entity *storage.ListBucketsEntity) (*storage.ListBucketsEntity, error) {
+func (s *storageService) ListBuckets(req *storage.ListBucketsEntity) (*storage.ListBucketsEntity, error) {
 	buckets, err := s.client.ListBuckets()
 	if err != nil {
 		fmt.Println(err)
-		entity.Result = storage.StorageResult(aws.Result_ERR)
+		req.Result = storage.StorageResult(aws.Result_ERR)
 	} else {
-		entity.Result = storage.StorageResult(aws.Result_OK)
-		entity.Buckets = buckets
+		req.Result = storage.StorageResult(aws.Result_OK)
+		req.Buckets = buckets
 	}
-	return entity, nil
+	return req, nil
 }
 
 // PutObject implements awsService.PutObject
-func (s *storageService) PutObject(entity *storage.PutObjectEntity) (*storage.PutObjectEntity, error) {
-	err := s.client.PutObjectWithString(entity.Key, entity.Content)
+func (s *storageService) PutObject(req *storage.PutObjectEntity) (*storage.PutObjectEntity, error) {
+	err := s.client.PutObjectWithString(req.Key, req.Content)
 	if err != nil {
 		fmt.Println(err)
-		entity.Result = storage.StorageResult(aws.Result_ERR)
+		req.Result = storage.StorageResult(aws.Result_ERR)
 	} else {
-		entity.Result = storage.StorageResult(aws.Result_OK)
+		req.Result = storage.StorageResult(aws.Result_OK)
 	}
-	return entity, nil
+	return req, nil
 }
 
 // GetObject implements awsService.GetObject
-func (s *storageService) GetObject(entity *storage.GetObjectEntity) (*storage.GetObjectEntity, error) {
-	ret, err := s.client.GetObjectWithString(entity.Key)
+func (s *storageService) GetObject(req *storage.GetObjectEntity) (*storage.GetObjectEntity, error) {
+	ret, err := s.client.GetObjectWithString(req.Key)
 	if err != nil {
 		fmt.Println(err)
-		entity.Result = storage.StorageResult(aws.Result_ERR)
+		req.Result = storage.StorageResult(aws.Result_ERR)
 	} else {
-		entity.Result = storage.StorageResult(aws.Result_OK)
-		entity.Content = ret
+		req.Result = storage.StorageResult(aws.Result_OK)
+		req.Content = ret
 	}
-	return entity, nil
+	return req, nil
 }
 
 // DeleteObject implements awsService.DeleteObject
-func (s *storageService) DeleteObject(entity *storage.DeleteObjectEntity) (*storage.DeleteObjectEntity, error) {
-	err := s.client.DeleteObject(entity.Key)
+func (s *storageService) DeleteObject(req *storage.DeleteObjectEntity) (*storage.DeleteObjectEntity, error) {
+	err := s.client.DeleteObject(req.Key)
 	if err != nil {
 		fmt.Println(err)
-		entity.Result = storage.StorageResult(aws.Result_ERR)
+		req.Result = storage.StorageResult(aws.Result_ERR)
 	} else {
-		entity.Result = storage.StorageResult(aws.Result_OK)
+		req.Result = storage.StorageResult(aws.Result_OK)
 	}
-	return entity, nil
+	return req, nil
 }
 
 // ListObjects implements awsService.DeleteObject
-func (s *storageService) ListObjects(entity *storage.ListObjectsEntity) (*storage.ListObjectsEntity, error) {
-	objects, err := s.client.ListObjects(entity.Prefix, entity.Next)
+func (s *storageService) ListObjects(req *storage.ListObjectsEntity) (*storage.ListObjectsEntity, error) {
+	objects, err := s.client.ListObjects(req.Prefix, req.Next)
 	if err != nil {
 		fmt.Println(err)
-		entity.Result = storage.StorageResult(aws.Result_ERR)
+		req.Result = storage.StorageResult(aws.Result_ERR)
 	} else {
-		entity.Result = storage.StorageResult(aws.Result_OK)
-		entity.Keys = make([]string, len(objects))
+		req.Result = storage.StorageResult(aws.Result_OK)
+		req.Keys = make([]string, len(objects))
 		for i, object := range objects {
-			entity.Keys[i] = object.Key
+			req.Keys[i] = object.Key
 		}
 	}
-	return entity, nil
+	return req, nil
 }

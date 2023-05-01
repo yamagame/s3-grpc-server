@@ -4,6 +4,8 @@
 
 ```mermaid
 graph LR;
+  grpc-client("grpc client
+  (golang)")-->grpc
   front("front
   (nuxt3/typescript)
   3000:3000")-->|dev/proxy|bff("bff
@@ -16,6 +18,32 @@ graph LR;
   bff-->keycloak("keycloak
   8180:8080")
   login("ログイン画面")--->keycloak
+  grpc-->GCS("GCS
+  (fake-CGS)
+  4443:4443")
+  grpc-->SFTP("SFTP
+  (atmoz/sftp)
+  2222:22")
+  grpc-->MySQL("MySQL
+  3306:3306")
+```
+
+## クラス
+
+```mermaid
+graph LR;
+  storageServer --> storageService
+  storageService --> StorageInterface
+
+  GCSClient -.-> StorageInterface
+  S3Client -.-> StorageInterface
+  SFTPClient -.-> StorageInterface
+```
+
+```mermaid
+graph LR;
+  repositoryServer --> repositoryService
+  repositoryService --> gorm.DB
 ```
 
 ## 実行方法

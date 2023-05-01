@@ -21,9 +21,9 @@ type storageServer struct {
 	server.UnimplementedStorageServer
 }
 
-func NewStorageServer(client storage.ClientInterface) *storageServer {
+func NewStorageServer(service *storageService) *storageServer {
 	return &storageServer{
-		service: NewStorageService(client),
+		service: service,
 		domain:  &storageServerDomain{},
 	}
 }
@@ -86,24 +86,4 @@ func (s *storageServer) ListObjects(ctx context.Context, in *server.ListObjectsR
 		return nil, err
 	}
 	return s.domain.listObjects.Output(entity), nil
-}
-
-// CreateFileInfo implements awsServer.CreateFileInfo
-func (s *storageServer) CreateFileInfo(ctx context.Context, in *server.CreateFileInfoRequest) (*server.CreateFileInfoResponse, error) {
-	return &server.CreateFileInfoResponse{}, nil
-}
-
-// ReadFileInfo implements awsServer.ReadFileInfo
-func (s *storageServer) ReadFileInfo(ctx context.Context, in *server.ReadFileInfoRequest) (*server.ReadFileInfoResponse, error) {
-	return &server.ReadFileInfoResponse{}, nil
-}
-
-// UpdateFileInfo implements awsServer.UpdateFileInfo
-func (s *storageServer) UpdateFileInfo(ctx context.Context, in *server.UpdateFileInfoRequest) (*server.UpdateFileInfoResponse, error) {
-	return &server.UpdateFileInfoResponse{}, nil
-}
-
-// DeleteFileInfo implements awsServer.DeleteFileInfo
-func (s *storageServer) DeleteFileInfo(ctx context.Context, in *server.DeleteFileInfoRequest) (*server.DeleteFileInfoResponse, error) {
-	return &server.DeleteFileInfoResponse{}, nil
 }
