@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	repository_service "sample/s3-grpc-server/grpc_client/infra/repository"
-	storage_service "sample/s3-grpc-server/grpc_client/infra/storage"
+	repository_service "sample/s3-grpc-server/grpc_client/service/repository"
+	storage_service "sample/s3-grpc-server/grpc_client/service/storage"
 	"sample/s3-grpc-server/infra/repository"
 	"sample/s3-grpc-server/infra/storage"
 )

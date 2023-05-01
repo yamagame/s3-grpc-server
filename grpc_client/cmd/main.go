@@ -8,8 +8,8 @@ import (
 	"os"
 
 	"sample/s3-grpc-server/grpc_client/cmd/service"
-	repository_service "sample/s3-grpc-server/grpc_client/infra/repository"
-	storage_service "sample/s3-grpc-server/grpc_client/infra/storage"
+	repository_service "sample/s3-grpc-server/grpc_client/service/repository"
+	storage_service "sample/s3-grpc-server/grpc_client/service/storage"
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
 
 	"google.golang.org/grpc"
