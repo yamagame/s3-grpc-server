@@ -37,8 +37,8 @@ func main() {
 		sugar.Infof("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	aws.RegisterStorageServer(s, storageService.NewStorageServer(storageService.NewStorageService(storage.GetClient(mode))))
-	aws.RegisterRepositoryServer(s, repositoryService.NewRepositoryServer(repositoryService.NewRepositoryService(repository.GormDB())))
+	aws.RegisterStorageServer(s, storageService.NewStorageServer(storage.NewStorageService(storage.GetClient(mode))))
+	aws.RegisterRepositoryServer(s, repositoryService.NewRepositoryServer(repository.NewRepositoryService(repository.GormDB())))
 	// log.Printf("server listening at %v", lis.Addr())
 	sugar.Infof("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {

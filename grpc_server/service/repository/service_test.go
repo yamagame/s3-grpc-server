@@ -11,7 +11,7 @@ import (
 
 func TestRepositoryService(t *testing.T) {
 	repository.StartTestDatabase(func(gormDB *gorm.DB) {
-		sv := NewRepositoryService(gormDB)
+		sv := repository.NewRepositoryService(gormDB)
 		gormDB.AutoMigrate(&repository.FileInfo{})
 		file := &repository.FileInfo{
 			Filename: "test.txt",

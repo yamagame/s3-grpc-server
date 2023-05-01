@@ -6,25 +6,25 @@ import (
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type storageClientDomain struct {
-	createBucket storage.StorageCreateBucketClientData
-	listBuckets  storage.StorageListBucketsClientData
-	putObject    storage.StoragePutObjectClientData
-	getObject    storage.StorageGetObjectClientData
-	deleteObject storage.StorageDeleteObjectClientData
-	listobjects  storage.StorageListObjectsClientData
+type storageClientMessage struct {
+	createBucket StorageCreateBucketClientMessage
+	listBuckets  StorageListBucketsClientMessage
+	putObject    StoragePutObjectClientMessage
+	getObject    StorageGetObjectClientMessage
+	deleteObject StorageDeleteObjectClientMessage
+	listobjects  StorageListObjectsClientMessage
 }
 
 type StorageClient struct {
 	scanner StorageScannerInterface
-	domain  storageClientDomain
+	message storageClientMessage
 	client  server.StorageClient
 }
 
 func NewStorageClient(client server.StorageClient, scanner StorageScannerInterface) *StorageClient {
 	return &StorageClient{
 		scanner: scanner,
-		domain:  storageClientDomain{},
+		message: storageClientMessage{},
 		client:  client,
 	}
 }
@@ -35,7 +35,7 @@ func (x *StorageClient) CreateBucket(ctx context.Context) (*storage.CreateBucket
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.createBucket.Output(res), nil
+	return x.message.createBucket.Output(res), nil
 }
 
 func (x *StorageClient) ListBuckets(ctx context.Context) (*storage.ListBucketsEntity, error) {
@@ -44,41 +44,41 @@ func (x *StorageClient) ListBuckets(ctx context.Context) (*storage.ListBucketsEn
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.listBuckets.Output(res), nil
+	return x.message.listBuckets.Output(res), nil
 }
 
 func (x *StorageClient) PutObject(ctx context.Context) (*storage.PutObjectEntity, error) {
-	req := x.domain.putObject.Input(x.scanner.PutObject())
+	req := x.message.putObject.Input(x.scanner.PutObject())
 	res, err := x.client.PutObject(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.putObject.Output(res), nil
+	return x.message.putObject.Output(res), nil
 }
 
 func (x *StorageClient) GetObject(ctx context.Context) (*storage.GetObjectEntity, error) {
-	req := x.domain.getObject.Input(x.scanner.GetObject())
+	req := x.message.getObject.Input(x.scanner.GetObject())
 	res, err := x.client.GetObject(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.getObject.Output(res), nil
+	return x.message.getObject.Output(res), nil
 }
 
 func (x *StorageClient) DeleteObject(ctx context.Context) (*storage.DeleteObjectEntity, error) {
-	req := x.domain.deleteObject.Input(x.scanner.DeleteObject())
+	req := x.message.deleteObject.Input(x.scanner.DeleteObject())
 	res, err := x.client.DeleteObject(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.deleteObject.Output(res), nil
+	return x.message.deleteObject.Output(res), nil
 }
 
 func (x *StorageClient) ListObjects(ctx context.Context) (*storage.ListObjectsEntity, error) {
-	req := x.domain.listobjects.Input(x.scanner.ListObjects())
+	req := x.message.listobjects.Input(x.scanner.ListObjects())
 	res, err := x.client.ListObjects(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.listobjects.Output(res), nil
+	return x.message.listobjects.Output(res), nil
 }

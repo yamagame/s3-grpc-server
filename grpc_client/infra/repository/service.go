@@ -6,59 +6,59 @@ import (
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type repositoryClientDomain struct {
-	createFileInfo repository.RepositoryCreateFilieInfoClientData
-	readFileInfo   repository.RepositoryReadFileInfoClientData
-	updateFileInfo repository.RepositoryUpdateFileInfoClientData
-	deleteFileInfo repository.RepositoryDeleteFileInfoClientData
+type repositoryClientMessage struct {
+	createFileInfo RepositoryCreateFilieInfoClientMessage
+	readFileInfo   RepositoryReadFileInfoClientMessage
+	updateFileInfo RepositoryUpdateFileInfoClientMessage
+	deleteFileInfo RepositoryDeleteFileInfoClientMessage
 }
 
 type RepositoryClient struct {
 	scanner RepositoryScannerInterface
-	domain  repositoryClientDomain
+	message repositoryClientMessage
 	client  server.RepositoryClient
 }
 
 func NewRepositoryClient(client server.RepositoryClient, scanner RepositoryScannerInterface) *RepositoryClient {
 	return &RepositoryClient{
 		scanner: scanner,
-		domain:  repositoryClientDomain{},
+		message: repositoryClientMessage{},
 		client:  client,
 	}
 }
 
 func (x *RepositoryClient) CreateFileInfo(ctx context.Context) (*repository.FileInfo, error) {
-	req := x.domain.createFileInfo.Input(x.scanner.CreateFileInfo())
+	req := x.message.createFileInfo.Input(x.scanner.CreateFileInfo())
 	res, err := x.client.CreateFileInfo(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.createFileInfo.Output(res), nil
+	return x.message.createFileInfo.Output(res), nil
 }
 
 func (x *RepositoryClient) ReadFileInfo(ctx context.Context) (*repository.FileInfo, error) {
-	req := x.domain.readFileInfo.Input(x.scanner.ReadFileInfo())
+	req := x.message.readFileInfo.Input(x.scanner.ReadFileInfo())
 	res, err := x.client.ReadFileInfo(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.readFileInfo.Output(res), nil
+	return x.message.readFileInfo.Output(res), nil
 }
 
 func (x *RepositoryClient) UpdateFileInfo(ctx context.Context) (*repository.FileInfo, error) {
-	req := x.domain.updateFileInfo.Input(x.scanner.UpdateFileInfo())
+	req := x.message.updateFileInfo.Input(x.scanner.UpdateFileInfo())
 	res, err := x.client.UpdateFileInfo(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.updateFileInfo.Output(res), nil
+	return x.message.updateFileInfo.Output(res), nil
 }
 
 func (x *RepositoryClient) DeleteFileInfo(ctx context.Context) (*repository.FileInfo, error) {
-	req := x.domain.deleteFileInfo.Input(x.scanner.DeleteFileInfo())
+	req := x.message.deleteFileInfo.Input(x.scanner.DeleteFileInfo())
 	res, err := x.client.DeleteFileInfo(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return x.domain.deleteFileInfo.Output(res), nil
+	return x.message.deleteFileInfo.Output(res), nil
 }

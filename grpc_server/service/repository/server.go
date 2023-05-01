@@ -6,62 +6,62 @@ import (
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type repositoryServerDomain struct {
-	createFileInfo repository.RepositoryCreateFilieInfoServerData
-	readFileInfo   repository.RepositoryReadFileInfoServerData
-	updateFileInfo repository.RepositoryUpdateFileInfoServerData
-	deleteFileInfo repository.RepositoryDeleteFileInfoServerData
+type repositoryServerMessage struct {
+	createFileInfo RepositoryCreateFilieInfoServerMessage
+	readFileInfo   RepositoryReadFileInfoServerMessage
+	updateFileInfo RepositoryUpdateFileInfoServerMessage
+	deleteFileInfo RepositoryDeleteFileInfoServerMessage
 }
 
 type repositoryServer struct {
-	service *repositoryService
-	domain  *repositoryServerDomain
+	service *repository.RepositoryService
+	message *repositoryServerMessage
 	server.UnimplementedRepositoryServer
 }
 
-func NewRepositoryServer(service *repositoryService) *repositoryServer {
+func NewRepositoryServer(service *repository.RepositoryService) *repositoryServer {
 	return &repositoryServer{
 		service: service,
-		domain:  &repositoryServerDomain{},
+		message: &repositoryServerMessage{},
 	}
 }
 
 // CreateFileInfo implements repositoryServer.CreateFileInfo
 func (s *repositoryServer) CreateFileInfo(ctx context.Context, in *server.CreateFileInfoRequest) (*server.CreateFileInfoResponse, error) {
-	fileInfo := s.domain.createFileInfo.Input(in)
+	fileInfo := s.message.createFileInfo.Input(in)
 	fileInfo, err := s.service.CreateFileInfo(fileInfo)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.createFileInfo.Output(fileInfo), nil
+	return s.message.createFileInfo.Output(fileInfo), nil
 }
 
 // ReadFileInfo implements repositoryServer.ReadFileInfo
 func (s *repositoryServer) ReadFileInfo(ctx context.Context, in *server.ReadFileInfoRequest) (*server.ReadFileInfoResponse, error) {
-	fileInfo := s.domain.readFileInfo.Input(in)
+	fileInfo := s.message.readFileInfo.Input(in)
 	fileInfo, err := s.service.ReadFileInfo(fileInfo)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.readFileInfo.Output(fileInfo), nil
+	return s.message.readFileInfo.Output(fileInfo), nil
 }
 
 // UpdateFileInfo implements repositoryServer.UpdateFileInfo
 func (s *repositoryServer) UpdateFileInfo(ctx context.Context, in *server.UpdateFileInfoRequest) (*server.UpdateFileInfoResponse, error) {
-	fileInfo := s.domain.updateFileInfo.Input(in)
+	fileInfo := s.message.updateFileInfo.Input(in)
 	fileInfo, err := s.service.UpdateFileInfo(fileInfo)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.updateFileInfo.Output(fileInfo), nil
+	return s.message.updateFileInfo.Output(fileInfo), nil
 }
 
 // DeleteFileInfo implements repositoryServer.DeleteFileInfo
 func (s *repositoryServer) DeleteFileInfo(ctx context.Context, in *server.DeleteFileInfoRequest) (*server.DeleteFileInfoResponse, error) {
-	fileInfo := s.domain.deleteFileInfo.Input(in)
+	fileInfo := s.message.deleteFileInfo.Input(in)
 	fileInfo, err := s.service.DeleteFileInfo(fileInfo)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.deleteFileInfo.Output(fileInfo), nil
+	return s.message.deleteFileInfo.Output(fileInfo), nil
 }

@@ -6,84 +6,84 @@ import (
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type storageServerDomain struct {
-	createBucket storage.StorageCreateBucketServerData
-	listBuckets  storage.StorageListBucketsServerData
-	putObject    storage.StoragePutObjectServerData
-	getObject    storage.StorageGetObjectServerData
-	deleteObject storage.StorageDeleteObjectServerData
-	listObjects  storage.StorageListObjectsServerData
+type storageServerMessage struct {
+	createBucket StorageCreateBucketServerMessage
+	listBuckets  StorageListBucketsServerMessage
+	putObject    StoragePutObjectServerMessage
+	getObject    StorageGetObjectServerMessage
+	deleteObject StorageDeleteObjectServerMessage
+	listObjects  StorageListObjectsServerMessage
 }
 
 type storageServer struct {
-	service *storageService
-	domain  *storageServerDomain
+	service *storage.StorageService
+	message *storageServerMessage
 	server.UnimplementedStorageServer
 }
 
-func NewStorageServer(service *storageService) *storageServer {
+func NewStorageServer(service *storage.StorageService) *storageServer {
 	return &storageServer{
 		service: service,
-		domain:  &storageServerDomain{},
+		message: &storageServerMessage{},
 	}
 }
 
 // CreateBucket implements awsServer.CreateBucket
 func (s *storageServer) CreateBucket(ctx context.Context, in *server.CreateBucketRequest) (*server.CreateBucketResponse, error) {
-	entity := s.domain.createBucket.Input(in)
+	entity := s.message.createBucket.Input(in)
 	entity, err := s.service.CreateBucket(entity)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.createBucket.Output(entity), nil
+	return s.message.createBucket.Output(entity), nil
 }
 
 // ListBuckets implements awsServer.ListBuckets
 func (s *storageServer) ListBuckets(ctx context.Context, in *server.ListBucketsRequest) (*server.ListBucketsResponse, error) {
-	entity := s.domain.listBuckets.Input(in)
+	entity := s.message.listBuckets.Input(in)
 	entity, err := s.service.ListBuckets(entity)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.listBuckets.Output(entity), nil
+	return s.message.listBuckets.Output(entity), nil
 }
 
 // PutObject implements awsServer.PutObject
 func (s *storageServer) PutObject(ctx context.Context, in *server.PutObjectRequest) (*server.PutObjectResponse, error) {
-	entity := s.domain.putObject.Input(in)
+	entity := s.message.putObject.Input(in)
 	entity, err := s.service.PutObject(entity)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.putObject.Output(entity), nil
+	return s.message.putObject.Output(entity), nil
 }
 
 // GetObject implements awsServer.GetObject
 func (s *storageServer) GetObject(ctx context.Context, in *server.GetObjectRequest) (*server.GetObjectResponse, error) {
-	entity := s.domain.getObject.Input(in)
+	entity := s.message.getObject.Input(in)
 	entity, err := s.service.GetObject(entity)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.getObject.Output(entity), nil
+	return s.message.getObject.Output(entity), nil
 }
 
 // DeleteObject implements awsServer.DeleteObject
 func (s *storageServer) DeleteObject(ctx context.Context, in *server.DeleteObjectRequest) (*server.DeleteObjectResponse, error) {
-	entity := s.domain.deleteObject.Input(in)
+	entity := s.message.deleteObject.Input(in)
 	entity, err := s.service.DeleteObject(entity)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.deleteObject.Output(entity), nil
+	return s.message.deleteObject.Output(entity), nil
 }
 
 // ListObjects implements awsServer.ListObjects
 func (s *storageServer) ListObjects(ctx context.Context, in *server.ListObjectsRequest) (*server.ListObjectsResponse, error) {
-	entity := s.domain.listObjects.Input(in)
+	entity := s.message.listObjects.Input(in)
 	entity, err := s.service.ListObjects(entity)
 	if err != nil {
 		return nil, err
 	}
-	return s.domain.listObjects.Output(entity), nil
+	return s.message.listObjects.Output(entity), nil
 }
