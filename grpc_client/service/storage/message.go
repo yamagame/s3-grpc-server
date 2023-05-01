@@ -8,12 +8,12 @@ import (
 type StorageCreateBucketClientMessage struct {
 }
 
-func (x *StorageCreateBucketClientMessage) Input(_ *storage.CreateBucketEntity) *server.CreateBucketRequest {
+func (x *StorageCreateBucketClientMessage) Input(_ *storage.CreateBucket) *server.CreateBucketRequest {
 	return &server.CreateBucketRequest{}
 }
 
-func (x *StorageCreateBucketClientMessage) Output(res *server.CreateBucketResponse) *storage.CreateBucketEntity {
-	return &storage.CreateBucketEntity{
+func (x *StorageCreateBucketClientMessage) Output(res *server.CreateBucketResponse) *storage.CreateBucket {
+	return &storage.CreateBucket{
 		Result: storage.StorageResult(res.Result),
 	}
 }
@@ -21,16 +21,16 @@ func (x *StorageCreateBucketClientMessage) Output(res *server.CreateBucketRespon
 type StorageListBucketsClientMessage struct {
 }
 
-func (x *StorageListBucketsClientMessage) Input(_ *storage.ListBucketsEntity) *server.ListBucketsRequest {
+func (x *StorageListBucketsClientMessage) Input(_ *storage.ListBuckets) *server.ListBucketsRequest {
 	return &server.ListBucketsRequest{}
 }
 
-func (x *StorageListBucketsClientMessage) Output(res *server.ListBucketsResponse) *storage.ListBucketsEntity {
+func (x *StorageListBucketsClientMessage) Output(res *server.ListBucketsResponse) *storage.ListBuckets {
 	buckets := make([]storage.Bucket, len(res.Buckets))
 	for i, v := range res.Buckets {
 		buckets[i].Name = v.Name
 	}
-	return &storage.ListBucketsEntity{
+	return &storage.ListBuckets{
 		Result:  storage.StorageResult(res.Result),
 		Buckets: buckets,
 	}
@@ -39,15 +39,15 @@ func (x *StorageListBucketsClientMessage) Output(res *server.ListBucketsResponse
 type StoragePutObjectClientMessage struct {
 }
 
-func (x *StoragePutObjectClientMessage) Input(req *storage.PutObjectEntity) *server.PutObjectRequest {
+func (x *StoragePutObjectClientMessage) Input(req *storage.PutObject) *server.PutObjectRequest {
 	return &server.PutObjectRequest{
 		Key:     req.Key,
 		Content: req.Content,
 	}
 }
 
-func (x *StoragePutObjectClientMessage) Output(res *server.PutObjectResponse) *storage.PutObjectEntity {
-	return &storage.PutObjectEntity{
+func (x *StoragePutObjectClientMessage) Output(res *server.PutObjectResponse) *storage.PutObject {
+	return &storage.PutObject{
 		Result: storage.StorageResult(res.Result),
 	}
 }
@@ -55,14 +55,14 @@ func (x *StoragePutObjectClientMessage) Output(res *server.PutObjectResponse) *s
 type StorageGetObjectClientMessage struct {
 }
 
-func (x *StorageGetObjectClientMessage) Input(req *storage.GetObjectEntity) *server.GetObjectRequest {
+func (x *StorageGetObjectClientMessage) Input(req *storage.GetObject) *server.GetObjectRequest {
 	return &server.GetObjectRequest{
 		Key: req.Key,
 	}
 }
 
-func (x *StorageGetObjectClientMessage) Output(res *server.GetObjectResponse) *storage.GetObjectEntity {
-	return &storage.GetObjectEntity{
+func (x *StorageGetObjectClientMessage) Output(res *server.GetObjectResponse) *storage.GetObject {
+	return &storage.GetObject{
 		Result:  storage.StorageResult(res.Result),
 		Content: res.Content,
 	}
@@ -71,14 +71,14 @@ func (x *StorageGetObjectClientMessage) Output(res *server.GetObjectResponse) *s
 type StorageDeleteObjectClientMessage struct {
 }
 
-func (x *StorageDeleteObjectClientMessage) Input(req *storage.DeleteObjectEntity) *server.DeleteObjectRequest {
+func (x *StorageDeleteObjectClientMessage) Input(req *storage.DeleteObject) *server.DeleteObjectRequest {
 	return &server.DeleteObjectRequest{
 		Key: req.Key,
 	}
 }
 
-func (x *StorageDeleteObjectClientMessage) Output(res *server.DeleteObjectResponse) *storage.DeleteObjectEntity {
-	return &storage.DeleteObjectEntity{
+func (x *StorageDeleteObjectClientMessage) Output(res *server.DeleteObjectResponse) *storage.DeleteObject {
+	return &storage.DeleteObject{
 		Result: storage.StorageResult(res.Result),
 	}
 }
@@ -86,14 +86,14 @@ func (x *StorageDeleteObjectClientMessage) Output(res *server.DeleteObjectRespon
 type StorageListObjectsClientMessage struct {
 }
 
-func (x *StorageListObjectsClientMessage) Input(req *storage.ListObjectsEntity) *server.ListObjectsRequest {
+func (x *StorageListObjectsClientMessage) Input(req *storage.ListObjects) *server.ListObjectsRequest {
 	return &server.ListObjectsRequest{
 		Prefix: req.Prefix,
 	}
 }
 
-func (x *StorageListObjectsClientMessage) Output(res *server.ListObjectsResponse) *storage.ListObjectsEntity {
-	return &storage.ListObjectsEntity{
+func (x *StorageListObjectsClientMessage) Output(res *server.ListObjectsResponse) *storage.ListObjects {
+	return &storage.ListObjects{
 		Result: storage.StorageResult(res.Result),
 		Prefix: res.Prefix,
 		Keys:   res.Keys,

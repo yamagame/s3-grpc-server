@@ -36,26 +36,26 @@ func (x *ClientService) DeleteFileInfo(ctx context.Context) (*repository.FileInf
 	return x.repositoryClient.DeleteFileInfo(ctx)
 }
 
-func (x *ClientService) CreateBucket(ctx context.Context) (*storage.CreateBucketEntity, error) {
+func (x *ClientService) CreateBucket(ctx context.Context) (*storage.CreateBucket, error) {
 	return x.storageClient.CreateBucket(ctx)
 }
 
-func (x *ClientService) ListBuckets(ctx context.Context) (*storage.ListBucketsEntity, error) {
+func (x *ClientService) ListBuckets(ctx context.Context) (*storage.ListBuckets, error) {
 	return x.storageClient.ListBuckets(ctx)
 }
 
-func (x *ClientService) PutObject(ctx context.Context) (*storage.PutObjectEntity, error) {
+func (x *ClientService) PutObject(ctx context.Context) (*storage.PutObject, error) {
 	return x.storageClient.PutObject(ctx)
 }
 
-func (x *ClientService) GetObject(ctx context.Context) (*storage.GetObjectEntity, error) {
+func (x *ClientService) GetObject(ctx context.Context) (*storage.GetObject, error) {
 	return x.storageClient.GetObject(ctx)
 }
 
-func (x *ClientService) DeleteObject(ctx context.Context) (*storage.DeleteObjectEntity, error) {
+func (x *ClientService) DeleteObject(ctx context.Context) (*storage.DeleteObject, error) {
 	return x.storageClient.DeleteObject(ctx)
 }
 
-func (x *ClientService) ListObjects(ctx context.Context) (*storage.ListObjectsEntity, error) {
+func (x *ClientService) ListObjects(ctx context.Context) (*storage.ListObjects, error) {
 	return x.storageClient.ListObjects(ctx)
 }

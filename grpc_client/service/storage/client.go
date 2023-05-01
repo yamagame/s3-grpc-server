@@ -28,7 +28,7 @@ func NewStorageClient(client server.StorageClient, scanner StorageScannerInterfa
 	}
 }
 
-func (x *StorageClient) CreateBucket(ctx context.Context) (*storage.CreateBucketEntity, error) {
+func (x *StorageClient) CreateBucket(ctx context.Context) (*storage.CreateBucket, error) {
 	req := &server.CreateBucketRequest{}
 	res, err := x.client.CreateBucket(ctx, req)
 	if err != nil {
@@ -37,7 +37,7 @@ func (x *StorageClient) CreateBucket(ctx context.Context) (*storage.CreateBucket
 	return x.createBucket.Output(res), nil
 }
 
-func (x *StorageClient) ListBuckets(ctx context.Context) (*storage.ListBucketsEntity, error) {
+func (x *StorageClient) ListBuckets(ctx context.Context) (*storage.ListBuckets, error) {
 	req := &server.ListBucketsRequest{}
 	res, err := x.client.ListBuckets(ctx, req)
 	if err != nil {
@@ -46,7 +46,7 @@ func (x *StorageClient) ListBuckets(ctx context.Context) (*storage.ListBucketsEn
 	return x.listBuckets.Output(res), nil
 }
 
-func (x *StorageClient) PutObject(ctx context.Context) (*storage.PutObjectEntity, error) {
+func (x *StorageClient) PutObject(ctx context.Context) (*storage.PutObject, error) {
 	req := x.putObject.Input(x.scanner.PutObject())
 	res, err := x.client.PutObject(ctx, req)
 	if err != nil {
@@ -55,7 +55,7 @@ func (x *StorageClient) PutObject(ctx context.Context) (*storage.PutObjectEntity
 	return x.putObject.Output(res), nil
 }
 
-func (x *StorageClient) GetObject(ctx context.Context) (*storage.GetObjectEntity, error) {
+func (x *StorageClient) GetObject(ctx context.Context) (*storage.GetObject, error) {
 	req := x.getObject.Input(x.scanner.GetObject())
 	res, err := x.client.GetObject(ctx, req)
 	if err != nil {
@@ -64,7 +64,7 @@ func (x *StorageClient) GetObject(ctx context.Context) (*storage.GetObjectEntity
 	return x.getObject.Output(res), nil
 }
 
-func (x *StorageClient) DeleteObject(ctx context.Context) (*storage.DeleteObjectEntity, error) {
+func (x *StorageClient) DeleteObject(ctx context.Context) (*storage.DeleteObject, error) {
 	req := x.deleteObject.Input(x.scanner.DeleteObject())
 	res, err := x.client.DeleteObject(ctx, req)
 	if err != nil {
@@ -73,7 +73,7 @@ func (x *StorageClient) DeleteObject(ctx context.Context) (*storage.DeleteObject
 	return x.deleteObject.Output(res), nil
 }
 
-func (x *StorageClient) ListObjects(ctx context.Context) (*storage.ListObjectsEntity, error) {
+func (x *StorageClient) ListObjects(ctx context.Context) (*storage.ListObjects, error) {
 	req := x.listobjects.Input(x.scanner.ListObjects())
 	res, err := x.client.ListObjects(ctx, req)
 	if err != nil {

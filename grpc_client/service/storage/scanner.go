@@ -7,12 +7,12 @@ import (
 )
 
 type StorageScannerInterface interface {
-	CreateBucket() *storage.CreateBucketEntity
-	ListBuckets() *storage.ListBucketsEntity
-	PutObject() *storage.PutObjectEntity
-	GetObject() *storage.GetObjectEntity
-	DeleteObject() *storage.DeleteObjectEntity
-	ListObjects() *storage.ListObjectsEntity
+	CreateBucket() *storage.CreateBucket
+	ListBuckets() *storage.ListBuckets
+	PutObject() *storage.PutObject
+	GetObject() *storage.GetObject
+	DeleteObject() *storage.DeleteObject
+	ListObjects() *storage.ListObjects
 }
 
 type StorageScanner struct {
@@ -25,50 +25,50 @@ func NewScanner(scanner *bufio.Scanner) *StorageScanner {
 	}
 }
 
-func (x *StorageScanner) CreateBucket() *storage.CreateBucketEntity {
-	return &storage.CreateBucketEntity{}
+func (x *StorageScanner) CreateBucket() *storage.CreateBucket {
+	return &storage.CreateBucket{}
 }
 
-func (x *StorageScanner) ListBuckets() *storage.ListBucketsEntity {
-	return &storage.ListBucketsEntity{}
+func (x *StorageScanner) ListBuckets() *storage.ListBuckets {
+	return &storage.ListBuckets{}
 }
 
-func (x *StorageScanner) PutObject() *storage.PutObjectEntity {
+func (x *StorageScanner) PutObject() *storage.PutObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
 	fmt.Print("content >")
 	x.scanner.Scan()
 	content := x.scanner.Text()
-	return &storage.PutObjectEntity{
+	return &storage.PutObject{
 		Key:     key,
 		Content: content,
 	}
 }
 
-func (x *StorageScanner) GetObject() *storage.GetObjectEntity {
+func (x *StorageScanner) GetObject() *storage.GetObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
-	return &storage.GetObjectEntity{
+	return &storage.GetObject{
 		Key: key,
 	}
 }
 
-func (x *StorageScanner) DeleteObject() *storage.DeleteObjectEntity {
+func (x *StorageScanner) DeleteObject() *storage.DeleteObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
-	return &storage.DeleteObjectEntity{
+	return &storage.DeleteObject{
 		Key: key,
 	}
 }
 
-func (x *StorageScanner) ListObjects() *storage.ListObjectsEntity {
+func (x *StorageScanner) ListObjects() *storage.ListObjects {
 	fmt.Print("prefix >")
 	x.scanner.Scan()
 	prefix := x.scanner.Text()
-	return &storage.ListObjectsEntity{
+	return &storage.ListObjects{
 		Prefix: prefix,
 	}
 }

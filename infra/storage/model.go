@@ -8,7 +8,7 @@ const (
 	Result_ERR       StorageResult = 2
 )
 
-type CreateBucketEntity struct {
+type CreateBucket struct {
 	Result StorageResult
 }
 
@@ -16,7 +16,7 @@ type Bucket struct {
 	Name string
 }
 
-type ListBucketsEntity struct {
+type ListBuckets struct {
 	Result  StorageResult
 	Buckets []Bucket
 }
@@ -26,24 +26,24 @@ type Object struct {
 	Content string
 }
 
-type PutObjectEntity struct {
+type PutObject struct {
 	Result  StorageResult
 	Key     string
 	Content string
 }
 
-type GetObjectEntity struct {
+type GetObject struct {
 	Result  StorageResult
 	Key     string
 	Content string
 }
 
-type DeleteObjectEntity struct {
+type DeleteObject struct {
 	Result StorageResult
 	Key    string
 }
 
-type ListObjectsEntity struct {
+type ListObjects struct {
 	Result StorageResult
 	Prefix string
 	Keys   []string

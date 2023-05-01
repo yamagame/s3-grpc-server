@@ -16,7 +16,7 @@ func NewStorageService(client StorageInterface) *StorageService {
 }
 
 // CreateBucket implements awsService.ListBuckets
-func (s *StorageService) CreateBucket(req *CreateBucketEntity) (*CreateBucketEntity, error) {
+func (s *StorageService) CreateBucket(req *CreateBucket) (*CreateBucket, error) {
 	err := s.client.CreateBucket()
 	if err != nil {
 		fmt.Println(err)
@@ -28,7 +28,7 @@ func (s *StorageService) CreateBucket(req *CreateBucketEntity) (*CreateBucketEnt
 }
 
 // ListBuckets implements awsService.ListBuckets
-func (s *StorageService) ListBuckets(req *ListBucketsEntity) (*ListBucketsEntity, error) {
+func (s *StorageService) ListBuckets(req *ListBuckets) (*ListBuckets, error) {
 	buckets, err := s.client.ListBuckets()
 	if err != nil {
 		fmt.Println(err)
@@ -41,7 +41,7 @@ func (s *StorageService) ListBuckets(req *ListBucketsEntity) (*ListBucketsEntity
 }
 
 // PutObject implements awsService.PutObject
-func (s *StorageService) PutObject(req *PutObjectEntity) (*PutObjectEntity, error) {
+func (s *StorageService) PutObject(req *PutObject) (*PutObject, error) {
 	err := s.client.PutObjectWithString(req.Key, req.Content)
 	if err != nil {
 		fmt.Println(err)
@@ -53,7 +53,7 @@ func (s *StorageService) PutObject(req *PutObjectEntity) (*PutObjectEntity, erro
 }
 
 // GetObject implements awsService.GetObject
-func (s *StorageService) GetObject(req *GetObjectEntity) (*GetObjectEntity, error) {
+func (s *StorageService) GetObject(req *GetObject) (*GetObject, error) {
 	ret, err := s.client.GetObjectWithString(req.Key)
 	if err != nil {
 		fmt.Println(err)
@@ -66,7 +66,7 @@ func (s *StorageService) GetObject(req *GetObjectEntity) (*GetObjectEntity, erro
 }
 
 // DeleteObject implements awsService.DeleteObject
-func (s *StorageService) DeleteObject(req *DeleteObjectEntity) (*DeleteObjectEntity, error) {
+func (s *StorageService) DeleteObject(req *DeleteObject) (*DeleteObject, error) {
 	err := s.client.DeleteObject(req.Key)
 	if err != nil {
 		fmt.Println(err)
@@ -78,7 +78,7 @@ func (s *StorageService) DeleteObject(req *DeleteObjectEntity) (*DeleteObjectEnt
 }
 
 // ListObjects implements awsService.DeleteObject
-func (s *StorageService) ListObjects(req *ListObjectsEntity) (*ListObjectsEntity, error) {
+func (s *StorageService) ListObjects(req *ListObjects) (*ListObjects, error) {
 	objects, err := s.client.ListObjects(req.Prefix, req.Next)
 	if err != nil {
 		fmt.Println(err)
