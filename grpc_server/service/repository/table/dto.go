@@ -10,7 +10,8 @@ type CreateTable struct {
 
 func (x *CreateTable) Input(req *server.CreateTableRequest) *model.Table {
 	return &model.Table{
-		Title: req.Table.Title,
+		FileID: req.Table.FileId,
+		Title:  req.Table.Title,
 	}
 }
 

@@ -11,7 +11,8 @@ type CreateTableDTO struct {
 func (x *CreateTableDTO) Input(req *model.Table) *server.CreateTableRequest {
 	return &server.CreateTableRequest{
 		Table: &server.Table{
-			Title: req.Title,
+			FileId: req.FileID,
+			Title:  req.Title,
 		},
 	}
 }

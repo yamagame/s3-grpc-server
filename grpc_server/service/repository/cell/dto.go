@@ -10,13 +10,16 @@ type CreateCell struct {
 
 func (x *CreateCell) Input(req *server.CreateCellRequest) *model.Cell {
 	return &model.Cell{
-		Text: req.Cell.Text,
+		TableID: req.Cell.TableId,
+		Row:     req.Cell.Row,
+		Col:     req.Cell.Col,
+		Text:    req.Cell.Text,
 	}
 }
 
 func (x *CreateCell) Output(res *model.Cell) *server.CreateCellResponse {
 	return &server.CreateCellResponse{
-		ID: res.ID,
+		ID: int64(res.ID),
 	}
 }
 
@@ -31,7 +34,6 @@ func (x *ReadCell) Input(req *server.ReadCellRequest) *model.Cell {
 
 func (x *ReadCell) Output(res *model.Cell) *server.ReadCellResponse {
 	return &server.ReadCellResponse{
-		ID: res.ID,
 		Cell: &server.Cell{
 			Text: res.Text,
 		},
@@ -43,7 +45,7 @@ type UpdateCell struct {
 
 func (x *UpdateCell) Input(req *server.UpdateCellRequest) *model.Cell {
 	return &model.Cell{
-		ID:   req.GetID(),
+		ID:   req.Cell.Id,
 		Text: req.Cell.Text,
 	}
 }

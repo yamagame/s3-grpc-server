@@ -18,11 +18,23 @@ func NewKeyInput(scanner *bufio.Scanner) *keyInput {
 }
 
 func (x *keyInput) Create() *model.Cell {
+	fmt.Print("table_id >")
+	x.scanner.Scan()
+	tableID, _ := strconv.Atoi(x.scanner.Text())
+	fmt.Print("row >")
+	x.scanner.Scan()
+	row, _ := strconv.Atoi(x.scanner.Text())
+	fmt.Print("col >")
+	x.scanner.Scan()
+	col, _ := strconv.Atoi(x.scanner.Text())
 	fmt.Print("text >")
 	x.scanner.Scan()
 	text := x.scanner.Text()
 	return &model.Cell{
-		Text: text,
+		TableID: int64(tableID),
+		Row:     int64(row),
+		Col:     int64(col),
+		Text:    text,
 	}
 }
 

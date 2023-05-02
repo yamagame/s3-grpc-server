@@ -33,7 +33,9 @@ service repository {
 }
 
 message File {
-  string filename = 1;
+  int64 id = 1;
+  string filename = 2;
+  repeated Table tables = 3;
 }
 
 message CreateFileRequest {
@@ -71,7 +73,10 @@ message DeleteFileResponse {
 }
 
 message Table {
-  string title = 1;
+  int64 id = 1;
+  int64 file_id = 2;
+  string title = 3;
+  repeated Cell cells = 4;
 }
 
 message CreateTableRequest {
@@ -109,7 +114,11 @@ message DeleteTableResponse {
 }
 
 message Cell {
-  string text = 1;
+  int64 id = 1;
+  int64 row = 2;
+  int64 col = 3;
+  string text = 4;
+  int64 table_id = 5;
 }
 
 message CreateCellRequest {
@@ -125,13 +134,11 @@ message ReadCellRequest {
 }
 
 message ReadCellResponse {
-  int64 ID = 1;
-  Cell cell = 2;
+  Cell cell = 1;
 }
 
 message UpdateCellRequest {
-  int64 ID = 1;
-  Cell cell = 2;
+  Cell cell = 1;
 }
 
 message UpdateCellResponse {

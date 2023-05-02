@@ -11,7 +11,10 @@ type CreateCellDTO struct {
 func (x *CreateCellDTO) Input(req *model.Cell) *server.CreateCellRequest {
 	return &server.CreateCellRequest{
 		Cell: &server.Cell{
-			Text: req.Text,
+			TableId: req.TableID,
+			Row:     req.Row,
+			Col:     req.Col,
+			Text:    req.Text,
 		},
 	}
 }
@@ -33,8 +36,11 @@ func (x *ReadCellDTO) Input(req *model.Cell) *server.ReadCellRequest {
 
 func (x *ReadCellDTO) Output(res *server.ReadCellResponse) *model.Cell {
 	return &model.Cell{
-		ID:   res.GetID(),
-		Text: res.Cell.Text,
+		ID:      res.Cell.Id,
+		Row:     res.Cell.Row,
+		Col:     res.Cell.Col,
+		TableID: res.Cell.TableId,
+		Text:    res.Cell.Text,
 	}
 }
 
@@ -43,8 +49,8 @@ type UpdateCellDTO struct {
 
 func (x *UpdateCellDTO) Input(req *model.Cell) *server.UpdateCellRequest {
 	return &server.UpdateCellRequest{
-		ID: req.ID,
 		Cell: &server.Cell{
+			Id:   req.ID,
 			Text: req.Text,
 		},
 	}

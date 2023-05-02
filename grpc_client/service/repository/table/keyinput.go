@@ -18,11 +18,15 @@ func NewKeyInput(scanner *bufio.Scanner) *keyInput {
 }
 
 func (x *keyInput) Create() *model.Table {
+	fmt.Print("file_id >")
+	x.scanner.Scan()
+	fileID, _ := strconv.Atoi(x.scanner.Text())
 	fmt.Print("title >")
 	x.scanner.Scan()
 	title := x.scanner.Text()
 	return &model.Table{
-		Title: title,
+		FileID: int64(fileID),
+		Title:  title,
 	}
 }
 
