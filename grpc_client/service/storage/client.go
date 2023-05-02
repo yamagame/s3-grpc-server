@@ -16,20 +16,18 @@ type clientDTO struct {
 	listobjects  dto.ListObjectsDTO
 }
 
-type StorageClient struct {
+type storageRepository struct {
 	clientDTO
-	scanner StorageScannerInterface
-	client  server.StorageClient
+	client server.StorageClient
 }
 
-func NewStorageClient(client server.StorageClient, scanner StorageScannerInterface) *StorageClient {
-	return &StorageClient{
-		scanner: scanner,
-		client:  client,
+func NewStorageRepository(client server.StorageClient) *storageRepository {
+	return &storageRepository{
+		client: client,
 	}
 }
 
-func (x *StorageClient) CreateBucket(ctx context.Context) (*model.CreateBucket, error) {
+func (x *storageRepository) CreateBucket(ctx context.Context) (*model.CreateBucket, error) {
 	req := &server.CreateBucketRequest{}
 	res, err := x.client.CreateBucket(ctx, req)
 	if err != nil {
@@ -38,7 +36,7 @@ func (x *StorageClient) CreateBucket(ctx context.Context) (*model.CreateBucket, 
 	return x.createBucket.Output(res), nil
 }
 
-func (x *StorageClient) ListBuckets(ctx context.Context) (*model.ListBuckets, error) {
+func (x *storageRepository) ListBuckets(ctx context.Context) (*model.ListBuckets, error) {
 	req := &server.ListBucketsRequest{}
 	res, err := x.client.ListBuckets(ctx, req)
 	if err != nil {
@@ -47,8 +45,8 @@ func (x *StorageClient) ListBuckets(ctx context.Context) (*model.ListBuckets, er
 	return x.listBuckets.Output(res), nil
 }
 
-func (x *StorageClient) PutObject(ctx context.Context) (*model.PutObject, error) {
-	req := x.putObject.Input(x.scanner.PutObject())
+func (x *storageRepository) PutObject(ctx context.Context, object *model.PutObject) (*model.PutObject, error) {
+	req := x.putObject.Input(object)
 	res, err := x.client.PutObject(ctx, req)
 	if err != nil {
 		return nil, err
@@ -56,8 +54,8 @@ func (x *StorageClient) PutObject(ctx context.Context) (*model.PutObject, error)
 	return x.putObject.Output(res), nil
 }
 
-func (x *StorageClient) GetObject(ctx context.Context) (*model.GetObject, error) {
-	req := x.getObject.Input(x.scanner.GetObject())
+func (x *storageRepository) GetObject(ctx context.Context, object *model.GetObject) (*model.GetObject, error) {
+	req := x.getObject.Input(object)
 	res, err := x.client.GetObject(ctx, req)
 	if err != nil {
 		return nil, err
@@ -65,8 +63,8 @@ func (x *StorageClient) GetObject(ctx context.Context) (*model.GetObject, error)
 	return x.getObject.Output(res), nil
 }
 
-func (x *StorageClient) DeleteObject(ctx context.Context) (*model.DeleteObject, error) {
-	req := x.deleteObject.Input(x.scanner.DeleteObject())
+func (x *storageRepository) DeleteObject(ctx context.Context, object *model.DeleteObject) (*model.DeleteObject, error) {
+	req := x.deleteObject.Input(object)
 	res, err := x.client.DeleteObject(ctx, req)
 	if err != nil {
 		return nil, err
@@ -74,8 +72,8 @@ func (x *StorageClient) DeleteObject(ctx context.Context) (*model.DeleteObject, 
 	return x.deleteObject.Output(res), nil
 }
 
-func (x *StorageClient) ListObjects(ctx context.Context) (*model.ListObjects, error) {
-	req := x.listobjects.Input(x.scanner.ListObjects())
+func (x *storageRepository) ListObjects(ctx context.Context, object *model.ListObjects) (*model.ListObjects, error) {
+	req := x.listobjects.Input(object)
 	res, err := x.client.ListObjects(ctx, req)
 	if err != nil {
 		return nil, err

@@ -4,6 +4,13 @@ import (
 	"gorm.io/gorm"
 )
 
+type CRUDRepositoryInterface[T any] interface {
+	Create(file *T) (*T, error)
+	Read(file *T) (*T, error)
+	Update(file *T) (*T, error)
+	Delete(file *T) (*T, error)
+}
+
 type CRUDRepository[T any] struct {
 	DB *gorm.DB
 }

@@ -1,77 +1,77 @@
 package cell
 
 import (
+	"sample/s3-grpc-server/grpc_client/service/repository"
+	"sample/s3-grpc-server/infra/repository/cell"
 	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type CreateCellDTO struct {
+type CreateCell struct{}
+
+func (x *CreateCell) Domain(req *model.Cell, call func(cell *server.CreateCellRequest) (*server.CreateCellResponse, error)) (*model.Cell, error) {
+	return repository.Domain[model.Cell, server.CreateCellRequest, server.CreateCellResponse](x, req, call)
 }
 
-func (x *CreateCellDTO) Input(req *model.Cell) *server.CreateCellRequest {
+func (x *CreateCell) Input(req *model.Cell) *server.CreateCellRequest {
 	return &server.CreateCellRequest{
-		Cell: &server.Cell{
-			TableId: req.TableID,
-			Row:     req.Row,
-			Col:     req.Col,
-			Text:    req.Text,
-		},
+		Cell: cell.ToInfra(req),
 	}
 }
 
-func (x *CreateCellDTO) Output(res *server.CreateCellResponse) *model.Cell {
+func (x *CreateCell) Output(res *server.CreateCellResponse) *model.Cell {
 	return &model.Cell{
 		ID: res.GetID(),
 	}
 }
 
-type ReadCellDTO struct {
+type ReadCell struct{}
+
+func (x *ReadCell) Domain(req *model.Cell, call func(cell *server.ReadCellRequest) (*server.ReadCellResponse, error)) (*model.Cell, error) {
+	return repository.Domain[model.Cell, server.ReadCellRequest, server.ReadCellResponse](x, req, call)
 }
 
-func (x *ReadCellDTO) Input(req *model.Cell) *server.ReadCellRequest {
+func (x *ReadCell) Input(req *model.Cell) *server.ReadCellRequest {
 	return &server.ReadCellRequest{
 		ID: req.ID,
 	}
 }
 
-func (x *ReadCellDTO) Output(res *server.ReadCellResponse) *model.Cell {
-	return &model.Cell{
-		ID:      res.Cell.Id,
-		Row:     res.Cell.Row,
-		Col:     res.Cell.Col,
-		TableID: res.Cell.TableId,
-		Text:    res.Cell.Text,
-	}
+func (x *ReadCell) Output(res *server.ReadCellResponse) *model.Cell {
+	return cell.ToDomain(res.Cell)
 }
 
-type UpdateCellDTO struct {
+type UpdateCell struct{}
+
+func (x *UpdateCell) Domain(req *model.Cell, call func(cell *server.UpdateCellRequest) (*server.UpdateCellResponse, error)) (*model.Cell, error) {
+	return repository.Domain[model.Cell, server.UpdateCellRequest, server.UpdateCellResponse](x, req, call)
 }
 
-func (x *UpdateCellDTO) Input(req *model.Cell) *server.UpdateCellRequest {
+func (x *UpdateCell) Input(req *model.Cell) *server.UpdateCellRequest {
 	return &server.UpdateCellRequest{
-		Cell: &server.Cell{
-			Id:   req.ID,
-			Text: req.Text,
-		},
+		Cell: cell.ToInfra(req),
 	}
 }
 
-func (x *UpdateCellDTO) Output(res *server.UpdateCellResponse) *model.Cell {
+func (x *UpdateCell) Output(res *server.UpdateCellResponse) *model.Cell {
 	return &model.Cell{
 		ID: res.GetID(),
 	}
 }
 
-type DeleteCellDTO struct {
+type DeleteCell struct{}
+
+func (x *DeleteCell) Domain(req *model.Cell, call func(cell *server.DeleteCellRequest) (*server.DeleteCellResponse, error)) (*model.Cell, error) {
+	return repository.Domain[model.Cell, server.DeleteCellRequest, server.DeleteCellResponse](x, req, call)
 }
 
-func (x *DeleteCellDTO) Input(req *model.Cell) *server.DeleteCellRequest {
+func (x *DeleteCell) Input(req *model.Cell) *server.DeleteCellRequest {
 	return &server.DeleteCellRequest{
 		ID: req.ID,
 	}
 }
 
-func (x *DeleteCellDTO) Output(res *server.DeleteCellResponse) *model.Cell {
+func (x *DeleteCell) Output(res *server.DeleteCellResponse) *model.Cell {
 	return &model.Cell{
 		ID: res.GetID(),
 	}

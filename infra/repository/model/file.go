@@ -9,7 +9,7 @@ import (
 type File struct {
 	ID        uint64
 	Filename  string
-	Tables    []Table
+	Tables    []*Table
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`

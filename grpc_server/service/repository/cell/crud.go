@@ -3,6 +3,7 @@ package cell
 import (
 	"context"
 	"sample/s3-grpc-server/infra/repository/cell"
+	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
@@ -26,40 +27,28 @@ func NewCRUDService(repository cell.RepositoryInterface) *CRUDService {
 
 // Create implements RepositoryServer.Create
 func (s *CRUDService) Create(ctx context.Context, in *server.CreateCellRequest) (*server.CreateCellResponse, error) {
-	file := s.create.Input(in)
-	file, err := s.repository.Create(file)
-	if err != nil {
-		return nil, err
-	}
-	return s.create.Output(file), nil
+	return s.create.Domain(in, func(cell *model.Cell) (*model.Cell, error) {
+		return s.repository.Create(cell)
+	})
 }
 
 // Read implements RepositoryServer.Read
 func (s *CRUDService) Read(ctx context.Context, in *server.ReadCellRequest) (*server.ReadCellResponse, error) {
-	file := s.read.Input(in)
-	file, err := s.repository.Read(file)
-	if err != nil {
-		return nil, err
-	}
-	return s.read.Output(file), nil
+	return s.read.Domain(in, func(cell *model.Cell) (*model.Cell, error) {
+		return s.repository.Read(cell)
+	})
 }
 
 // Update implements RepositoryServer.Update
 func (s *CRUDService) Update(ctx context.Context, in *server.UpdateCellRequest) (*server.UpdateCellResponse, error) {
-	file := s.update.Input(in)
-	file, err := s.repository.Update(file)
-	if err != nil {
-		return nil, err
-	}
-	return s.update.Output(file), nil
+	return s.update.Domain(in, func(cell *model.Cell) (*model.Cell, error) {
+		return s.repository.Update(cell)
+	})
 }
 
 // Delete implements RepositoryServer.Delete
 func (s *CRUDService) Delete(ctx context.Context, in *server.DeleteCellRequest) (*server.DeleteCellResponse, error) {
-	file := s.delete.Input(in)
-	file, err := s.repository.Delete(file)
-	if err != nil {
-		return nil, err
-	}
-	return s.delete.Output(file), nil
+	return s.delete.Domain(in, func(cell *model.Cell) (*model.Cell, error) {
+		return s.repository.Delete(cell)
+	})
 }

@@ -16,3 +16,10 @@ func NewRepository(db *gorm.DB) *fileRepository {
 		CRUDRepository: repository.CRUDRepository[model.File]{DB: db},
 	}
 }
+
+func (s *fileRepository) Read(object *model.File) (*model.File, error) {
+	if err := s.DB.Model(&model.File{}).Preload("Tables").Take(object).Error; err != nil {
+		return nil, err
+	}
+	return object, nil
+}

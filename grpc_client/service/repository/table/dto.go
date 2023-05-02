@@ -1,14 +1,19 @@
 package table
 
 import (
+	"sample/s3-grpc-server/grpc_client/service/repository"
 	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type CreateTableDTO struct {
+type CreateTable struct {
 }
 
-func (x *CreateTableDTO) Input(req *model.Table) *server.CreateTableRequest {
+func (x *CreateTable) Domain(req *model.Table, call func(req *server.CreateTableRequest) (*server.CreateTableResponse, error)) (*model.Table, error) {
+	return repository.Domain[model.Table, server.CreateTableRequest, server.CreateTableResponse](x, req, call)
+}
+
+func (x *CreateTable) Input(req *model.Table) *server.CreateTableRequest {
 	return &server.CreateTableRequest{
 		Table: &server.Table{
 			FileId: req.FileID,
@@ -17,32 +22,47 @@ func (x *CreateTableDTO) Input(req *model.Table) *server.CreateTableRequest {
 	}
 }
 
-func (x *CreateTableDTO) Output(res *server.CreateTableResponse) *model.Table {
+func (x *CreateTable) Output(res *server.CreateTableResponse) *model.Table {
 	return &model.Table{
 		ID: res.GetID(),
 	}
 }
 
-type ReadTableDTO struct {
+type ReadTable struct{}
+
+func (x *ReadTable) Domain(req *model.Table, call func(table *server.ReadTableRequest) (*server.ReadTableResponse, error)) (*model.Table, error) {
+	return repository.Domain[model.Table, server.ReadTableRequest, server.ReadTableResponse](x, req, call)
 }
 
-func (x *ReadTableDTO) Input(req *model.Table) *server.ReadTableRequest {
+func (x *ReadTable) Input(req *model.Table) *server.ReadTableRequest {
 	return &server.ReadTableRequest{
 		ID: req.ID,
 	}
 }
 
-func (x *ReadTableDTO) Output(res *server.ReadTableResponse) *model.Table {
+func (x *ReadTable) Output(res *server.ReadTableResponse) *model.Table {
+	cells := make([]*model.Cell, 0)
+	for _, cell := range res.Table.Cells {
+		cells = append(cells, &model.Cell{
+			Text: cell.Text,
+			Row:  cell.Row,
+			Col:  cell.Col,
+		})
+	}
 	return &model.Table{
 		ID:    res.GetID(),
 		Title: res.Table.Title,
+		Cells: cells,
 	}
 }
 
-type UpdateTableDTO struct {
+type UpdateTable struct{}
+
+func (x *UpdateTable) Domain(req *model.Table, call func(table *server.UpdateTableRequest) (*server.UpdateTableResponse, error)) (*model.Table, error) {
+	return repository.Domain[model.Table, server.UpdateTableRequest, server.UpdateTableResponse](x, req, call)
 }
 
-func (x *UpdateTableDTO) Input(req *model.Table) *server.UpdateTableRequest {
+func (x *UpdateTable) Input(req *model.Table) *server.UpdateTableRequest {
 	return &server.UpdateTableRequest{
 		ID: req.ID,
 		Table: &server.Table{
@@ -51,22 +71,25 @@ func (x *UpdateTableDTO) Input(req *model.Table) *server.UpdateTableRequest {
 	}
 }
 
-func (x *UpdateTableDTO) Output(res *server.UpdateTableResponse) *model.Table {
+func (x *UpdateTable) Output(res *server.UpdateTableResponse) *model.Table {
 	return &model.Table{
 		ID: res.GetID(),
 	}
 }
 
-type DeleteTableDTO struct {
+type DeleteTable struct{}
+
+func (x *DeleteTable) Domain(req *model.Table, call func(table *server.DeleteTableRequest) (*server.DeleteTableResponse, error)) (*model.Table, error) {
+	return repository.Domain[model.Table, server.DeleteTableRequest, server.DeleteTableResponse](x, req, call)
 }
 
-func (x *DeleteTableDTO) Input(req *model.Table) *server.DeleteTableRequest {
+func (x *DeleteTable) Input(req *model.Table) *server.DeleteTableRequest {
 	return &server.DeleteTableRequest{
 		ID: req.ID,
 	}
 }
 
-func (x *DeleteTableDTO) Output(res *server.DeleteTableResponse) *model.Table {
+func (x *DeleteTable) Output(res *server.DeleteTableResponse) *model.Table {
 	return &model.Table{
 		ID: res.GetID(),
 	}

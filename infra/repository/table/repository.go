@@ -18,5 +18,8 @@ func NewRepository(db *gorm.DB) *tableRepository {
 }
 
 func (s *tableRepository) Read(object *model.Table) (*model.Table, error) {
-	return s.CRUDRepository.Read(object)
+	if err := s.DB.Model(&model.Table{}).Preload("Cells").Take(object).Error; err != nil {
+		return nil, err
+	}
+	return object, nil
 }

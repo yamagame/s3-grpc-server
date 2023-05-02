@@ -7,57 +7,43 @@ import (
 )
 
 type clientDTO struct {
-	createTable CreateTableDTO
-	readTable   ReadTableDTO
-	updateTable UpdateTableDTO
-	deleteTable DeleteTableDTO
+	create CreateTable
+	read   ReadTable
+	update UpdateTable
+	delete DeleteTable
 }
 
-type CRUDClient struct {
+type tableRepository struct {
 	clientDTO
-	scanner ScannerInterface
-	client  server.RepositoryClient
+	client server.RepositoryClient
 }
 
-func NewCRUDClient(client server.RepositoryClient, scanner ScannerInterface) *CRUDClient {
-	return &CRUDClient{
-		scanner: scanner,
-		client:  client,
+func NewTableRepository(client server.RepositoryClient) *tableRepository {
+	return &tableRepository{
+		client: client,
 	}
 }
 
-func (x *CRUDClient) Create(ctx context.Context) (*model.Table, error) {
-	req := x.createTable.Input(x.scanner.Create())
-	res, err := x.client.CreateTable(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	return x.createTable.Output(res), nil
+func (x *tableRepository) Create(ctx context.Context, table *model.Table) (*model.Table, error) {
+	return x.create.Domain(table, func(req *server.CreateTableRequest) (*server.CreateTableResponse, error) {
+		return x.client.CreateTable(ctx, req)
+	})
 }
 
-func (x *CRUDClient) Read(ctx context.Context) (*model.Table, error) {
-	req := x.readTable.Input(x.scanner.Read())
-	res, err := x.client.ReadTable(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	return x.readTable.Output(res), nil
+func (x *tableRepository) Read(ctx context.Context, table *model.Table) (*model.Table, error) {
+	return x.read.Domain(table, func(req *server.ReadTableRequest) (*server.ReadTableResponse, error) {
+		return x.client.ReadTable(ctx, req)
+	})
 }
 
-func (x *CRUDClient) Update(ctx context.Context) (*model.Table, error) {
-	req := x.updateTable.Input(x.scanner.Update())
-	res, err := x.client.UpdateTable(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	return x.updateTable.Output(res), nil
+func (x *tableRepository) Update(ctx context.Context, table *model.Table) (*model.Table, error) {
+	return x.update.Domain(table, func(req *server.UpdateTableRequest) (*server.UpdateTableResponse, error) {
+		return x.client.UpdateTable(ctx, req)
+	})
 }
 
-func (x *CRUDClient) Delete(ctx context.Context) (*model.Table, error) {
-	req := x.deleteTable.Input(x.scanner.Delete())
-	res, err := x.client.DeleteTable(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	return x.deleteTable.Output(res), nil
+func (x *tableRepository) Delete(ctx context.Context, table *model.Table) (*model.Table, error) {
+	return x.delete.Domain(table, func(req *server.DeleteTableRequest) (*server.DeleteTableResponse, error) {
+		return x.client.DeleteTable(ctx, req)
+	})
 }

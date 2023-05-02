@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 
-	"sample/s3-grpc-server/grpc_client/service"
 	"sample/s3-grpc-server/grpc_client/service/repository/cell"
 	"sample/s3-grpc-server/grpc_client/service/repository/file"
 	"sample/s3-grpc-server/grpc_client/service/repository/table"
@@ -40,93 +40,117 @@ func main() {
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
-	fileCRUDClient := file.NewCRUDClient(grpc_server.NewRepositoryClient(conn), file.NewKeyInput(keyboard))
-	tableCRUDClient := table.NewCRUDClient(grpc_server.NewRepositoryClient(conn), table.NewKeyInput(keyboard))
-	cellCRUDClient := cell.NewCRUDClient(grpc_server.NewRepositoryClient(conn), cell.NewKeyInput(keyboard))
-	storageClient := storage.NewStorageClient(grpc_server.NewStorageClient(conn), storage.NewKeyInput(keyboard))
-	client := service.NewClient(storageClient, fileCRUDClient, tableCRUDClient, cellCRUDClient)
+	fileRepository := file.NewFileRepository(grpc_server.NewRepositoryClient(conn))
+	tableRepository := table.NewTableRepository(grpc_server.NewRepositoryClient(conn))
+	cellRepository := cell.NewCellRepository(grpc_server.NewRepositoryClient(conn))
+	storageRepository := storage.NewStorageRepository(grpc_server.NewStorageClient(conn))
+
+	fileScanner := file.NewKeyInput(keyboard)
+	tableScanner := table.NewKeyInput(keyboard)
+	cellScanner := cell.NewKeyInput(keyboard)
+	storageScanner := storage.NewKeyInput(keyboard)
 
 	tbl := []struct {
 		name string
 		call func()
 	}{
+		{"", nil},
 		{"CreateBucket", func() {
-			ent, _ := client.CreateBucket(ctx)
+			ent, _ := storageRepository.CreateBucket(ctx)
 			fmt.Println(ent)
 		}},
 		{"ListBuckets", func() {
-			ent, _ := client.ListBuckets(ctx)
+			ent, _ := storageRepository.ListBuckets(ctx)
 			fmt.Println(ent)
 		}},
+		{"", nil},
 		{"PutObject", func() {
-			ent, _ := client.PutObject(ctx)
+			ent, _ := storageRepository.PutObject(ctx, storageScanner.PutObject())
 			fmt.Println(ent)
 		}},
 		{"GetObject", func() {
-			ent, _ := client.GetObject(ctx)
+			ent, _ := storageRepository.GetObject(ctx, storageScanner.GetObject())
 			fmt.Println(ent)
 		}},
 		{"DeleteObject", func() {
-			ent, _ := client.DeleteObject(ctx)
+			ent, _ := storageRepository.DeleteObject(ctx, storageScanner.DeleteObject())
 			fmt.Println(ent)
 		}},
 		{"ListObjects", func() {
-			ent, _ := client.ListObjects(ctx)
+			ent, _ := storageRepository.ListObjects(ctx, storageScanner.ListObjects())
 			fmt.Println(ent)
 		}},
+		{"", nil},
 		{"CreateFile", func() {
-			ent, _ := client.CreateFile(ctx)
+			ent, _ := fileRepository.Create(ctx, fileScanner.Create())
 			fmt.Println(ent)
 		}},
 		{"ReadFile", func() {
-			ent, _ := client.ReadFile(ctx)
+			ent, _ := fileRepository.Read(ctx, fileScanner.Read())
 			fmt.Println(ent)
+			for _, v := range ent.Tables {
+				fmt.Println(v)
+			}
 		}},
 		{"UpdateFile", func() {
-			ent, _ := client.UpdateFile(ctx)
+			ent, _ := fileRepository.Update(ctx, fileScanner.Update())
 			fmt.Println(ent)
 		}},
 		{"DeleteFile", func() {
-			ent, _ := client.DeleteFile(ctx)
+			ent, _ := fileRepository.Delete(ctx, fileScanner.Delete())
 			fmt.Println(ent)
 		}},
+		{"", nil},
 		{"CreateTable", func() {
-			ent, _ := client.CreateTable(ctx)
+			ent, _ := tableRepository.Create(ctx, tableScanner.Create())
 			fmt.Println(ent)
 		}},
 		{"ReadTable", func() {
-			ent, _ := client.ReadTable(ctx)
+			ent, _ := tableRepository.Read(ctx, tableScanner.Read())
 			fmt.Println(ent)
+			for _, v := range ent.Cells {
+				fmt.Println(v)
+			}
 		}},
 		{"UpdateTable", func() {
-			ent, _ := client.UpdateTable(ctx)
+			ent, _ := tableRepository.Update(ctx, tableScanner.Update())
 			fmt.Println(ent)
 		}},
 		{"DeleteTable", func() {
-			ent, _ := client.DeleteTable(ctx)
+			ent, _ := tableRepository.Delete(ctx, tableScanner.Delete())
 			fmt.Println(ent)
 		}},
+		{"", nil},
 		{"CreateCell", func() {
-			ent, _ := client.CreateCell(ctx)
+			ent, _ := cellRepository.Create(ctx, cellScanner.Create())
 			fmt.Println(ent)
 		}},
 		{"ReadCell", func() {
-			ent, _ := client.ReadCell(ctx)
+			ent, _ := cellRepository.Read(ctx, cellScanner.Read())
 			fmt.Println(ent)
 		}},
 		{"UpdateCell", func() {
-			ent, _ := client.UpdateCell(ctx)
+			ent, _ := cellRepository.Update(ctx, cellScanner.Update())
 			fmt.Println(ent)
 		}},
 		{"DeleteCell", func() {
-			ent, _ := client.DeleteCell(ctx)
+			ent, _ := cellRepository.Delete(ctx, cellScanner.Delete())
 			fmt.Println(ent)
 		}},
+		{"", nil},
 	}
 
 	for {
+		n := 1
+		var ids []int
 		for i, v := range tbl {
-			fmt.Printf("%d: %s\n", i+1, v.name)
+			if v.call == nil {
+				fmt.Println(v.name)
+			} else {
+				fmt.Printf("%d: %s\n", n, v.name)
+				n++
+				ids = append(ids, i)
+			}
 		}
 		fmt.Println("?: exit")
 		fmt.Print("please enter >")
@@ -134,8 +158,11 @@ func main() {
 		in := keyboard.Text()
 		skip := false
 		for i, v := range tbl {
-			if fmt.Sprintf("%d", i+1) == in {
-				v.call()
+			id, _ := strconv.Atoi(in)
+			if i == ids[id-1] {
+				if v.call != nil {
+					v.call()
+				}
 				skip = true
 			}
 		}

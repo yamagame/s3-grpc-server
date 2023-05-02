@@ -7,57 +7,43 @@ import (
 )
 
 type clientDTO struct {
-	createCell CreateCellDTO
-	readCell   ReadCellDTO
-	updateCell UpdateCellDTO
-	deleteCell DeleteCellDTO
+	create CreateCell
+	read   ReadCell
+	update UpdateCell
+	delete DeleteCell
 }
 
-type CRUDClient struct {
+type cellRepository struct {
 	clientDTO
-	scanner ScannerInterface
-	client  server.RepositoryClient
+	client server.RepositoryClient
 }
 
-func NewCRUDClient(client server.RepositoryClient, scanner ScannerInterface) *CRUDClient {
-	return &CRUDClient{
-		scanner: scanner,
-		client:  client,
+func NewCellRepository(client server.RepositoryClient) *cellRepository {
+	return &cellRepository{
+		client: client,
 	}
 }
 
-func (x *CRUDClient) Create(ctx context.Context) (*model.Cell, error) {
-	req := x.createCell.Input(x.scanner.Create())
-	res, err := x.client.CreateCell(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	return x.createCell.Output(res), nil
+func (x *cellRepository) Create(ctx context.Context, cell *model.Cell) (*model.Cell, error) {
+	return x.create.Domain(cell, func(cell *server.CreateCellRequest) (*server.CreateCellResponse, error) {
+		return x.client.CreateCell(ctx, cell)
+	})
 }
 
-func (x *CRUDClient) Read(ctx context.Context) (*model.Cell, error) {
-	req := x.readCell.Input(x.scanner.Read())
-	res, err := x.client.ReadCell(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	return x.readCell.Output(res), nil
+func (x *cellRepository) Read(ctx context.Context, cell *model.Cell) (*model.Cell, error) {
+	return x.read.Domain(cell, func(cell *server.ReadCellRequest) (*server.ReadCellResponse, error) {
+		return x.client.ReadCell(ctx, cell)
+	})
 }
 
-func (x *CRUDClient) Update(ctx context.Context) (*model.Cell, error) {
-	req := x.updateCell.Input(x.scanner.Update())
-	res, err := x.client.UpdateCell(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	return x.updateCell.Output(res), nil
+func (x *cellRepository) Update(ctx context.Context, cell *model.Cell) (*model.Cell, error) {
+	return x.update.Domain(cell, func(cell *server.UpdateCellRequest) (*server.UpdateCellResponse, error) {
+		return x.client.UpdateCell(ctx, cell)
+	})
 }
 
-func (x *CRUDClient) Delete(ctx context.Context) (*model.Cell, error) {
-	req := x.deleteCell.Input(x.scanner.Delete())
-	res, err := x.client.DeleteCell(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	return x.deleteCell.Output(res), nil
+func (x *cellRepository) Delete(ctx context.Context, cell *model.Cell) (*model.Cell, error) {
+	return x.delete.Domain(cell, func(cell *server.DeleteCellRequest) (*server.DeleteCellResponse, error) {
+		return x.client.DeleteCell(ctx, cell)
+	})
 }

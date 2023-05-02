@@ -16,7 +16,3 @@ func NewRepository(db *gorm.DB) *cellRepository {
 		CRUDRepository: repository.CRUDRepository[model.Cell]{DB: db},
 	}
 }
-
-func (s *cellRepository) Read(object *model.Cell) (*model.Cell, error) {
-	return s.CRUDRepository.Read(object)
-}
