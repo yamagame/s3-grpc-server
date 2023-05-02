@@ -19,3 +19,18 @@
 - mitmproxy is a free and open source interactive HTTPS proxy.
 
   https://mitmproxy.org/
+
+- mysql asdfインストール
+
+```bash
+$ asdf plugin-add mysql
+$ asdf list-all mysql
+$ asdf install mysql 8.0.32
+$ asdf global mysql 8.0.32 
+```
+
+- mysql TCP接続
+
+```bash
+$ mysql -h localhost --port 3306 --protocol tcp -u root -ppass
+```
