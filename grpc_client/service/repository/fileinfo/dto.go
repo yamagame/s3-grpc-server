@@ -1,14 +1,14 @@
-package dto
+package fileinfo
 
 import (
 	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type CreateFilieInfoDTO struct {
+type CreateFileInfoDTO struct {
 }
 
-func (x *CreateFilieInfoDTO) Input(req *model.FileInfo) *server.CreateFileInfoRequest {
+func (x *CreateFileInfoDTO) Input(req *model.FileInfo) *server.CreateFileInfoRequest {
 	return &server.CreateFileInfoRequest{
 		File: &server.FileInfo{
 			Filename: req.Filename,
@@ -16,7 +16,7 @@ func (x *CreateFilieInfoDTO) Input(req *model.FileInfo) *server.CreateFileInfoRe
 	}
 }
 
-func (x *CreateFilieInfoDTO) Output(res *server.CreateFileInfoResponse) *model.FileInfo {
+func (x *CreateFileInfoDTO) Output(res *server.CreateFileInfoResponse) *model.FileInfo {
 	return &model.FileInfo{
 		ID: res.GetID(),
 	}

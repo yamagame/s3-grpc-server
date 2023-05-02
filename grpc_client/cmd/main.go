@@ -8,7 +8,9 @@ import (
 	"os"
 
 	"sample/s3-grpc-server/grpc_client/service"
+	"sample/s3-grpc-server/grpc_client/service/repository/cell"
 	"sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
+	"sample/s3-grpc-server/grpc_client/service/repository/table"
 	"sample/s3-grpc-server/grpc_client/service/storage"
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
 
@@ -39,8 +41,10 @@ func main() {
 
 	// 3. gRPCクライアントを生成
 	fileInfoClient := fileinfo.NewFileInfoClient(grpc_server.NewRepositoryClient(conn), fileinfo.NewKeyInput(keyboard))
+	tableClient := table.NewTableClient(grpc_server.NewRepositoryClient(conn), table.NewKeyInput(keyboard))
+	cellClient := cell.NewCellClient(grpc_server.NewRepositoryClient(conn), cell.NewKeyInput(keyboard))
 	storageClient := storage.NewStorageClient(grpc_server.NewStorageClient(conn), storage.NewKeyInput(keyboard))
-	client := service.NewClientService(storageClient, fileInfoClient)
+	client := service.NewClientService(storageClient, fileInfoClient, tableClient, cellClient)
 
 	tbl := []struct {
 		name string
@@ -84,6 +88,38 @@ func main() {
 		}},
 		{"DeleteFileInfo", func() {
 			ent, _ := client.DeleteFileInfo(ctx)
+			fmt.Println(ent)
+		}},
+		{"CreateTable", func() {
+			ent, _ := client.CreateTable(ctx)
+			fmt.Println(ent)
+		}},
+		{"ReadTable", func() {
+			ent, _ := client.ReadTable(ctx)
+			fmt.Println(ent)
+		}},
+		{"UpdateTable", func() {
+			ent, _ := client.UpdateTable(ctx)
+			fmt.Println(ent)
+		}},
+		{"DeleteTable", func() {
+			ent, _ := client.DeleteTable(ctx)
+			fmt.Println(ent)
+		}},
+		{"CreateCell", func() {
+			ent, _ := client.CreateCell(ctx)
+			fmt.Println(ent)
+		}},
+		{"ReadCell", func() {
+			ent, _ := client.ReadCell(ctx)
+			fmt.Println(ent)
+		}},
+		{"UpdateCell", func() {
+			ent, _ := client.UpdateCell(ctx)
+			fmt.Println(ent)
+		}},
+		{"DeleteCell", func() {
+			ent, _ := client.DeleteCell(ctx)
 			fmt.Println(ent)
 		}},
 	}

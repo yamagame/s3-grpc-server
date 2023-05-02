@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.21.6
-// source: proto/grpc-server/repository.proto
+// source: proto/grpc_server/repository.proto
 
 package grpc_server
 
@@ -23,6 +23,14 @@ const (
 	Repository_ReadFileInfo_FullMethodName   = "/repository/ReadFileInfo"
 	Repository_UpdateFileInfo_FullMethodName = "/repository/UpdateFileInfo"
 	Repository_DeleteFileInfo_FullMethodName = "/repository/DeleteFileInfo"
+	Repository_CreateTable_FullMethodName    = "/repository/CreateTable"
+	Repository_ReadTable_FullMethodName      = "/repository/ReadTable"
+	Repository_UpdateTable_FullMethodName    = "/repository/UpdateTable"
+	Repository_DeleteTable_FullMethodName    = "/repository/DeleteTable"
+	Repository_CreateCell_FullMethodName     = "/repository/CreateCell"
+	Repository_ReadCell_FullMethodName       = "/repository/ReadCell"
+	Repository_UpdateCell_FullMethodName     = "/repository/UpdateCell"
+	Repository_DeleteCell_FullMethodName     = "/repository/DeleteCell"
 )
 
 // RepositoryClient is the client API for Repository service.
@@ -37,6 +45,22 @@ type RepositoryClient interface {
 	UpdateFileInfo(ctx context.Context, in *UpdateFileInfoRequest, opts ...grpc.CallOption) (*UpdateFileInfoResponse, error)
 	// DeleteFileInfo
 	DeleteFileInfo(ctx context.Context, in *DeleteFileInfoRequest, opts ...grpc.CallOption) (*DeleteFileInfoResponse, error)
+	// CreateTable
+	CreateTable(ctx context.Context, in *CreateTableRequest, opts ...grpc.CallOption) (*CreateTableResponse, error)
+	// ReadTable
+	ReadTable(ctx context.Context, in *ReadTableRequest, opts ...grpc.CallOption) (*ReadTableResponse, error)
+	// UpdateTable
+	UpdateTable(ctx context.Context, in *UpdateTableRequest, opts ...grpc.CallOption) (*UpdateTableResponse, error)
+	// DeleteTable
+	DeleteTable(ctx context.Context, in *DeleteTableRequest, opts ...grpc.CallOption) (*DeleteTableResponse, error)
+	// CreateCell
+	CreateCell(ctx context.Context, in *CreateCellRequest, opts ...grpc.CallOption) (*CreateCellResponse, error)
+	// ReadCell
+	ReadCell(ctx context.Context, in *ReadCellRequest, opts ...grpc.CallOption) (*ReadCellResponse, error)
+	// UpdateCell
+	UpdateCell(ctx context.Context, in *UpdateCellRequest, opts ...grpc.CallOption) (*UpdateCellResponse, error)
+	// DeleteCell
+	DeleteCell(ctx context.Context, in *DeleteCellRequest, opts ...grpc.CallOption) (*DeleteCellResponse, error)
 }
 
 type repositoryClient struct {
@@ -83,6 +107,78 @@ func (c *repositoryClient) DeleteFileInfo(ctx context.Context, in *DeleteFileInf
 	return out, nil
 }
 
+func (c *repositoryClient) CreateTable(ctx context.Context, in *CreateTableRequest, opts ...grpc.CallOption) (*CreateTableResponse, error) {
+	out := new(CreateTableResponse)
+	err := c.cc.Invoke(ctx, Repository_CreateTable_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *repositoryClient) ReadTable(ctx context.Context, in *ReadTableRequest, opts ...grpc.CallOption) (*ReadTableResponse, error) {
+	out := new(ReadTableResponse)
+	err := c.cc.Invoke(ctx, Repository_ReadTable_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *repositoryClient) UpdateTable(ctx context.Context, in *UpdateTableRequest, opts ...grpc.CallOption) (*UpdateTableResponse, error) {
+	out := new(UpdateTableResponse)
+	err := c.cc.Invoke(ctx, Repository_UpdateTable_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *repositoryClient) DeleteTable(ctx context.Context, in *DeleteTableRequest, opts ...grpc.CallOption) (*DeleteTableResponse, error) {
+	out := new(DeleteTableResponse)
+	err := c.cc.Invoke(ctx, Repository_DeleteTable_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *repositoryClient) CreateCell(ctx context.Context, in *CreateCellRequest, opts ...grpc.CallOption) (*CreateCellResponse, error) {
+	out := new(CreateCellResponse)
+	err := c.cc.Invoke(ctx, Repository_CreateCell_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *repositoryClient) ReadCell(ctx context.Context, in *ReadCellRequest, opts ...grpc.CallOption) (*ReadCellResponse, error) {
+	out := new(ReadCellResponse)
+	err := c.cc.Invoke(ctx, Repository_ReadCell_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *repositoryClient) UpdateCell(ctx context.Context, in *UpdateCellRequest, opts ...grpc.CallOption) (*UpdateCellResponse, error) {
+	out := new(UpdateCellResponse)
+	err := c.cc.Invoke(ctx, Repository_UpdateCell_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *repositoryClient) DeleteCell(ctx context.Context, in *DeleteCellRequest, opts ...grpc.CallOption) (*DeleteCellResponse, error) {
+	out := new(DeleteCellResponse)
+	err := c.cc.Invoke(ctx, Repository_DeleteCell_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RepositoryServer is the server API for Repository service.
 // All implementations must embed UnimplementedRepositoryServer
 // for forward compatibility
@@ -95,6 +191,22 @@ type RepositoryServer interface {
 	UpdateFileInfo(context.Context, *UpdateFileInfoRequest) (*UpdateFileInfoResponse, error)
 	// DeleteFileInfo
 	DeleteFileInfo(context.Context, *DeleteFileInfoRequest) (*DeleteFileInfoResponse, error)
+	// CreateTable
+	CreateTable(context.Context, *CreateTableRequest) (*CreateTableResponse, error)
+	// ReadTable
+	ReadTable(context.Context, *ReadTableRequest) (*ReadTableResponse, error)
+	// UpdateTable
+	UpdateTable(context.Context, *UpdateTableRequest) (*UpdateTableResponse, error)
+	// DeleteTable
+	DeleteTable(context.Context, *DeleteTableRequest) (*DeleteTableResponse, error)
+	// CreateCell
+	CreateCell(context.Context, *CreateCellRequest) (*CreateCellResponse, error)
+	// ReadCell
+	ReadCell(context.Context, *ReadCellRequest) (*ReadCellResponse, error)
+	// UpdateCell
+	UpdateCell(context.Context, *UpdateCellRequest) (*UpdateCellResponse, error)
+	// DeleteCell
+	DeleteCell(context.Context, *DeleteCellRequest) (*DeleteCellResponse, error)
 	mustEmbedUnimplementedRepositoryServer()
 }
 
@@ -113,6 +225,30 @@ func (UnimplementedRepositoryServer) UpdateFileInfo(context.Context, *UpdateFile
 }
 func (UnimplementedRepositoryServer) DeleteFileInfo(context.Context, *DeleteFileInfoRequest) (*DeleteFileInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFileInfo not implemented")
+}
+func (UnimplementedRepositoryServer) CreateTable(context.Context, *CreateTableRequest) (*CreateTableResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTable not implemented")
+}
+func (UnimplementedRepositoryServer) ReadTable(context.Context, *ReadTableRequest) (*ReadTableResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadTable not implemented")
+}
+func (UnimplementedRepositoryServer) UpdateTable(context.Context, *UpdateTableRequest) (*UpdateTableResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTable not implemented")
+}
+func (UnimplementedRepositoryServer) DeleteTable(context.Context, *DeleteTableRequest) (*DeleteTableResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTable not implemented")
+}
+func (UnimplementedRepositoryServer) CreateCell(context.Context, *CreateCellRequest) (*CreateCellResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCell not implemented")
+}
+func (UnimplementedRepositoryServer) ReadCell(context.Context, *ReadCellRequest) (*ReadCellResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadCell not implemented")
+}
+func (UnimplementedRepositoryServer) UpdateCell(context.Context, *UpdateCellRequest) (*UpdateCellResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCell not implemented")
+}
+func (UnimplementedRepositoryServer) DeleteCell(context.Context, *DeleteCellRequest) (*DeleteCellResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCell not implemented")
 }
 func (UnimplementedRepositoryServer) mustEmbedUnimplementedRepositoryServer() {}
 
@@ -199,6 +335,150 @@ func _Repository_DeleteFileInfo_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Repository_CreateTable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTableRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RepositoryServer).CreateTable(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Repository_CreateTable_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RepositoryServer).CreateTable(ctx, req.(*CreateTableRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Repository_ReadTable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadTableRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RepositoryServer).ReadTable(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Repository_ReadTable_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RepositoryServer).ReadTable(ctx, req.(*ReadTableRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Repository_UpdateTable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTableRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RepositoryServer).UpdateTable(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Repository_UpdateTable_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RepositoryServer).UpdateTable(ctx, req.(*UpdateTableRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Repository_DeleteTable_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTableRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RepositoryServer).DeleteTable(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Repository_DeleteTable_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RepositoryServer).DeleteTable(ctx, req.(*DeleteTableRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Repository_CreateCell_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCellRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RepositoryServer).CreateCell(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Repository_CreateCell_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RepositoryServer).CreateCell(ctx, req.(*CreateCellRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Repository_ReadCell_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadCellRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RepositoryServer).ReadCell(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Repository_ReadCell_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RepositoryServer).ReadCell(ctx, req.(*ReadCellRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Repository_UpdateCell_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCellRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RepositoryServer).UpdateCell(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Repository_UpdateCell_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RepositoryServer).UpdateCell(ctx, req.(*UpdateCellRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Repository_DeleteCell_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCellRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RepositoryServer).DeleteCell(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Repository_DeleteCell_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RepositoryServer).DeleteCell(ctx, req.(*DeleteCellRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Repository_ServiceDesc is the grpc.ServiceDesc for Repository service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -222,7 +502,39 @@ var Repository_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "DeleteFileInfo",
 			Handler:    _Repository_DeleteFileInfo_Handler,
 		},
+		{
+			MethodName: "CreateTable",
+			Handler:    _Repository_CreateTable_Handler,
+		},
+		{
+			MethodName: "ReadTable",
+			Handler:    _Repository_ReadTable_Handler,
+		},
+		{
+			MethodName: "UpdateTable",
+			Handler:    _Repository_UpdateTable_Handler,
+		},
+		{
+			MethodName: "DeleteTable",
+			Handler:    _Repository_DeleteTable_Handler,
+		},
+		{
+			MethodName: "CreateCell",
+			Handler:    _Repository_CreateCell_Handler,
+		},
+		{
+			MethodName: "ReadCell",
+			Handler:    _Repository_ReadCell_Handler,
+		},
+		{
+			MethodName: "UpdateCell",
+			Handler:    _Repository_UpdateCell_Handler,
+		},
+		{
+			MethodName: "DeleteCell",
+			Handler:    _Repository_DeleteCell_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/grpc-server/repository.proto",
+	Metadata: "proto/grpc_server/repository.proto",
 }

@@ -8,7 +8,7 @@ import (
 )
 
 type serverDTO struct {
-	createFileInfo dto.CreateFilieInfo
+	createFileInfo dto.CreateFileInfo
 	readFileInfo   dto.ReadFileInfo
 	updateFileInfo dto.UpdateFileInfo
 	deleteFileInfo dto.DeleteFileInfo
@@ -26,40 +26,40 @@ func NewFileInfoServer(service fileinfo.RepositoryInterface) *FileInfoServer {
 	}
 }
 
-// CreateFileInfo implements RepositoryServer.CreateFileInfo
-func (s *FileInfoServer) CreateFileInfo(ctx context.Context, in *server.CreateFileInfoRequest) (*server.CreateFileInfoResponse, error) {
+// Create implements RepositoryServer.Create
+func (s *FileInfoServer) Create(ctx context.Context, in *server.CreateFileInfoRequest) (*server.CreateFileInfoResponse, error) {
 	fileInfo := s.createFileInfo.Input(in)
-	fileInfo, err := s.service.CreateFileInfo(fileInfo)
+	fileInfo, err := s.service.Create(fileInfo)
 	if err != nil {
 		return nil, err
 	}
 	return s.createFileInfo.Output(fileInfo), nil
 }
 
-// ReadFileInfo implements RepositoryServer.ReadFileInfo
-func (s *FileInfoServer) ReadFileInfo(ctx context.Context, in *server.ReadFileInfoRequest) (*server.ReadFileInfoResponse, error) {
+// Read implements RepositoryServer.Read
+func (s *FileInfoServer) Read(ctx context.Context, in *server.ReadFileInfoRequest) (*server.ReadFileInfoResponse, error) {
 	fileInfo := s.readFileInfo.Input(in)
-	fileInfo, err := s.service.ReadFileInfo(fileInfo)
+	fileInfo, err := s.service.Read(fileInfo)
 	if err != nil {
 		return nil, err
 	}
 	return s.readFileInfo.Output(fileInfo), nil
 }
 
-// UpdateFileInfo implements RepositoryServer.UpdateFileInfo
-func (s *FileInfoServer) UpdateFileInfo(ctx context.Context, in *server.UpdateFileInfoRequest) (*server.UpdateFileInfoResponse, error) {
+// Update implements RepositoryServer.Update
+func (s *FileInfoServer) Update(ctx context.Context, in *server.UpdateFileInfoRequest) (*server.UpdateFileInfoResponse, error) {
 	fileInfo := s.updateFileInfo.Input(in)
-	fileInfo, err := s.service.UpdateFileInfo(fileInfo)
+	fileInfo, err := s.service.Update(fileInfo)
 	if err != nil {
 		return nil, err
 	}
 	return s.updateFileInfo.Output(fileInfo), nil
 }
 
-// DeleteFileInfo implements RepositoryServer.DeleteFileInfo
-func (s *FileInfoServer) DeleteFileInfo(ctx context.Context, in *server.DeleteFileInfoRequest) (*server.DeleteFileInfoResponse, error) {
+// Delete implements RepositoryServer.Delete
+func (s *FileInfoServer) Delete(ctx context.Context, in *server.DeleteFileInfoRequest) (*server.DeleteFileInfoResponse, error) {
 	fileInfo := s.deleteFileInfo.Input(in)
-	fileInfo, err := s.service.DeleteFileInfo(fileInfo)
+	fileInfo, err := s.service.Delete(fileInfo)
 	if err != nil {
 		return nil, err
 	}

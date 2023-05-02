@@ -1,4 +1,4 @@
-package fileinfo
+package table
 
 import (
 	"bufio"
@@ -17,42 +17,42 @@ func NewKeyInput(scanner *bufio.Scanner) *keyInput {
 	}
 }
 
-func (x *keyInput) CreateFileInfo() *model.FileInfo {
-	fmt.Print("filename >")
+func (x *keyInput) CreateTable() *model.Table {
+	fmt.Print("title >")
 	x.scanner.Scan()
-	filename := x.scanner.Text()
-	return &model.FileInfo{
-		Filename: filename,
+	title := x.scanner.Text()
+	return &model.Table{
+		Title: title,
 	}
 }
 
-func (x *keyInput) ReadFileInfo() *model.FileInfo {
+func (x *keyInput) ReadTable() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
-	return &model.FileInfo{
+	return &model.Table{
 		ID: int64(id),
 	}
 }
 
-func (x *keyInput) UpdateFileInfo() *model.FileInfo {
+func (x *keyInput) UpdateTable() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
-	fmt.Print("filename >")
+	fmt.Print("title >")
 	x.scanner.Scan()
-	filename := x.scanner.Text()
-	return &model.FileInfo{
-		ID:       int64(id),
-		Filename: filename,
+	title := x.scanner.Text()
+	return &model.Table{
+		ID:    int64(id),
+		Title: title,
 	}
 }
 
-func (x *keyInput) DeleteFileInfo() *model.FileInfo {
+func (x *keyInput) DeleteTable() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
-	return &model.FileInfo{
+	return &model.Table{
 		ID: int64(id),
 	}
 }

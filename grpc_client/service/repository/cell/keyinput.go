@@ -1,4 +1,4 @@
-package fileinfo
+package cell
 
 import (
 	"bufio"
@@ -17,42 +17,42 @@ func NewKeyInput(scanner *bufio.Scanner) *keyInput {
 	}
 }
 
-func (x *keyInput) CreateFileInfo() *model.FileInfo {
-	fmt.Print("filename >")
+func (x *keyInput) CreateCell() *model.Cell {
+	fmt.Print("text >")
 	x.scanner.Scan()
-	filename := x.scanner.Text()
-	return &model.FileInfo{
-		Filename: filename,
+	text := x.scanner.Text()
+	return &model.Cell{
+		Text: text,
 	}
 }
 
-func (x *keyInput) ReadFileInfo() *model.FileInfo {
+func (x *keyInput) ReadCell() *model.Cell {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
-	return &model.FileInfo{
+	return &model.Cell{
 		ID: int64(id),
 	}
 }
 
-func (x *keyInput) UpdateFileInfo() *model.FileInfo {
+func (x *keyInput) UpdateCell() *model.Cell {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
-	fmt.Print("filename >")
+	fmt.Print("text >")
 	x.scanner.Scan()
-	filename := x.scanner.Text()
-	return &model.FileInfo{
-		ID:       int64(id),
-		Filename: filename,
+	text := x.scanner.Text()
+	return &model.Cell{
+		ID:   int64(id),
+		Text: text,
 	}
 }
 
-func (x *keyInput) DeleteFileInfo() *model.FileInfo {
+func (x *keyInput) DeleteCell() *model.Cell {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
-	return &model.FileInfo{
+	return &model.Cell{
 		ID: int64(id),
 	}
 }

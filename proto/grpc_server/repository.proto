@@ -12,6 +12,24 @@ service repository {
   rpc UpdateFileInfo(UpdateFileInfoRequest) returns (UpdateFileInfoResponse) {}
   // DeleteFileInfo
   rpc DeleteFileInfo(DeleteFileInfoRequest) returns (DeleteFileInfoResponse) {}
+
+  // CreateTable
+  rpc CreateTable(CreateTableRequest) returns (CreateTableResponse) {}
+  // ReadTable
+  rpc ReadTable(ReadTableRequest) returns (ReadTableResponse) {}
+  // UpdateTable
+  rpc UpdateTable(UpdateTableRequest) returns (UpdateTableResponse) {}
+  // DeleteTable
+  rpc DeleteTable(DeleteTableRequest) returns (DeleteTableResponse) {}
+
+  // CreateCell
+  rpc CreateCell(CreateCellRequest) returns (CreateCellResponse) {}
+  // ReadCell
+  rpc ReadCell(ReadCellRequest) returns (ReadCellResponse) {}
+  // UpdateCell
+  rpc UpdateCell(UpdateCellRequest) returns (UpdateCellResponse) {}
+  // DeleteCell
+  rpc DeleteCell(DeleteCellRequest) returns (DeleteCellResponse) {}
 }
 
 message FileInfo {
@@ -49,5 +67,81 @@ message DeleteFileInfoRequest {
 }
 
 message DeleteFileInfoResponse {
+  int64 ID = 1;
+}
+
+message Table {
+  string title = 1;
+}
+
+message CreateTableRequest {
+  Table table = 1;
+}
+
+message CreateTableResponse {
+  int64 ID = 1;
+}
+
+message ReadTableRequest {
+  int64 ID = 1;
+}
+
+message ReadTableResponse {
+  int64 ID = 1;
+  Table table = 2;
+}
+
+message UpdateTableRequest {
+  int64 ID = 1;
+  Table table = 2;
+}
+
+message UpdateTableResponse {
+  int64 ID = 1;
+}
+
+message DeleteTableRequest {
+  int64 ID = 1;
+}
+
+message DeleteTableResponse {
+  int64 ID = 1;
+}
+
+message Cell {
+  string text = 1;
+}
+
+message CreateCellRequest {
+  Cell cell = 1;
+}
+
+message CreateCellResponse {
+  int64 ID = 1;
+}
+
+message ReadCellRequest {
+  int64 ID = 1;
+}
+
+message ReadCellResponse {
+  int64 ID = 1;
+  Cell cell = 2;
+}
+
+message UpdateCellRequest {
+  int64 ID = 1;
+  Cell cell = 2;
+}
+
+message UpdateCellResponse {
+  int64 ID = 1;
+}
+
+message DeleteCellRequest {
+  int64 ID = 1;
+}
+
+message DeleteCellResponse {
   int64 ID = 1;
 }

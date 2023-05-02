@@ -5,16 +5,16 @@ import (
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type CreateFilieInfo struct {
+type CreateFileInfo struct {
 }
 
-func (x *CreateFilieInfo) Input(req *server.CreateFileInfoRequest) *model.FileInfo {
+func (x *CreateFileInfo) Input(req *server.CreateFileInfoRequest) *model.FileInfo {
 	return &model.FileInfo{
 		Filename: req.File.Filename,
 	}
 }
 
-func (x *CreateFilieInfo) Output(res *model.FileInfo) *server.CreateFileInfoResponse {
+func (x *CreateFileInfo) Output(res *model.FileInfo) *server.CreateFileInfoResponse {
 	return &server.CreateFileInfoResponse{}
 }
 

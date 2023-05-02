@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.28.1
 // 	protoc        v3.21.6
-// source: proto/grpc-server/repository.proto
+// source: proto/grpc_server/repository.proto
 
 package grpc_server
 
@@ -459,10 +459,888 @@ func (x *DeleteFileInfoResponse) GetID() int64 {
 	return 0
 }
 
+type Table struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+}
+
+func (x *Table) Reset() {
+	*x = Table{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Table) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Table) ProtoMessage() {}
+
+func (x *Table) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Table.ProtoReflect.Descriptor instead.
+func (*Table) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *Table) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+type CreateTableRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Table *Table `protobuf:"bytes,1,opt,name=table,proto3" json:"table,omitempty"`
+}
+
+func (x *CreateTableRequest) Reset() {
+	*x = CreateTableRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateTableRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateTableRequest) ProtoMessage() {}
+
+func (x *CreateTableRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateTableRequest.ProtoReflect.Descriptor instead.
+func (*CreateTableRequest) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *CreateTableRequest) GetTable() *Table {
+	if x != nil {
+		return x.Table
+	}
+	return nil
+}
+
+type CreateTableResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *CreateTableResponse) Reset() {
+	*x = CreateTableResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateTableResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateTableResponse) ProtoMessage() {}
+
+func (x *CreateTableResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateTableResponse.ProtoReflect.Descriptor instead.
+func (*CreateTableResponse) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *CreateTableResponse) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type ReadTableRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *ReadTableRequest) Reset() {
+	*x = ReadTableRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReadTableRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadTableRequest) ProtoMessage() {}
+
+func (x *ReadTableRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadTableRequest.ProtoReflect.Descriptor instead.
+func (*ReadTableRequest) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *ReadTableRequest) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type ReadTableResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID    int64  `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	Table *Table `protobuf:"bytes,2,opt,name=table,proto3" json:"table,omitempty"`
+}
+
+func (x *ReadTableResponse) Reset() {
+	*x = ReadTableResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReadTableResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadTableResponse) ProtoMessage() {}
+
+func (x *ReadTableResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadTableResponse.ProtoReflect.Descriptor instead.
+func (*ReadTableResponse) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *ReadTableResponse) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+func (x *ReadTableResponse) GetTable() *Table {
+	if x != nil {
+		return x.Table
+	}
+	return nil
+}
+
+type UpdateTableRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID    int64  `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	Table *Table `protobuf:"bytes,2,opt,name=table,proto3" json:"table,omitempty"`
+}
+
+func (x *UpdateTableRequest) Reset() {
+	*x = UpdateTableRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateTableRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTableRequest) ProtoMessage() {}
+
+func (x *UpdateTableRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTableRequest.ProtoReflect.Descriptor instead.
+func (*UpdateTableRequest) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *UpdateTableRequest) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+func (x *UpdateTableRequest) GetTable() *Table {
+	if x != nil {
+		return x.Table
+	}
+	return nil
+}
+
+type UpdateTableResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *UpdateTableResponse) Reset() {
+	*x = UpdateTableResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateTableResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTableResponse) ProtoMessage() {}
+
+func (x *UpdateTableResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTableResponse.ProtoReflect.Descriptor instead.
+func (*UpdateTableResponse) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *UpdateTableResponse) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type DeleteTableRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *DeleteTableRequest) Reset() {
+	*x = DeleteTableRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteTableRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteTableRequest) ProtoMessage() {}
+
+func (x *DeleteTableRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteTableRequest.ProtoReflect.Descriptor instead.
+func (*DeleteTableRequest) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *DeleteTableRequest) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type DeleteTableResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *DeleteTableResponse) Reset() {
+	*x = DeleteTableResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteTableResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteTableResponse) ProtoMessage() {}
+
+func (x *DeleteTableResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteTableResponse.ProtoReflect.Descriptor instead.
+func (*DeleteTableResponse) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *DeleteTableResponse) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type Cell struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Text string `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+}
+
+func (x *Cell) Reset() {
+	*x = Cell{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Cell) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Cell) ProtoMessage() {}
+
+func (x *Cell) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Cell.ProtoReflect.Descriptor instead.
+func (*Cell) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *Cell) GetText() string {
+	if x != nil {
+		return x.Text
+	}
+	return ""
+}
+
+type CreateCellRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Cell *Cell `protobuf:"bytes,1,opt,name=cell,proto3" json:"cell,omitempty"`
+}
+
+func (x *CreateCellRequest) Reset() {
+	*x = CreateCellRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateCellRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCellRequest) ProtoMessage() {}
+
+func (x *CreateCellRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCellRequest.ProtoReflect.Descriptor instead.
+func (*CreateCellRequest) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *CreateCellRequest) GetCell() *Cell {
+	if x != nil {
+		return x.Cell
+	}
+	return nil
+}
+
+type CreateCellResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *CreateCellResponse) Reset() {
+	*x = CreateCellResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateCellResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCellResponse) ProtoMessage() {}
+
+func (x *CreateCellResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCellResponse.ProtoReflect.Descriptor instead.
+func (*CreateCellResponse) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *CreateCellResponse) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type ReadCellRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *ReadCellRequest) Reset() {
+	*x = ReadCellRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReadCellRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadCellRequest) ProtoMessage() {}
+
+func (x *ReadCellRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadCellRequest.ProtoReflect.Descriptor instead.
+func (*ReadCellRequest) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *ReadCellRequest) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type ReadCellResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID   int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	Cell *Cell `protobuf:"bytes,2,opt,name=cell,proto3" json:"cell,omitempty"`
+}
+
+func (x *ReadCellResponse) Reset() {
+	*x = ReadCellResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReadCellResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadCellResponse) ProtoMessage() {}
+
+func (x *ReadCellResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadCellResponse.ProtoReflect.Descriptor instead.
+func (*ReadCellResponse) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *ReadCellResponse) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+func (x *ReadCellResponse) GetCell() *Cell {
+	if x != nil {
+		return x.Cell
+	}
+	return nil
+}
+
+type UpdateCellRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID   int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	Cell *Cell `protobuf:"bytes,2,opt,name=cell,proto3" json:"cell,omitempty"`
+}
+
+func (x *UpdateCellRequest) Reset() {
+	*x = UpdateCellRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateCellRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCellRequest) ProtoMessage() {}
+
+func (x *UpdateCellRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCellRequest.ProtoReflect.Descriptor instead.
+func (*UpdateCellRequest) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *UpdateCellRequest) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+func (x *UpdateCellRequest) GetCell() *Cell {
+	if x != nil {
+		return x.Cell
+	}
+	return nil
+}
+
+type UpdateCellResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *UpdateCellResponse) Reset() {
+	*x = UpdateCellResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateCellResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCellResponse) ProtoMessage() {}
+
+func (x *UpdateCellResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCellResponse.ProtoReflect.Descriptor instead.
+func (*UpdateCellResponse) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *UpdateCellResponse) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type DeleteCellRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *DeleteCellRequest) Reset() {
+	*x = DeleteCellRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteCellRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteCellRequest) ProtoMessage() {}
+
+func (x *DeleteCellRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteCellRequest.ProtoReflect.Descriptor instead.
+func (*DeleteCellRequest) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *DeleteCellRequest) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
+type DeleteCellResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (x *DeleteCellResponse) Reset() {
+	*x = DeleteCellResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_repository_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteCellResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteCellResponse) ProtoMessage() {}
+
+func (x *DeleteCellResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_repository_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteCellResponse.ProtoReflect.Descriptor instead.
+func (*DeleteCellResponse) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *DeleteCellResponse) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
+}
+
 var File_proto_grpc_server_repository_proto protoreflect.FileDescriptor
 
 var file_proto_grpc_server_repository_proto_rawDesc = []byte{
-	0x0a, 0x22, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x73, 0x65, 0x72,
+	0x0a, 0x22, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x65, 0x72,
 	0x76, 0x65, 0x72, 0x2f, 0x72, 0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x6f, 0x72, 0x79, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x26, 0x0a, 0x08, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f,
 	0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
@@ -492,26 +1370,105 @@ var file_proto_grpc_server_repository_proto_rawDesc = []byte{
 	0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x28, 0x0a, 0x16, 0x44, 0x65, 0x6c, 0x65, 0x74,
 	0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49,
-	0x44, 0x32, 0x9a, 0x02, 0x0a, 0x0a, 0x72, 0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x6f, 0x72, 0x79,
-	0x12, 0x43, 0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e,
-	0x66, 0x6f, 0x12, 0x16, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49,
-	0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x3d, 0x0a, 0x0c, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c,
-	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x14, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65,
-	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x52, 0x65,
-	0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x00, 0x12, 0x43, 0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69,
-	0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x16, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46,
-	0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17,
-	0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x43, 0x0a, 0x0e, 0x44, 0x65, 0x6c,
-	0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x16, 0x2e, 0x44, 0x65,
-	0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65,
-	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x14,
-	0x5a, 0x12, 0x73, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x73, 0x65,
-	0x72, 0x76, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x44, 0x22, 0x1d, 0x0a, 0x05, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69,
+	0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
+	0x22, 0x32, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x05, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x06, 0x2e, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x05, 0x74,
+	0x61, 0x62, 0x6c, 0x65, 0x22, 0x25, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x61,
+	0x62, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49,
+	0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x22, 0x0a, 0x10, 0x52,
+	0x65, 0x61, 0x64, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22,
+	0x41, 0x0a, 0x11, 0x52, 0x65, 0x61, 0x64, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x02, 0x49, 0x44, 0x12, 0x1c, 0x0a, 0x05, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x06, 0x2e, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x05, 0x74, 0x61, 0x62,
+	0x6c, 0x65, 0x22, 0x42, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x12, 0x1c, 0x0a, 0x05, 0x74, 0x61, 0x62, 0x6c,
+	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x06, 0x2e, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52,
+	0x05, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x22, 0x25, 0x0a, 0x13, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a,
+	0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x24, 0x0a,
+	0x12, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x02, 0x49, 0x44, 0x22, 0x25, 0x0a, 0x13, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x54, 0x61, 0x62,
+	0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x1a, 0x0a, 0x04, 0x43, 0x65,
+	0x6c, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x65, 0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x04, 0x74, 0x65, 0x78, 0x74, 0x22, 0x2e, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x04, 0x63,
+	0x65, 0x6c, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x05, 0x2e, 0x43, 0x65, 0x6c, 0x6c,
+	0x52, 0x04, 0x63, 0x65, 0x6c, 0x6c, 0x22, 0x24, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02,
+	0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x21, 0x0a, 0x0f,
+	0x52, 0x65, 0x61, 0x64, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22,
+	0x3d, 0x0a, 0x10, 0x52, 0x65, 0x61, 0x64, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x02, 0x49, 0x44, 0x12, 0x19, 0x0a, 0x04, 0x63, 0x65, 0x6c, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x05, 0x2e, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x04, 0x63, 0x65, 0x6c, 0x6c, 0x22, 0x3e,
+	0x0a, 0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x02, 0x49, 0x44, 0x12, 0x19, 0x0a, 0x04, 0x63, 0x65, 0x6c, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x05, 0x2e, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x04, 0x63, 0x65, 0x6c, 0x6c, 0x22, 0x24,
+	0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x02, 0x49, 0x44, 0x22, 0x23, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x65,
+	0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x24, 0x0a, 0x12, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x32,
+	0xe2, 0x05, 0x0a, 0x0a, 0x72, 0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x6f, 0x72, 0x79, 0x12, 0x43,
+	0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f,
+	0x12, 0x16, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66,
+	0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x12, 0x3d, 0x0a, 0x0c, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x49,
+	0x6e, 0x66, 0x6f, 0x12, 0x14, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e,
+	0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x52, 0x65, 0x61, 0x64,
+	0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x00, 0x12, 0x43, 0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65,
+	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x16, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c,
+	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x43, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x16, 0x2e, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x17, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e,
+	0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x3a, 0x0a, 0x0b,
+	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x13, 0x2e, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x14, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x34, 0x0a, 0x09, 0x52, 0x65, 0x61, 0x64,
+	0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x11, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x54, 0x61, 0x62, 0x6c,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x54,
+	0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x3a,
+	0x0a, 0x0b, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x13, 0x2e,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x14, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x3a, 0x0a, 0x0b, 0x44, 0x65,
+	0x6c, 0x65, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x13, 0x2e, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14,
+	0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x37, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x43, 0x65, 0x6c, 0x6c, 0x12, 0x12, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x65, 0x6c,
+	0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
+	0x31, 0x0a, 0x08, 0x52, 0x65, 0x61, 0x64, 0x43, 0x65, 0x6c, 0x6c, 0x12, 0x10, 0x2e, 0x52, 0x65,
+	0x61, 0x64, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e,
+	0x52, 0x65, 0x61, 0x64, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x00, 0x12, 0x37, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c,
+	0x12, 0x12, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x65, 0x6c,
+	0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x37, 0x0a, 0x0a, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c, 0x12, 0x12, 0x2e, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e,
+	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0x00, 0x42, 0x14, 0x5a, 0x12, 0x73, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x2f, 0x67,
+	0x72, 0x70, 0x63, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -526,7 +1483,7 @@ func file_proto_grpc_server_repository_proto_rawDescGZIP() []byte {
 	return file_proto_grpc_server_repository_proto_rawDescData
 }
 
-var file_proto_grpc_server_repository_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_proto_grpc_server_repository_proto_msgTypes = make([]protoimpl.MessageInfo, 27)
 var file_proto_grpc_server_repository_proto_goTypes = []interface{}{
 	(*FileInfo)(nil),               // 0: FileInfo
 	(*CreateFileInfoRequest)(nil),  // 1: CreateFileInfoRequest
@@ -537,24 +1494,64 @@ var file_proto_grpc_server_repository_proto_goTypes = []interface{}{
 	(*UpdateFileInfoResponse)(nil), // 6: UpdateFileInfoResponse
 	(*DeleteFileInfoRequest)(nil),  // 7: DeleteFileInfoRequest
 	(*DeleteFileInfoResponse)(nil), // 8: DeleteFileInfoResponse
+	(*Table)(nil),                  // 9: Table
+	(*CreateTableRequest)(nil),     // 10: CreateTableRequest
+	(*CreateTableResponse)(nil),    // 11: CreateTableResponse
+	(*ReadTableRequest)(nil),       // 12: ReadTableRequest
+	(*ReadTableResponse)(nil),      // 13: ReadTableResponse
+	(*UpdateTableRequest)(nil),     // 14: UpdateTableRequest
+	(*UpdateTableResponse)(nil),    // 15: UpdateTableResponse
+	(*DeleteTableRequest)(nil),     // 16: DeleteTableRequest
+	(*DeleteTableResponse)(nil),    // 17: DeleteTableResponse
+	(*Cell)(nil),                   // 18: Cell
+	(*CreateCellRequest)(nil),      // 19: CreateCellRequest
+	(*CreateCellResponse)(nil),     // 20: CreateCellResponse
+	(*ReadCellRequest)(nil),        // 21: ReadCellRequest
+	(*ReadCellResponse)(nil),       // 22: ReadCellResponse
+	(*UpdateCellRequest)(nil),      // 23: UpdateCellRequest
+	(*UpdateCellResponse)(nil),     // 24: UpdateCellResponse
+	(*DeleteCellRequest)(nil),      // 25: DeleteCellRequest
+	(*DeleteCellResponse)(nil),     // 26: DeleteCellResponse
 }
 var file_proto_grpc_server_repository_proto_depIdxs = []int32{
-	0, // 0: CreateFileInfoRequest.file:type_name -> FileInfo
-	0, // 1: ReadFileInfoResponse.file:type_name -> FileInfo
-	0, // 2: UpdateFileInfoRequest.file:type_name -> FileInfo
-	1, // 3: repository.CreateFileInfo:input_type -> CreateFileInfoRequest
-	3, // 4: repository.ReadFileInfo:input_type -> ReadFileInfoRequest
-	5, // 5: repository.UpdateFileInfo:input_type -> UpdateFileInfoRequest
-	7, // 6: repository.DeleteFileInfo:input_type -> DeleteFileInfoRequest
-	2, // 7: repository.CreateFileInfo:output_type -> CreateFileInfoResponse
-	4, // 8: repository.ReadFileInfo:output_type -> ReadFileInfoResponse
-	6, // 9: repository.UpdateFileInfo:output_type -> UpdateFileInfoResponse
-	8, // 10: repository.DeleteFileInfo:output_type -> DeleteFileInfoResponse
-	7, // [7:11] is the sub-list for method output_type
-	3, // [3:7] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0,  // 0: CreateFileInfoRequest.file:type_name -> FileInfo
+	0,  // 1: ReadFileInfoResponse.file:type_name -> FileInfo
+	0,  // 2: UpdateFileInfoRequest.file:type_name -> FileInfo
+	9,  // 3: CreateTableRequest.table:type_name -> Table
+	9,  // 4: ReadTableResponse.table:type_name -> Table
+	9,  // 5: UpdateTableRequest.table:type_name -> Table
+	18, // 6: CreateCellRequest.cell:type_name -> Cell
+	18, // 7: ReadCellResponse.cell:type_name -> Cell
+	18, // 8: UpdateCellRequest.cell:type_name -> Cell
+	1,  // 9: repository.CreateFileInfo:input_type -> CreateFileInfoRequest
+	3,  // 10: repository.ReadFileInfo:input_type -> ReadFileInfoRequest
+	5,  // 11: repository.UpdateFileInfo:input_type -> UpdateFileInfoRequest
+	7,  // 12: repository.DeleteFileInfo:input_type -> DeleteFileInfoRequest
+	10, // 13: repository.CreateTable:input_type -> CreateTableRequest
+	12, // 14: repository.ReadTable:input_type -> ReadTableRequest
+	14, // 15: repository.UpdateTable:input_type -> UpdateTableRequest
+	16, // 16: repository.DeleteTable:input_type -> DeleteTableRequest
+	19, // 17: repository.CreateCell:input_type -> CreateCellRequest
+	21, // 18: repository.ReadCell:input_type -> ReadCellRequest
+	23, // 19: repository.UpdateCell:input_type -> UpdateCellRequest
+	25, // 20: repository.DeleteCell:input_type -> DeleteCellRequest
+	2,  // 21: repository.CreateFileInfo:output_type -> CreateFileInfoResponse
+	4,  // 22: repository.ReadFileInfo:output_type -> ReadFileInfoResponse
+	6,  // 23: repository.UpdateFileInfo:output_type -> UpdateFileInfoResponse
+	8,  // 24: repository.DeleteFileInfo:output_type -> DeleteFileInfoResponse
+	11, // 25: repository.CreateTable:output_type -> CreateTableResponse
+	13, // 26: repository.ReadTable:output_type -> ReadTableResponse
+	15, // 27: repository.UpdateTable:output_type -> UpdateTableResponse
+	17, // 28: repository.DeleteTable:output_type -> DeleteTableResponse
+	20, // 29: repository.CreateCell:output_type -> CreateCellResponse
+	22, // 30: repository.ReadCell:output_type -> ReadCellResponse
+	24, // 31: repository.UpdateCell:output_type -> UpdateCellResponse
+	26, // 32: repository.DeleteCell:output_type -> DeleteCellResponse
+	21, // [21:33] is the sub-list for method output_type
+	9,  // [9:21] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_proto_grpc_server_repository_proto_init() }
@@ -671,6 +1668,222 @@ func file_proto_grpc_server_repository_proto_init() {
 				return nil
 			}
 		}
+		file_proto_grpc_server_repository_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Table); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateTableRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateTableResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReadTableRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReadTableResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateTableRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateTableResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteTableRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteTableResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Cell); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateCellRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateCellResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReadCellRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReadCellResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateCellRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateCellResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteCellRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_repository_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteCellResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -678,7 +1891,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_proto_grpc_server_repository_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   27,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
