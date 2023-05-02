@@ -8,8 +8,8 @@ import (
 	"os"
 
 	"sample/s3-grpc-server/grpc_client/cmd/service"
-	repository_service "sample/s3-grpc-server/grpc_client/service/repository"
-	storage_service "sample/s3-grpc-server/grpc_client/service/storage"
+	fileinfo "sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
+	"sample/s3-grpc-server/grpc_client/service/storage"
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
 
 	"google.golang.org/grpc"
@@ -38,9 +38,9 @@ func main() {
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
-	repositoryClient := repository_service.NewRepositoryClient(grpc_server.NewRepositoryClient(conn), repository_service.NewScanner(keyboard))
-	storageClient := storage_service.NewStorageClient(grpc_server.NewStorageClient(conn), storage_service.NewScanner(keyboard))
-	client := service.NewClientService(storageClient, repositoryClient)
+	fileInfoClient := fileinfo.NewRepositoryClient(grpc_server.NewRepositoryClient(conn), fileinfo.NewScanner(keyboard))
+	storageClient := storage.NewStorageClient(grpc_server.NewStorageClient(conn), storage.NewScanner(keyboard))
+	client := service.NewClientService(storageClient, fileInfoClient)
 
 	tbl := []struct {
 		name string

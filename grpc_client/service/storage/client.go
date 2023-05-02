@@ -6,7 +6,7 @@ import (
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type storageClientDTO struct {
+type clientDTO struct {
 	createBucket CreateBucketDTO
 	listBuckets  ListBucketsDTO
 	putObject    PutObjectDTO
@@ -16,7 +16,7 @@ type storageClientDTO struct {
 }
 
 type StorageClient struct {
-	storageClientDTO
+	clientDTO
 	scanner StorageScannerInterface
 	client  server.StorageClient
 }

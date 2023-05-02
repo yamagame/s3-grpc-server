@@ -2,39 +2,43 @@ package service
 
 import (
 	"context"
-	repository_service "sample/s3-grpc-server/grpc_client/service/repository"
+	fileinfo_service "sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
 	storage_service "sample/s3-grpc-server/grpc_client/service/storage"
 	fileinfo_model "sample/s3-grpc-server/infra/repository/fileinfo/model"
 	storage_model "sample/s3-grpc-server/infra/storage/model"
 )
 
 type ClientService struct {
-	storageClient    *storage_service.StorageClient
-	repositoryClient *repository_service.RepositoryClient
+	storageClient  *storage_service.StorageClient
+	fileInfoClient *fileinfo_service.RepositoryClient
 }
 
-func NewClientService(storageClient *storage_service.StorageClient, repositoryClient *repository_service.RepositoryClient) *ClientService {
+func NewClientService(storageClient *storage_service.StorageClient, repositoryClient *fileinfo_service.RepositoryClient) *ClientService {
 	return &ClientService{
-		storageClient:    storageClient,
-		repositoryClient: repositoryClient,
+		storageClient:  storageClient,
+		fileInfoClient: repositoryClient,
 	}
 }
 
+// FileInfo ----------------------------------------------------------------------
+
 func (x *ClientService) CreateFileInfo(ctx context.Context) (*fileinfo_model.FileInfo, error) {
-	return x.repositoryClient.CreateFileInfo(ctx)
+	return x.fileInfoClient.CreateFileInfo(ctx)
 }
 
 func (x *ClientService) ReadFileInfo(ctx context.Context) (*fileinfo_model.FileInfo, error) {
-	return x.repositoryClient.ReadFileInfo(ctx)
+	return x.fileInfoClient.ReadFileInfo(ctx)
 }
 
 func (x *ClientService) UpdateFileInfo(ctx context.Context) (*fileinfo_model.FileInfo, error) {
-	return x.repositoryClient.UpdateFileInfo(ctx)
+	return x.fileInfoClient.UpdateFileInfo(ctx)
 }
 
 func (x *ClientService) DeleteFileInfo(ctx context.Context) (*fileinfo_model.FileInfo, error) {
-	return x.repositoryClient.DeleteFileInfo(ctx)
+	return x.fileInfoClient.DeleteFileInfo(ctx)
 }
+
+// Storage -----------------------------------------------------------------------
 
 func (x *ClientService) CreateBucket(ctx context.Context) (*storage_model.CreateBucket, error) {
 	return x.storageClient.CreateBucket(ctx)
