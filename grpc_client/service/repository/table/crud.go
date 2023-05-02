@@ -13,21 +13,21 @@ type clientDTO struct {
 	deleteTable DeleteTableDTO
 }
 
-type TableClient struct {
+type CRUDClient struct {
 	clientDTO
-	scanner TableScannerInterface
+	scanner ScannerInterface
 	client  server.RepositoryClient
 }
 
-func NewTableClient(client server.RepositoryClient, scanner TableScannerInterface) *TableClient {
-	return &TableClient{
+func NewCRUDClient(client server.RepositoryClient, scanner ScannerInterface) *CRUDClient {
+	return &CRUDClient{
 		scanner: scanner,
 		client:  client,
 	}
 }
 
-func (x *TableClient) Create(ctx context.Context) (*model.Table, error) {
-	req := x.createTable.Input(x.scanner.CreateTable())
+func (x *CRUDClient) Create(ctx context.Context) (*model.Table, error) {
+	req := x.createTable.Input(x.scanner.Create())
 	res, err := x.client.CreateTable(ctx, req)
 	if err != nil {
 		return nil, err
@@ -35,8 +35,8 @@ func (x *TableClient) Create(ctx context.Context) (*model.Table, error) {
 	return x.createTable.Output(res), nil
 }
 
-func (x *TableClient) Read(ctx context.Context) (*model.Table, error) {
-	req := x.readTable.Input(x.scanner.ReadTable())
+func (x *CRUDClient) Read(ctx context.Context) (*model.Table, error) {
+	req := x.readTable.Input(x.scanner.Read())
 	res, err := x.client.ReadTable(ctx, req)
 	if err != nil {
 		return nil, err
@@ -44,8 +44,8 @@ func (x *TableClient) Read(ctx context.Context) (*model.Table, error) {
 	return x.readTable.Output(res), nil
 }
 
-func (x *TableClient) Update(ctx context.Context) (*model.Table, error) {
-	req := x.updateTable.Input(x.scanner.UpdateTable())
+func (x *CRUDClient) Update(ctx context.Context) (*model.Table, error) {
+	req := x.updateTable.Input(x.scanner.Update())
 	res, err := x.client.UpdateTable(ctx, req)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func (x *TableClient) Update(ctx context.Context) (*model.Table, error) {
 	return x.updateTable.Output(res), nil
 }
 
-func (x *TableClient) Delete(ctx context.Context) (*model.Table, error) {
-	req := x.deleteTable.Input(x.scanner.DeleteTable())
+func (x *CRUDClient) Delete(ctx context.Context) (*model.Table, error) {
+	req := x.deleteTable.Input(x.scanner.Delete())
 	res, err := x.client.DeleteTable(ctx, req)
 	if err != nil {
 		return nil, err

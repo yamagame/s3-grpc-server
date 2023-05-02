@@ -13,21 +13,21 @@ type clientDTO struct {
 	deleteCell DeleteCellDTO
 }
 
-type CellClient struct {
+type CRUDClient struct {
 	clientDTO
-	scanner CellScannerInterface
+	scanner ScannerInterface
 	client  server.RepositoryClient
 }
 
-func NewCellClient(client server.RepositoryClient, scanner CellScannerInterface) *CellClient {
-	return &CellClient{
+func NewCRUDClient(client server.RepositoryClient, scanner ScannerInterface) *CRUDClient {
+	return &CRUDClient{
 		scanner: scanner,
 		client:  client,
 	}
 }
 
-func (x *CellClient) Create(ctx context.Context) (*model.Cell, error) {
-	req := x.createCell.Input(x.scanner.CreateCell())
+func (x *CRUDClient) Create(ctx context.Context) (*model.Cell, error) {
+	req := x.createCell.Input(x.scanner.Create())
 	res, err := x.client.CreateCell(ctx, req)
 	if err != nil {
 		return nil, err
@@ -35,8 +35,8 @@ func (x *CellClient) Create(ctx context.Context) (*model.Cell, error) {
 	return x.createCell.Output(res), nil
 }
 
-func (x *CellClient) Read(ctx context.Context) (*model.Cell, error) {
-	req := x.readCell.Input(x.scanner.ReadCell())
+func (x *CRUDClient) Read(ctx context.Context) (*model.Cell, error) {
+	req := x.readCell.Input(x.scanner.Read())
 	res, err := x.client.ReadCell(ctx, req)
 	if err != nil {
 		return nil, err
@@ -44,8 +44,8 @@ func (x *CellClient) Read(ctx context.Context) (*model.Cell, error) {
 	return x.readCell.Output(res), nil
 }
 
-func (x *CellClient) Update(ctx context.Context) (*model.Cell, error) {
-	req := x.updateCell.Input(x.scanner.UpdateCell())
+func (x *CRUDClient) Update(ctx context.Context) (*model.Cell, error) {
+	req := x.updateCell.Input(x.scanner.Update())
 	res, err := x.client.UpdateCell(ctx, req)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func (x *CellClient) Update(ctx context.Context) (*model.Cell, error) {
 	return x.updateCell.Output(res), nil
 }
 
-func (x *CellClient) Delete(ctx context.Context) (*model.Cell, error) {
-	req := x.deleteCell.Input(x.scanner.DeleteCell())
+func (x *CRUDClient) Delete(ctx context.Context) (*model.Cell, error) {
+	req := x.deleteCell.Input(x.scanner.Delete())
 	res, err := x.client.DeleteCell(ctx, req)
 	if err != nil {
 		return nil, err

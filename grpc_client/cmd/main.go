@@ -40,11 +40,11 @@ func main() {
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
-	fileClient := file.NewFileClient(grpc_server.NewRepositoryClient(conn), file.NewKeyInput(keyboard))
-	tableClient := table.NewTableClient(grpc_server.NewRepositoryClient(conn), table.NewKeyInput(keyboard))
-	cellClient := cell.NewCellClient(grpc_server.NewRepositoryClient(conn), cell.NewKeyInput(keyboard))
+	fileCRUDClient := file.NewCRUDClient(grpc_server.NewRepositoryClient(conn), file.NewKeyInput(keyboard))
+	tableCRUDClient := table.NewCRUDClient(grpc_server.NewRepositoryClient(conn), table.NewKeyInput(keyboard))
+	cellCRUDClient := cell.NewCRUDClient(grpc_server.NewRepositoryClient(conn), cell.NewKeyInput(keyboard))
 	storageClient := storage.NewStorageClient(grpc_server.NewStorageClient(conn), storage.NewKeyInput(keyboard))
-	client := service.NewClientService(storageClient, fileClient, tableClient, cellClient)
+	client := service.NewClient(storageClient, fileCRUDClient, tableCRUDClient, cellCRUDClient)
 
 	tbl := []struct {
 		name string

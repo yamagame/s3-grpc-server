@@ -27,9 +27,9 @@ func NewServer(
 	rpc.RegisterStorageServer(server, storageService.NewStorageServer(storage.NewStorageService(storageClient)))
 	rpc.RegisterRepositoryServer(server,
 		repositoryService.NewRepositoryServer(
-			fileService.NewFileServer(fileRepository),
-			tableService.NewTableServer(tableRepository),
-			cellService.NewCellServer(cellRepository),
+			fileService.NewCRUDService(fileRepository),
+			tableService.NewCRUDService(tableRepository),
+			cellService.NewCRUDService(cellRepository),
 		),
 	)
 	return server

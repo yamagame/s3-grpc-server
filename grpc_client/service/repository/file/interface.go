@@ -2,9 +2,9 @@ package file
 
 import "sample/s3-grpc-server/infra/repository/model"
 
-type FileScannerInterface interface {
-	CreateFile() *model.File
-	ReadFile() *model.File
-	UpdateFile() *model.File
-	DeleteFile() *model.File
+type ScannerInterface interface {
+	Create() *model.File
+	Read() *model.File
+	Update() *model.File
+	Delete() *model.File
 }

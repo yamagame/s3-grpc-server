@@ -13,20 +13,20 @@ type serverDTO struct {
 	deleteTable DeleteTable
 }
 
-type TableServer struct {
+type CRUDService struct {
 	serverDTO
 	service table.RepositoryInterface
 	server.UnimplementedRepositoryServer
 }
 
-func NewTableServer(service table.RepositoryInterface) *TableServer {
-	return &TableServer{
+func NewCRUDService(service table.RepositoryInterface) *CRUDService {
+	return &CRUDService{
 		service: service,
 	}
 }
 
 // Create implements RepositoryServer.Create
-func (s *TableServer) Create(ctx context.Context, in *server.CreateTableRequest) (*server.CreateTableResponse, error) {
+func (s *CRUDService) Create(ctx context.Context, in *server.CreateTableRequest) (*server.CreateTableResponse, error) {
 	fileInfo := s.createTable.Input(in)
 	fileInfo, err := s.service.Create(fileInfo)
 	if err != nil {
@@ -36,7 +36,7 @@ func (s *TableServer) Create(ctx context.Context, in *server.CreateTableRequest)
 }
 
 // Read implements RepositoryServer.Read
-func (s *TableServer) Read(ctx context.Context, in *server.ReadTableRequest) (*server.ReadTableResponse, error) {
+func (s *CRUDService) Read(ctx context.Context, in *server.ReadTableRequest) (*server.ReadTableResponse, error) {
 	fileInfo := s.readTable.Input(in)
 	fileInfo, err := s.service.Read(fileInfo)
 	if err != nil {
@@ -46,7 +46,7 @@ func (s *TableServer) Read(ctx context.Context, in *server.ReadTableRequest) (*s
 }
 
 // Update implements RepositoryServer.Update
-func (s *TableServer) Update(ctx context.Context, in *server.UpdateTableRequest) (*server.UpdateTableResponse, error) {
+func (s *CRUDService) Update(ctx context.Context, in *server.UpdateTableRequest) (*server.UpdateTableResponse, error) {
 	fileInfo := s.updateTable.Input(in)
 	fileInfo, err := s.service.Update(fileInfo)
 	if err != nil {
@@ -56,7 +56,7 @@ func (s *TableServer) Update(ctx context.Context, in *server.UpdateTableRequest)
 }
 
 // Delete implements RepositoryServer.Delete
-func (s *TableServer) Delete(ctx context.Context, in *server.DeleteTableRequest) (*server.DeleteTableResponse, error) {
+func (s *CRUDService) Delete(ctx context.Context, in *server.DeleteTableRequest) (*server.DeleteTableResponse, error) {
 	fileInfo := s.deleteTable.Input(in)
 	fileInfo, err := s.service.Delete(fileInfo)
 	if err != nil {

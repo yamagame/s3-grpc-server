@@ -17,7 +17,7 @@ func NewKeyInput(scanner *bufio.Scanner) *keyInput {
 	}
 }
 
-func (x *keyInput) CreateTable() *model.Table {
+func (x *keyInput) Create() *model.Table {
 	fmt.Print("title >")
 	x.scanner.Scan()
 	title := x.scanner.Text()
@@ -26,7 +26,7 @@ func (x *keyInput) CreateTable() *model.Table {
 	}
 }
 
-func (x *keyInput) ReadTable() *model.Table {
+func (x *keyInput) Read() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
@@ -35,7 +35,7 @@ func (x *keyInput) ReadTable() *model.Table {
 	}
 }
 
-func (x *keyInput) UpdateTable() *model.Table {
+func (x *keyInput) Update() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
@@ -48,7 +48,7 @@ func (x *keyInput) UpdateTable() *model.Table {
 	}
 }
 
-func (x *keyInput) DeleteTable() *model.Table {
+func (x *keyInput) Delete() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())

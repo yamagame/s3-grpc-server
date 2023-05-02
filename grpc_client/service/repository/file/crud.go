@@ -13,21 +13,21 @@ type clientDTO struct {
 	deleteFile DeleteFileDTO
 }
 
-type FileClient struct {
+type CRUDClient struct {
 	clientDTO
-	scanner FileScannerInterface
+	scanner ScannerInterface
 	client  server.RepositoryClient
 }
 
-func NewFileClient(client server.RepositoryClient, scanner FileScannerInterface) *FileClient {
-	return &FileClient{
+func NewCRUDClient(client server.RepositoryClient, scanner ScannerInterface) *CRUDClient {
+	return &CRUDClient{
 		scanner: scanner,
 		client:  client,
 	}
 }
 
-func (x *FileClient) Create(ctx context.Context) (*model.File, error) {
-	req := x.createFile.Input(x.scanner.CreateFile())
+func (x *CRUDClient) Create(ctx context.Context) (*model.File, error) {
+	req := x.createFile.Input(x.scanner.Create())
 	res, err := x.client.CreateFile(ctx, req)
 	if err != nil {
 		return nil, err
@@ -35,8 +35,8 @@ func (x *FileClient) Create(ctx context.Context) (*model.File, error) {
 	return x.createFile.Output(res), nil
 }
 
-func (x *FileClient) Read(ctx context.Context) (*model.File, error) {
-	req := x.readFile.Input(x.scanner.ReadFile())
+func (x *CRUDClient) Read(ctx context.Context) (*model.File, error) {
+	req := x.readFile.Input(x.scanner.Read())
 	res, err := x.client.ReadFile(ctx, req)
 	if err != nil {
 		return nil, err
@@ -44,8 +44,8 @@ func (x *FileClient) Read(ctx context.Context) (*model.File, error) {
 	return x.readFile.Output(res), nil
 }
 
-func (x *FileClient) Update(ctx context.Context) (*model.File, error) {
-	req := x.updateFile.Input(x.scanner.UpdateFile())
+func (x *CRUDClient) Update(ctx context.Context) (*model.File, error) {
+	req := x.updateFile.Input(x.scanner.Update())
 	res, err := x.client.UpdateFile(ctx, req)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func (x *FileClient) Update(ctx context.Context) (*model.File, error) {
 	return x.updateFile.Output(res), nil
 }
 
-func (x *FileClient) Delete(ctx context.Context) (*model.File, error) {
-	req := x.deleteFile.Input(x.scanner.DeleteFile())
+func (x *CRUDClient) Delete(ctx context.Context) (*model.File, error) {
+	req := x.deleteFile.Input(x.scanner.Delete())
 	res, err := x.client.DeleteFile(ctx, req)
 	if err != nil {
 		return nil, err

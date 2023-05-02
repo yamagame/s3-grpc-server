@@ -17,7 +17,7 @@ func NewKeyInput(scanner *bufio.Scanner) *keyInput {
 	}
 }
 
-func (x *keyInput) CreateFile() *model.File {
+func (x *keyInput) Create() *model.File {
 	fmt.Print("filename >")
 	x.scanner.Scan()
 	filename := x.scanner.Text()
@@ -26,7 +26,7 @@ func (x *keyInput) CreateFile() *model.File {
 	}
 }
 
-func (x *keyInput) ReadFile() *model.File {
+func (x *keyInput) Read() *model.File {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
@@ -35,7 +35,7 @@ func (x *keyInput) ReadFile() *model.File {
 	}
 }
 
-func (x *keyInput) UpdateFile() *model.File {
+func (x *keyInput) Update() *model.File {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
@@ -48,7 +48,7 @@ func (x *keyInput) UpdateFile() *model.File {
 	}
 }
 
-func (x *keyInput) DeleteFile() *model.File {
+func (x *keyInput) Delete() *model.File {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())

@@ -13,20 +13,20 @@ type serverDTO struct {
 	deleteFile DeleteFile
 }
 
-type FileServer struct {
+type CRUDService struct {
 	serverDTO
 	service file.RepositoryInterface
 	server.UnimplementedRepositoryServer
 }
 
-func NewFileServer(service file.RepositoryInterface) *FileServer {
-	return &FileServer{
+func NewCRUDService(service file.RepositoryInterface) *CRUDService {
+	return &CRUDService{
 		service: service,
 	}
 }
 
 // Create implements RepositoryServer.Create
-func (s *FileServer) Create(ctx context.Context, in *server.CreateFileRequest) (*server.CreateFileResponse, error) {
+func (s *CRUDService) Create(ctx context.Context, in *server.CreateFileRequest) (*server.CreateFileResponse, error) {
 	fileInfo := s.createFile.Input(in)
 	fileInfo, err := s.service.Create(fileInfo)
 	if err != nil {
@@ -36,7 +36,7 @@ func (s *FileServer) Create(ctx context.Context, in *server.CreateFileRequest) (
 }
 
 // Read implements RepositoryServer.Read
-func (s *FileServer) Read(ctx context.Context, in *server.ReadFileRequest) (*server.ReadFileResponse, error) {
+func (s *CRUDService) Read(ctx context.Context, in *server.ReadFileRequest) (*server.ReadFileResponse, error) {
 	fileInfo := s.readFile.Input(in)
 	fileInfo, err := s.service.Read(fileInfo)
 	if err != nil {
@@ -46,7 +46,7 @@ func (s *FileServer) Read(ctx context.Context, in *server.ReadFileRequest) (*ser
 }
 
 // Update implements RepositoryServer.Update
-func (s *FileServer) Update(ctx context.Context, in *server.UpdateFileRequest) (*server.UpdateFileResponse, error) {
+func (s *CRUDService) Update(ctx context.Context, in *server.UpdateFileRequest) (*server.UpdateFileResponse, error) {
 	fileInfo := s.updateFile.Input(in)
 	fileInfo, err := s.service.Update(fileInfo)
 	if err != nil {
@@ -56,7 +56,7 @@ func (s *FileServer) Update(ctx context.Context, in *server.UpdateFileRequest) (
 }
 
 // Delete implements RepositoryServer.Delete
-func (s *FileServer) Delete(ctx context.Context, in *server.DeleteFileRequest) (*server.DeleteFileResponse, error) {
+func (s *CRUDService) Delete(ctx context.Context, in *server.DeleteFileRequest) (*server.DeleteFileResponse, error) {
 	fileInfo := s.deleteFile.Input(in)
 	fileInfo, err := s.service.Delete(fileInfo)
 	if err != nil {

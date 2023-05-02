@@ -9,16 +9,16 @@ import (
 )
 
 type repositoryServer struct {
-	file  *file.FileServer
-	table *table.TableServer
-	cell  *cell.CellServer
+	file  *file.CRUDService
+	table *table.CRUDService
+	cell  *cell.CRUDService
 	server.UnimplementedRepositoryServer
 }
 
 func NewRepositoryServer(
-	file *file.FileServer,
-	table *table.TableServer,
-	cell *cell.CellServer,
+	file *file.CRUDService,
+	table *table.CRUDService,
+	cell *cell.CRUDService,
 ) *repositoryServer {
 	return &repositoryServer{
 		file:  file,

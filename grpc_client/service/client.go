@@ -10,103 +10,103 @@ import (
 	storage_model "sample/s3-grpc-server/infra/storage/model"
 )
 
-type ClientService struct {
+type client struct {
 	storageClient *storage.StorageClient
-	fileClient    *file.FileClient
-	tableClient   *table.TableClient
-	cellClient    *cell.CellClient
+	file          *file.CRUDClient
+	table         *table.CRUDClient
+	cell          *cell.CRUDClient
 }
 
-func NewClientService(
+func NewClient(
 	storageClient *storage.StorageClient,
-	fileClient *file.FileClient,
-	tableClient *table.TableClient,
-	cellClient *cell.CellClient,
-) *ClientService {
-	return &ClientService{
+	file *file.CRUDClient,
+	table *table.CRUDClient,
+	cell *cell.CRUDClient,
+) *client {
+	return &client{
 		storageClient: storageClient,
-		fileClient:    fileClient,
-		tableClient:   tableClient,
-		cellClient:    cellClient,
+		file:          file,
+		table:         table,
+		cell:          cell,
 	}
 }
 
 // File ----------------------------------------------------------------------
 
-func (x *ClientService) CreateFile(ctx context.Context) (*repository_model.File, error) {
-	return x.fileClient.Create(ctx)
+func (x *client) CreateFile(ctx context.Context) (*repository_model.File, error) {
+	return x.file.Create(ctx)
 }
 
-func (x *ClientService) ReadFile(ctx context.Context) (*repository_model.File, error) {
-	return x.fileClient.Read(ctx)
+func (x *client) ReadFile(ctx context.Context) (*repository_model.File, error) {
+	return x.file.Read(ctx)
 }
 
-func (x *ClientService) UpdateFile(ctx context.Context) (*repository_model.File, error) {
-	return x.fileClient.Update(ctx)
+func (x *client) UpdateFile(ctx context.Context) (*repository_model.File, error) {
+	return x.file.Update(ctx)
 }
 
-func (x *ClientService) DeleteFile(ctx context.Context) (*repository_model.File, error) {
-	return x.fileClient.Delete(ctx)
+func (x *client) DeleteFile(ctx context.Context) (*repository_model.File, error) {
+	return x.file.Delete(ctx)
 }
 
 // Table ----------------------------------------------------------------------
 
-func (x *ClientService) CreateTable(ctx context.Context) (*repository_model.Table, error) {
-	return x.tableClient.Create(ctx)
+func (x *client) CreateTable(ctx context.Context) (*repository_model.Table, error) {
+	return x.table.Create(ctx)
 }
 
-func (x *ClientService) ReadTable(ctx context.Context) (*repository_model.Table, error) {
-	return x.tableClient.Read(ctx)
+func (x *client) ReadTable(ctx context.Context) (*repository_model.Table, error) {
+	return x.table.Read(ctx)
 }
 
-func (x *ClientService) UpdateTable(ctx context.Context) (*repository_model.Table, error) {
-	return x.tableClient.Update(ctx)
+func (x *client) UpdateTable(ctx context.Context) (*repository_model.Table, error) {
+	return x.table.Update(ctx)
 }
 
-func (x *ClientService) DeleteTable(ctx context.Context) (*repository_model.Table, error) {
-	return x.tableClient.Delete(ctx)
+func (x *client) DeleteTable(ctx context.Context) (*repository_model.Table, error) {
+	return x.table.Delete(ctx)
 }
 
 // Cell ----------------------------------------------------------------------
 
-func (x *ClientService) CreateCell(ctx context.Context) (*repository_model.Cell, error) {
-	return x.cellClient.Create(ctx)
+func (x *client) CreateCell(ctx context.Context) (*repository_model.Cell, error) {
+	return x.cell.Create(ctx)
 }
 
-func (x *ClientService) ReadCell(ctx context.Context) (*repository_model.Cell, error) {
-	return x.cellClient.Read(ctx)
+func (x *client) ReadCell(ctx context.Context) (*repository_model.Cell, error) {
+	return x.cell.Read(ctx)
 }
 
-func (x *ClientService) UpdateCell(ctx context.Context) (*repository_model.Cell, error) {
-	return x.cellClient.Update(ctx)
+func (x *client) UpdateCell(ctx context.Context) (*repository_model.Cell, error) {
+	return x.cell.Update(ctx)
 }
 
-func (x *ClientService) DeleteCell(ctx context.Context) (*repository_model.Cell, error) {
-	return x.cellClient.Delete(ctx)
+func (x *client) DeleteCell(ctx context.Context) (*repository_model.Cell, error) {
+	return x.cell.Delete(ctx)
 }
 
 // Storage -----------------------------------------------------------------------
 
-func (x *ClientService) CreateBucket(ctx context.Context) (*storage_model.CreateBucket, error) {
+func (x *client) CreateBucket(ctx context.Context) (*storage_model.CreateBucket, error) {
 	return x.storageClient.CreateBucket(ctx)
 }
 
-func (x *ClientService) ListBuckets(ctx context.Context) (*storage_model.ListBuckets, error) {
+func (x *client) ListBuckets(ctx context.Context) (*storage_model.ListBuckets, error) {
 	return x.storageClient.ListBuckets(ctx)
 }
 
-func (x *ClientService) PutObject(ctx context.Context) (*storage_model.PutObject, error) {
+func (x *client) PutObject(ctx context.Context) (*storage_model.PutObject, error) {
 	return x.storageClient.PutObject(ctx)
 }
 
-func (x *ClientService) GetObject(ctx context.Context) (*storage_model.GetObject, error) {
+func (x *client) GetObject(ctx context.Context) (*storage_model.GetObject, error) {
 	return x.storageClient.GetObject(ctx)
 }
 
-func (x *ClientService) DeleteObject(ctx context.Context) (*storage_model.DeleteObject, error) {
+func (x *client) DeleteObject(ctx context.Context) (*storage_model.DeleteObject, error) {
 	return x.storageClient.DeleteObject(ctx)
 }
 
-func (x *ClientService) ListObjects(ctx context.Context) (*storage_model.ListObjects, error) {
+func (x *client) ListObjects(ctx context.Context) (*storage_model.ListObjects, error) {
 	return x.storageClient.ListObjects(ctx)
 }

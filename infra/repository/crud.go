@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"fmt"
-
 	"gorm.io/gorm"
 )
 
@@ -19,7 +17,6 @@ func (s *CRUDRepository[T]) Create(object *T) (*T, error) {
 // Read implements CRUDRepository.Read
 func (s *CRUDRepository[T]) Read(object *T) (*T, error) {
 	s.DB.Take(object)
-	fmt.Println(object)
 	return object, nil
 }
 
