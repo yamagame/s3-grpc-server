@@ -3,6 +3,7 @@ package cell
 import (
 	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
+	"time"
 )
 
 type CreateCell struct {
@@ -10,16 +11,18 @@ type CreateCell struct {
 
 func (x *CreateCell) Input(req *server.CreateCellRequest) *model.Cell {
 	return &model.Cell{
-		TableID: req.Cell.TableId,
-		Row:     req.Cell.Row,
-		Col:     req.Cell.Col,
-		Text:    req.Cell.Text,
+		TableID:   req.Cell.TableId,
+		Row:       req.Cell.Row,
+		Col:       req.Cell.Col,
+		Text:      req.Cell.Text,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 }
 
 func (x *CreateCell) Output(res *model.Cell) *server.CreateCellResponse {
 	return &server.CreateCellResponse{
-		ID: int64(res.ID),
+		ID: res.ID,
 	}
 }
 
@@ -45,8 +48,9 @@ type UpdateCell struct {
 
 func (x *UpdateCell) Input(req *server.UpdateCellRequest) *model.Cell {
 	return &model.Cell{
-		ID:   req.Cell.Id,
-		Text: req.Cell.Text,
+		ID:        req.Cell.Id,
+		Text:      req.Cell.Text,
+		UpdatedAt: time.Now(),
 	}
 }
 

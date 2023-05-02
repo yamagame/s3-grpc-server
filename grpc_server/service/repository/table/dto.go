@@ -3,6 +3,7 @@ package table
 import (
 	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
+	"time"
 )
 
 type CreateTable struct {
@@ -10,8 +11,10 @@ type CreateTable struct {
 
 func (x *CreateTable) Input(req *server.CreateTableRequest) *model.Table {
 	return &model.Table{
-		FileID: req.Table.FileId,
-		Title:  req.Table.Title,
+		FileID:    req.Table.FileId,
+		Title:     req.Table.Title,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 }
 
@@ -44,8 +47,9 @@ type UpdateTable struct {
 
 func (x *UpdateTable) Input(req *server.UpdateTableRequest) *model.Table {
 	return &model.Table{
-		ID:    req.GetID(),
-		Title: req.Table.Title,
+		ID:        req.GetID(),
+		Title:     req.Table.Title,
+		UpdatedAt: time.Now(),
 	}
 }
 

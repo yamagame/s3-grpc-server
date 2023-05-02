@@ -20,12 +20,12 @@ func NewKeyInput(scanner *bufio.Scanner) *keyInput {
 func (x *keyInput) Create() *model.Table {
 	fmt.Print("file_id >")
 	x.scanner.Scan()
-	fileID, _ := strconv.Atoi(x.scanner.Text())
+	fileID, _ := strconv.ParseUint(x.scanner.Text(), 10, 64)
 	fmt.Print("title >")
 	x.scanner.Scan()
 	title := x.scanner.Text()
 	return &model.Table{
-		FileID: int64(fileID),
+		FileID: fileID,
 		Title:  title,
 	}
 }
@@ -33,21 +33,21 @@ func (x *keyInput) Create() *model.Table {
 func (x *keyInput) Read() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
-	id, _ := strconv.Atoi(x.scanner.Text())
+	id, _ := strconv.ParseUint(x.scanner.Text(), 10, 64)
 	return &model.Table{
-		ID: int64(id),
+		ID: id,
 	}
 }
 
 func (x *keyInput) Update() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
-	id, _ := strconv.Atoi(x.scanner.Text())
+	id, _ := strconv.ParseUint(x.scanner.Text(), 10, 64)
 	fmt.Print("title >")
 	x.scanner.Scan()
 	title := x.scanner.Text()
 	return &model.Table{
-		ID:    int64(id),
+		ID:    id,
 		Title: title,
 	}
 }
@@ -55,8 +55,8 @@ func (x *keyInput) Update() *model.Table {
 func (x *keyInput) Delete() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
-	id, _ := strconv.Atoi(x.scanner.Text())
+	id, _ := strconv.ParseUint(x.scanner.Text(), 0, 32)
 	return &model.Table{
-		ID: int64(id),
+		ID: id,
 	}
 }

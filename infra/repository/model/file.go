@@ -1,7 +1,16 @@
 package model
 
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
 type File struct {
-	ID       int64
-	Filename string
-	Tables   []Table
+	ID        uint64
+	Filename  string
+	Tables    []Table
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 }

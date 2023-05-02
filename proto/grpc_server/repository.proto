@@ -33,7 +33,7 @@ service repository {
 }
 
 message File {
-  int64 id = 1;
+  uint64 id = 1;
   string filename = 2;
   repeated Table tables = 3;
 }
@@ -43,38 +43,38 @@ message CreateFileRequest {
 }
 
 message CreateFileResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message ReadFileRequest {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message ReadFileResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
   File file = 2;
 }
 
 message UpdateFileRequest {
-  int64 ID = 1;
+  uint64 ID = 1;
   File file = 2;
 }
 
 message UpdateFileResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message DeleteFileRequest {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message DeleteFileResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message Table {
-  int64 id = 1;
-  int64 file_id = 2;
+  uint64 id = 1;
+  uint64 file_id = 2;
   string title = 3;
   repeated Cell cells = 4;
 }
@@ -84,41 +84,41 @@ message CreateTableRequest {
 }
 
 message CreateTableResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message ReadTableRequest {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message ReadTableResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
   Table table = 2;
 }
 
 message UpdateTableRequest {
-  int64 ID = 1;
+  uint64 ID = 1;
   Table table = 2;
 }
 
 message UpdateTableResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message DeleteTableRequest {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message DeleteTableResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message Cell {
-  int64 id = 1;
-  int64 row = 2;
-  int64 col = 3;
+  uint64 id = 1;
+  uint64 row = 2;
+  uint64 col = 3;
   string text = 4;
-  int64 table_id = 5;
+  uint64 table_id = 5;
 }
 
 message CreateCellRequest {
@@ -126,11 +126,11 @@ message CreateCellRequest {
 }
 
 message CreateCellResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message ReadCellRequest {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message ReadCellResponse {
@@ -142,13 +142,13 @@ message UpdateCellRequest {
 }
 
 message UpdateCellResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message DeleteCellRequest {
-  int64 ID = 1;
+  uint64 ID = 1;
 }
 
 message DeleteCellResponse {
-  int64 ID = 1;
+  uint64 ID = 1;
 }

@@ -15,20 +15,20 @@ type serverDTO struct {
 
 type CRUDService struct {
 	serverDTO
-	service cell.RepositoryInterface
+	repository cell.RepositoryInterface
 	server.UnimplementedRepositoryServer
 }
 
-func NewCRUDService(service cell.RepositoryInterface) *CRUDService {
+func NewCRUDService(repository cell.RepositoryInterface) *CRUDService {
 	return &CRUDService{
-		service: service,
+		repository: repository,
 	}
 }
 
 // Create implements RepositoryServer.Create
 func (s *CRUDService) Create(ctx context.Context, in *server.CreateCellRequest) (*server.CreateCellResponse, error) {
 	file := s.create.Input(in)
-	file, err := s.service.Create(file)
+	file, err := s.repository.Create(file)
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +38,7 @@ func (s *CRUDService) Create(ctx context.Context, in *server.CreateCellRequest) 
 // Read implements RepositoryServer.Read
 func (s *CRUDService) Read(ctx context.Context, in *server.ReadCellRequest) (*server.ReadCellResponse, error) {
 	file := s.read.Input(in)
-	file, err := s.service.Read(file)
+	file, err := s.repository.Read(file)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (s *CRUDService) Read(ctx context.Context, in *server.ReadCellRequest) (*se
 // Update implements RepositoryServer.Update
 func (s *CRUDService) Update(ctx context.Context, in *server.UpdateCellRequest) (*server.UpdateCellResponse, error) {
 	file := s.update.Input(in)
-	file, err := s.service.Update(file)
+	file, err := s.repository.Update(file)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (s *CRUDService) Update(ctx context.Context, in *server.UpdateCellRequest) 
 // Delete implements RepositoryServer.Delete
 func (s *CRUDService) Delete(ctx context.Context, in *server.DeleteCellRequest) (*server.DeleteCellResponse, error) {
 	file := s.delete.Input(in)
-	file, err := s.service.Delete(file)
+	file, err := s.repository.Delete(file)
 	if err != nil {
 		return nil, err
 	}

@@ -3,6 +3,7 @@ package file
 import (
 	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
+	"time"
 )
 
 type CreateFile struct {
@@ -10,7 +11,9 @@ type CreateFile struct {
 
 func (x *CreateFile) Input(req *server.CreateFileRequest) *model.File {
 	return &model.File{
-		Filename: req.File.Filename,
+		Filename:  req.File.Filename,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 }
 
@@ -43,8 +46,9 @@ type UpdateFile struct {
 
 func (x *UpdateFile) Input(req *server.UpdateFileRequest) *model.File {
 	return &model.File{
-		ID:       req.GetID(),
-		Filename: req.File.Filename,
+		ID:        req.GetID(),
+		Filename:  req.File.Filename,
+		UpdatedAt: time.Now(),
 	}
 }
 
