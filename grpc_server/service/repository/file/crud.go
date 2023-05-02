@@ -7,10 +7,10 @@ import (
 )
 
 type serverDTO struct {
-	createFile CreateFile
-	readFile   ReadFile
-	updateFile UpdateFile
-	deleteFile DeleteFile
+	create CreateFile
+	read   ReadFile
+	update UpdateFile
+	delete DeleteFile
 }
 
 type CRUDService struct {
@@ -27,40 +27,40 @@ func NewCRUDService(service file.RepositoryInterface) *CRUDService {
 
 // Create implements RepositoryServer.Create
 func (s *CRUDService) Create(ctx context.Context, in *server.CreateFileRequest) (*server.CreateFileResponse, error) {
-	file := s.createFile.Input(in)
+	file := s.create.Input(in)
 	file, err := s.service.Create(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.createFile.Output(file), nil
+	return s.create.Output(file), nil
 }
 
 // Read implements RepositoryServer.Read
 func (s *CRUDService) Read(ctx context.Context, in *server.ReadFileRequest) (*server.ReadFileResponse, error) {
-	file := s.readFile.Input(in)
+	file := s.read.Input(in)
 	file, err := s.service.Read(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.readFile.Output(file), nil
+	return s.read.Output(file), nil
 }
 
 // Update implements RepositoryServer.Update
 func (s *CRUDService) Update(ctx context.Context, in *server.UpdateFileRequest) (*server.UpdateFileResponse, error) {
-	file := s.updateFile.Input(in)
+	file := s.update.Input(in)
 	file, err := s.service.Update(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.updateFile.Output(file), nil
+	return s.update.Output(file), nil
 }
 
 // Delete implements RepositoryServer.Delete
 func (s *CRUDService) Delete(ctx context.Context, in *server.DeleteFileRequest) (*server.DeleteFileResponse, error) {
-	file := s.deleteFile.Input(in)
+	file := s.delete.Input(in)
 	file, err := s.service.Delete(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.deleteFile.Output(file), nil
+	return s.delete.Output(file), nil
 }

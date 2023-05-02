@@ -7,10 +7,10 @@ import (
 )
 
 type serverDTO struct {
-	createTable CreateTable
-	readTable   ReadTable
-	updateTable UpdateTable
-	deleteTable DeleteTable
+	create CreateTable
+	read   ReadTable
+	update UpdateTable
+	delete DeleteTable
 }
 
 type CRUDService struct {
@@ -27,40 +27,40 @@ func NewCRUDService(service table.RepositoryInterface) *CRUDService {
 
 // Create implements RepositoryServer.Create
 func (s *CRUDService) Create(ctx context.Context, in *server.CreateTableRequest) (*server.CreateTableResponse, error) {
-	file := s.createTable.Input(in)
+	file := s.create.Input(in)
 	file, err := s.service.Create(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.createTable.Output(file), nil
+	return s.create.Output(file), nil
 }
 
 // Read implements RepositoryServer.Read
 func (s *CRUDService) Read(ctx context.Context, in *server.ReadTableRequest) (*server.ReadTableResponse, error) {
-	file := s.readTable.Input(in)
+	file := s.read.Input(in)
 	file, err := s.service.Read(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.readTable.Output(file), nil
+	return s.read.Output(file), nil
 }
 
 // Update implements RepositoryServer.Update
 func (s *CRUDService) Update(ctx context.Context, in *server.UpdateTableRequest) (*server.UpdateTableResponse, error) {
-	file := s.updateTable.Input(in)
+	file := s.update.Input(in)
 	file, err := s.service.Update(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.updateTable.Output(file), nil
+	return s.update.Output(file), nil
 }
 
 // Delete implements RepositoryServer.Delete
 func (s *CRUDService) Delete(ctx context.Context, in *server.DeleteTableRequest) (*server.DeleteTableResponse, error) {
-	file := s.deleteTable.Input(in)
+	file := s.delete.Input(in)
 	file, err := s.service.Delete(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.deleteTable.Output(file), nil
+	return s.delete.Output(file), nil
 }
