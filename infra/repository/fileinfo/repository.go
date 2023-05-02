@@ -1,7 +1,7 @@
 package fileinfo
 
 import (
-	"sample/s3-grpc-server/infra/repository/fileinfo/model"
+	"sample/s3-grpc-server/infra/repository/model"
 
 	"gorm.io/gorm"
 )

@@ -1,6 +1,6 @@
 package fileinfo
 
-import "sample/s3-grpc-server/infra/repository/fileinfo/model"
+import "sample/s3-grpc-server/infra/repository/model"
 
 type RepositoryInterface interface {
 	CreateFileInfo(file *model.FileInfo) (*model.FileInfo, error)

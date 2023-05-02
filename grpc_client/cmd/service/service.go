@@ -4,7 +4,7 @@ import (
 	"context"
 	fileinfo_service "sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
 	storage_service "sample/s3-grpc-server/grpc_client/service/storage"
-	fileinfo_model "sample/s3-grpc-server/infra/repository/fileinfo/model"
+	repository_model "sample/s3-grpc-server/infra/repository/model"
 	storage_model "sample/s3-grpc-server/infra/storage/model"
 )
 
@@ -22,19 +22,19 @@ func NewClientService(storageClient *storage_service.StorageClient, repositoryCl
 
 // FileInfo ----------------------------------------------------------------------
 
-func (x *ClientService) CreateFileInfo(ctx context.Context) (*fileinfo_model.FileInfo, error) {
+func (x *ClientService) CreateFileInfo(ctx context.Context) (*repository_model.FileInfo, error) {
 	return x.fileInfoClient.CreateFileInfo(ctx)
 }
 
-func (x *ClientService) ReadFileInfo(ctx context.Context) (*fileinfo_model.FileInfo, error) {
+func (x *ClientService) ReadFileInfo(ctx context.Context) (*repository_model.FileInfo, error) {
 	return x.fileInfoClient.ReadFileInfo(ctx)
 }
 
-func (x *ClientService) UpdateFileInfo(ctx context.Context) (*fileinfo_model.FileInfo, error) {
+func (x *ClientService) UpdateFileInfo(ctx context.Context) (*repository_model.FileInfo, error) {
 	return x.fileInfoClient.UpdateFileInfo(ctx)
 }
 
-func (x *ClientService) DeleteFileInfo(ctx context.Context) (*fileinfo_model.FileInfo, error) {
+func (x *ClientService) DeleteFileInfo(ctx context.Context) (*repository_model.FileInfo, error) {
 	return x.fileInfoClient.DeleteFileInfo(ctx)
 }
 

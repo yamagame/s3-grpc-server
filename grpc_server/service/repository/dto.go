@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"sample/s3-grpc-server/infra/repository/fileinfo/model"
+	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
