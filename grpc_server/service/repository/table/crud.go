@@ -27,40 +27,40 @@ func NewCRUDService(service table.RepositoryInterface) *CRUDService {
 
 // Create implements RepositoryServer.Create
 func (s *CRUDService) Create(ctx context.Context, in *server.CreateTableRequest) (*server.CreateTableResponse, error) {
-	fileInfo := s.createTable.Input(in)
-	fileInfo, err := s.service.Create(fileInfo)
+	file := s.createTable.Input(in)
+	file, err := s.service.Create(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.createTable.Output(fileInfo), nil
+	return s.createTable.Output(file), nil
 }
 
 // Read implements RepositoryServer.Read
 func (s *CRUDService) Read(ctx context.Context, in *server.ReadTableRequest) (*server.ReadTableResponse, error) {
-	fileInfo := s.readTable.Input(in)
-	fileInfo, err := s.service.Read(fileInfo)
+	file := s.readTable.Input(in)
+	file, err := s.service.Read(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.readTable.Output(fileInfo), nil
+	return s.readTable.Output(file), nil
 }
 
 // Update implements RepositoryServer.Update
 func (s *CRUDService) Update(ctx context.Context, in *server.UpdateTableRequest) (*server.UpdateTableResponse, error) {
-	fileInfo := s.updateTable.Input(in)
-	fileInfo, err := s.service.Update(fileInfo)
+	file := s.updateTable.Input(in)
+	file, err := s.service.Update(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.updateTable.Output(fileInfo), nil
+	return s.updateTable.Output(file), nil
 }
 
 // Delete implements RepositoryServer.Delete
 func (s *CRUDService) Delete(ctx context.Context, in *server.DeleteTableRequest) (*server.DeleteTableResponse, error) {
-	fileInfo := s.deleteTable.Input(in)
-	fileInfo, err := s.service.Delete(fileInfo)
+	file := s.deleteTable.Input(in)
+	file, err := s.service.Delete(file)
 	if err != nil {
 		return nil, err
 	}
-	return s.deleteTable.Output(fileInfo), nil
+	return s.deleteTable.Output(file), nil
 }
