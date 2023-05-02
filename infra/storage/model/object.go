@@ -1,25 +1,4 @@
-package storage
-
-type StorageResult int32
-
-const (
-	Result_UNDEFINED StorageResult = 0
-	Result_OK        StorageResult = 1
-	Result_ERR       StorageResult = 2
-)
-
-type CreateBucket struct {
-	Result StorageResult
-}
-
-type Bucket struct {
-	Name string
-}
-
-type ListBuckets struct {
-	Result  StorageResult
-	Buckets []Bucket
-}
+package model
 
 type Object struct {
 	Key     string

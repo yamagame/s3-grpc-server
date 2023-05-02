@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"path"
+	"sample/s3-grpc-server/infra/storage/model"
 	"strings"
 
 	"github.com/pkg/sftp"
@@ -58,10 +59,10 @@ func NewSFTPClient(ctx context.Context, options SFTPClientConfig) (*SFTPClient, 
 	}, nil
 }
 
-func (x *SFTPClient) ListBuckets() ([]Bucket, error) {
-	var buckets []Bucket
+func (x *SFTPClient) ListBuckets() ([]model.Bucket, error) {
+	var buckets []model.Bucket
 	fmt.Println("ListBuckets")
-	buckets = append(buckets, Bucket{
+	buckets = append(buckets, model.Bucket{
 		Name: x.share,
 	})
 	return buckets, nil
@@ -121,8 +122,8 @@ func (x *SFTPClient) DeleteObject(key string) error {
 	return x.client.Remove(path.Join(x.share, key))
 }
 
-func (x *SFTPClient) ListObjects(prefix string, nexttoken *string) ([]Object, error) {
-	var objects []Object
+func (x *SFTPClient) ListObjects(prefix string, nexttoken *string) ([]model.Object, error) {
+	var objects []model.Object
 	fmt.Println("ListObjects", prefix)
 	w := x.client.Walk(path.Join(x.share, prefix))
 	for w.Step() {
@@ -130,7 +131,7 @@ func (x *SFTPClient) ListObjects(prefix string, nexttoken *string) ([]Object, er
 			continue
 		}
 		if !w.Stat().IsDir() {
-			objects = append(objects, Object{
+			objects = append(objects, model.Object{
 				Key: strings.TrimPrefix(w.Path(), x.share),
 			})
 		}

@@ -1,4 +1,4 @@
-package repository
+package model
 
 type FileInfo struct {
 	ID       int64

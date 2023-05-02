@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"sample/s3-grpc-server/infra/storage/model"
 	"strings"
 
 	"cloud.google.com/go/storage"
@@ -45,8 +46,8 @@ func NewGCSClient(ctx context.Context, options GCSClientConfig) (*GCSClient, err
 	}, nil
 }
 
-func (x *GCSClient) ListBuckets() ([]Bucket, error) {
-	var buckets []Bucket
+func (x *GCSClient) ListBuckets() ([]model.Bucket, error) {
+	var buckets []model.Bucket
 	it := x.client.Buckets(x.ctx, x.projectID)
 	for {
 		oattrs, err := it.Next()
@@ -56,7 +57,7 @@ func (x *GCSClient) ListBuckets() ([]Bucket, error) {
 		if err != nil {
 			return nil, err
 		}
-		buckets = append(buckets, Bucket{
+		buckets = append(buckets, model.Bucket{
 			Name: oattrs.Name,
 		})
 	}
@@ -119,8 +120,8 @@ func (x *GCSClient) DeleteObject(key string) error {
 	return x.client.Bucket(x.bucket).Object(key).Delete(x.ctx)
 }
 
-func (x *GCSClient) ListObjects(prefix string, nexttoken *string) ([]Object, error) {
-	var objects []Object
+func (x *GCSClient) ListObjects(prefix string, nexttoken *string) ([]model.Object, error) {
+	var objects []model.Object
 	it := x.client.Bucket(x.bucket).Objects(x.ctx, &storage.Query{
 		Prefix: prefix,
 	})
@@ -132,7 +133,7 @@ func (x *GCSClient) ListObjects(prefix string, nexttoken *string) ([]Object, err
 		if err != nil {
 			return nil, err
 		}
-		objects = append(objects, Object{
+		objects = append(objects, model.Object{
 			Key: oattrs.Name,
 		})
 	}

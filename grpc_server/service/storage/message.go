@@ -1,18 +1,18 @@
 package storage
 
 import (
-	"sample/s3-grpc-server/infra/storage"
+	"sample/s3-grpc-server/infra/storage/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type StorageCreateBucketServerMessage struct {
 }
 
-func (x *StorageCreateBucketServerMessage) Input(req *server.CreateBucketRequest) *storage.CreateBucket {
-	return &storage.CreateBucket{}
+func (x *StorageCreateBucketServerMessage) Input(req *server.CreateBucketRequest) *model.CreateBucket {
+	return &model.CreateBucket{}
 }
 
-func (x *StorageCreateBucketServerMessage) Output(res *storage.CreateBucket) *server.CreateBucketResponse {
+func (x *StorageCreateBucketServerMessage) Output(res *model.CreateBucket) *server.CreateBucketResponse {
 	return &server.CreateBucketResponse{
 		Result: server.Result(res.Result),
 	}
@@ -21,11 +21,11 @@ func (x *StorageCreateBucketServerMessage) Output(res *storage.CreateBucket) *se
 type StorageListBucketsServerMessage struct {
 }
 
-func (x *StorageListBucketsServerMessage) Input(req *server.ListBucketsRequest) *storage.ListBuckets {
-	return &storage.ListBuckets{}
+func (x *StorageListBucketsServerMessage) Input(req *server.ListBucketsRequest) *model.ListBuckets {
+	return &model.ListBuckets{}
 }
 
-func (x *StorageListBucketsServerMessage) Output(res *storage.ListBuckets) *server.ListBucketsResponse {
+func (x *StorageListBucketsServerMessage) Output(res *model.ListBuckets) *server.ListBucketsResponse {
 	bueckts := make([]*server.ListBucketsResponseBucket, len(res.Buckets))
 	for i, bucket := range res.Buckets {
 		bueckts[i] = &server.ListBucketsResponseBucket{
@@ -41,14 +41,14 @@ func (x *StorageListBucketsServerMessage) Output(res *storage.ListBuckets) *serv
 type StoragePutObjectServerMessage struct {
 }
 
-func (x *StoragePutObjectServerMessage) Input(req *server.PutObjectRequest) *storage.PutObject {
-	return &storage.PutObject{
+func (x *StoragePutObjectServerMessage) Input(req *server.PutObjectRequest) *model.PutObject {
+	return &model.PutObject{
 		Key:     req.Key,
 		Content: req.Content,
 	}
 }
 
-func (x *StoragePutObjectServerMessage) Output(res *storage.PutObject) *server.PutObjectResponse {
+func (x *StoragePutObjectServerMessage) Output(res *model.PutObject) *server.PutObjectResponse {
 	return &server.PutObjectResponse{
 		Result: server.Result(res.Result),
 		Key:    res.Key,
@@ -58,13 +58,13 @@ func (x *StoragePutObjectServerMessage) Output(res *storage.PutObject) *server.P
 type StorageGetObjectServerMessage struct {
 }
 
-func (x *StorageGetObjectServerMessage) Input(req *server.GetObjectRequest) *storage.GetObject {
-	return &storage.GetObject{
+func (x *StorageGetObjectServerMessage) Input(req *server.GetObjectRequest) *model.GetObject {
+	return &model.GetObject{
 		Key: req.Key,
 	}
 }
 
-func (x *StorageGetObjectServerMessage) Output(res *storage.GetObject) *server.GetObjectResponse {
+func (x *StorageGetObjectServerMessage) Output(res *model.GetObject) *server.GetObjectResponse {
 	return &server.GetObjectResponse{
 		Result:  server.Result(res.Result),
 		Key:     res.Key,
@@ -75,13 +75,13 @@ func (x *StorageGetObjectServerMessage) Output(res *storage.GetObject) *server.G
 type StorageDeleteObjectServerMessage struct {
 }
 
-func (x *StorageDeleteObjectServerMessage) Input(req *server.DeleteObjectRequest) *storage.DeleteObject {
-	return &storage.DeleteObject{
+func (x *StorageDeleteObjectServerMessage) Input(req *server.DeleteObjectRequest) *model.DeleteObject {
+	return &model.DeleteObject{
 		Key: req.Key,
 	}
 }
 
-func (x *StorageDeleteObjectServerMessage) Output(res *storage.DeleteObject) *server.DeleteObjectResponse {
+func (x *StorageDeleteObjectServerMessage) Output(res *model.DeleteObject) *server.DeleteObjectResponse {
 	return &server.DeleteObjectResponse{
 		Result: server.Result(res.Result),
 		Key:    res.Key,
@@ -91,13 +91,13 @@ func (x *StorageDeleteObjectServerMessage) Output(res *storage.DeleteObject) *se
 type StorageListObjectsServerMessage struct {
 }
 
-func (x *StorageListObjectsServerMessage) Input(req *server.ListObjectsRequest) *storage.ListObjects {
-	return &storage.ListObjects{
+func (x *StorageListObjectsServerMessage) Input(req *server.ListObjectsRequest) *model.ListObjects {
+	return &model.ListObjects{
 		Prefix: req.Prefix,
 	}
 }
 
-func (x *StorageListObjectsServerMessage) Output(res *storage.ListObjects) *server.ListObjectsResponse {
+func (x *StorageListObjectsServerMessage) Output(res *model.ListObjects) *server.ListObjectsResponse {
 	return &server.ListObjectsResponse{
 		Result: server.Result(res.Result),
 		Prefix: res.Prefix,

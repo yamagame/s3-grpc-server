@@ -1,14 +1,14 @@
 package repository
 
 import (
-	"sample/s3-grpc-server/infra/repository"
+	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type RepositoryCreateFilieInfoClientMessage struct {
 }
 
-func (x *RepositoryCreateFilieInfoClientMessage) Input(req *repository.FileInfo) *server.CreateFileInfoRequest {
+func (x *RepositoryCreateFilieInfoClientMessage) Input(req *model.FileInfo) *server.CreateFileInfoRequest {
 	return &server.CreateFileInfoRequest{
 		File: &server.FileInfo{
 			Filename: req.Filename,
@@ -16,8 +16,8 @@ func (x *RepositoryCreateFilieInfoClientMessage) Input(req *repository.FileInfo)
 	}
 }
 
-func (x *RepositoryCreateFilieInfoClientMessage) Output(res *server.CreateFileInfoResponse) *repository.FileInfo {
-	return &repository.FileInfo{
+func (x *RepositoryCreateFilieInfoClientMessage) Output(res *server.CreateFileInfoResponse) *model.FileInfo {
+	return &model.FileInfo{
 		ID: res.GetID(),
 	}
 }
@@ -25,14 +25,14 @@ func (x *RepositoryCreateFilieInfoClientMessage) Output(res *server.CreateFileIn
 type RepositoryReadFileInfoClientMessage struct {
 }
 
-func (x *RepositoryReadFileInfoClientMessage) Input(req *repository.FileInfo) *server.ReadFileInfoRequest {
+func (x *RepositoryReadFileInfoClientMessage) Input(req *model.FileInfo) *server.ReadFileInfoRequest {
 	return &server.ReadFileInfoRequest{
 		ID: req.ID,
 	}
 }
 
-func (x *RepositoryReadFileInfoClientMessage) Output(res *server.ReadFileInfoResponse) *repository.FileInfo {
-	return &repository.FileInfo{
+func (x *RepositoryReadFileInfoClientMessage) Output(res *server.ReadFileInfoResponse) *model.FileInfo {
+	return &model.FileInfo{
 		ID:       res.GetID(),
 		Filename: res.File.Filename,
 	}
@@ -41,7 +41,7 @@ func (x *RepositoryReadFileInfoClientMessage) Output(res *server.ReadFileInfoRes
 type RepositoryUpdateFileInfoClientMessage struct {
 }
 
-func (x *RepositoryUpdateFileInfoClientMessage) Input(req *repository.FileInfo) *server.UpdateFileInfoRequest {
+func (x *RepositoryUpdateFileInfoClientMessage) Input(req *model.FileInfo) *server.UpdateFileInfoRequest {
 	return &server.UpdateFileInfoRequest{
 		ID: req.ID,
 		File: &server.FileInfo{
@@ -50,8 +50,8 @@ func (x *RepositoryUpdateFileInfoClientMessage) Input(req *repository.FileInfo) 
 	}
 }
 
-func (x *RepositoryUpdateFileInfoClientMessage) Output(res *server.UpdateFileInfoResponse) *repository.FileInfo {
-	return &repository.FileInfo{
+func (x *RepositoryUpdateFileInfoClientMessage) Output(res *server.UpdateFileInfoResponse) *model.FileInfo {
+	return &model.FileInfo{
 		ID: res.GetID(),
 	}
 }
@@ -59,14 +59,14 @@ func (x *RepositoryUpdateFileInfoClientMessage) Output(res *server.UpdateFileInf
 type RepositoryDeleteFileInfoClientMessage struct {
 }
 
-func (x *RepositoryDeleteFileInfoClientMessage) Input(req *repository.FileInfo) *server.DeleteFileInfoRequest {
+func (x *RepositoryDeleteFileInfoClientMessage) Input(req *model.FileInfo) *server.DeleteFileInfoRequest {
 	return &server.DeleteFileInfoRequest{
 		ID: req.ID,
 	}
 }
 
-func (x *RepositoryDeleteFileInfoClientMessage) Output(res *server.DeleteFileInfoResponse) *repository.FileInfo {
-	return &repository.FileInfo{
+func (x *RepositoryDeleteFileInfoClientMessage) Output(res *server.DeleteFileInfoResponse) *model.FileInfo {
+	return &model.FileInfo{
 		ID: res.GetID(),
 	}
 }

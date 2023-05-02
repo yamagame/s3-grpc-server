@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"io"
+	"sample/s3-grpc-server/infra/storage/model"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -50,14 +51,14 @@ func NewS3Client(ctx context.Context, options S3ClientConfig) (*S3Client, error)
 	}, nil
 }
 
-func (x *S3Client) ListBuckets() ([]Bucket, error) {
-	var buckets []Bucket
+func (x *S3Client) ListBuckets() ([]model.Bucket, error) {
+	var buckets []model.Bucket
 	res, err := x.s3client.ListBuckets(x.ctx, &s3.ListBucketsInput{})
 	if err != nil {
 		return nil, err
 	}
 	for _, bucket := range res.Buckets {
-		buckets = append(buckets, Bucket{
+		buckets = append(buckets, model.Bucket{
 			Name: *bucket.Name,
 		})
 	}
@@ -118,7 +119,7 @@ func (x *S3Client) DeleteObject(key string) error {
 	return err
 }
 
-func (x *S3Client) ListObjects(prefix string, nexttoken *string) ([]Object, error) {
+func (x *S3Client) ListObjects(prefix string, nexttoken *string) ([]model.Object, error) {
 	res, err := x.s3client.ListObjectsV2(x.ctx, &s3.ListObjectsV2Input{
 		Bucket:            aws.String(x.bucket),
 		Prefix:            aws.String(prefix),
@@ -127,9 +128,9 @@ func (x *S3Client) ListObjects(prefix string, nexttoken *string) ([]Object, erro
 	if err != nil {
 		return nil, err
 	}
-	objects := make([]Object, len(res.Contents))
+	objects := make([]model.Object, len(res.Contents))
 	for i, cont := range res.Contents {
-		objects[i] = Object{
+		objects[i] = model.Object{
 			Key: *cont.Key,
 		}
 	}

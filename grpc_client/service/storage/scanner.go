@@ -3,16 +3,16 @@ package storage
 import (
 	"bufio"
 	"fmt"
-	"sample/s3-grpc-server/infra/storage"
+	"sample/s3-grpc-server/infra/storage/model"
 )
 
 type StorageScannerInterface interface {
-	CreateBucket() *storage.CreateBucket
-	ListBuckets() *storage.ListBuckets
-	PutObject() *storage.PutObject
-	GetObject() *storage.GetObject
-	DeleteObject() *storage.DeleteObject
-	ListObjects() *storage.ListObjects
+	CreateBucket() *model.CreateBucket
+	ListBuckets() *model.ListBuckets
+	PutObject() *model.PutObject
+	GetObject() *model.GetObject
+	DeleteObject() *model.DeleteObject
+	ListObjects() *model.ListObjects
 }
 
 type StorageScanner struct {
@@ -25,50 +25,50 @@ func NewScanner(scanner *bufio.Scanner) *StorageScanner {
 	}
 }
 
-func (x *StorageScanner) CreateBucket() *storage.CreateBucket {
-	return &storage.CreateBucket{}
+func (x *StorageScanner) CreateBucket() *model.CreateBucket {
+	return &model.CreateBucket{}
 }
 
-func (x *StorageScanner) ListBuckets() *storage.ListBuckets {
-	return &storage.ListBuckets{}
+func (x *StorageScanner) ListBuckets() *model.ListBuckets {
+	return &model.ListBuckets{}
 }
 
-func (x *StorageScanner) PutObject() *storage.PutObject {
+func (x *StorageScanner) PutObject() *model.PutObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
 	fmt.Print("content >")
 	x.scanner.Scan()
 	content := x.scanner.Text()
-	return &storage.PutObject{
+	return &model.PutObject{
 		Key:     key,
 		Content: content,
 	}
 }
 
-func (x *StorageScanner) GetObject() *storage.GetObject {
+func (x *StorageScanner) GetObject() *model.GetObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
-	return &storage.GetObject{
+	return &model.GetObject{
 		Key: key,
 	}
 }
 
-func (x *StorageScanner) DeleteObject() *storage.DeleteObject {
+func (x *StorageScanner) DeleteObject() *model.DeleteObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
-	return &storage.DeleteObject{
+	return &model.DeleteObject{
 		Key: key,
 	}
 }
 
-func (x *StorageScanner) ListObjects() *storage.ListObjects {
+func (x *StorageScanner) ListObjects() *model.ListObjects {
 	fmt.Print("prefix >")
 	x.scanner.Scan()
 	prefix := x.scanner.Text()
-	return &storage.ListObjects{
+	return &model.ListObjects{
 		Prefix: prefix,
 	}
 }
