@@ -1,5 +1,5 @@
 import * as express from "express"
-import * as storage from "./proto/grpc-server/storage"
+import * as storage from "./proto/grpc_server/storage"
 import * as grpc from "@grpc/grpc-js"
 import { UnaryCallback } from "@grpc/grpc-js/build/src/client"
 import * as session from "express-session"
