@@ -16,7 +16,6 @@ type serverDTO struct {
 type CRUDService struct {
 	serverDTO
 	repository file.RepositoryInterface
-	server.UnimplementedRepositoryServer
 }
 
 func NewCRUDService(repository file.RepositoryInterface) *CRUDService {
