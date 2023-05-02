@@ -3,7 +3,7 @@ package repository
 import (
 	"bufio"
 	"fmt"
-	"sample/s3-grpc-server/infra/repository/model"
+	"sample/s3-grpc-server/infra/repository/fileinfo/model"
 	"strconv"
 )
 

@@ -2,19 +2,19 @@ package repository
 
 import (
 	"context"
-	"sample/s3-grpc-server/infra/repository/model"
+	"sample/s3-grpc-server/infra/repository/fileinfo/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type repositoryClientMessage struct {
-	createFileInfo RepositoryCreateFilieInfoClientMessage
-	readFileInfo   RepositoryReadFileInfoClientMessage
-	updateFileInfo RepositoryUpdateFileInfoClientMessage
-	deleteFileInfo RepositoryDeleteFileInfoClientMessage
+type clientDTO struct {
+	createFileInfo CreateFilieInfoDTO
+	readFileInfo   ReadFileInfoDTO
+	updateFileInfo UpdateFileInfoDTO
+	deleteFileInfo DeleteFileInfoDTO
 }
 
 type RepositoryClient struct {
-	repositoryClientMessage
+	clientDTO
 	scanner RepositoryScannerInterface
 	client  server.RepositoryClient
 }

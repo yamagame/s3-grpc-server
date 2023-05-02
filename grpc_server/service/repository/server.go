@@ -2,24 +2,24 @@ package repository
 
 import (
 	"context"
-	"sample/s3-grpc-server/infra/repository"
+	"sample/s3-grpc-server/infra/repository/fileinfo"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type repositoryServerMessage struct {
-	createFileInfo RepositoryCreateFilieInfoServerMessage
-	readFileInfo   RepositoryReadFileInfoServerMessage
-	updateFileInfo RepositoryUpdateFileInfoServerMessage
-	deleteFileInfo RepositoryDeleteFileInfoServerMessage
+type repositoryServerDTO struct {
+	createFileInfo CreateFilieInfoDTO
+	readFileInfo   ReadFileInfoDTO
+	updateFileInfo UpdateFileInfoDTO
+	deleteFileInfo DeleteFileInfoDTO
 }
 
 type repositoryServer struct {
-	repositoryServerMessage
-	service *repository.RepositoryService
+	repositoryServerDTO
+	service fileinfo.RepositoryInterface
 	server.UnimplementedRepositoryServer
 }
 
-func NewRepositoryServer(service *repository.RepositoryService) *repositoryServer {
+func NewRepositoryServer(service fileinfo.RepositoryInterface) *repositoryServer {
 	return &repositoryServer{
 		service: service,
 	}
