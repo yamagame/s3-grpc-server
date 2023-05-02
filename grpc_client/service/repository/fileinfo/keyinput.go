@@ -1,4 +1,4 @@
-package repository
+package fileinfo
 
 import (
 	"bufio"
@@ -7,24 +7,17 @@ import (
 	"strconv"
 )
 
-type RepositoryScannerInterface interface {
-	CreateFileInfo() *model.FileInfo
-	ReadFileInfo() *model.FileInfo
-	UpdateFileInfo() *model.FileInfo
-	DeleteFileInfo() *model.FileInfo
-}
-
-type RepositoryScanner struct {
+type FileInfoKeyInput struct {
 	scanner *bufio.Scanner
 }
 
-func NewScanner(scanner *bufio.Scanner) *RepositoryScanner {
-	return &RepositoryScanner{
+func NewKeyInput(scanner *bufio.Scanner) *FileInfoKeyInput {
+	return &FileInfoKeyInput{
 		scanner: scanner,
 	}
 }
 
-func (x *RepositoryScanner) CreateFileInfo() *model.FileInfo {
+func (x *FileInfoKeyInput) CreateFileInfo() *model.FileInfo {
 	fmt.Print("content >")
 	x.scanner.Scan()
 	filename := x.scanner.Text()
@@ -33,7 +26,7 @@ func (x *RepositoryScanner) CreateFileInfo() *model.FileInfo {
 	}
 }
 
-func (x *RepositoryScanner) ReadFileInfo() *model.FileInfo {
+func (x *FileInfoKeyInput) ReadFileInfo() *model.FileInfo {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
@@ -42,7 +35,7 @@ func (x *RepositoryScanner) ReadFileInfo() *model.FileInfo {
 	}
 }
 
-func (x *RepositoryScanner) UpdateFileInfo() *model.FileInfo {
+func (x *FileInfoKeyInput) UpdateFileInfo() *model.FileInfo {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
@@ -55,7 +48,7 @@ func (x *RepositoryScanner) UpdateFileInfo() *model.FileInfo {
 	}
 }
 
-func (x *RepositoryScanner) DeleteFileInfo() *model.FileInfo {
+func (x *FileInfoKeyInput) DeleteFileInfo() *model.FileInfo {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())

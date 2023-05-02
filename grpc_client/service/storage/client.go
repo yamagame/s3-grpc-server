@@ -2,17 +2,18 @@ package storage
 
 import (
 	"context"
+	"sample/s3-grpc-server/grpc_client/service/storage/dto"
 	"sample/s3-grpc-server/infra/storage/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type clientDTO struct {
-	createBucket CreateBucketDTO
-	listBuckets  ListBucketsDTO
-	putObject    PutObjectDTO
-	getObject    GetObjectDTO
-	deleteObject DeleteObjectDTO
-	listobjects  ListObjectsDTO
+	createBucket dto.CreateBucketDTO
+	listBuckets  dto.ListBucketsDTO
+	putObject    dto.PutObjectDTO
+	getObject    dto.GetObjectDTO
+	deleteObject dto.DeleteObjectDTO
+	listobjects  dto.ListObjectsDTO
 }
 
 type StorageClient struct {

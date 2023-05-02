@@ -5,16 +5,12 @@ import (
 	"fmt"
 	"net"
 	"os"
-
-	repositoryService "sample/s3-grpc-server/grpc_server/service/repository"
-	storageService "sample/s3-grpc-server/grpc_server/service/storage"
+	"sample/s3-grpc-server/grpc_server/service"
 	"sample/s3-grpc-server/infra/repository"
 	"sample/s3-grpc-server/infra/repository/fileinfo"
 	"sample/s3-grpc-server/infra/storage"
-	aws "sample/s3-grpc-server/proto/grpc_server"
 
 	"go.uber.org/zap"
-	"google.golang.org/grpc"
 )
 
 var (
@@ -37,12 +33,10 @@ func main() {
 		// log.Fatalf("failed to listen: %v", err)
 		sugar.Infof("failed to listen: %v", err)
 	}
-	s := grpc.NewServer()
-	aws.RegisterStorageServer(s, storageService.NewStorageServer(storage.NewStorageService(storage.GetClient(mode))))
-	aws.RegisterRepositoryServer(s, repositoryService.NewRepositoryServer(fileinfo.NewRepository(repository.GormDB())))
+	server := service.NewServer(storage.GetClient(mode), fileinfo.NewRepository(repository.GormDB()))
 	// log.Printf("server listening at %v", lis.Addr())
 	sugar.Infof("server listening at %v", lis.Addr())
-	if err := s.Serve(lis); err != nil {
+	if err := server.Serve(lis); err != nil {
 		// log.Fatalf("failed to serve: %v", err)
 		sugar.Infof("failed to serve: %v", err)
 	}

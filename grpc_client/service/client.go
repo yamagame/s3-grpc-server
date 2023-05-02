@@ -2,21 +2,21 @@ package service
 
 import (
 	"context"
-	fileinfo_service "sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
-	storage_service "sample/s3-grpc-server/grpc_client/service/storage"
+	"sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
+	"sample/s3-grpc-server/grpc_client/service/storage"
 	repository_model "sample/s3-grpc-server/infra/repository/model"
 	storage_model "sample/s3-grpc-server/infra/storage/model"
 )
 
 type ClientService struct {
-	storageClient  *storage_service.StorageClient
-	fileInfoClient *fileinfo_service.RepositoryClient
+	storageClient  *storage.StorageClient
+	fileInfoClient *fileinfo.FileInfoClient
 }
 
-func NewClientService(storageClient *storage_service.StorageClient, repositoryClient *fileinfo_service.RepositoryClient) *ClientService {
+func NewClientService(storageClient *storage.StorageClient, fileInfoClient *fileinfo.FileInfoClient) *ClientService {
 	return &ClientService{
 		storageClient:  storageClient,
-		fileInfoClient: repositoryClient,
+		fileInfoClient: fileInfoClient,
 	}
 }
 

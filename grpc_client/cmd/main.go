@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 
-	"sample/s3-grpc-server/grpc_client/cmd/service"
-	fileinfo "sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
+	"sample/s3-grpc-server/grpc_client/service"
+	"sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
 	"sample/s3-grpc-server/grpc_client/service/storage"
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
 
@@ -38,8 +38,8 @@ func main() {
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
-	fileInfoClient := fileinfo.NewRepositoryClient(grpc_server.NewRepositoryClient(conn), fileinfo.NewScanner(keyboard))
-	storageClient := storage.NewStorageClient(grpc_server.NewStorageClient(conn), storage.NewScanner(keyboard))
+	fileInfoClient := fileinfo.NewFileInfoClient(grpc_server.NewRepositoryClient(conn), fileinfo.NewKeyInput(keyboard))
+	storageClient := storage.NewStorageClient(grpc_server.NewStorageClient(conn), storage.NewKeyInput(keyboard))
 	client := service.NewClientService(storageClient, fileInfoClient)
 
 	tbl := []struct {
