@@ -7,8 +7,16 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewRepository(db *gorm.DB) *repository.CRUDRepository[model.Cell] {
-	return &repository.CRUDRepository[model.Cell]{
-		DB: db,
+type cellRepository struct {
+	repository.CRUDRepository[model.Cell]
+}
+
+func NewRepository(db *gorm.DB) *cellRepository {
+	return &cellRepository{
+		CRUDRepository: repository.CRUDRepository[model.Cell]{DB: db},
 	}
+}
+
+func (s *cellRepository) Read(object *model.Cell) (*model.Cell, error) {
+	return s.CRUDRepository.Read(object)
 }

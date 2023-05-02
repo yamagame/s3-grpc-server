@@ -7,8 +7,12 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewRepository(db *gorm.DB) *repository.CRUDRepository[model.File] {
-	return &repository.CRUDRepository[model.File]{
-		DB: db,
+type fileRepository struct {
+	repository.CRUDRepository[model.File]
+}
+
+func NewRepository(db *gorm.DB) *fileRepository {
+	return &fileRepository{
+		CRUDRepository: repository.CRUDRepository[model.File]{DB: db},
 	}
 }
