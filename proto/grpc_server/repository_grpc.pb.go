@@ -19,32 +19,32 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Repository_CreateFileInfo_FullMethodName = "/repository/CreateFileInfo"
-	Repository_ReadFileInfo_FullMethodName   = "/repository/ReadFileInfo"
-	Repository_UpdateFileInfo_FullMethodName = "/repository/UpdateFileInfo"
-	Repository_DeleteFileInfo_FullMethodName = "/repository/DeleteFileInfo"
-	Repository_CreateTable_FullMethodName    = "/repository/CreateTable"
-	Repository_ReadTable_FullMethodName      = "/repository/ReadTable"
-	Repository_UpdateTable_FullMethodName    = "/repository/UpdateTable"
-	Repository_DeleteTable_FullMethodName    = "/repository/DeleteTable"
-	Repository_CreateCell_FullMethodName     = "/repository/CreateCell"
-	Repository_ReadCell_FullMethodName       = "/repository/ReadCell"
-	Repository_UpdateCell_FullMethodName     = "/repository/UpdateCell"
-	Repository_DeleteCell_FullMethodName     = "/repository/DeleteCell"
+	Repository_CreateFile_FullMethodName  = "/repository/CreateFile"
+	Repository_ReadFile_FullMethodName    = "/repository/ReadFile"
+	Repository_UpdateFile_FullMethodName  = "/repository/UpdateFile"
+	Repository_DeleteFile_FullMethodName  = "/repository/DeleteFile"
+	Repository_CreateTable_FullMethodName = "/repository/CreateTable"
+	Repository_ReadTable_FullMethodName   = "/repository/ReadTable"
+	Repository_UpdateTable_FullMethodName = "/repository/UpdateTable"
+	Repository_DeleteTable_FullMethodName = "/repository/DeleteTable"
+	Repository_CreateCell_FullMethodName  = "/repository/CreateCell"
+	Repository_ReadCell_FullMethodName    = "/repository/ReadCell"
+	Repository_UpdateCell_FullMethodName  = "/repository/UpdateCell"
+	Repository_DeleteCell_FullMethodName  = "/repository/DeleteCell"
 )
 
 // RepositoryClient is the client API for Repository service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RepositoryClient interface {
-	// CreateFileInfo
-	CreateFileInfo(ctx context.Context, in *CreateFileInfoRequest, opts ...grpc.CallOption) (*CreateFileInfoResponse, error)
-	// ReadFileInfo
-	ReadFileInfo(ctx context.Context, in *ReadFileInfoRequest, opts ...grpc.CallOption) (*ReadFileInfoResponse, error)
-	// UpdateFileInfo
-	UpdateFileInfo(ctx context.Context, in *UpdateFileInfoRequest, opts ...grpc.CallOption) (*UpdateFileInfoResponse, error)
-	// DeleteFileInfo
-	DeleteFileInfo(ctx context.Context, in *DeleteFileInfoRequest, opts ...grpc.CallOption) (*DeleteFileInfoResponse, error)
+	// CreateFile
+	CreateFile(ctx context.Context, in *CreateFileRequest, opts ...grpc.CallOption) (*CreateFileResponse, error)
+	// ReadFile
+	ReadFile(ctx context.Context, in *ReadFileRequest, opts ...grpc.CallOption) (*ReadFileResponse, error)
+	// UpdateFile
+	UpdateFile(ctx context.Context, in *UpdateFileRequest, opts ...grpc.CallOption) (*UpdateFileResponse, error)
+	// DeleteFile
+	DeleteFile(ctx context.Context, in *DeleteFileRequest, opts ...grpc.CallOption) (*DeleteFileResponse, error)
 	// CreateTable
 	CreateTable(ctx context.Context, in *CreateTableRequest, opts ...grpc.CallOption) (*CreateTableResponse, error)
 	// ReadTable
@@ -71,36 +71,36 @@ func NewRepositoryClient(cc grpc.ClientConnInterface) RepositoryClient {
 	return &repositoryClient{cc}
 }
 
-func (c *repositoryClient) CreateFileInfo(ctx context.Context, in *CreateFileInfoRequest, opts ...grpc.CallOption) (*CreateFileInfoResponse, error) {
-	out := new(CreateFileInfoResponse)
-	err := c.cc.Invoke(ctx, Repository_CreateFileInfo_FullMethodName, in, out, opts...)
+func (c *repositoryClient) CreateFile(ctx context.Context, in *CreateFileRequest, opts ...grpc.CallOption) (*CreateFileResponse, error) {
+	out := new(CreateFileResponse)
+	err := c.cc.Invoke(ctx, Repository_CreateFile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *repositoryClient) ReadFileInfo(ctx context.Context, in *ReadFileInfoRequest, opts ...grpc.CallOption) (*ReadFileInfoResponse, error) {
-	out := new(ReadFileInfoResponse)
-	err := c.cc.Invoke(ctx, Repository_ReadFileInfo_FullMethodName, in, out, opts...)
+func (c *repositoryClient) ReadFile(ctx context.Context, in *ReadFileRequest, opts ...grpc.CallOption) (*ReadFileResponse, error) {
+	out := new(ReadFileResponse)
+	err := c.cc.Invoke(ctx, Repository_ReadFile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *repositoryClient) UpdateFileInfo(ctx context.Context, in *UpdateFileInfoRequest, opts ...grpc.CallOption) (*UpdateFileInfoResponse, error) {
-	out := new(UpdateFileInfoResponse)
-	err := c.cc.Invoke(ctx, Repository_UpdateFileInfo_FullMethodName, in, out, opts...)
+func (c *repositoryClient) UpdateFile(ctx context.Context, in *UpdateFileRequest, opts ...grpc.CallOption) (*UpdateFileResponse, error) {
+	out := new(UpdateFileResponse)
+	err := c.cc.Invoke(ctx, Repository_UpdateFile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *repositoryClient) DeleteFileInfo(ctx context.Context, in *DeleteFileInfoRequest, opts ...grpc.CallOption) (*DeleteFileInfoResponse, error) {
-	out := new(DeleteFileInfoResponse)
-	err := c.cc.Invoke(ctx, Repository_DeleteFileInfo_FullMethodName, in, out, opts...)
+func (c *repositoryClient) DeleteFile(ctx context.Context, in *DeleteFileRequest, opts ...grpc.CallOption) (*DeleteFileResponse, error) {
+	out := new(DeleteFileResponse)
+	err := c.cc.Invoke(ctx, Repository_DeleteFile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -183,14 +183,14 @@ func (c *repositoryClient) DeleteCell(ctx context.Context, in *DeleteCellRequest
 // All implementations must embed UnimplementedRepositoryServer
 // for forward compatibility
 type RepositoryServer interface {
-	// CreateFileInfo
-	CreateFileInfo(context.Context, *CreateFileInfoRequest) (*CreateFileInfoResponse, error)
-	// ReadFileInfo
-	ReadFileInfo(context.Context, *ReadFileInfoRequest) (*ReadFileInfoResponse, error)
-	// UpdateFileInfo
-	UpdateFileInfo(context.Context, *UpdateFileInfoRequest) (*UpdateFileInfoResponse, error)
-	// DeleteFileInfo
-	DeleteFileInfo(context.Context, *DeleteFileInfoRequest) (*DeleteFileInfoResponse, error)
+	// CreateFile
+	CreateFile(context.Context, *CreateFileRequest) (*CreateFileResponse, error)
+	// ReadFile
+	ReadFile(context.Context, *ReadFileRequest) (*ReadFileResponse, error)
+	// UpdateFile
+	UpdateFile(context.Context, *UpdateFileRequest) (*UpdateFileResponse, error)
+	// DeleteFile
+	DeleteFile(context.Context, *DeleteFileRequest) (*DeleteFileResponse, error)
 	// CreateTable
 	CreateTable(context.Context, *CreateTableRequest) (*CreateTableResponse, error)
 	// ReadTable
@@ -214,17 +214,17 @@ type RepositoryServer interface {
 type UnimplementedRepositoryServer struct {
 }
 
-func (UnimplementedRepositoryServer) CreateFileInfo(context.Context, *CreateFileInfoRequest) (*CreateFileInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateFileInfo not implemented")
+func (UnimplementedRepositoryServer) CreateFile(context.Context, *CreateFileRequest) (*CreateFileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateFile not implemented")
 }
-func (UnimplementedRepositoryServer) ReadFileInfo(context.Context, *ReadFileInfoRequest) (*ReadFileInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReadFileInfo not implemented")
+func (UnimplementedRepositoryServer) ReadFile(context.Context, *ReadFileRequest) (*ReadFileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadFile not implemented")
 }
-func (UnimplementedRepositoryServer) UpdateFileInfo(context.Context, *UpdateFileInfoRequest) (*UpdateFileInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateFileInfo not implemented")
+func (UnimplementedRepositoryServer) UpdateFile(context.Context, *UpdateFileRequest) (*UpdateFileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateFile not implemented")
 }
-func (UnimplementedRepositoryServer) DeleteFileInfo(context.Context, *DeleteFileInfoRequest) (*DeleteFileInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteFileInfo not implemented")
+func (UnimplementedRepositoryServer) DeleteFile(context.Context, *DeleteFileRequest) (*DeleteFileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteFile not implemented")
 }
 func (UnimplementedRepositoryServer) CreateTable(context.Context, *CreateTableRequest) (*CreateTableResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTable not implemented")
@@ -263,74 +263,74 @@ func RegisterRepositoryServer(s grpc.ServiceRegistrar, srv RepositoryServer) {
 	s.RegisterService(&Repository_ServiceDesc, srv)
 }
 
-func _Repository_CreateFileInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateFileInfoRequest)
+func _Repository_CreateFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateFileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RepositoryServer).CreateFileInfo(ctx, in)
+		return srv.(RepositoryServer).CreateFile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Repository_CreateFileInfo_FullMethodName,
+		FullMethod: Repository_CreateFile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RepositoryServer).CreateFileInfo(ctx, req.(*CreateFileInfoRequest))
+		return srv.(RepositoryServer).CreateFile(ctx, req.(*CreateFileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Repository_ReadFileInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadFileInfoRequest)
+func _Repository_ReadFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadFileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RepositoryServer).ReadFileInfo(ctx, in)
+		return srv.(RepositoryServer).ReadFile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Repository_ReadFileInfo_FullMethodName,
+		FullMethod: Repository_ReadFile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RepositoryServer).ReadFileInfo(ctx, req.(*ReadFileInfoRequest))
+		return srv.(RepositoryServer).ReadFile(ctx, req.(*ReadFileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Repository_UpdateFileInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateFileInfoRequest)
+func _Repository_UpdateFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RepositoryServer).UpdateFileInfo(ctx, in)
+		return srv.(RepositoryServer).UpdateFile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Repository_UpdateFileInfo_FullMethodName,
+		FullMethod: Repository_UpdateFile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RepositoryServer).UpdateFileInfo(ctx, req.(*UpdateFileInfoRequest))
+		return srv.(RepositoryServer).UpdateFile(ctx, req.(*UpdateFileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Repository_DeleteFileInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteFileInfoRequest)
+func _Repository_DeleteFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteFileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RepositoryServer).DeleteFileInfo(ctx, in)
+		return srv.(RepositoryServer).DeleteFile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Repository_DeleteFileInfo_FullMethodName,
+		FullMethod: Repository_DeleteFile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RepositoryServer).DeleteFileInfo(ctx, req.(*DeleteFileInfoRequest))
+		return srv.(RepositoryServer).DeleteFile(ctx, req.(*DeleteFileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -487,20 +487,20 @@ var Repository_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*RepositoryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateFileInfo",
-			Handler:    _Repository_CreateFileInfo_Handler,
+			MethodName: "CreateFile",
+			Handler:    _Repository_CreateFile_Handler,
 		},
 		{
-			MethodName: "ReadFileInfo",
-			Handler:    _Repository_ReadFileInfo_Handler,
+			MethodName: "ReadFile",
+			Handler:    _Repository_ReadFile_Handler,
 		},
 		{
-			MethodName: "UpdateFileInfo",
-			Handler:    _Repository_UpdateFileInfo_Handler,
+			MethodName: "UpdateFile",
+			Handler:    _Repository_UpdateFile_Handler,
 		},
 		{
-			MethodName: "DeleteFileInfo",
-			Handler:    _Repository_DeleteFileInfo_Handler,
+			MethodName: "DeleteFile",
+			Handler:    _Repository_DeleteFile_Handler,
 		},
 		{
 			MethodName: "CreateTable",

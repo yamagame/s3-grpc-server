@@ -1,6 +1,6 @@
 package model
 
-type FileInfo struct {
+type File struct {
 	ID       int64
 	Filename string
 }

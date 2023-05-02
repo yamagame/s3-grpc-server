@@ -7,7 +7,7 @@ import (
 
 func main() {
 	db := repository.GormDB()
-	db.AutoMigrate(&model.FileInfo{})
+	db.AutoMigrate(&model.File{})
 	db.AutoMigrate(&model.Cell{})
 	db.AutoMigrate(&model.Table{})
 }

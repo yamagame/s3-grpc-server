@@ -9,7 +9,7 @@ import (
 
 	"sample/s3-grpc-server/grpc_client/service"
 	"sample/s3-grpc-server/grpc_client/service/repository/cell"
-	"sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
+	"sample/s3-grpc-server/grpc_client/service/repository/file"
 	"sample/s3-grpc-server/grpc_client/service/repository/table"
 	"sample/s3-grpc-server/grpc_client/service/storage"
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
@@ -40,11 +40,11 @@ func main() {
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
-	fileInfoClient := fileinfo.NewFileInfoClient(grpc_server.NewRepositoryClient(conn), fileinfo.NewKeyInput(keyboard))
+	fileClient := file.NewFileClient(grpc_server.NewRepositoryClient(conn), file.NewKeyInput(keyboard))
 	tableClient := table.NewTableClient(grpc_server.NewRepositoryClient(conn), table.NewKeyInput(keyboard))
 	cellClient := cell.NewCellClient(grpc_server.NewRepositoryClient(conn), cell.NewKeyInput(keyboard))
 	storageClient := storage.NewStorageClient(grpc_server.NewStorageClient(conn), storage.NewKeyInput(keyboard))
-	client := service.NewClientService(storageClient, fileInfoClient, tableClient, cellClient)
+	client := service.NewClientService(storageClient, fileClient, tableClient, cellClient)
 
 	tbl := []struct {
 		name string
@@ -74,20 +74,20 @@ func main() {
 			ent, _ := client.ListObjects(ctx)
 			fmt.Println(ent)
 		}},
-		{"CreateFileInfo", func() {
-			ent, _ := client.CreateFileInfo(ctx)
+		{"CreateFile", func() {
+			ent, _ := client.CreateFile(ctx)
 			fmt.Println(ent)
 		}},
-		{"ReadFileInfo", func() {
-			ent, _ := client.ReadFileInfo(ctx)
+		{"ReadFile", func() {
+			ent, _ := client.ReadFile(ctx)
 			fmt.Println(ent)
 		}},
-		{"UpdateFileInfo", func() {
-			ent, _ := client.UpdateFileInfo(ctx)
+		{"UpdateFile", func() {
+			ent, _ := client.UpdateFile(ctx)
 			fmt.Println(ent)
 		}},
-		{"DeleteFileInfo", func() {
-			ent, _ := client.DeleteFileInfo(ctx)
+		{"DeleteFile", func() {
+			ent, _ := client.DeleteFile(ctx)
 			fmt.Println(ent)
 		}},
 		{"CreateTable", func() {

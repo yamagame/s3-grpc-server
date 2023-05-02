@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"sample/s3-grpc-server/grpc_client/service/repository/cell"
-	"sample/s3-grpc-server/grpc_client/service/repository/fileinfo"
+	"sample/s3-grpc-server/grpc_client/service/repository/file"
 	"sample/s3-grpc-server/grpc_client/service/repository/table"
 	"sample/s3-grpc-server/grpc_client/service/storage"
 	repository_model "sample/s3-grpc-server/infra/repository/model"
@@ -11,42 +11,42 @@ import (
 )
 
 type ClientService struct {
-	storageClient  *storage.StorageClient
-	fileInfoClient *fileinfo.FileInfoClient
-	tableClient    *table.TableClient
-	cellClient     *cell.CellClient
+	storageClient *storage.StorageClient
+	fileClient    *file.FileClient
+	tableClient   *table.TableClient
+	cellClient    *cell.CellClient
 }
 
 func NewClientService(
 	storageClient *storage.StorageClient,
-	fileInfoClient *fileinfo.FileInfoClient,
+	fileClient *file.FileClient,
 	tableClient *table.TableClient,
 	cellClient *cell.CellClient,
 ) *ClientService {
 	return &ClientService{
-		storageClient:  storageClient,
-		fileInfoClient: fileInfoClient,
-		tableClient:    tableClient,
-		cellClient:     cellClient,
+		storageClient: storageClient,
+		fileClient:    fileClient,
+		tableClient:   tableClient,
+		cellClient:    cellClient,
 	}
 }
 
-// FileInfo ----------------------------------------------------------------------
+// File ----------------------------------------------------------------------
 
-func (x *ClientService) CreateFileInfo(ctx context.Context) (*repository_model.FileInfo, error) {
-	return x.fileInfoClient.Create(ctx)
+func (x *ClientService) CreateFile(ctx context.Context) (*repository_model.File, error) {
+	return x.fileClient.Create(ctx)
 }
 
-func (x *ClientService) ReadFileInfo(ctx context.Context) (*repository_model.FileInfo, error) {
-	return x.fileInfoClient.Read(ctx)
+func (x *ClientService) ReadFile(ctx context.Context) (*repository_model.File, error) {
+	return x.fileClient.Read(ctx)
 }
 
-func (x *ClientService) UpdateFileInfo(ctx context.Context) (*repository_model.FileInfo, error) {
-	return x.fileInfoClient.Update(ctx)
+func (x *ClientService) UpdateFile(ctx context.Context) (*repository_model.File, error) {
+	return x.fileClient.Update(ctx)
 }
 
-func (x *ClientService) DeleteFileInfo(ctx context.Context) (*repository_model.FileInfo, error) {
-	return x.fileInfoClient.Delete(ctx)
+func (x *ClientService) DeleteFile(ctx context.Context) (*repository_model.File, error) {
+	return x.fileClient.Delete(ctx)
 }
 
 // Table ----------------------------------------------------------------------

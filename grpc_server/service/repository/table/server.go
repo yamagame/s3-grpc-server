@@ -2,16 +2,15 @@ package table
 
 import (
 	"context"
-	"sample/s3-grpc-server/grpc_server/service/repository/dto"
 	"sample/s3-grpc-server/infra/repository/table"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type serverDTO struct {
-	createTable dto.CreateTable
-	readTable   dto.ReadTable
-	updateTable dto.UpdateTable
-	deleteTable dto.DeleteTable
+	createTable CreateTable
+	readTable   ReadTable
+	updateTable UpdateTable
+	deleteTable DeleteTable
 }
 
 type TableServer struct {

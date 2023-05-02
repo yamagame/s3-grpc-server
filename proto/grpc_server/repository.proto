@@ -4,14 +4,14 @@ option go_package = "sample/grpc-server";
 
 // The greeting service definition.
 service repository {
-  // CreateFileInfo
-  rpc CreateFileInfo(CreateFileInfoRequest) returns (CreateFileInfoResponse) {}
-  // ReadFileInfo
-  rpc ReadFileInfo(ReadFileInfoRequest) returns (ReadFileInfoResponse) {}
-  // UpdateFileInfo
-  rpc UpdateFileInfo(UpdateFileInfoRequest) returns (UpdateFileInfoResponse) {}
-  // DeleteFileInfo
-  rpc DeleteFileInfo(DeleteFileInfoRequest) returns (DeleteFileInfoResponse) {}
+  // CreateFile
+  rpc CreateFile(CreateFileRequest) returns (CreateFileResponse) {}
+  // ReadFile
+  rpc ReadFile(ReadFileRequest) returns (ReadFileResponse) {}
+  // UpdateFile
+  rpc UpdateFile(UpdateFileRequest) returns (UpdateFileResponse) {}
+  // DeleteFile
+  rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse) {}
 
   // CreateTable
   rpc CreateTable(CreateTableRequest) returns (CreateTableResponse) {}
@@ -32,41 +32,41 @@ service repository {
   rpc DeleteCell(DeleteCellRequest) returns (DeleteCellResponse) {}
 }
 
-message FileInfo {
+message File {
   string filename = 1;
 }
 
-message CreateFileInfoRequest {
-  FileInfo file = 1;
+message CreateFileRequest {
+  File file = 1;
 }
 
-message CreateFileInfoResponse {
+message CreateFileResponse {
   int64 ID = 1;
 }
 
-message ReadFileInfoRequest {
+message ReadFileRequest {
   int64 ID = 1;
 }
 
-message ReadFileInfoResponse {
+message ReadFileResponse {
   int64 ID = 1;
-  FileInfo file = 2;
+  File file = 2;
 }
 
-message UpdateFileInfoRequest {
+message UpdateFileRequest {
   int64 ID = 1;
-  FileInfo file = 2;
+  File file = 2;
 }
 
-message UpdateFileInfoResponse {
-  int64 ID = 1;
-}
-
-message DeleteFileInfoRequest {
+message UpdateFileResponse {
   int64 ID = 1;
 }
 
-message DeleteFileInfoResponse {
+message DeleteFileRequest {
+  int64 ID = 1;
+}
+
+message DeleteFileResponse {
   int64 ID = 1;
 }
 

@@ -1,4 +1,4 @@
-package fileinfo
+package file
 
 import (
 	"bufio"
@@ -17,42 +17,42 @@ func NewKeyInput(scanner *bufio.Scanner) *keyInput {
 	}
 }
 
-func (x *keyInput) CreateFileInfo() *model.FileInfo {
+func (x *keyInput) CreateFile() *model.File {
 	fmt.Print("filename >")
 	x.scanner.Scan()
 	filename := x.scanner.Text()
-	return &model.FileInfo{
+	return &model.File{
 		Filename: filename,
 	}
 }
 
-func (x *keyInput) ReadFileInfo() *model.FileInfo {
+func (x *keyInput) ReadFile() *model.File {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
-	return &model.FileInfo{
+	return &model.File{
 		ID: int64(id),
 	}
 }
 
-func (x *keyInput) UpdateFileInfo() *model.FileInfo {
+func (x *keyInput) UpdateFile() *model.File {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
 	fmt.Print("filename >")
 	x.scanner.Scan()
 	filename := x.scanner.Text()
-	return &model.FileInfo{
+	return &model.File{
 		ID:       int64(id),
 		Filename: filename,
 	}
 }
 
-func (x *keyInput) DeleteFileInfo() *model.FileInfo {
+func (x *keyInput) DeleteFile() *model.File {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.Atoi(x.scanner.Text())
-	return &model.FileInfo{
+	return &model.File{
 		ID: int64(id),
 	}
 }

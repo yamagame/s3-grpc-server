@@ -8,7 +8,7 @@ import (
 	"sample/s3-grpc-server/grpc_server/service"
 	"sample/s3-grpc-server/infra/repository"
 	cellRepo "sample/s3-grpc-server/infra/repository/cell"
-	fileinfoRepo "sample/s3-grpc-server/infra/repository/fileinfo"
+	fileRepo "sample/s3-grpc-server/infra/repository/file"
 	tableRepo "sample/s3-grpc-server/infra/repository/table"
 	"sample/s3-grpc-server/infra/storage"
 
@@ -38,7 +38,7 @@ func main() {
 	gorm := repository.GormDB()
 	server := service.NewServer(
 		storage.GetClient(mode),
-		fileinfoRepo.NewRepository(gorm),
+		fileRepo.NewRepository(gorm),
 		tableRepo.NewRepository(gorm),
 		cellRepo.NewRepository(gorm),
 	)

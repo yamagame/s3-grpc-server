@@ -1,4 +1,4 @@
-package dto
+package cell
 
 import (
 	"sample/s3-grpc-server/infra/repository/model"

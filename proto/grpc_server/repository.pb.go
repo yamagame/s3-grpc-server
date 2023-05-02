@@ -20,7 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type FileInfo struct {
+type File struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -28,8 +28,8 @@ type FileInfo struct {
 	Filename string `protobuf:"bytes,1,opt,name=filename,proto3" json:"filename,omitempty"`
 }
 
-func (x *FileInfo) Reset() {
-	*x = FileInfo{}
+func (x *File) Reset() {
+	*x = File{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -37,13 +37,13 @@ func (x *FileInfo) Reset() {
 	}
 }
 
-func (x *FileInfo) String() string {
+func (x *File) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FileInfo) ProtoMessage() {}
+func (*File) ProtoMessage() {}
 
-func (x *FileInfo) ProtoReflect() protoreflect.Message {
+func (x *File) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -55,28 +55,28 @@ func (x *FileInfo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FileInfo.ProtoReflect.Descriptor instead.
-func (*FileInfo) Descriptor() ([]byte, []int) {
+// Deprecated: Use File.ProtoReflect.Descriptor instead.
+func (*File) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *FileInfo) GetFilename() string {
+func (x *File) GetFilename() string {
 	if x != nil {
 		return x.Filename
 	}
 	return ""
 }
 
-type CreateFileInfoRequest struct {
+type CreateFileRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	File *FileInfo `protobuf:"bytes,1,opt,name=file,proto3" json:"file,omitempty"`
+	File *File `protobuf:"bytes,1,opt,name=file,proto3" json:"file,omitempty"`
 }
 
-func (x *CreateFileInfoRequest) Reset() {
-	*x = CreateFileInfoRequest{}
+func (x *CreateFileRequest) Reset() {
+	*x = CreateFileRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -84,13 +84,13 @@ func (x *CreateFileInfoRequest) Reset() {
 	}
 }
 
-func (x *CreateFileInfoRequest) String() string {
+func (x *CreateFileRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateFileInfoRequest) ProtoMessage() {}
+func (*CreateFileRequest) ProtoMessage() {}
 
-func (x *CreateFileInfoRequest) ProtoReflect() protoreflect.Message {
+func (x *CreateFileRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -102,19 +102,19 @@ func (x *CreateFileInfoRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateFileInfoRequest.ProtoReflect.Descriptor instead.
-func (*CreateFileInfoRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateFileRequest.ProtoReflect.Descriptor instead.
+func (*CreateFileRequest) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CreateFileInfoRequest) GetFile() *FileInfo {
+func (x *CreateFileRequest) GetFile() *File {
 	if x != nil {
 		return x.File
 	}
 	return nil
 }
 
-type CreateFileInfoResponse struct {
+type CreateFileResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -122,8 +122,8 @@ type CreateFileInfoResponse struct {
 	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
 }
 
-func (x *CreateFileInfoResponse) Reset() {
-	*x = CreateFileInfoResponse{}
+func (x *CreateFileResponse) Reset() {
+	*x = CreateFileResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -131,13 +131,13 @@ func (x *CreateFileInfoResponse) Reset() {
 	}
 }
 
-func (x *CreateFileInfoResponse) String() string {
+func (x *CreateFileResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateFileInfoResponse) ProtoMessage() {}
+func (*CreateFileResponse) ProtoMessage() {}
 
-func (x *CreateFileInfoResponse) ProtoReflect() protoreflect.Message {
+func (x *CreateFileResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -149,19 +149,19 @@ func (x *CreateFileInfoResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateFileInfoResponse.ProtoReflect.Descriptor instead.
-func (*CreateFileInfoResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateFileResponse.ProtoReflect.Descriptor instead.
+func (*CreateFileResponse) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *CreateFileInfoResponse) GetID() int64 {
+func (x *CreateFileResponse) GetID() int64 {
 	if x != nil {
 		return x.ID
 	}
 	return 0
 }
 
-type ReadFileInfoRequest struct {
+type ReadFileRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -169,8 +169,8 @@ type ReadFileInfoRequest struct {
 	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
 }
 
-func (x *ReadFileInfoRequest) Reset() {
-	*x = ReadFileInfoRequest{}
+func (x *ReadFileRequest) Reset() {
+	*x = ReadFileRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -178,13 +178,13 @@ func (x *ReadFileInfoRequest) Reset() {
 	}
 }
 
-func (x *ReadFileInfoRequest) String() string {
+func (x *ReadFileRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReadFileInfoRequest) ProtoMessage() {}
+func (*ReadFileRequest) ProtoMessage() {}
 
-func (x *ReadFileInfoRequest) ProtoReflect() protoreflect.Message {
+func (x *ReadFileRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -196,29 +196,29 @@ func (x *ReadFileInfoRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ReadFileInfoRequest.ProtoReflect.Descriptor instead.
-func (*ReadFileInfoRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReadFileRequest.ProtoReflect.Descriptor instead.
+func (*ReadFileRequest) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *ReadFileInfoRequest) GetID() int64 {
+func (x *ReadFileRequest) GetID() int64 {
 	if x != nil {
 		return x.ID
 	}
 	return 0
 }
 
-type ReadFileInfoResponse struct {
+type ReadFileResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ID   int64     `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
-	File *FileInfo `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
+	ID   int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	File *File `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
 }
 
-func (x *ReadFileInfoResponse) Reset() {
-	*x = ReadFileInfoResponse{}
+func (x *ReadFileResponse) Reset() {
+	*x = ReadFileResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -226,13 +226,13 @@ func (x *ReadFileInfoResponse) Reset() {
 	}
 }
 
-func (x *ReadFileInfoResponse) String() string {
+func (x *ReadFileResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReadFileInfoResponse) ProtoMessage() {}
+func (*ReadFileResponse) ProtoMessage() {}
 
-func (x *ReadFileInfoResponse) ProtoReflect() protoreflect.Message {
+func (x *ReadFileResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -244,36 +244,36 @@ func (x *ReadFileInfoResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ReadFileInfoResponse.ProtoReflect.Descriptor instead.
-func (*ReadFileInfoResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReadFileResponse.ProtoReflect.Descriptor instead.
+func (*ReadFileResponse) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *ReadFileInfoResponse) GetID() int64 {
+func (x *ReadFileResponse) GetID() int64 {
 	if x != nil {
 		return x.ID
 	}
 	return 0
 }
 
-func (x *ReadFileInfoResponse) GetFile() *FileInfo {
+func (x *ReadFileResponse) GetFile() *File {
 	if x != nil {
 		return x.File
 	}
 	return nil
 }
 
-type UpdateFileInfoRequest struct {
+type UpdateFileRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ID   int64     `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
-	File *FileInfo `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
+	ID   int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	File *File `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
 }
 
-func (x *UpdateFileInfoRequest) Reset() {
-	*x = UpdateFileInfoRequest{}
+func (x *UpdateFileRequest) Reset() {
+	*x = UpdateFileRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -281,13 +281,13 @@ func (x *UpdateFileInfoRequest) Reset() {
 	}
 }
 
-func (x *UpdateFileInfoRequest) String() string {
+func (x *UpdateFileRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateFileInfoRequest) ProtoMessage() {}
+func (*UpdateFileRequest) ProtoMessage() {}
 
-func (x *UpdateFileInfoRequest) ProtoReflect() protoreflect.Message {
+func (x *UpdateFileRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -299,26 +299,26 @@ func (x *UpdateFileInfoRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateFileInfoRequest.ProtoReflect.Descriptor instead.
-func (*UpdateFileInfoRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFileRequest.ProtoReflect.Descriptor instead.
+func (*UpdateFileRequest) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *UpdateFileInfoRequest) GetID() int64 {
+func (x *UpdateFileRequest) GetID() int64 {
 	if x != nil {
 		return x.ID
 	}
 	return 0
 }
 
-func (x *UpdateFileInfoRequest) GetFile() *FileInfo {
+func (x *UpdateFileRequest) GetFile() *File {
 	if x != nil {
 		return x.File
 	}
 	return nil
 }
 
-type UpdateFileInfoResponse struct {
+type UpdateFileResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -326,8 +326,8 @@ type UpdateFileInfoResponse struct {
 	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
 }
 
-func (x *UpdateFileInfoResponse) Reset() {
-	*x = UpdateFileInfoResponse{}
+func (x *UpdateFileResponse) Reset() {
+	*x = UpdateFileResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -335,13 +335,13 @@ func (x *UpdateFileInfoResponse) Reset() {
 	}
 }
 
-func (x *UpdateFileInfoResponse) String() string {
+func (x *UpdateFileResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateFileInfoResponse) ProtoMessage() {}
+func (*UpdateFileResponse) ProtoMessage() {}
 
-func (x *UpdateFileInfoResponse) ProtoReflect() protoreflect.Message {
+func (x *UpdateFileResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -353,19 +353,19 @@ func (x *UpdateFileInfoResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateFileInfoResponse.ProtoReflect.Descriptor instead.
-func (*UpdateFileInfoResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFileResponse.ProtoReflect.Descriptor instead.
+func (*UpdateFileResponse) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *UpdateFileInfoResponse) GetID() int64 {
+func (x *UpdateFileResponse) GetID() int64 {
 	if x != nil {
 		return x.ID
 	}
 	return 0
 }
 
-type DeleteFileInfoRequest struct {
+type DeleteFileRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -373,8 +373,8 @@ type DeleteFileInfoRequest struct {
 	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
 }
 
-func (x *DeleteFileInfoRequest) Reset() {
-	*x = DeleteFileInfoRequest{}
+func (x *DeleteFileRequest) Reset() {
+	*x = DeleteFileRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -382,13 +382,13 @@ func (x *DeleteFileInfoRequest) Reset() {
 	}
 }
 
-func (x *DeleteFileInfoRequest) String() string {
+func (x *DeleteFileRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteFileInfoRequest) ProtoMessage() {}
+func (*DeleteFileRequest) ProtoMessage() {}
 
-func (x *DeleteFileInfoRequest) ProtoReflect() protoreflect.Message {
+func (x *DeleteFileRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -400,19 +400,19 @@ func (x *DeleteFileInfoRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteFileInfoRequest.ProtoReflect.Descriptor instead.
-func (*DeleteFileInfoRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use DeleteFileRequest.ProtoReflect.Descriptor instead.
+func (*DeleteFileRequest) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *DeleteFileInfoRequest) GetID() int64 {
+func (x *DeleteFileRequest) GetID() int64 {
 	if x != nil {
 		return x.ID
 	}
 	return 0
 }
 
-type DeleteFileInfoResponse struct {
+type DeleteFileResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -420,8 +420,8 @@ type DeleteFileInfoResponse struct {
 	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
 }
 
-func (x *DeleteFileInfoResponse) Reset() {
-	*x = DeleteFileInfoResponse{}
+func (x *DeleteFileResponse) Reset() {
+	*x = DeleteFileResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_grpc_server_repository_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -429,13 +429,13 @@ func (x *DeleteFileInfoResponse) Reset() {
 	}
 }
 
-func (x *DeleteFileInfoResponse) String() string {
+func (x *DeleteFileResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteFileInfoResponse) ProtoMessage() {}
+func (*DeleteFileResponse) ProtoMessage() {}
 
-func (x *DeleteFileInfoResponse) ProtoReflect() protoreflect.Message {
+func (x *DeleteFileResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_grpc_server_repository_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -447,12 +447,12 @@ func (x *DeleteFileInfoResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteFileInfoResponse.ProtoReflect.Descriptor instead.
-func (*DeleteFileInfoResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use DeleteFileResponse.ProtoReflect.Descriptor instead.
+func (*DeleteFileResponse) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_server_repository_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *DeleteFileInfoResponse) GetID() int64 {
+func (x *DeleteFileResponse) GetID() int64 {
 	if x != nil {
 		return x.ID
 	}
@@ -1342,33 +1342,30 @@ var File_proto_grpc_server_repository_proto protoreflect.FileDescriptor
 var file_proto_grpc_server_repository_proto_rawDesc = []byte{
 	0x0a, 0x22, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x65, 0x72,
 	0x76, 0x65, 0x72, 0x2f, 0x72, 0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x6f, 0x72, 0x79, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x26, 0x0a, 0x08, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f,
-	0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x36, 0x0a, 0x15,
-	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1d, 0x0a, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04,
-	0x66, 0x69, 0x6c, 0x65, 0x22, 0x28, 0x0a, 0x16, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69,
-	0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e,
-	0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x25,
-	0x0a, 0x13, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
+	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x22, 0x0a, 0x04, 0x46, 0x69, 0x6c, 0x65, 0x12, 0x1a, 0x0a, 0x08,
+	0x66, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x66, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x2e, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a,
+	0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x05, 0x2e, 0x46, 0x69,
+	0x6c, 0x65, 0x52, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x22, 0x24, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e,
+	0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x21,
+	0x0a, 0x0f, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49,
+	0x44, 0x22, 0x3d, 0x0a, 0x10, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x02, 0x49, 0x44, 0x12, 0x19, 0x0a, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x05, 0x2e, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x04, 0x66, 0x69, 0x6c, 0x65,
+	0x22, 0x3e, 0x0a, 0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65,
 	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x45, 0x0a, 0x14, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c,
-	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a,
-	0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x12, 0x1d, 0x0a,
-	0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x46, 0x69,
-	0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x22, 0x46, 0x0a, 0x15,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x03, 0x52, 0x02, 0x49, 0x44, 0x12, 0x1d, 0x0a, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04,
-	0x66, 0x69, 0x6c, 0x65, 0x22, 0x28, 0x0a, 0x16, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69,
-	0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e,
-	0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x27,
-	0x0a, 0x15, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x28, 0x0a, 0x16, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x03, 0x52, 0x02, 0x49, 0x44, 0x12, 0x19, 0x0a, 0x04, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x05, 0x2e, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x04, 0x66, 0x69, 0x6c, 0x65,
+	0x22, 0x24, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x23, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49,
+	0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x24, 0x0a, 0x12, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49,
 	0x44, 0x22, 0x1d, 0x0a, 0x05, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69,
 	0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
@@ -1420,24 +1417,21 @@ var file_proto_grpc_server_repository_proto_rawDesc = []byte{
 	0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22, 0x24, 0x0a, 0x12, 0x44, 0x65, 0x6c,
 	0x65, 0x74, 0x65, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
 	0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x32,
-	0xe2, 0x05, 0x0a, 0x0a, 0x72, 0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x6f, 0x72, 0x79, 0x12, 0x43,
-	0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f,
-	0x12, 0x16, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66,
-	0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x00, 0x12, 0x3d, 0x0a, 0x0c, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x49,
-	0x6e, 0x66, 0x6f, 0x12, 0x14, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e,
-	0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x52, 0x65, 0x61, 0x64,
-	0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x22, 0x00, 0x12, 0x43, 0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65,
-	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x16, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c,
-	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x43, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x16, 0x2e, 0x44, 0x65, 0x6c, 0x65,
-	0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x17, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x49, 0x6e,
-	0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x3a, 0x0a, 0x0b,
+	0xb2, 0x05, 0x0a, 0x0a, 0x72, 0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x6f, 0x72, 0x79, 0x12, 0x37,
+	0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x12, 0x12, 0x2e, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x13, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x31, 0x0a, 0x08, 0x52, 0x65, 0x61, 0x64, 0x46,
+	0x69, 0x6c, 0x65, 0x12, 0x10, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x37, 0x0a, 0x0a, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x12, 0x12, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x12, 0x37, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c,
+	0x65, 0x12, 0x12, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69,
+	0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x3a, 0x0a, 0x0b,
 	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x13, 0x2e, 0x43, 0x72,
 	0x65, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x1a, 0x14, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65,
@@ -1485,48 +1479,48 @@ func file_proto_grpc_server_repository_proto_rawDescGZIP() []byte {
 
 var file_proto_grpc_server_repository_proto_msgTypes = make([]protoimpl.MessageInfo, 27)
 var file_proto_grpc_server_repository_proto_goTypes = []interface{}{
-	(*FileInfo)(nil),               // 0: FileInfo
-	(*CreateFileInfoRequest)(nil),  // 1: CreateFileInfoRequest
-	(*CreateFileInfoResponse)(nil), // 2: CreateFileInfoResponse
-	(*ReadFileInfoRequest)(nil),    // 3: ReadFileInfoRequest
-	(*ReadFileInfoResponse)(nil),   // 4: ReadFileInfoResponse
-	(*UpdateFileInfoRequest)(nil),  // 5: UpdateFileInfoRequest
-	(*UpdateFileInfoResponse)(nil), // 6: UpdateFileInfoResponse
-	(*DeleteFileInfoRequest)(nil),  // 7: DeleteFileInfoRequest
-	(*DeleteFileInfoResponse)(nil), // 8: DeleteFileInfoResponse
-	(*Table)(nil),                  // 9: Table
-	(*CreateTableRequest)(nil),     // 10: CreateTableRequest
-	(*CreateTableResponse)(nil),    // 11: CreateTableResponse
-	(*ReadTableRequest)(nil),       // 12: ReadTableRequest
-	(*ReadTableResponse)(nil),      // 13: ReadTableResponse
-	(*UpdateTableRequest)(nil),     // 14: UpdateTableRequest
-	(*UpdateTableResponse)(nil),    // 15: UpdateTableResponse
-	(*DeleteTableRequest)(nil),     // 16: DeleteTableRequest
-	(*DeleteTableResponse)(nil),    // 17: DeleteTableResponse
-	(*Cell)(nil),                   // 18: Cell
-	(*CreateCellRequest)(nil),      // 19: CreateCellRequest
-	(*CreateCellResponse)(nil),     // 20: CreateCellResponse
-	(*ReadCellRequest)(nil),        // 21: ReadCellRequest
-	(*ReadCellResponse)(nil),       // 22: ReadCellResponse
-	(*UpdateCellRequest)(nil),      // 23: UpdateCellRequest
-	(*UpdateCellResponse)(nil),     // 24: UpdateCellResponse
-	(*DeleteCellRequest)(nil),      // 25: DeleteCellRequest
-	(*DeleteCellResponse)(nil),     // 26: DeleteCellResponse
+	(*File)(nil),                // 0: File
+	(*CreateFileRequest)(nil),   // 1: CreateFileRequest
+	(*CreateFileResponse)(nil),  // 2: CreateFileResponse
+	(*ReadFileRequest)(nil),     // 3: ReadFileRequest
+	(*ReadFileResponse)(nil),    // 4: ReadFileResponse
+	(*UpdateFileRequest)(nil),   // 5: UpdateFileRequest
+	(*UpdateFileResponse)(nil),  // 6: UpdateFileResponse
+	(*DeleteFileRequest)(nil),   // 7: DeleteFileRequest
+	(*DeleteFileResponse)(nil),  // 8: DeleteFileResponse
+	(*Table)(nil),               // 9: Table
+	(*CreateTableRequest)(nil),  // 10: CreateTableRequest
+	(*CreateTableResponse)(nil), // 11: CreateTableResponse
+	(*ReadTableRequest)(nil),    // 12: ReadTableRequest
+	(*ReadTableResponse)(nil),   // 13: ReadTableResponse
+	(*UpdateTableRequest)(nil),  // 14: UpdateTableRequest
+	(*UpdateTableResponse)(nil), // 15: UpdateTableResponse
+	(*DeleteTableRequest)(nil),  // 16: DeleteTableRequest
+	(*DeleteTableResponse)(nil), // 17: DeleteTableResponse
+	(*Cell)(nil),                // 18: Cell
+	(*CreateCellRequest)(nil),   // 19: CreateCellRequest
+	(*CreateCellResponse)(nil),  // 20: CreateCellResponse
+	(*ReadCellRequest)(nil),     // 21: ReadCellRequest
+	(*ReadCellResponse)(nil),    // 22: ReadCellResponse
+	(*UpdateCellRequest)(nil),   // 23: UpdateCellRequest
+	(*UpdateCellResponse)(nil),  // 24: UpdateCellResponse
+	(*DeleteCellRequest)(nil),   // 25: DeleteCellRequest
+	(*DeleteCellResponse)(nil),  // 26: DeleteCellResponse
 }
 var file_proto_grpc_server_repository_proto_depIdxs = []int32{
-	0,  // 0: CreateFileInfoRequest.file:type_name -> FileInfo
-	0,  // 1: ReadFileInfoResponse.file:type_name -> FileInfo
-	0,  // 2: UpdateFileInfoRequest.file:type_name -> FileInfo
+	0,  // 0: CreateFileRequest.file:type_name -> File
+	0,  // 1: ReadFileResponse.file:type_name -> File
+	0,  // 2: UpdateFileRequest.file:type_name -> File
 	9,  // 3: CreateTableRequest.table:type_name -> Table
 	9,  // 4: ReadTableResponse.table:type_name -> Table
 	9,  // 5: UpdateTableRequest.table:type_name -> Table
 	18, // 6: CreateCellRequest.cell:type_name -> Cell
 	18, // 7: ReadCellResponse.cell:type_name -> Cell
 	18, // 8: UpdateCellRequest.cell:type_name -> Cell
-	1,  // 9: repository.CreateFileInfo:input_type -> CreateFileInfoRequest
-	3,  // 10: repository.ReadFileInfo:input_type -> ReadFileInfoRequest
-	5,  // 11: repository.UpdateFileInfo:input_type -> UpdateFileInfoRequest
-	7,  // 12: repository.DeleteFileInfo:input_type -> DeleteFileInfoRequest
+	1,  // 9: repository.CreateFile:input_type -> CreateFileRequest
+	3,  // 10: repository.ReadFile:input_type -> ReadFileRequest
+	5,  // 11: repository.UpdateFile:input_type -> UpdateFileRequest
+	7,  // 12: repository.DeleteFile:input_type -> DeleteFileRequest
 	10, // 13: repository.CreateTable:input_type -> CreateTableRequest
 	12, // 14: repository.ReadTable:input_type -> ReadTableRequest
 	14, // 15: repository.UpdateTable:input_type -> UpdateTableRequest
@@ -1535,10 +1529,10 @@ var file_proto_grpc_server_repository_proto_depIdxs = []int32{
 	21, // 18: repository.ReadCell:input_type -> ReadCellRequest
 	23, // 19: repository.UpdateCell:input_type -> UpdateCellRequest
 	25, // 20: repository.DeleteCell:input_type -> DeleteCellRequest
-	2,  // 21: repository.CreateFileInfo:output_type -> CreateFileInfoResponse
-	4,  // 22: repository.ReadFileInfo:output_type -> ReadFileInfoResponse
-	6,  // 23: repository.UpdateFileInfo:output_type -> UpdateFileInfoResponse
-	8,  // 24: repository.DeleteFileInfo:output_type -> DeleteFileInfoResponse
+	2,  // 21: repository.CreateFile:output_type -> CreateFileResponse
+	4,  // 22: repository.ReadFile:output_type -> ReadFileResponse
+	6,  // 23: repository.UpdateFile:output_type -> UpdateFileResponse
+	8,  // 24: repository.DeleteFile:output_type -> DeleteFileResponse
 	11, // 25: repository.CreateTable:output_type -> CreateTableResponse
 	13, // 26: repository.ReadTable:output_type -> ReadTableResponse
 	15, // 27: repository.UpdateTable:output_type -> UpdateTableResponse
@@ -1561,7 +1555,7 @@ func file_proto_grpc_server_repository_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_proto_grpc_server_repository_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FileInfo); i {
+			switch v := v.(*File); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1573,7 +1567,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			}
 		}
 		file_proto_grpc_server_repository_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateFileInfoRequest); i {
+			switch v := v.(*CreateFileRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1585,7 +1579,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			}
 		}
 		file_proto_grpc_server_repository_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateFileInfoResponse); i {
+			switch v := v.(*CreateFileResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1597,7 +1591,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			}
 		}
 		file_proto_grpc_server_repository_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReadFileInfoRequest); i {
+			switch v := v.(*ReadFileRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1609,7 +1603,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			}
 		}
 		file_proto_grpc_server_repository_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReadFileInfoResponse); i {
+			switch v := v.(*ReadFileResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1621,7 +1615,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			}
 		}
 		file_proto_grpc_server_repository_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateFileInfoRequest); i {
+			switch v := v.(*UpdateFileRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1633,7 +1627,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			}
 		}
 		file_proto_grpc_server_repository_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateFileInfoResponse); i {
+			switch v := v.(*UpdateFileResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1645,7 +1639,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			}
 		}
 		file_proto_grpc_server_repository_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteFileInfoRequest); i {
+			switch v := v.(*DeleteFileRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1657,7 +1651,7 @@ func file_proto_grpc_server_repository_proto_init() {
 			}
 		}
 		file_proto_grpc_server_repository_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteFileInfoResponse); i {
+			switch v := v.(*DeleteFileResponse); i {
 			case 0:
 				return &v.state
 			case 1:

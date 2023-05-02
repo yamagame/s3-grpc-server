@@ -2,16 +2,15 @@ package cell
 
 import (
 	"context"
-	"sample/s3-grpc-server/grpc_server/service/repository/dto"
 	"sample/s3-grpc-server/infra/repository/cell"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type serverDTO struct {
-	createCell dto.CreateCell
-	readCell   dto.ReadCell
-	updateCell dto.UpdateCell
-	deleteCell dto.DeleteCell
+	createCell CreateCell
+	readCell   ReadCell
+	updateCell UpdateCell
+	deleteCell DeleteCell
 }
 
 type CellServer struct {

@@ -1,4 +1,4 @@
-package dto
+package table
 
 import (
 	"sample/s3-grpc-server/infra/repository/model"

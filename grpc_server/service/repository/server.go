@@ -3,50 +3,50 @@ package repository
 import (
 	"context"
 	"sample/s3-grpc-server/grpc_server/service/repository/cell"
-	"sample/s3-grpc-server/grpc_server/service/repository/fileinfo"
+	"sample/s3-grpc-server/grpc_server/service/repository/file"
 	"sample/s3-grpc-server/grpc_server/service/repository/table"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type repositoryServer struct {
-	fileinfo *fileinfo.FileInfoServer
-	table    *table.TableServer
-	cell     *cell.CellServer
+	file  *file.FileServer
+	table *table.TableServer
+	cell  *cell.CellServer
 	server.UnimplementedRepositoryServer
 }
 
 func NewRepositoryServer(
-	fileinfo *fileinfo.FileInfoServer,
+	file *file.FileServer,
 	table *table.TableServer,
 	cell *cell.CellServer,
 ) *repositoryServer {
 	return &repositoryServer{
-		fileinfo: fileinfo,
-		table:    table,
-		cell:     cell,
+		file:  file,
+		table: table,
+		cell:  cell,
 	}
 }
 
-// fileinfo ----------------------------------------------------------------
+// file ----------------------------------------------------------------
 
-// CreateFileInfo implements repositoryServer.CreateFileInfo
-func (s *repositoryServer) CreateFileInfo(ctx context.Context, in *server.CreateFileInfoRequest) (*server.CreateFileInfoResponse, error) {
-	return s.fileinfo.Create(ctx, in)
+// CreateFile implements repositoryServer.CreateFile
+func (s *repositoryServer) CreateFile(ctx context.Context, in *server.CreateFileRequest) (*server.CreateFileResponse, error) {
+	return s.file.Create(ctx, in)
 }
 
-// ReadFileInfo implements repositoryServer.ReadFileInfo
-func (s *repositoryServer) ReadFileInfo(ctx context.Context, in *server.ReadFileInfoRequest) (*server.ReadFileInfoResponse, error) {
-	return s.fileinfo.Read(ctx, in)
+// ReadFile implements repositoryServer.ReadFile
+func (s *repositoryServer) ReadFile(ctx context.Context, in *server.ReadFileRequest) (*server.ReadFileResponse, error) {
+	return s.file.Read(ctx, in)
 }
 
-// UpdateFileInfo implements repositoryServer.UpdateFileInfo
-func (s *repositoryServer) UpdateFileInfo(ctx context.Context, in *server.UpdateFileInfoRequest) (*server.UpdateFileInfoResponse, error) {
-	return s.fileinfo.Update(ctx, in)
+// UpdateFile implements repositoryServer.UpdateFile
+func (s *repositoryServer) UpdateFile(ctx context.Context, in *server.UpdateFileRequest) (*server.UpdateFileResponse, error) {
+	return s.file.Update(ctx, in)
 }
 
-// DeleteFileInfo implements repositoryServer.DeleteFileInfo
-func (s *repositoryServer) DeleteFileInfo(ctx context.Context, in *server.DeleteFileInfoRequest) (*server.DeleteFileInfoResponse, error) {
-	return s.fileinfo.Delete(ctx, in)
+// DeleteFile implements repositoryServer.DeleteFile
+func (s *repositoryServer) DeleteFile(ctx context.Context, in *server.DeleteFileRequest) (*server.DeleteFileResponse, error) {
+	return s.file.Delete(ctx, in)
 }
 
 // table -------------------------------------------------------------------
