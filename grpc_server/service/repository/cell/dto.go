@@ -15,7 +15,9 @@ func (x *CreateCell) Input(req *server.CreateCellRequest) *model.Cell {
 }
 
 func (x *CreateCell) Output(res *model.Cell) *server.CreateCellResponse {
-	return &server.CreateCellResponse{}
+	return &server.CreateCellResponse{
+		ID: res.ID,
+	}
 }
 
 type ReadCell struct {
@@ -47,7 +49,9 @@ func (x *UpdateCell) Input(req *server.UpdateCellRequest) *model.Cell {
 }
 
 func (x *UpdateCell) Output(res *model.Cell) *server.UpdateCellResponse {
-	return &server.UpdateCellResponse{}
+	return &server.UpdateCellResponse{
+		ID: res.ID,
+	}
 }
 
 type DeleteCell struct {
@@ -60,5 +64,7 @@ func (x *DeleteCell) Input(req *server.DeleteCellRequest) *model.Cell {
 }
 
 func (x *DeleteCell) Output(res *model.Cell) *server.DeleteCellResponse {
-	return &server.DeleteCellResponse{}
+	return &server.DeleteCellResponse{
+		ID: res.ID,
+	}
 }

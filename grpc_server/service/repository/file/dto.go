@@ -15,7 +15,9 @@ func (x *CreateFile) Input(req *server.CreateFileRequest) *model.File {
 }
 
 func (x *CreateFile) Output(res *model.File) *server.CreateFileResponse {
-	return &server.CreateFileResponse{}
+	return &server.CreateFileResponse{
+		ID: res.ID,
+	}
 }
 
 type ReadFile struct {
@@ -47,7 +49,9 @@ func (x *UpdateFile) Input(req *server.UpdateFileRequest) *model.File {
 }
 
 func (x *UpdateFile) Output(res *model.File) *server.UpdateFileResponse {
-	return &server.UpdateFileResponse{}
+	return &server.UpdateFileResponse{
+		ID: res.ID,
+	}
 }
 
 type DeleteFile struct {
@@ -60,5 +64,7 @@ func (x *DeleteFile) Input(req *server.DeleteFileRequest) *model.File {
 }
 
 func (x *DeleteFile) Output(res *model.File) *server.DeleteFileResponse {
-	return &server.DeleteFileResponse{}
+	return &server.DeleteFileResponse{
+		ID: res.ID,
+	}
 }

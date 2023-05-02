@@ -15,7 +15,9 @@ func (x *CreateTable) Input(req *server.CreateTableRequest) *model.Table {
 }
 
 func (x *CreateTable) Output(res *model.Table) *server.CreateTableResponse {
-	return &server.CreateTableResponse{}
+	return &server.CreateTableResponse{
+		ID: res.ID,
+	}
 }
 
 type ReadTable struct {
@@ -47,7 +49,9 @@ func (x *UpdateTable) Input(req *server.UpdateTableRequest) *model.Table {
 }
 
 func (x *UpdateTable) Output(res *model.Table) *server.UpdateTableResponse {
-	return &server.UpdateTableResponse{}
+	return &server.UpdateTableResponse{
+		ID: res.ID,
+	}
 }
 
 type DeleteTable struct {
@@ -60,5 +64,7 @@ func (x *DeleteTable) Input(req *server.DeleteTableRequest) *model.Table {
 }
 
 func (x *DeleteTable) Output(res *model.Table) *server.DeleteTableResponse {
-	return &server.DeleteTableResponse{}
+	return &server.DeleteTableResponse{
+		ID: res.ID,
+	}
 }
