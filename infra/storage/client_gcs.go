@@ -46,7 +46,7 @@ func NewGCSClient(ctx context.Context, options GCSClientConfig) (*GCSClient, err
 	}, nil
 }
 
-func (x *GCSClient) ListBuckets() ([]model.Bucket, error) {
+func (x *GCSClient) ListBuckets(ctx context.Context) ([]model.Bucket, error) {
 	var buckets []model.Bucket
 	it := x.client.Buckets(x.ctx, x.projectID)
 	for {
@@ -64,7 +64,7 @@ func (x *GCSClient) ListBuckets() ([]model.Bucket, error) {
 	return buckets, nil
 }
 
-func (x *GCSClient) CreateBucket() error {
+func (x *GCSClient) CreateBucket(ctx context.Context) error {
 	err := x.client.Bucket(x.bucket).Create(x.ctx, x.projectID, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -77,7 +77,7 @@ func (x *GCSClient) CreateBucket() error {
 	return err
 }
 
-func (x *GCSClient) PutObject(key string, body io.Reader) error {
+func (x *GCSClient) PutObject(ctx context.Context, key string, body io.Reader) error {
 	buf := new(bytes.Buffer)
 	if _, err := io.Copy(buf, body); err != nil {
 		return err
@@ -93,16 +93,16 @@ func (x *GCSClient) PutObject(key string, body io.Reader) error {
 	return nil
 }
 
-func (x *GCSClient) PutObjectWithString(key, content string) error {
-	return x.PutObject(key, strings.NewReader(content))
+func (x *GCSClient) PutObjectWithString(ctx context.Context, key, content string) error {
+	return x.PutObject(ctx, key, strings.NewReader(content))
 }
 
-func (x *GCSClient) GetObject(key string) (io.Reader, error) {
+func (x *GCSClient) GetObject(ctx context.Context, key string) (io.Reader, error) {
 	return x.client.Bucket(x.bucket).Object(key).NewReader(x.ctx)
 }
 
-func (x *GCSClient) GetObjectWithString(key string) (string, error) {
-	out, err := x.GetObject(key)
+func (x *GCSClient) GetObjectWithString(ctx context.Context, key string) (string, error) {
+	out, err := x.GetObject(ctx, key)
 	if err != nil {
 		return "", err
 	}
@@ -116,11 +116,11 @@ func (x *GCSClient) GetObjectWithString(key string) (string, error) {
 	return streamToString(out), nil
 }
 
-func (x *GCSClient) DeleteObject(key string) error {
+func (x *GCSClient) DeleteObject(ctx context.Context, key string) error {
 	return x.client.Bucket(x.bucket).Object(key).Delete(x.ctx)
 }
 
-func (x *GCSClient) ListObjects(prefix string, nexttoken *string) ([]model.Object, error) {
+func (x *GCSClient) ListObjects(ctx context.Context, prefix string, nexttoken *string) ([]model.Object, error) {
 	var objects []model.Object
 	it := x.client.Bucket(x.bucket).Objects(x.ctx, &storage.Query{
 		Prefix: prefix,

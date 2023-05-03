@@ -33,6 +33,7 @@ func (x *GetObjectDTO) Input(req *model.GetObject) *server.GetObjectRequest {
 func (x *GetObjectDTO) Output(res *server.GetObjectResponse) *model.GetObject {
 	return &model.GetObject{
 		Result:  model.StorageResult(res.Result),
+		Key:     res.Key,
 		Content: res.Content,
 	}
 }

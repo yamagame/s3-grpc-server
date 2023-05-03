@@ -1,6 +1,7 @@
 package file
 
 import (
+	"context"
 	"sample/s3-grpc-server/infra/repository"
 	"sample/s3-grpc-server/infra/repository/model"
 
@@ -17,7 +18,7 @@ func NewRepository(db *gorm.DB) *fileRepository {
 	}
 }
 
-func (s *fileRepository) Read(object *model.File) (*model.File, error) {
+func (s *fileRepository) Read(ctx context.Context, object *model.File) (*model.File, error) {
 	if err := s.DB.Model(&model.File{}).Preload("Tables").Take(object).Error; err != nil {
 		return nil, err
 	}

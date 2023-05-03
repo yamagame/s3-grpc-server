@@ -27,8 +27,8 @@ services:
       - 2222:22
     cap_add:
       - SYS_CHROOT
-    # volumes:
-      # - ${PWD}/.sftp/share:/home/username/share
+    volumes:
+      - ${PWD}/.sftp/share:/home/username/share
     command: username:password:::share
 
   grpc-server:

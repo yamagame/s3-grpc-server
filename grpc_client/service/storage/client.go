@@ -27,8 +27,8 @@ func NewStorageRepository(client server.StorageClient) *storageRepository {
 	}
 }
 
-func (x *storageRepository) CreateBucket(ctx context.Context) (*model.CreateBucket, error) {
-	req := &server.CreateBucketRequest{}
+func (x *storageRepository) CreateBucket(ctx context.Context, object *model.CreateBucket) (*model.CreateBucket, error) {
+	req := x.createBucket.Input(object)
 	res, err := x.client.CreateBucket(ctx, req)
 	if err != nil {
 		return nil, err
@@ -36,8 +36,8 @@ func (x *storageRepository) CreateBucket(ctx context.Context) (*model.CreateBuck
 	return x.createBucket.Output(res), nil
 }
 
-func (x *storageRepository) ListBuckets(ctx context.Context) (*model.ListBuckets, error) {
-	req := &server.ListBucketsRequest{}
+func (x *storageRepository) ListBuckets(ctx context.Context, object *model.ListBuckets) (*model.ListBuckets, error) {
+	req := x.listBuckets.Input(object)
 	res, err := x.client.ListBuckets(ctx, req)
 	if err != nil {
 		return nil, err

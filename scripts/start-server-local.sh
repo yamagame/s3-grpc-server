@@ -11,7 +11,7 @@ export AWS_ACCESS_KEY_ID=my-access-key
 export AWS_SECRET_ACCESS_KEY=my-secret-key
 export S3_ENDPOINT=http://localhost:5000
 
-export GCS_PROJECT_ID=
+export GCS_PROJECT_ID=sample-project
 export STORAGE_EMULATOR_HOST=localhost:4443
 
 export SFTP_HOST=localhost

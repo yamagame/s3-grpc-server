@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 
+	"sample/s3-grpc-server/domain/dbwriter"
 	"sample/s3-grpc-server/grpc_client/service/repository/cell"
 	"sample/s3-grpc-server/grpc_client/service/repository/file"
 	"sample/s3-grpc-server/grpc_client/service/repository/table"
@@ -50,17 +51,24 @@ func main() {
 	cellScanner := cell.NewKeyInput(keyboard)
 	storageScanner := storage.NewKeyInput(keyboard)
 
+	dbwriterService := dbwriter.NewDBWriter(
+		fileRepository,
+		tableRepository,
+		cellRepository,
+		storageRepository,
+	)
+
 	tbl := []struct {
 		name string
 		call func()
 	}{
 		{"", nil},
 		{"CreateBucket", func() {
-			ent, _ := storageRepository.CreateBucket(ctx)
+			ent, _ := storageRepository.CreateBucket(ctx, storageScanner.CreateBucket())
 			fmt.Println(ent)
 		}},
 		{"ListBuckets", func() {
-			ent, _ := storageRepository.ListBuckets(ctx)
+			ent, _ := storageRepository.ListBuckets(ctx, storageScanner.ListBuckets())
 			fmt.Println(ent)
 		}},
 		{"", nil},
@@ -138,6 +146,11 @@ func main() {
 			fmt.Println(ent)
 		}},
 		{"", nil},
+		{"WriteCSV", func() {
+			dbwriterService.CreateFakeCSV(ctx, "sample.csv")
+			dbwriterService.CreateAll(ctx, "sample.csv")
+		}},
+		{"", nil},
 	}
 
 	for {
@@ -157,8 +170,11 @@ func main() {
 		keyboard.Scan()
 		in := keyboard.Text()
 		skip := false
+		id, _ := strconv.Atoi(in)
 		for i, v := range tbl {
-			id, _ := strconv.Atoi(in)
+			if !(id >= 1 && id <= len(ids)) {
+				break
+			}
 			if i == ids[id-1] {
 				if v.call != nil {
 					v.call()

@@ -1,14 +1,16 @@
 package repository
 
 import (
+	"context"
+
 	"gorm.io/gorm"
 )
 
 type CRUDRepositoryInterface[T any] interface {
-	Create(file *T) (*T, error)
-	Read(file *T) (*T, error)
-	Update(file *T) (*T, error)
-	Delete(file *T) (*T, error)
+	Create(ctx context.Context, file *T) (*T, error)
+	Read(ctx context.Context, file *T) (*T, error)
+	Update(ctx context.Context, file *T) (*T, error)
+	Delete(ctx context.Context, file *T) (*T, error)
 }
 
 type CRUDRepository[T any] struct {
@@ -16,7 +18,7 @@ type CRUDRepository[T any] struct {
 }
 
 // Create implements CRUDRepository.Create
-func (s *CRUDRepository[T]) Create(object *T) (*T, error) {
+func (s *CRUDRepository[T]) Create(ctx context.Context, object *T) (*T, error) {
 	if err := s.DB.Create(object).Error; err != nil {
 		return nil, err
 	}
@@ -24,7 +26,7 @@ func (s *CRUDRepository[T]) Create(object *T) (*T, error) {
 }
 
 // Read implements CRUDRepository.Read
-func (s *CRUDRepository[T]) Read(object *T) (*T, error) {
+func (s *CRUDRepository[T]) Read(ctx context.Context, object *T) (*T, error) {
 	if err := s.DB.Take(object).Error; err != nil {
 		return nil, err
 	}
@@ -32,7 +34,7 @@ func (s *CRUDRepository[T]) Read(object *T) (*T, error) {
 }
 
 // Update implements CRUDRepository.Update
-func (s *CRUDRepository[T]) Update(object *T) (*T, error) {
+func (s *CRUDRepository[T]) Update(ctx context.Context, object *T) (*T, error) {
 	if err := s.DB.Updates(object).Error; err != nil {
 		return nil, err
 	}
@@ -40,7 +42,7 @@ func (s *CRUDRepository[T]) Update(object *T) (*T, error) {
 }
 
 // Delete implements CRUDRepository.Delete
-func (s *CRUDRepository[T]) Delete(object *T) (*T, error) {
+func (s *CRUDRepository[T]) Delete(ctx context.Context, object *T) (*T, error) {
 	if err := s.DB.Delete(object).Error; err != nil {
 		return nil, err
 	}

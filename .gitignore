@@ -13,7 +13,7 @@ work/*
 !work/.gitkeep
 .gcs/*
 !.gcs/.gitkeep
-.sftp/upload/*
-!.sftp/upload/.gitkeep
+.sftp/share/*
+!.sftp/share/.gitkeep
 *.cert
 *.crt

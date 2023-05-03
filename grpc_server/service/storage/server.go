@@ -31,7 +31,7 @@ func NewStorageServer(service *storage.StorageService) *storageServer {
 // CreateBucket implements awsServer.CreateBucket
 func (s *storageServer) CreateBucket(ctx context.Context, in *server.CreateBucketRequest) (*server.CreateBucketResponse, error) {
 	entity := s.createBucket.Input(in)
-	entity, err := s.service.CreateBucket(entity)
+	entity, err := s.service.CreateBucket(ctx, entity)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (s *storageServer) CreateBucket(ctx context.Context, in *server.CreateBucke
 // ListBuckets implements awsServer.ListBuckets
 func (s *storageServer) ListBuckets(ctx context.Context, in *server.ListBucketsRequest) (*server.ListBucketsResponse, error) {
 	entity := s.listBuckets.Input(in)
-	entity, err := s.service.ListBuckets(entity)
+	entity, err := s.service.ListBuckets(ctx, entity)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (s *storageServer) ListBuckets(ctx context.Context, in *server.ListBucketsR
 // PutObject implements awsServer.PutObject
 func (s *storageServer) PutObject(ctx context.Context, in *server.PutObjectRequest) (*server.PutObjectResponse, error) {
 	entity := s.putObject.Input(in)
-	entity, err := s.service.PutObject(entity)
+	entity, err := s.service.PutObject(ctx, entity)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (s *storageServer) PutObject(ctx context.Context, in *server.PutObjectReque
 // GetObject implements awsServer.GetObject
 func (s *storageServer) GetObject(ctx context.Context, in *server.GetObjectRequest) (*server.GetObjectResponse, error) {
 	entity := s.getObject.Input(in)
-	entity, err := s.service.GetObject(entity)
+	entity, err := s.service.GetObject(ctx, entity)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,7 @@ func (s *storageServer) GetObject(ctx context.Context, in *server.GetObjectReque
 // DeleteObject implements awsServer.DeleteObject
 func (s *storageServer) DeleteObject(ctx context.Context, in *server.DeleteObjectRequest) (*server.DeleteObjectResponse, error) {
 	entity := s.deleteObject.Input(in)
-	entity, err := s.service.DeleteObject(entity)
+	entity, err := s.service.DeleteObject(ctx, entity)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func (s *storageServer) DeleteObject(ctx context.Context, in *server.DeleteObjec
 // ListObjects implements awsServer.ListObjects
 func (s *storageServer) ListObjects(ctx context.Context, in *server.ListObjectsRequest) (*server.ListObjectsResponse, error) {
 	entity := s.listObjects.Input(in)
-	entity, err := s.service.ListObjects(entity)
+	entity, err := s.service.ListObjects(ctx, entity)
 	if err != nil {
 		return nil, err
 	}

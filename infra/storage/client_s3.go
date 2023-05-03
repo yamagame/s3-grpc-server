@@ -51,7 +51,7 @@ func NewS3Client(ctx context.Context, options S3ClientConfig) (*S3Client, error)
 	}, nil
 }
 
-func (x *S3Client) ListBuckets() ([]model.Bucket, error) {
+func (x *S3Client) ListBuckets(ctx context.Context) ([]model.Bucket, error) {
 	var buckets []model.Bucket
 	res, err := x.s3client.ListBuckets(x.ctx, &s3.ListBucketsInput{})
 	if err != nil {
@@ -65,14 +65,14 @@ func (x *S3Client) ListBuckets() ([]model.Bucket, error) {
 	return buckets, nil
 }
 
-func (x *S3Client) CreateBucket() error {
+func (x *S3Client) CreateBucket(ctx context.Context) error {
 	_, err := x.s3client.CreateBucket(x.ctx, &s3.CreateBucketInput{
 		Bucket: aws.String(x.bucket),
 	})
 	return err
 }
 
-func (x *S3Client) PutObject(key string, body io.Reader) error {
+func (x *S3Client) PutObject(ctx context.Context, key string, body io.Reader) error {
 	_, err := x.s3client.PutObject(x.ctx, &s3.PutObjectInput{
 		Bucket: aws.String(x.bucket),
 		Key:    aws.String(key),
@@ -81,11 +81,11 @@ func (x *S3Client) PutObject(key string, body io.Reader) error {
 	return err
 }
 
-func (x *S3Client) PutObjectWithString(key, content string) error {
-	return x.PutObject(key, strings.NewReader(content))
+func (x *S3Client) PutObjectWithString(ctx context.Context, key, content string) error {
+	return x.PutObject(ctx, key, strings.NewReader(content))
 }
 
-func (x *S3Client) GetObject(key string) (io.Reader, error) {
+func (x *S3Client) GetObject(ctx context.Context, key string) (io.Reader, error) {
 	res, err := x.s3client.GetObject(x.ctx, &s3.GetObjectInput{
 		Bucket: aws.String(x.bucket),
 		Key:    aws.String(key),
@@ -96,8 +96,8 @@ func (x *S3Client) GetObject(key string) (io.Reader, error) {
 	return res.Body, nil
 }
 
-func (x *S3Client) GetObjectWithString(key string) (string, error) {
-	reader, err := x.GetObject(key)
+func (x *S3Client) GetObjectWithString(ctx context.Context, key string) (string, error) {
+	reader, err := x.GetObject(ctx, key)
 	if err != nil {
 		return "", err
 	}
@@ -111,7 +111,7 @@ func (x *S3Client) GetObjectWithString(key string) (string, error) {
 	return streamToString(reader), nil
 }
 
-func (x *S3Client) DeleteObject(key string) error {
+func (x *S3Client) DeleteObject(ctx context.Context, key string) error {
 	_, err := x.s3client.DeleteObject(x.ctx, &s3.DeleteObjectInput{
 		Bucket: aws.String(x.bucket),
 		Key:    aws.String(key),
@@ -119,7 +119,7 @@ func (x *S3Client) DeleteObject(key string) error {
 	return err
 }
 
-func (x *S3Client) ListObjects(prefix string, nexttoken *string) ([]model.Object, error) {
+func (x *S3Client) ListObjects(ctx context.Context, prefix string, nexttoken *string) ([]model.Object, error) {
 	res, err := x.s3client.ListObjectsV2(x.ctx, &s3.ListObjectsV2Input{
 		Bucket:            aws.String(x.bucket),
 		Prefix:            aws.String(prefix),

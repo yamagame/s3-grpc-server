@@ -1,6 +1,7 @@
 package table
 
 import (
+	"context"
 	"sample/s3-grpc-server/infra/repository"
 	"sample/s3-grpc-server/infra/repository/model"
 
@@ -17,7 +18,7 @@ func NewRepository(db *gorm.DB) *tableRepository {
 	}
 }
 
-func (s *tableRepository) Read(object *model.Table) (*model.Table, error) {
+func (s *tableRepository) Read(ctx context.Context, object *model.Table) (*model.Table, error) {
 	if err := s.DB.Model(&model.Table{}).Preload("Cells").Take(object).Error; err != nil {
 		return nil, err
 	}

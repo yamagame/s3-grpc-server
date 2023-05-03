@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"path"
+	"path/filepath"
 	"sample/s3-grpc-server/infra/storage/model"
 	"strings"
 
@@ -59,7 +60,7 @@ func NewSFTPClient(ctx context.Context, options SFTPClientConfig) (*SFTPClient, 
 	}, nil
 }
 
-func (x *SFTPClient) ListBuckets() ([]model.Bucket, error) {
+func (x *SFTPClient) ListBuckets(ctx context.Context) ([]model.Bucket, error) {
 	var buckets []model.Bucket
 	fmt.Println("ListBuckets")
 	buckets = append(buckets, model.Bucket{
@@ -68,12 +69,12 @@ func (x *SFTPClient) ListBuckets() ([]model.Bucket, error) {
 	return buckets, nil
 }
 
-func (x *SFTPClient) CreateBucket() error {
+func (x *SFTPClient) CreateBucket(ctx context.Context) error {
 	fmt.Println("CreateBucket", x.share)
 	return nil
 }
 
-func (x *SFTPClient) PutObject(key string, body io.Reader) error {
+func (x *SFTPClient) PutObject(ctx context.Context, key string, body io.Reader) error {
 	fmt.Println("leave your mark")
 	wc, err := x.client.Create(path.Join(x.share, key))
 	if err != nil {
@@ -92,18 +93,18 @@ func (x *SFTPClient) PutObject(key string, body io.Reader) error {
 	return nil
 }
 
-func (x *SFTPClient) PutObjectWithString(key, content string) error {
-	return x.PutObject(key, strings.NewReader(content))
+func (x *SFTPClient) PutObjectWithString(ctx context.Context, key, content string) error {
+	return x.PutObject(ctx, key, strings.NewReader(content))
 }
 
-func (x *SFTPClient) GetObject(key string) (io.Reader, error) {
+func (x *SFTPClient) GetObject(ctx context.Context, key string) (io.Reader, error) {
 	fmt.Println("GetObject", key)
 	p := path.Join(x.share, key)
 	return x.client.Open(p)
 }
 
-func (x *SFTPClient) GetObjectWithString(key string) (string, error) {
-	out, err := x.GetObject(key)
+func (x *SFTPClient) GetObjectWithString(ctx context.Context, key string) (string, error) {
+	out, err := x.GetObject(ctx, key)
 	if err != nil {
 		return "", err
 	}
@@ -117,12 +118,12 @@ func (x *SFTPClient) GetObjectWithString(key string) (string, error) {
 	return streamToString(out), nil
 }
 
-func (x *SFTPClient) DeleteObject(key string) error {
+func (x *SFTPClient) DeleteObject(ctx context.Context, key string) error {
 	fmt.Println("DeleteObject", key)
 	return x.client.Remove(path.Join(x.share, key))
 }
 
-func (x *SFTPClient) ListObjects(prefix string, nexttoken *string) ([]model.Object, error) {
+func (x *SFTPClient) ListObjects(ctx context.Context, prefix string, nexttoken *string) ([]model.Object, error) {
 	var objects []model.Object
 	fmt.Println("ListObjects", prefix)
 	w := x.client.Walk(path.Join(x.share, prefix))
@@ -131,9 +132,12 @@ func (x *SFTPClient) ListObjects(prefix string, nexttoken *string) ([]model.Obje
 			continue
 		}
 		if !w.Stat().IsDir() {
-			objects = append(objects, model.Object{
-				Key: strings.TrimPrefix(w.Path(), x.share),
-			})
+			name := filepath.Base(w.Path())
+			if name[0] != '.' {
+				objects = append(objects, model.Object{
+					Key: strings.TrimPrefix(w.Path(), x.share),
+				})
+			}
 		}
 	}
 	return objects, nil
