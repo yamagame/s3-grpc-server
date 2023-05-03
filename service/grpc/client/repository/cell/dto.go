@@ -1,10 +1,10 @@
 package cell
 
 import (
-	"sample/s3-grpc-server/grpc_client/service/repository"
 	"sample/s3-grpc-server/infra/repository/cell"
 	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/client/repository"
 )
 
 type CreateCell struct{}

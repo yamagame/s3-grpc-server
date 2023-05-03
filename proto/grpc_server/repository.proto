@@ -2,6 +2,8 @@ syntax = "proto3";
 
 option go_package = "sample/grpc-server";
 
+import "proto/grpc_server/model.proto";
+
 // The greeting service definition.
 service repository {
   // CreateFile
@@ -30,12 +32,6 @@ service repository {
   rpc UpdateCell(UpdateCellRequest) returns (UpdateCellResponse) {}
   // DeleteCell
   rpc DeleteCell(DeleteCellRequest) returns (DeleteCellResponse) {}
-}
-
-message File {
-  uint64 id = 1;
-  string filename = 2;
-  repeated Table tables = 3;
 }
 
 message CreateFileRequest {
@@ -72,13 +68,6 @@ message DeleteFileResponse {
   uint64 ID = 1;
 }
 
-message Table {
-  uint64 id = 1;
-  uint64 file_id = 2;
-  string title = 3;
-  repeated Cell cells = 4;
-}
-
 message CreateTableRequest {
   Table table = 1;
 }
@@ -111,14 +100,6 @@ message DeleteTableRequest {
 
 message DeleteTableResponse {
   uint64 ID = 1;
-}
-
-message Cell {
-  uint64 id = 1;
-  uint64 row = 2;
-  uint64 col = 3;
-  string text = 4;
-  uint64 table_id = 5;
 }
 
 message CreateCellRequest {

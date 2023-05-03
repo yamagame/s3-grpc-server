@@ -8,17 +8,17 @@ import (
 	"gorm.io/gorm"
 )
 
-type fileRepository struct {
+type FileRepository struct {
 	repository.CRUDRepository[model.File]
 }
 
-func NewRepository(db *gorm.DB) *fileRepository {
-	return &fileRepository{
+func NewFileRepository(db *gorm.DB) *FileRepository {
+	return &FileRepository{
 		CRUDRepository: repository.CRUDRepository[model.File]{DB: db},
 	}
 }
 
-func (s *fileRepository) Read(ctx context.Context, object *model.File) (*model.File, error) {
+func (s *FileRepository) Read(ctx context.Context, object *model.File) (*model.File, error) {
 	if err := s.DB.Model(&model.File{}).Preload("Tables").Take(object).Error; err != nil {
 		return nil, err
 	}

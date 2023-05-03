@@ -1,11 +1,11 @@
-package service
+package grpc
 
 import (
 	"context"
-	cellService "sample/s3-grpc-server/grpc_server/service/repository/cell"
-	fileService "sample/s3-grpc-server/grpc_server/service/repository/file"
-	tableService "sample/s3-grpc-server/grpc_server/service/repository/table"
-	storageService "sample/s3-grpc-server/grpc_server/service/storage"
+	cellService "sample/s3-grpc-server/service/grpc/server/repository/cell"
+	fileService "sample/s3-grpc-server/service/grpc/server/repository/file"
+	tableService "sample/s3-grpc-server/service/grpc/server/repository/table"
+	storageService "sample/s3-grpc-server/service/grpc/server/storage"
 
 	"sample/s3-grpc-server/infra/repository/cell"
 	"sample/s3-grpc-server/infra/repository/file"
@@ -27,25 +27,25 @@ func NewServer(
 	rpc.RegisterStorageServer(server, storageService.NewStorageServer(storage.NewStorageService(storageClient)))
 	rpc.RegisterRepositoryServer(server,
 		newCRUDRepositoryServer(
-			fileService.NewCRUDService(fileRepository),
-			tableService.NewCRUDService(tableRepository),
-			cellService.NewCRUDService(cellRepository),
+			fileService.NewFileRepository(fileRepository),
+			tableService.NewTableRepository(tableRepository),
+			cellService.NewCellRepository(cellRepository),
 		),
 	)
 	return server
 }
 
 type CRUDRepositoryServer struct {
-	file  *fileService.CRUDService
-	table *tableService.CRUDService
-	cell  *cellService.CRUDService
+	file  *fileService.FileRepository
+	table *tableService.TableRepository
+	cell  *cellService.CellRepository
 	rpc.UnimplementedRepositoryServer
 }
 
 func newCRUDRepositoryServer(
-	file *fileService.CRUDService,
-	table *tableService.CRUDService,
-	cell *cellService.CRUDService,
+	file *fileService.FileRepository,
+	table *tableService.TableRepository,
+	cell *cellService.CellRepository,
 ) *CRUDRepositoryServer {
 	return &CRUDRepositoryServer{
 		file:  file,

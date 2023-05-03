@@ -8,11 +8,12 @@ import (
 	"os"
 	"strconv"
 
-	"sample/s3-grpc-server/domain/dbwriter"
-	"sample/s3-grpc-server/grpc_client/service/repository/cell"
-	"sample/s3-grpc-server/grpc_client/service/repository/file"
-	"sample/s3-grpc-server/grpc_client/service/repository/table"
-	"sample/s3-grpc-server/grpc_client/service/storage"
+	"sample/s3-grpc-server/service/dbwriter"
+	"sample/s3-grpc-server/service/grpc/client/repository/cell"
+	"sample/s3-grpc-server/service/grpc/client/repository/file"
+	"sample/s3-grpc-server/service/grpc/client/repository/table"
+	"sample/s3-grpc-server/service/grpc/client/storage"
+
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
 
 	"google.golang.org/grpc"
@@ -44,7 +45,7 @@ func main() {
 	fileRepository := file.NewFileRepository(grpc_server.NewRepositoryClient(conn))
 	tableRepository := table.NewTableRepository(grpc_server.NewRepositoryClient(conn))
 	cellRepository := cell.NewCellRepository(grpc_server.NewRepositoryClient(conn))
-	storageRepository := storage.NewStorageRepository(grpc_server.NewStorageClient(conn))
+	storageRepository := storage.NewRepository(grpc_server.NewStorageClient(conn))
 
 	fileScanner := file.NewKeyInput(keyboard)
 	tableScanner := table.NewKeyInput(keyboard)

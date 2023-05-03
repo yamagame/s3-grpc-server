@@ -14,40 +14,40 @@ type serverDTO struct {
 	delete DeleteTable
 }
 
-type CRUDService struct {
+type TableRepository struct {
 	serverDTO
 	repository table.RepositoryInterface
 }
 
-func NewCRUDService(repository table.RepositoryInterface) *CRUDService {
-	return &CRUDService{
+func NewTableRepository(repository table.RepositoryInterface) *TableRepository {
+	return &TableRepository{
 		repository: repository,
 	}
 }
 
 // Create implements RepositoryServer.Create
-func (s *CRUDService) Create(ctx context.Context, in *server.CreateTableRequest) (*server.CreateTableResponse, error) {
+func (s *TableRepository) Create(ctx context.Context, in *server.CreateTableRequest) (*server.CreateTableResponse, error) {
 	return s.create.Domain(in, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Create(ctx, table)
 	})
 }
 
 // Read implements RepositoryServer.Read
-func (s *CRUDService) Read(ctx context.Context, in *server.ReadTableRequest) (*server.ReadTableResponse, error) {
+func (s *TableRepository) Read(ctx context.Context, in *server.ReadTableRequest) (*server.ReadTableResponse, error) {
 	return s.read.Domain(in, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Read(ctx, table)
 	})
 }
 
 // Update implements RepositoryServer.Update
-func (s *CRUDService) Update(ctx context.Context, in *server.UpdateTableRequest) (*server.UpdateTableResponse, error) {
+func (s *TableRepository) Update(ctx context.Context, in *server.UpdateTableRequest) (*server.UpdateTableResponse, error) {
 	return s.update.Domain(in, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Update(ctx, table)
 	})
 }
 
 // Delete implements RepositoryServer.Delete
-func (s *CRUDService) Delete(ctx context.Context, in *server.DeleteTableRequest) (*server.DeleteTableResponse, error) {
+func (s *TableRepository) Delete(ctx context.Context, in *server.DeleteTableRequest) (*server.DeleteTableResponse, error) {
 	return s.delete.Domain(in, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Delete(ctx, table)
 	})

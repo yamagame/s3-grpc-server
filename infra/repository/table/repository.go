@@ -8,17 +8,17 @@ import (
 	"gorm.io/gorm"
 )
 
-type tableRepository struct {
+type TableRepository struct {
 	repository.CRUDRepository[model.Table]
 }
 
-func NewRepository(db *gorm.DB) *tableRepository {
-	return &tableRepository{
+func NewTableRepository(db *gorm.DB) *TableRepository {
+	return &TableRepository{
 		CRUDRepository: repository.CRUDRepository[model.Table]{DB: db},
 	}
 }
 
-func (s *tableRepository) Read(ctx context.Context, object *model.Table) (*model.Table, error) {
+func (s *TableRepository) Read(ctx context.Context, object *model.Table) (*model.Table, error) {
 	if err := s.DB.Model(&model.Table{}).Preload("Cells").Take(object).Error; err != nil {
 		return nil, err
 	}

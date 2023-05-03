@@ -2,9 +2,9 @@ package storage
 
 import (
 	"context"
-	"sample/s3-grpc-server/grpc_server/service/storage/dto"
 	"sample/s3-grpc-server/infra/storage"
 	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/server/storage/dto"
 )
 
 type serverDTO struct {

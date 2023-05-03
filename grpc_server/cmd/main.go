@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"sample/s3-grpc-server/grpc_server/service"
 	"sample/s3-grpc-server/infra/repository"
 	cellRepo "sample/s3-grpc-server/infra/repository/cell"
 	fileRepo "sample/s3-grpc-server/infra/repository/file"
 	tableRepo "sample/s3-grpc-server/infra/repository/table"
 	"sample/s3-grpc-server/infra/storage"
+	grpc "sample/s3-grpc-server/service/grpc/server"
 
 	"go.uber.org/zap"
 )
@@ -36,11 +36,11 @@ func main() {
 		sugar.Infof("failed to listen: %v", err)
 	}
 	gorm := repository.GormDB()
-	server := service.NewServer(
+	server := grpc.NewServer(
 		storage.GetClient(mode),
-		fileRepo.NewRepository(gorm),
-		tableRepo.NewRepository(gorm),
-		cellRepo.NewRepository(gorm),
+		fileRepo.NewFileRepository(gorm),
+		tableRepo.NewTableRepository(gorm),
+		cellRepo.NewCellRepository(gorm),
 	)
 	// log.Printf("server listening at %v", lis.Addr())
 	sugar.Infof("server listening at %v", lis.Addr())

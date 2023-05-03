@@ -69,16 +69,247 @@ func (Result) EnumDescriptor() ([]byte, []int) {
 	return file_proto_grpc_server_model_proto_rawDescGZIP(), []int{0}
 }
 
+type File struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id       uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Filename string   `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`
+	Tables   []*Table `protobuf:"bytes,3,rep,name=tables,proto3" json:"tables,omitempty"`
+}
+
+func (x *File) Reset() {
+	*x = File{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_model_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *File) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*File) ProtoMessage() {}
+
+func (x *File) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_model_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use File.ProtoReflect.Descriptor instead.
+func (*File) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_model_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *File) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *File) GetFilename() string {
+	if x != nil {
+		return x.Filename
+	}
+	return ""
+}
+
+func (x *File) GetTables() []*Table {
+	if x != nil {
+		return x.Tables
+	}
+	return nil
+}
+
+type Table struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id     uint64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	FileId uint64  `protobuf:"varint,2,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	Title  string  `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Cells  []*Cell `protobuf:"bytes,4,rep,name=cells,proto3" json:"cells,omitempty"`
+}
+
+func (x *Table) Reset() {
+	*x = Table{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_model_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Table) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Table) ProtoMessage() {}
+
+func (x *Table) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_model_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Table.ProtoReflect.Descriptor instead.
+func (*Table) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_model_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Table) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Table) GetFileId() uint64 {
+	if x != nil {
+		return x.FileId
+	}
+	return 0
+}
+
+func (x *Table) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *Table) GetCells() []*Cell {
+	if x != nil {
+		return x.Cells
+	}
+	return nil
+}
+
+type Cell struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id      uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Row     uint64 `protobuf:"varint,2,opt,name=row,proto3" json:"row,omitempty"`
+	Col     uint64 `protobuf:"varint,3,opt,name=col,proto3" json:"col,omitempty"`
+	Text    string `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
+	TableId uint64 `protobuf:"varint,5,opt,name=table_id,json=tableId,proto3" json:"table_id,omitempty"`
+}
+
+func (x *Cell) Reset() {
+	*x = Cell{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_grpc_server_model_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Cell) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Cell) ProtoMessage() {}
+
+func (x *Cell) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_grpc_server_model_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Cell.ProtoReflect.Descriptor instead.
+func (*Cell) Descriptor() ([]byte, []int) {
+	return file_proto_grpc_server_model_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Cell) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Cell) GetRow() uint64 {
+	if x != nil {
+		return x.Row
+	}
+	return 0
+}
+
+func (x *Cell) GetCol() uint64 {
+	if x != nil {
+		return x.Col
+	}
+	return 0
+}
+
+func (x *Cell) GetText() string {
+	if x != nil {
+		return x.Text
+	}
+	return ""
+}
+
+func (x *Cell) GetTableId() uint64 {
+	if x != nil {
+		return x.TableId
+	}
+	return 0
+}
+
 var File_proto_grpc_server_model_proto protoreflect.FileDescriptor
 
 var file_proto_grpc_server_model_proto_rawDesc = []byte{
 	0x0a, 0x1d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x65, 0x72,
-	0x76, 0x65, 0x72, 0x2f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2a,
-	0x28, 0x0a, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x0d, 0x0a, 0x09, 0x55, 0x4e, 0x44,
-	0x45, 0x46, 0x49, 0x4e, 0x45, 0x44, 0x10, 0x00, 0x12, 0x06, 0x0a, 0x02, 0x4f, 0x4b, 0x10, 0x01,
-	0x12, 0x07, 0x0a, 0x03, 0x45, 0x52, 0x52, 0x10, 0x02, 0x42, 0x14, 0x5a, 0x12, 0x73, 0x61, 0x6d,
-	0x70, 0x6c, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x76, 0x65, 0x72, 0x2f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22,
+	0x52, 0x0a, 0x04, 0x46, 0x69, 0x6c, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x06, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x73, 0x18, 0x03, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x06, 0x2e, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x06, 0x74, 0x61, 0x62,
+	0x6c, 0x65, 0x73, 0x22, 0x63, 0x0a, 0x05, 0x54, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x17, 0x0a, 0x07,
+	0x66, 0x69, 0x6c, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x66,
+	0x69, 0x6c, 0x65, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x1b, 0x0a, 0x05, 0x63,
+	0x65, 0x6c, 0x6c, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x05, 0x2e, 0x43, 0x65, 0x6c,
+	0x6c, 0x52, 0x05, 0x63, 0x65, 0x6c, 0x6c, 0x73, 0x22, 0x69, 0x0a, 0x04, 0x43, 0x65, 0x6c, 0x6c,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x10, 0x0a, 0x03, 0x72, 0x6f, 0x77, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x03, 0x72,
+	0x6f, 0x77, 0x12, 0x10, 0x0a, 0x03, 0x63, 0x6f, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52,
+	0x03, 0x63, 0x6f, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x65, 0x78, 0x74, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x04, 0x74, 0x65, 0x78, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x74, 0x61, 0x62, 0x6c,
+	0x65, 0x5f, 0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x07, 0x74, 0x61, 0x62, 0x6c,
+	0x65, 0x49, 0x64, 0x2a, 0x28, 0x0a, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x0d, 0x0a,
+	0x09, 0x55, 0x4e, 0x44, 0x45, 0x46, 0x49, 0x4e, 0x45, 0x44, 0x10, 0x00, 0x12, 0x06, 0x0a, 0x02,
+	0x4f, 0x4b, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03, 0x45, 0x52, 0x52, 0x10, 0x02, 0x42, 0x14, 0x5a,
+	0x12, 0x73, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x73, 0x65, 0x72,
+	0x76, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -94,15 +325,21 @@ func file_proto_grpc_server_model_proto_rawDescGZIP() []byte {
 }
 
 var file_proto_grpc_server_model_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_proto_grpc_server_model_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proto_grpc_server_model_proto_goTypes = []interface{}{
-	(Result)(0), // 0: Result
+	(Result)(0),   // 0: Result
+	(*File)(nil),  // 1: File
+	(*Table)(nil), // 2: Table
+	(*Cell)(nil),  // 3: Cell
 }
 var file_proto_grpc_server_model_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: File.tables:type_name -> Table
+	3, // 1: Table.cells:type_name -> Cell
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_grpc_server_model_proto_init() }
@@ -110,19 +347,58 @@ func file_proto_grpc_server_model_proto_init() {
 	if File_proto_grpc_server_model_proto != nil {
 		return
 	}
+	if !protoimpl.UnsafeEnabled {
+		file_proto_grpc_server_model_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*File); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_model_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Table); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_grpc_server_model_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Cell); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_proto_grpc_server_model_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   0,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_proto_grpc_server_model_proto_goTypes,
 		DependencyIndexes: file_proto_grpc_server_model_proto_depIdxs,
 		EnumInfos:         file_proto_grpc_server_model_proto_enumTypes,
+		MessageInfos:      file_proto_grpc_server_model_proto_msgTypes,
 	}.Build()
 	File_proto_grpc_server_model_proto = out.File
 	file_proto_grpc_server_model_proto_rawDesc = nil

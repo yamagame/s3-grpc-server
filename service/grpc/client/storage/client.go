@@ -2,9 +2,9 @@ package storage
 
 import (
 	"context"
-	"sample/s3-grpc-server/grpc_client/service/storage/dto"
 	"sample/s3-grpc-server/infra/storage/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/client/storage/dto"
 )
 
 type clientDTO struct {
@@ -21,7 +21,7 @@ type storageRepository struct {
 	client server.StorageClient
 }
 
-func NewStorageRepository(client server.StorageClient) *storageRepository {
+func NewRepository(client server.StorageClient) *storageRepository {
 	return &storageRepository{
 		client: client,
 	}

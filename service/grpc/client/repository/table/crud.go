@@ -13,36 +13,40 @@ type clientDTO struct {
 	delete DeleteTable
 }
 
-type tableRepository struct {
+type TableRepository struct {
 	clientDTO
 	client server.RepositoryClient
 }
 
-func NewTableRepository(client server.RepositoryClient) *tableRepository {
-	return &tableRepository{
+func NewTableRepository(client server.RepositoryClient) *TableRepository {
+	return &TableRepository{
 		client: client,
 	}
 }
 
-func (x *tableRepository) Create(ctx context.Context, table *model.Table) (*model.Table, error) {
+// Create implements tableRepository.Create
+func (x *TableRepository) Create(ctx context.Context, table *model.Table) (*model.Table, error) {
 	return x.create.Domain(table, func(req *server.CreateTableRequest) (*server.CreateTableResponse, error) {
 		return x.client.CreateTable(ctx, req)
 	})
 }
 
-func (x *tableRepository) Read(ctx context.Context, table *model.Table) (*model.Table, error) {
+// Read implements tableRepository.Read
+func (x *TableRepository) Read(ctx context.Context, table *model.Table) (*model.Table, error) {
 	return x.read.Domain(table, func(req *server.ReadTableRequest) (*server.ReadTableResponse, error) {
 		return x.client.ReadTable(ctx, req)
 	})
 }
 
-func (x *tableRepository) Update(ctx context.Context, table *model.Table) (*model.Table, error) {
+// Update implements tableRepository.Update
+func (x *TableRepository) Update(ctx context.Context, table *model.Table) (*model.Table, error) {
 	return x.update.Domain(table, func(req *server.UpdateTableRequest) (*server.UpdateTableResponse, error) {
 		return x.client.UpdateTable(ctx, req)
 	})
 }
 
-func (x *tableRepository) Delete(ctx context.Context, table *model.Table) (*model.Table, error) {
+// Delete implements tableRepository.Delete
+func (x *TableRepository) Delete(ctx context.Context, table *model.Table) (*model.Table, error) {
 	return x.delete.Domain(table, func(req *server.DeleteTableRequest) (*server.DeleteTableResponse, error) {
 		return x.client.DeleteTable(ctx, req)
 	})

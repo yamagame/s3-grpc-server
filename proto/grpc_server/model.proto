@@ -7,3 +7,24 @@ enum Result {
   OK = 1;
   ERR = 2;
 }
+
+message File {
+  uint64 id = 1;
+  string filename = 2;
+  repeated Table tables = 3;
+}
+
+message Table {
+  uint64 id = 1;
+  uint64 file_id = 2;
+  string title = 3;
+  repeated Cell cells = 4;
+}
+
+message Cell {
+  uint64 id = 1;
+  uint64 row = 2;
+  uint64 col = 3;
+  string text = 4;
+  uint64 table_id = 5;
+}

@@ -1,10 +1,10 @@
 package table
 
 import (
-	"sample/s3-grpc-server/grpc_server/service/repository"
 	"sample/s3-grpc-server/infra/repository/cell"
 	"sample/s3-grpc-server/infra/repository/model"
 	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/server/repository"
 	"time"
 )
 
