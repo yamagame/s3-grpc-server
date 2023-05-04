@@ -28,24 +28,6 @@ graph LR;
   3306:3306")
 ```
 
-## クラス
-
-```mermaid
-graph LR;
-  storageServer --> storageService
-  storageService --> StorageInterface
-
-  GCSClient -.-> StorageInterface
-  S3Client -.-> StorageInterface
-  SFTPClient -.-> StorageInterface
-```
-
-```mermaid
-graph LR;
-  repositoryServer --> repositoryService
-  repositoryService --> gorm.DB
-```
-
 ## 実行方法
 
 docker-compose up -d で開発用のコンテナが稼働する。コンテナのメモリは3Gは欲しい。
