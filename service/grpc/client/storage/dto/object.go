@@ -2,35 +2,44 @@ package dto
 
 import (
 	"sample/s3-grpc-server/infra/storage/model"
-	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/proto/grpc_server"
 )
 
-type PutObjectDTO struct {
+type PutObject struct {
 }
 
-func (x *PutObjectDTO) Input(req *model.PutObject) *server.PutObjectRequest {
-	return &server.PutObjectRequest{
+func (x *PutObject) ToInfra(req *model.PutObject, call func(req *grpc_server.PutObjectRequest) (*grpc_server.PutObjectResponse, error)) (*model.PutObject, error) {
+	return dto.ToInfra[model.PutObject, grpc_server.PutObjectRequest, grpc_server.PutObjectResponse](x, req, call)
+}
+
+func (x *PutObject) Input(req *model.PutObject) *grpc_server.PutObjectRequest {
+	return &grpc_server.PutObjectRequest{
 		Key:     req.Key,
 		Content: req.Content,
 	}
 }
 
-func (x *PutObjectDTO) Output(res *server.PutObjectResponse) *model.PutObject {
+func (x *PutObject) Output(res *grpc_server.PutObjectResponse) *model.PutObject {
 	return &model.PutObject{
 		Result: model.StorageResult(res.Result),
 	}
 }
 
-type GetObjectDTO struct {
+type GetObject struct {
 }
 
-func (x *GetObjectDTO) Input(req *model.GetObject) *server.GetObjectRequest {
-	return &server.GetObjectRequest{
+func (x *GetObject) ToInfra(req *model.GetObject, call func(req *grpc_server.GetObjectRequest) (*grpc_server.GetObjectResponse, error)) (*model.GetObject, error) {
+	return dto.ToInfra[model.GetObject, grpc_server.GetObjectRequest, grpc_server.GetObjectResponse](x, req, call)
+}
+
+func (x *GetObject) Input(req *model.GetObject) *grpc_server.GetObjectRequest {
+	return &grpc_server.GetObjectRequest{
 		Key: req.Key,
 	}
 }
 
-func (x *GetObjectDTO) Output(res *server.GetObjectResponse) *model.GetObject {
+func (x *GetObject) Output(res *grpc_server.GetObjectResponse) *model.GetObject {
 	return &model.GetObject{
 		Result:  model.StorageResult(res.Result),
 		Key:     res.Key,
@@ -38,31 +47,39 @@ func (x *GetObjectDTO) Output(res *server.GetObjectResponse) *model.GetObject {
 	}
 }
 
-type DeleteObjectDTO struct {
+type DeleteObject struct {
 }
 
-func (x *DeleteObjectDTO) Input(req *model.DeleteObject) *server.DeleteObjectRequest {
-	return &server.DeleteObjectRequest{
+func (x *DeleteObject) ToInfra(req *model.DeleteObject, call func(req *grpc_server.DeleteObjectRequest) (*grpc_server.DeleteObjectResponse, error)) (*model.DeleteObject, error) {
+	return dto.ToInfra[model.DeleteObject, grpc_server.DeleteObjectRequest, grpc_server.DeleteObjectResponse](x, req, call)
+}
+
+func (x *DeleteObject) Input(req *model.DeleteObject) *grpc_server.DeleteObjectRequest {
+	return &grpc_server.DeleteObjectRequest{
 		Key: req.Key,
 	}
 }
 
-func (x *DeleteObjectDTO) Output(res *server.DeleteObjectResponse) *model.DeleteObject {
+func (x *DeleteObject) Output(res *grpc_server.DeleteObjectResponse) *model.DeleteObject {
 	return &model.DeleteObject{
 		Result: model.StorageResult(res.Result),
 	}
 }
 
-type ListObjectsDTO struct {
+type ListObjects struct {
 }
 
-func (x *ListObjectsDTO) Input(req *model.ListObjects) *server.ListObjectsRequest {
-	return &server.ListObjectsRequest{
+func (x *ListObjects) ToInfra(req *model.ListObjects, call func(req *grpc_server.ListObjectsRequest) (*grpc_server.ListObjectsResponse, error)) (*model.ListObjects, error) {
+	return dto.ToInfra[model.ListObjects, grpc_server.ListObjectsRequest, grpc_server.ListObjectsResponse](x, req, call)
+}
+
+func (x *ListObjects) Input(req *model.ListObjects) *grpc_server.ListObjectsRequest {
+	return &grpc_server.ListObjectsRequest{
 		Prefix: req.Prefix,
 	}
 }
 
-func (x *ListObjectsDTO) Output(res *server.ListObjectsResponse) *model.ListObjects {
+func (x *ListObjects) Output(res *grpc_server.ListObjectsResponse) *model.ListObjects {
 	return &model.ListObjects{
 		Result: model.StorageResult(res.Result),
 		Prefix: res.Prefix,
