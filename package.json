@@ -5,6 +5,6 @@
   "repository": "https://github.com/yamagame/s3-grpc-server.git",
   "license": "MIT",
   "dependencies": {
-    "ts-proto": "^1.146.0"
+    "ts-proto": "^1.147.1"
   }
 }

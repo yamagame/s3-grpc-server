@@ -128,18 +128,18 @@ ts-poet@^6.4.1:
   dependencies:
     dprint-node "^1.0.7"
 
-ts-proto-descriptors@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/ts-proto-descriptors/-/ts-proto-descriptors-1.8.0.tgz#ba4a26c156a77f76c68d7dac0d049bd2aa3f0920"
-  integrity sha512-iV20plcI8+GRkeZIAygxOOH0p2xpOsKfw9kI1W20NCwawi1/4bG/YRd9rQY9XSJP+lD9j7XbSy3tFFuikfsljw==
+ts-proto-descriptors@1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/ts-proto-descriptors/-/ts-proto-descriptors-1.9.0.tgz#0ed5631f11851846c8de21be2bff346719edce71"
+  integrity sha512-Ui8zA5Q4Jnq6JIGRraUWvECrqixxtwwin8GkhIkvwCpR+JcSPsxWe8HfTj5eHfyruGYI6Zjf96XlC87hTakHfQ==
   dependencies:
     long "^4.0.0"
     protobufjs "^6.8.8"
 
-ts-proto@^1.146.0:
-  version "1.146.0"
-  resolved "https://registry.yarnpkg.com/ts-proto/-/ts-proto-1.146.0.tgz#4017c700976d3657009c4e7e741377a4272ffc27"
-  integrity sha512-OyBZRjmqqw+aatLEUbRooWO6VKTtOLJQyaQFMciigEZPNgTsWtApqHpQDtqDMQFWEXhIARqEV+B7ZJx8cljhZA==
+ts-proto@^1.147.1:
+  version "1.147.1"
+  resolved "https://registry.yarnpkg.com/ts-proto/-/ts-proto-1.147.1.tgz#457fa7d2cce7e4b27ecc59396e1155b04ba9f890"
+  integrity sha512-34G8jf+56gZkHrxVFMN3t8BJDWF7mCU4h8b4octjoFScojf4QTPCrFeXDhiidFuOixd//5AQVsF5LcVdxDCJzw==
   dependencies:
     "@types/object-hash" "^1.3.0"
     case-anything "^2.1.10"
@@ -147,4 +147,4 @@ ts-proto@^1.146.0:
     object-hash "^1.3.1"
     protobufjs "^6.11.3"
     ts-poet "^6.4.1"
-    ts-proto-descriptors "1.8.0"
+    ts-proto-descriptors "1.9.0"
