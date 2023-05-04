@@ -6,4 +6,4 @@ export MYSQL_HOST=localhost:3306
 export MYSQL_ROOT_PASSWORD=pass
 export MYSQL_DATABASE=mysqldb
 
-go run grpc_server/cmd/droptable/main.go $1
+go run cmd/droptable/main.go $1

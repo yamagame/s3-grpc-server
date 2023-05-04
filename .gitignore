@@ -17,3 +17,4 @@ work/*
 !.sftp/share/.gitkeep
 *.cert
 *.crt
+/build

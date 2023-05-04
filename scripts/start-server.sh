@@ -1,4 +1,4 @@
 #!/bin/bash
 cd `dirname $0`
 cd ..
-go run grpc_server/cmd/main.go $1
+go run cmd/grpc_server/main.go $1
