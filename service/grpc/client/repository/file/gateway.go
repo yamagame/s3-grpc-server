@@ -2,9 +2,9 @@ package file
 
 import (
 	"sample/s3-grpc-server/infra/repository/model"
-	"sample/s3-grpc-server/infra/repository/table"
 	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/gateway/table"
 )
 
 type CreateFile struct{}
