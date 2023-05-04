@@ -7,27 +7,18 @@ import (
 	aws "sample/s3-grpc-server/proto/grpc_server"
 )
 
-type StorageServiceInterface interface {
-	CreateBucket(ctx context.Context, req *model.CreateBucket) (*model.CreateBucket, error)
-	ListBuckets(ctx context.Context, req *model.ListBuckets) (*model.ListBuckets, error)
-	PutObject(ctx context.Context, req *model.PutObject) (*model.PutObject, error)
-	GetObject(ctx context.Context, req *model.GetObject) (*model.GetObject, error)
-	DeleteObject(ctx context.Context, req *model.DeleteObject) (*model.DeleteObject, error)
-	ListObjects(ctx context.Context, req *model.ListObjects) (*model.ListObjects, error)
+type StorageRepository struct {
+	client RepositoryClientInterface
 }
 
-type StorageService struct {
-	client StorageInterface
-}
-
-func NewStorageService(client StorageInterface) *StorageService {
-	return &StorageService{
+func NewStorageRepository(client RepositoryClientInterface) *StorageRepository {
+	return &StorageRepository{
 		client: client,
 	}
 }
 
 // CreateBucket implements awsService.ListBuckets
-func (s *StorageService) CreateBucket(ctx context.Context, req *model.CreateBucket) (*model.CreateBucket, error) {
+func (s *StorageRepository) CreateBucket(ctx context.Context, req *model.CreateBucket) (*model.CreateBucket, error) {
 	err := s.client.CreateBucket(ctx)
 	if err != nil {
 		fmt.Println(err)
@@ -39,7 +30,7 @@ func (s *StorageService) CreateBucket(ctx context.Context, req *model.CreateBuck
 }
 
 // ListBuckets implements awsService.ListBuckets
-func (s *StorageService) ListBuckets(ctx context.Context, req *model.ListBuckets) (*model.ListBuckets, error) {
+func (s *StorageRepository) ListBuckets(ctx context.Context, req *model.ListBuckets) (*model.ListBuckets, error) {
 	buckets, err := s.client.ListBuckets(ctx)
 	if err != nil {
 		fmt.Println(err)
@@ -52,7 +43,7 @@ func (s *StorageService) ListBuckets(ctx context.Context, req *model.ListBuckets
 }
 
 // PutObject implements awsService.PutObject
-func (s *StorageService) PutObject(ctx context.Context, req *model.PutObject) (*model.PutObject, error) {
+func (s *StorageRepository) PutObject(ctx context.Context, req *model.PutObject) (*model.PutObject, error) {
 	err := s.client.PutObjectWithString(ctx, req.Key, req.Content)
 	if err != nil {
 		fmt.Println(err)
@@ -64,7 +55,7 @@ func (s *StorageService) PutObject(ctx context.Context, req *model.PutObject) (*
 }
 
 // GetObject implements awsService.GetObject
-func (s *StorageService) GetObject(ctx context.Context, req *model.GetObject) (*model.GetObject, error) {
+func (s *StorageRepository) GetObject(ctx context.Context, req *model.GetObject) (*model.GetObject, error) {
 	ret, err := s.client.GetObjectWithString(ctx, req.Key)
 	if err != nil {
 		fmt.Println(err)
@@ -77,7 +68,7 @@ func (s *StorageService) GetObject(ctx context.Context, req *model.GetObject) (*
 }
 
 // DeleteObject implements awsService.DeleteObject
-func (s *StorageService) DeleteObject(ctx context.Context, req *model.DeleteObject) (*model.DeleteObject, error) {
+func (s *StorageRepository) DeleteObject(ctx context.Context, req *model.DeleteObject) (*model.DeleteObject, error) {
 	err := s.client.DeleteObject(ctx, req.Key)
 	if err != nil {
 		fmt.Println(err)
@@ -89,7 +80,7 @@ func (s *StorageService) DeleteObject(ctx context.Context, req *model.DeleteObje
 }
 
 // ListObjects implements awsService.DeleteObject
-func (s *StorageService) ListObjects(ctx context.Context, req *model.ListObjects) (*model.ListObjects, error) {
+func (s *StorageRepository) ListObjects(ctx context.Context, req *model.ListObjects) (*model.ListObjects, error) {
 	objects, err := s.client.ListObjects(ctx, req.Prefix, req.Next)
 	fmt.Println(objects)
 	if err != nil {

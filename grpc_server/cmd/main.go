@@ -60,8 +60,8 @@ func main() {
 	}
 }
 
-func GetClient(mode string) storage.StorageInterface {
-	getClient := func(mode string) (storage.StorageInterface, error) {
+func GetClient(mode string) storage.RepositoryClientInterface {
+	getClient := func(mode string) (storage.RepositoryClientInterface, error) {
 		if mode == "sftp" {
 			fmt.Println("start sftp")
 			return storage.NewSFTPClient(context.Background(), storage.SFTPClientConfig{
@@ -93,23 +93,23 @@ func GetClient(mode string) storage.StorageInterface {
 }
 
 func NewServer(
-	storageClient storage.StorageInterface,
+	storageRepository storage.RepositoryClientInterface,
 	fileRepository file.RepositoryInterface,
 	tableRepository table.RepositoryInterface,
 	cellRepository cell.RepositoryInterface,
 ) *grpc.Server {
 	server := grpc.NewServer()
 	grpc_server.RegisterStorageRepositoryServer(server,
-		storageService.NewStorageServer(storage.NewStorageService(storageClient)),
+		storageService.NewStorageRepositoryServer(storage.NewStorageRepository(storageRepository)),
 	)
 	grpc_server.RegisterFileRepositoryServer(server,
-		fileService.NewFileRepository(fileRepository),
+		fileService.NewFileRepositoryServer(fileRepository),
 	)
 	grpc_server.RegisterTableRepositoryServer(server,
-		tableService.NewTableRepository(tableRepository),
+		tableService.NewTableRepositoryServer(tableRepository),
 	)
 	grpc_server.RegisterCellRepositoryServer(server,
-		cellService.NewCellRepository(cellRepository),
+		cellService.NewCellRepositoryServer(cellRepository),
 	)
 	reflection.Register(server)
 	return server

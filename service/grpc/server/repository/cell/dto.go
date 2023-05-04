@@ -2,19 +2,20 @@ package cell
 
 import (
 	"sample/s3-grpc-server/infra/repository/model"
-	server "sample/s3-grpc-server/proto/grpc_server"
-	"sample/s3-grpc-server/service/grpc/server/repository"
+	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/proto/grpc_server"
+
 	"time"
 )
 
 type CreateCell struct {
 }
 
-func (x *CreateCell) Domain(req *server.CreateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*server.CreateCellResponse, error) {
-	return repository.Domain[model.Cell, server.CreateCellRequest, server.CreateCellResponse](x, req, call)
+func (x *CreateCell) Domain(req *grpc_server.CreateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.CreateCellResponse, error) {
+	return dto.ToDomain[model.Cell, grpc_server.CreateCellRequest, grpc_server.CreateCellResponse](x, req, call)
 }
 
-func (x *CreateCell) Input(req *server.CreateCellRequest) *model.Cell {
+func (x *CreateCell) Input(req *grpc_server.CreateCellRequest) *model.Cell {
 	return &model.Cell{
 		TableID:   req.Cell.TableId,
 		Row:       req.Cell.Row,
@@ -25,8 +26,8 @@ func (x *CreateCell) Input(req *server.CreateCellRequest) *model.Cell {
 	}
 }
 
-func (x *CreateCell) Output(res *model.Cell) *server.CreateCellResponse {
-	return &server.CreateCellResponse{
+func (x *CreateCell) Output(res *model.Cell) *grpc_server.CreateCellResponse {
+	return &grpc_server.CreateCellResponse{
 		ID: res.ID,
 	}
 }
@@ -34,19 +35,19 @@ func (x *CreateCell) Output(res *model.Cell) *server.CreateCellResponse {
 type ReadCell struct {
 }
 
-func (x *ReadCell) Domain(req *server.ReadCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*server.ReadCellResponse, error) {
-	return repository.Domain[model.Cell, server.ReadCellRequest, server.ReadCellResponse](x, req, call)
+func (x *ReadCell) Domain(req *grpc_server.ReadCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.ReadCellResponse, error) {
+	return dto.ToDomain[model.Cell, grpc_server.ReadCellRequest, grpc_server.ReadCellResponse](x, req, call)
 }
 
-func (x *ReadCell) Input(req *server.ReadCellRequest) *model.Cell {
+func (x *ReadCell) Input(req *grpc_server.ReadCellRequest) *model.Cell {
 	return &model.Cell{
 		ID: req.GetID(),
 	}
 }
 
-func (x *ReadCell) Output(res *model.Cell) *server.ReadCellResponse {
-	return &server.ReadCellResponse{
-		Cell: &server.Cell{
+func (x *ReadCell) Output(res *model.Cell) *grpc_server.ReadCellResponse {
+	return &grpc_server.ReadCellResponse{
+		Cell: &grpc_server.Cell{
 			Text: res.Text,
 		},
 	}
@@ -55,11 +56,11 @@ func (x *ReadCell) Output(res *model.Cell) *server.ReadCellResponse {
 type UpdateCell struct {
 }
 
-func (x *UpdateCell) Domain(req *server.UpdateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*server.UpdateCellResponse, error) {
-	return repository.Domain[model.Cell, server.UpdateCellRequest, server.UpdateCellResponse](x, req, call)
+func (x *UpdateCell) Domain(req *grpc_server.UpdateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.UpdateCellResponse, error) {
+	return dto.ToDomain[model.Cell, grpc_server.UpdateCellRequest, grpc_server.UpdateCellResponse](x, req, call)
 }
 
-func (x *UpdateCell) Input(req *server.UpdateCellRequest) *model.Cell {
+func (x *UpdateCell) Input(req *grpc_server.UpdateCellRequest) *model.Cell {
 	return &model.Cell{
 		ID:        req.Cell.Id,
 		Text:      req.Cell.Text,
@@ -67,8 +68,8 @@ func (x *UpdateCell) Input(req *server.UpdateCellRequest) *model.Cell {
 	}
 }
 
-func (x *UpdateCell) Output(res *model.Cell) *server.UpdateCellResponse {
-	return &server.UpdateCellResponse{
+func (x *UpdateCell) Output(res *model.Cell) *grpc_server.UpdateCellResponse {
+	return &grpc_server.UpdateCellResponse{
 		ID: res.ID,
 	}
 }
@@ -76,18 +77,18 @@ func (x *UpdateCell) Output(res *model.Cell) *server.UpdateCellResponse {
 type DeleteCell struct {
 }
 
-func (x *DeleteCell) Domain(req *server.DeleteCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*server.DeleteCellResponse, error) {
-	return repository.Domain[model.Cell, server.DeleteCellRequest, server.DeleteCellResponse](x, req, call)
+func (x *DeleteCell) Domain(req *grpc_server.DeleteCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.DeleteCellResponse, error) {
+	return dto.ToDomain[model.Cell, grpc_server.DeleteCellRequest, grpc_server.DeleteCellResponse](x, req, call)
 }
 
-func (x *DeleteCell) Input(req *server.DeleteCellRequest) *model.Cell {
+func (x *DeleteCell) Input(req *grpc_server.DeleteCellRequest) *model.Cell {
 	return &model.Cell{
 		ID: req.GetID(),
 	}
 }
 
-func (x *DeleteCell) Output(res *model.Cell) *server.DeleteCellResponse {
-	return &server.DeleteCellResponse{
+func (x *DeleteCell) Output(res *model.Cell) *grpc_server.DeleteCellResponse {
+	return &grpc_server.DeleteCellResponse{
 		ID: res.ID,
 	}
 }

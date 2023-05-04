@@ -3,7 +3,8 @@ package storage
 import (
 	"context"
 	"sample/s3-grpc-server/infra/storage"
-	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/infra/storage/model"
+	"sample/s3-grpc-server/proto/grpc_server"
 	"sample/s3-grpc-server/service/grpc/server/storage/dto"
 )
 
@@ -16,74 +17,56 @@ type serverDTO struct {
 	listObjects  dto.ListObjects
 }
 
-type storageServer struct {
+type storageRepositoryServer struct {
 	serverDTO
-	service *storage.StorageService
-	server.UnimplementedStorageRepositoryServer
+	service *storage.StorageRepository
+	grpc_server.UnimplementedStorageRepositoryServer
 }
 
-func NewStorageServer(service *storage.StorageService) *storageServer {
-	return &storageServer{
+func NewStorageRepositoryServer(service *storage.StorageRepository) *storageRepositoryServer {
+	return &storageRepositoryServer{
 		service: service,
 	}
 }
 
 // CreateBucket implements awsServer.CreateBucket
-func (s *storageServer) CreateBucket(ctx context.Context, in *server.CreateBucketRequest) (*server.CreateBucketResponse, error) {
-	entity := s.createBucket.Input(in)
-	entity, err := s.service.CreateBucket(ctx, entity)
-	if err != nil {
-		return nil, err
-	}
-	return s.createBucket.Output(entity), nil
+func (s *storageRepositoryServer) CreateBucket(ctx context.Context, in *grpc_server.CreateBucketRequest) (*grpc_server.CreateBucketResponse, error) {
+	return s.createBucket.Domain(in, func(entity *model.CreateBucket) (*model.CreateBucket, error) {
+		return s.service.CreateBucket(ctx, entity)
+	})
 }
 
 // ListBuckets implements awsServer.ListBuckets
-func (s *storageServer) ListBuckets(ctx context.Context, in *server.ListBucketsRequest) (*server.ListBucketsResponse, error) {
-	entity := s.listBuckets.Input(in)
-	entity, err := s.service.ListBuckets(ctx, entity)
-	if err != nil {
-		return nil, err
-	}
-	return s.listBuckets.Output(entity), nil
+func (s *storageRepositoryServer) ListBuckets(ctx context.Context, in *grpc_server.ListBucketsRequest) (*grpc_server.ListBucketsResponse, error) {
+	return s.listBuckets.Domain(in, func(entity *model.ListBuckets) (*model.ListBuckets, error) {
+		return s.service.ListBuckets(ctx, entity)
+	})
 }
 
 // PutObject implements awsServer.PutObject
-func (s *storageServer) PutObject(ctx context.Context, in *server.PutObjectRequest) (*server.PutObjectResponse, error) {
-	entity := s.putObject.Input(in)
-	entity, err := s.service.PutObject(ctx, entity)
-	if err != nil {
-		return nil, err
-	}
-	return s.putObject.Output(entity), nil
+func (s *storageRepositoryServer) PutObject(ctx context.Context, in *grpc_server.PutObjectRequest) (*grpc_server.PutObjectResponse, error) {
+	return s.putObject.Domain(in, func(entity *model.PutObject) (*model.PutObject, error) {
+		return s.service.PutObject(ctx, entity)
+	})
 }
 
 // GetObject implements awsServer.GetObject
-func (s *storageServer) GetObject(ctx context.Context, in *server.GetObjectRequest) (*server.GetObjectResponse, error) {
-	entity := s.getObject.Input(in)
-	entity, err := s.service.GetObject(ctx, entity)
-	if err != nil {
-		return nil, err
-	}
-	return s.getObject.Output(entity), nil
+func (s *storageRepositoryServer) GetObject(ctx context.Context, in *grpc_server.GetObjectRequest) (*grpc_server.GetObjectResponse, error) {
+	return s.getObject.Domain(in, func(entity *model.GetObject) (*model.GetObject, error) {
+		return s.service.GetObject(ctx, entity)
+	})
 }
 
 // DeleteObject implements awsServer.DeleteObject
-func (s *storageServer) DeleteObject(ctx context.Context, in *server.DeleteObjectRequest) (*server.DeleteObjectResponse, error) {
-	entity := s.deleteObject.Input(in)
-	entity, err := s.service.DeleteObject(ctx, entity)
-	if err != nil {
-		return nil, err
-	}
-	return s.deleteObject.Output(entity), nil
+func (s *storageRepositoryServer) DeleteObject(ctx context.Context, in *grpc_server.DeleteObjectRequest) (*grpc_server.DeleteObjectResponse, error) {
+	return s.deleteObject.Domain(in, func(entity *model.DeleteObject) (*model.DeleteObject, error) {
+		return s.service.DeleteObject(ctx, entity)
+	})
 }
 
 // ListObjects implements awsServer.ListObjects
-func (s *storageServer) ListObjects(ctx context.Context, in *server.ListObjectsRequest) (*server.ListObjectsResponse, error) {
-	entity := s.listObjects.Input(in)
-	entity, err := s.service.ListObjects(ctx, entity)
-	if err != nil {
-		return nil, err
-	}
-	return s.listObjects.Output(entity), nil
+func (s *storageRepositoryServer) ListObjects(ctx context.Context, in *grpc_server.ListObjectsRequest) (*grpc_server.ListObjectsResponse, error) {
+	return s.listObjects.Domain(in, func(entity *model.ListObjects) (*model.ListObjects, error) {
+		return s.service.ListObjects(ctx, entity)
+	})
 }

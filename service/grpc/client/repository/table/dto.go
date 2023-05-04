@@ -2,27 +2,27 @@ package table
 
 import (
 	"sample/s3-grpc-server/infra/repository/model"
-	server "sample/s3-grpc-server/proto/grpc_server"
-	"sample/s3-grpc-server/service/grpc/client/repository"
+	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/proto/grpc_server"
 )
 
 type CreateTable struct {
 }
 
-func (x *CreateTable) Domain(req *model.Table, call func(req *server.CreateTableRequest) (*server.CreateTableResponse, error)) (*model.Table, error) {
-	return repository.Domain[model.Table, server.CreateTableRequest, server.CreateTableResponse](x, req, call)
+func (x *CreateTable) ToInfra(req *model.Table, call func(req *grpc_server.CreateTableRequest) (*grpc_server.CreateTableResponse, error)) (*model.Table, error) {
+	return dto.ToInfra[model.Table, grpc_server.CreateTableRequest, grpc_server.CreateTableResponse](x, req, call)
 }
 
-func (x *CreateTable) Input(req *model.Table) *server.CreateTableRequest {
-	return &server.CreateTableRequest{
-		Table: &server.Table{
+func (x *CreateTable) Input(req *model.Table) *grpc_server.CreateTableRequest {
+	return &grpc_server.CreateTableRequest{
+		Table: &grpc_server.Table{
 			FileId: req.FileID,
 			Title:  req.Title,
 		},
 	}
 }
 
-func (x *CreateTable) Output(res *server.CreateTableResponse) *model.Table {
+func (x *CreateTable) Output(res *grpc_server.CreateTableResponse) *model.Table {
 	return &model.Table{
 		ID: res.GetID(),
 	}
@@ -30,17 +30,17 @@ func (x *CreateTable) Output(res *server.CreateTableResponse) *model.Table {
 
 type ReadTable struct{}
 
-func (x *ReadTable) Domain(req *model.Table, call func(table *server.ReadTableRequest) (*server.ReadTableResponse, error)) (*model.Table, error) {
-	return repository.Domain[model.Table, server.ReadTableRequest, server.ReadTableResponse](x, req, call)
+func (x *ReadTable) ToInfra(req *model.Table, call func(table *grpc_server.ReadTableRequest) (*grpc_server.ReadTableResponse, error)) (*model.Table, error) {
+	return dto.ToInfra[model.Table, grpc_server.ReadTableRequest, grpc_server.ReadTableResponse](x, req, call)
 }
 
-func (x *ReadTable) Input(req *model.Table) *server.ReadTableRequest {
-	return &server.ReadTableRequest{
+func (x *ReadTable) Input(req *model.Table) *grpc_server.ReadTableRequest {
+	return &grpc_server.ReadTableRequest{
 		ID: req.ID,
 	}
 }
 
-func (x *ReadTable) Output(res *server.ReadTableResponse) *model.Table {
+func (x *ReadTable) Output(res *grpc_server.ReadTableResponse) *model.Table {
 	cells := make([]*model.Cell, 0)
 	for _, cell := range res.Table.Cells {
 		cells = append(cells, &model.Cell{
@@ -58,20 +58,20 @@ func (x *ReadTable) Output(res *server.ReadTableResponse) *model.Table {
 
 type UpdateTable struct{}
 
-func (x *UpdateTable) Domain(req *model.Table, call func(table *server.UpdateTableRequest) (*server.UpdateTableResponse, error)) (*model.Table, error) {
-	return repository.Domain[model.Table, server.UpdateTableRequest, server.UpdateTableResponse](x, req, call)
+func (x *UpdateTable) ToInfra(req *model.Table, call func(table *grpc_server.UpdateTableRequest) (*grpc_server.UpdateTableResponse, error)) (*model.Table, error) {
+	return dto.ToInfra[model.Table, grpc_server.UpdateTableRequest, grpc_server.UpdateTableResponse](x, req, call)
 }
 
-func (x *UpdateTable) Input(req *model.Table) *server.UpdateTableRequest {
-	return &server.UpdateTableRequest{
+func (x *UpdateTable) Input(req *model.Table) *grpc_server.UpdateTableRequest {
+	return &grpc_server.UpdateTableRequest{
 		ID: req.ID,
-		Table: &server.Table{
+		Table: &grpc_server.Table{
 			Title: req.Title,
 		},
 	}
 }
 
-func (x *UpdateTable) Output(res *server.UpdateTableResponse) *model.Table {
+func (x *UpdateTable) Output(res *grpc_server.UpdateTableResponse) *model.Table {
 	return &model.Table{
 		ID: res.GetID(),
 	}
@@ -79,17 +79,17 @@ func (x *UpdateTable) Output(res *server.UpdateTableResponse) *model.Table {
 
 type DeleteTable struct{}
 
-func (x *DeleteTable) Domain(req *model.Table, call func(table *server.DeleteTableRequest) (*server.DeleteTableResponse, error)) (*model.Table, error) {
-	return repository.Domain[model.Table, server.DeleteTableRequest, server.DeleteTableResponse](x, req, call)
+func (x *DeleteTable) ToInfra(req *model.Table, call func(table *grpc_server.DeleteTableRequest) (*grpc_server.DeleteTableResponse, error)) (*model.Table, error) {
+	return dto.ToInfra[model.Table, grpc_server.DeleteTableRequest, grpc_server.DeleteTableResponse](x, req, call)
 }
 
-func (x *DeleteTable) Input(req *model.Table) *server.DeleteTableRequest {
-	return &server.DeleteTableRequest{
+func (x *DeleteTable) Input(req *model.Table) *grpc_server.DeleteTableRequest {
+	return &grpc_server.DeleteTableRequest{
 		ID: req.ID,
 	}
 }
 
-func (x *DeleteTable) Output(res *server.DeleteTableResponse) *model.Table {
+func (x *DeleteTable) Output(res *grpc_server.DeleteTableResponse) *model.Table {
 	return &model.Table{
 		ID: res.GetID(),
 	}

@@ -5,7 +5,6 @@ import (
 	"sample/s3-grpc-server/infra/repository/cell"
 	"sample/s3-grpc-server/infra/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
-	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
 type serverDTO struct {
@@ -15,41 +14,41 @@ type serverDTO struct {
 	delete DeleteCell
 }
 
-type CellRepository struct {
+type CellRepositoryServer struct {
 	serverDTO
 	repository cell.RepositoryInterface
 	grpc_server.UnimplementedCellRepositoryServer
 }
 
-func NewCellRepository(repository cell.RepositoryInterface) *CellRepository {
-	return &CellRepository{
+func NewCellRepositoryServer(repository cell.RepositoryInterface) *CellRepositoryServer {
+	return &CellRepositoryServer{
 		repository: repository,
 	}
 }
 
 // Create implements RepositoryServer.Create
-func (s *CellRepository) Create(ctx context.Context, in *server.CreateCellRequest) (*server.CreateCellResponse, error) {
+func (s *CellRepositoryServer) Create(ctx context.Context, in *grpc_server.CreateCellRequest) (*grpc_server.CreateCellResponse, error) {
 	return s.create.Domain(in, func(cell *model.Cell) (*model.Cell, error) {
 		return s.repository.Create(ctx, cell)
 	})
 }
 
 // Read implements RepositoryServer.Read
-func (s *CellRepository) Read(ctx context.Context, in *server.ReadCellRequest) (*server.ReadCellResponse, error) {
+func (s *CellRepositoryServer) Read(ctx context.Context, in *grpc_server.ReadCellRequest) (*grpc_server.ReadCellResponse, error) {
 	return s.read.Domain(in, func(cell *model.Cell) (*model.Cell, error) {
 		return s.repository.Read(ctx, cell)
 	})
 }
 
 // Update implements RepositoryServer.Update
-func (s *CellRepository) Update(ctx context.Context, in *server.UpdateCellRequest) (*server.UpdateCellResponse, error) {
+func (s *CellRepositoryServer) Update(ctx context.Context, in *grpc_server.UpdateCellRequest) (*grpc_server.UpdateCellResponse, error) {
 	return s.update.Domain(in, func(cell *model.Cell) (*model.Cell, error) {
 		return s.repository.Update(ctx, cell)
 	})
 }
 
 // Delete implements RepositoryServer.Delete
-func (s *CellRepository) Delete(ctx context.Context, in *server.DeleteCellRequest) (*server.DeleteCellResponse, error) {
+func (s *CellRepositoryServer) Delete(ctx context.Context, in *grpc_server.DeleteCellRequest) (*grpc_server.DeleteCellResponse, error) {
 	return s.delete.Domain(in, func(cell *model.Cell) (*model.Cell, error) {
 		return s.repository.Delete(ctx, cell)
 	})

@@ -3,7 +3,7 @@ package cell
 import (
 	"context"
 	"sample/s3-grpc-server/infra/repository/model"
-	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/proto/grpc_server"
 )
 
 type clientDTO struct {
@@ -15,10 +15,10 @@ type clientDTO struct {
 
 type CellRepository struct {
 	clientDTO
-	client server.CellRepositoryClient
+	client grpc_server.CellRepositoryClient
 }
 
-func NewCellRepository(client server.CellRepositoryClient) *CellRepository {
+func NewCellRepository(client grpc_server.CellRepositoryClient) *CellRepository {
 	return &CellRepository{
 		client: client,
 	}
@@ -26,28 +26,28 @@ func NewCellRepository(client server.CellRepositoryClient) *CellRepository {
 
 // Create implements cellRepository.Create
 func (x *CellRepository) Create(ctx context.Context, cell *model.Cell) (*model.Cell, error) {
-	return x.create.Domain(cell, func(cell *server.CreateCellRequest) (*server.CreateCellResponse, error) {
+	return x.create.ToInfra(cell, func(cell *grpc_server.CreateCellRequest) (*grpc_server.CreateCellResponse, error) {
 		return x.client.Create(ctx, cell)
 	})
 }
 
 // Read implements cellRepository.Read
 func (x *CellRepository) Read(ctx context.Context, cell *model.Cell) (*model.Cell, error) {
-	return x.read.Domain(cell, func(cell *server.ReadCellRequest) (*server.ReadCellResponse, error) {
+	return x.read.ToInfra(cell, func(cell *grpc_server.ReadCellRequest) (*grpc_server.ReadCellResponse, error) {
 		return x.client.Read(ctx, cell)
 	})
 }
 
 // Update implements cellRepository.Update
 func (x *CellRepository) Update(ctx context.Context, cell *model.Cell) (*model.Cell, error) {
-	return x.update.Domain(cell, func(cell *server.UpdateCellRequest) (*server.UpdateCellResponse, error) {
+	return x.update.ToInfra(cell, func(cell *grpc_server.UpdateCellRequest) (*grpc_server.UpdateCellResponse, error) {
 		return x.client.Update(ctx, cell)
 	})
 }
 
 // Delete implements cellRepository.Delete
 func (x *CellRepository) Delete(ctx context.Context, cell *model.Cell) (*model.Cell, error) {
-	return x.delete.Domain(cell, func(cell *server.DeleteCellRequest) (*server.DeleteCellResponse, error) {
+	return x.delete.ToInfra(cell, func(cell *grpc_server.DeleteCellRequest) (*grpc_server.DeleteCellResponse, error) {
 		return x.client.Delete(ctx, cell)
 	})
 }

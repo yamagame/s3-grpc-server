@@ -18,14 +18,14 @@ type dbWriter struct {
 	fileRepository    file.RepositoryInterface
 	tableRepository   table.RepositoryInterface
 	cellRepository    cell.RepositoryInterface
-	storageRepository storage.StorageServiceInterface
+	storageRepository storage.RepositoryInterface
 }
 
 func NewDBWriter(
 	fileRepository file.RepositoryInterface,
 	tableRepository table.RepositoryInterface,
 	cellRepository cell.RepositoryInterface,
-	storageRepository storage.StorageServiceInterface,
+	storageRepository storage.RepositoryInterface,
 ) *dbWriter {
 	return &dbWriter{
 		fileRepository:    fileRepository,

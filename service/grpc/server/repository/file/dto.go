@@ -3,23 +3,20 @@ package file
 import (
 	"sample/s3-grpc-server/infra/repository/model"
 	"sample/s3-grpc-server/infra/repository/table"
-	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/proto/grpc_server"
+
 	"time"
 )
 
 type CreateFile struct {
 }
 
-func (x *CreateFile) Domain(req *server.CreateFileRequest, call func(table *model.File) (*model.File, error)) (*server.CreateFileResponse, error) {
-	file := x.input(req)
-	file, err := call(file)
-	if err != nil {
-		return nil, err
-	}
-	return x.output(file), nil
+func (x *CreateFile) Domain(req *grpc_server.CreateFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.CreateFileResponse, error) {
+	return dto.ToDomain[model.File, grpc_server.CreateFileRequest, grpc_server.CreateFileResponse](x, req, call)
 }
 
-func (x *CreateFile) input(req *server.CreateFileRequest) *model.File {
+func (x *CreateFile) Input(req *grpc_server.CreateFileRequest) *model.File {
 	return &model.File{
 		Filename:  req.File.Filename,
 		CreatedAt: time.Now(),
@@ -27,8 +24,8 @@ func (x *CreateFile) input(req *server.CreateFileRequest) *model.File {
 	}
 }
 
-func (x *CreateFile) output(res *model.File) *server.CreateFileResponse {
-	return &server.CreateFileResponse{
+func (x *CreateFile) Output(res *model.File) *grpc_server.CreateFileResponse {
+	return &grpc_server.CreateFileResponse{
 		ID: res.ID,
 	}
 }
@@ -36,29 +33,24 @@ func (x *CreateFile) output(res *model.File) *server.CreateFileResponse {
 type ReadFile struct {
 }
 
-func (x *ReadFile) Domain(req *server.ReadFileRequest, call func(table *model.File) (*model.File, error)) (*server.ReadFileResponse, error) {
-	file := x.input(req)
-	file, err := call(file)
-	if err != nil {
-		return nil, err
-	}
-	return x.output(file), nil
+func (x *ReadFile) Domain(req *grpc_server.ReadFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.ReadFileResponse, error) {
+	return dto.ToDomain[model.File, grpc_server.ReadFileRequest, grpc_server.ReadFileResponse](x, req, call)
 }
 
-func (x *ReadFile) input(req *server.ReadFileRequest) *model.File {
+func (x *ReadFile) Input(req *grpc_server.ReadFileRequest) *model.File {
 	return &model.File{
 		ID: req.GetID(),
 	}
 }
 
-func (x *ReadFile) output(res *model.File) *server.ReadFileResponse {
-	tables := make([]*server.Table, 0)
+func (x *ReadFile) Output(res *model.File) *grpc_server.ReadFileResponse {
+	tables := make([]*grpc_server.Table, 0)
 	for _, v := range res.Tables {
 		tables = append(tables, table.ToInfra(v))
 	}
-	return &server.ReadFileResponse{
+	return &grpc_server.ReadFileResponse{
 		ID: res.ID,
-		File: &server.File{
+		File: &grpc_server.File{
 			Filename: res.Filename,
 			Tables:   tables,
 		},
@@ -68,16 +60,11 @@ func (x *ReadFile) output(res *model.File) *server.ReadFileResponse {
 type UpdateFile struct {
 }
 
-func (x *UpdateFile) Domain(req *server.UpdateFileRequest, call func(table *model.File) (*model.File, error)) (*server.UpdateFileResponse, error) {
-	file := x.input(req)
-	file, err := call(file)
-	if err != nil {
-		return nil, err
-	}
-	return x.output(file), nil
+func (x *UpdateFile) Domain(req *grpc_server.UpdateFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.UpdateFileResponse, error) {
+	return dto.ToDomain[model.File, grpc_server.UpdateFileRequest, grpc_server.UpdateFileResponse](x, req, call)
 }
 
-func (x *UpdateFile) input(req *server.UpdateFileRequest) *model.File {
+func (x *UpdateFile) Input(req *grpc_server.UpdateFileRequest) *model.File {
 	return &model.File{
 		ID:        req.GetID(),
 		Filename:  req.File.Filename,
@@ -85,8 +72,8 @@ func (x *UpdateFile) input(req *server.UpdateFileRequest) *model.File {
 	}
 }
 
-func (x *UpdateFile) output(res *model.File) *server.UpdateFileResponse {
-	return &server.UpdateFileResponse{
+func (x *UpdateFile) Output(res *model.File) *grpc_server.UpdateFileResponse {
+	return &grpc_server.UpdateFileResponse{
 		ID: res.ID,
 	}
 }
@@ -94,23 +81,18 @@ func (x *UpdateFile) output(res *model.File) *server.UpdateFileResponse {
 type DeleteFile struct {
 }
 
-func (x *DeleteFile) Domain(req *server.DeleteFileRequest, call func(table *model.File) (*model.File, error)) (*server.DeleteFileResponse, error) {
-	file := x.input(req)
-	file, err := call(file)
-	if err != nil {
-		return nil, err
-	}
-	return x.output(file), nil
+func (x *DeleteFile) Domain(req *grpc_server.DeleteFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.DeleteFileResponse, error) {
+	return dto.ToDomain[model.File, grpc_server.DeleteFileRequest, grpc_server.DeleteFileResponse](x, req, call)
 }
 
-func (x *DeleteFile) input(req *server.DeleteFileRequest) *model.File {
+func (x *DeleteFile) Input(req *grpc_server.DeleteFileRequest) *model.File {
 	return &model.File{
 		ID: req.GetID(),
 	}
 }
 
-func (x *DeleteFile) output(res *model.File) *server.DeleteFileResponse {
-	return &server.DeleteFileResponse{
+func (x *DeleteFile) Output(res *model.File) *grpc_server.DeleteFileResponse {
+	return &grpc_server.DeleteFileResponse{
 		ID: res.ID,
 	}
 }
