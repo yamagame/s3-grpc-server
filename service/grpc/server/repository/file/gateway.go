@@ -3,7 +3,7 @@ package file
 import (
 	"sample/s3-grpc-server/infra/repository/model"
 	"sample/s3-grpc-server/infra/repository/table"
-	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
 
 	"time"
@@ -13,7 +13,7 @@ type CreateFile struct {
 }
 
 func (x *CreateFile) ToDomain(req *grpc_server.CreateFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.CreateFileResponse, error) {
-	return dto.ToDomain[model.File, grpc_server.CreateFileRequest, grpc_server.CreateFileResponse](x, req, call)
+	return gateway.ToDomain[model.File, grpc_server.CreateFileRequest, grpc_server.CreateFileResponse](x, req, call)
 }
 
 func (x *CreateFile) Input(req *grpc_server.CreateFileRequest) *model.File {
@@ -34,7 +34,7 @@ type ReadFile struct {
 }
 
 func (x *ReadFile) ToDomain(req *grpc_server.ReadFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.ReadFileResponse, error) {
-	return dto.ToDomain[model.File, grpc_server.ReadFileRequest, grpc_server.ReadFileResponse](x, req, call)
+	return gateway.ToDomain[model.File, grpc_server.ReadFileRequest, grpc_server.ReadFileResponse](x, req, call)
 }
 
 func (x *ReadFile) Input(req *grpc_server.ReadFileRequest) *model.File {
@@ -61,7 +61,7 @@ type UpdateFile struct {
 }
 
 func (x *UpdateFile) ToDomain(req *grpc_server.UpdateFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.UpdateFileResponse, error) {
-	return dto.ToDomain[model.File, grpc_server.UpdateFileRequest, grpc_server.UpdateFileResponse](x, req, call)
+	return gateway.ToDomain[model.File, grpc_server.UpdateFileRequest, grpc_server.UpdateFileResponse](x, req, call)
 }
 
 func (x *UpdateFile) Input(req *grpc_server.UpdateFileRequest) *model.File {
@@ -82,7 +82,7 @@ type DeleteFile struct {
 }
 
 func (x *DeleteFile) ToDomain(req *grpc_server.DeleteFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.DeleteFileResponse, error) {
-	return dto.ToDomain[model.File, grpc_server.DeleteFileRequest, grpc_server.DeleteFileResponse](x, req, call)
+	return gateway.ToDomain[model.File, grpc_server.DeleteFileRequest, grpc_server.DeleteFileResponse](x, req, call)
 }
 
 func (x *DeleteFile) Input(req *grpc_server.DeleteFileRequest) *model.File {

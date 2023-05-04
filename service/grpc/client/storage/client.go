@@ -4,25 +4,24 @@ import (
 	"context"
 	"sample/s3-grpc-server/infra/storage/model"
 	"sample/s3-grpc-server/proto/grpc_server"
-	server "sample/s3-grpc-server/proto/grpc_server"
-	"sample/s3-grpc-server/service/grpc/client/storage/dto"
+	"sample/s3-grpc-server/service/grpc/client/storage/gateway"
 )
 
-type clientDTO struct {
-	createBucket dto.CreateBucket
-	listBuckets  dto.ListBuckets
-	putObject    dto.PutObject
-	getObject    dto.GetObject
-	deleteObject dto.DeleteObject
-	listobjects  dto.ListObjects
+type clientGateway struct {
+	createBucket gateway.CreateBucket
+	listBuckets  gateway.ListBuckets
+	putObject    gateway.PutObject
+	getObject    gateway.GetObject
+	deleteObject gateway.DeleteObject
+	listobjects  gateway.ListObjects
 }
 
 type storageRepository struct {
-	clientDTO
-	client server.StorageRepositoryClient
+	clientGateway
+	client grpc_server.StorageRepositoryClient
 }
 
-func NewRepository(client server.StorageRepositoryClient) *storageRepository {
+func NewRepository(client grpc_server.StorageRepositoryClient) *storageRepository {
 	return &storageRepository{
 		client: client,
 	}

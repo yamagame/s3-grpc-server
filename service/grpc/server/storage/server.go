@@ -5,20 +5,20 @@ import (
 	"sample/s3-grpc-server/infra/storage"
 	"sample/s3-grpc-server/infra/storage/model"
 	"sample/s3-grpc-server/proto/grpc_server"
-	"sample/s3-grpc-server/service/grpc/server/storage/dto"
+	"sample/s3-grpc-server/service/grpc/server/storage/gateway"
 )
 
-type serverDTO struct {
-	createBucket dto.CreateBucket
-	listBuckets  dto.ListBuckets
-	putObject    dto.PutObject
-	getObject    dto.GetObject
-	deleteObject dto.DeleteObject
-	listObjects  dto.ListObjects
+type serverGateway struct {
+	createBucket gateway.CreateBucket
+	listBuckets  gateway.ListBuckets
+	putObject    gateway.PutObject
+	getObject    gateway.GetObject
+	deleteObject gateway.DeleteObject
+	listObjects  gateway.ListObjects
 }
 
 type storageRepositoryServer struct {
-	serverDTO
+	serverGateway
 	service *storage.StorageRepository
 	grpc_server.UnimplementedStorageRepositoryServer
 }

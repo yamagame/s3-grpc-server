@@ -6,7 +6,7 @@ import (
 	"sample/s3-grpc-server/proto/grpc_server"
 )
 
-type clientDTO struct {
+type clientGateway struct {
 	create CreateFile
 	read   ReadFile
 	update UpdateFile
@@ -14,7 +14,7 @@ type clientDTO struct {
 }
 
 type FileRepository struct {
-	clientDTO
+	clientGateway
 	client grpc_server.FileRepositoryClient
 }
 

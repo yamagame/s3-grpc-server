@@ -6,7 +6,7 @@ import (
 	"sample/s3-grpc-server/proto/grpc_server"
 )
 
-type clientDTO struct {
+type clientGateway struct {
 	create CreateTable
 	read   ReadTable
 	update UpdateTable
@@ -14,7 +14,7 @@ type clientDTO struct {
 }
 
 type TableRepository struct {
-	clientDTO
+	clientGateway
 	client grpc_server.TableRepositoryClient
 }
 

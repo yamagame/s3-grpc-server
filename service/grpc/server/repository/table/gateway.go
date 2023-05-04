@@ -3,7 +3,7 @@ package table
 import (
 	"sample/s3-grpc-server/infra/repository/cell"
 	"sample/s3-grpc-server/infra/repository/model"
-	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
 
 	"time"
@@ -13,7 +13,7 @@ type CreateTable struct {
 }
 
 func (x *CreateTable) ToDomain(req *grpc_server.CreateTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.CreateTableResponse, error) {
-	return dto.ToDomain[model.Table, grpc_server.CreateTableRequest, grpc_server.CreateTableResponse](x, req, call)
+	return gateway.ToDomain[model.Table, grpc_server.CreateTableRequest, grpc_server.CreateTableResponse](x, req, call)
 }
 
 func (x *CreateTable) Input(req *grpc_server.CreateTableRequest) *model.Table {
@@ -35,7 +35,7 @@ type ReadTable struct {
 }
 
 func (x *ReadTable) ToDomain(req *grpc_server.ReadTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.ReadTableResponse, error) {
-	return dto.ToDomain[model.Table, grpc_server.ReadTableRequest, grpc_server.ReadTableResponse](x, req, call)
+	return gateway.ToDomain[model.Table, grpc_server.ReadTableRequest, grpc_server.ReadTableResponse](x, req, call)
 }
 
 func (x *ReadTable) Input(req *grpc_server.ReadTableRequest) *model.Table {
@@ -62,7 +62,7 @@ type UpdateTable struct {
 }
 
 func (x *UpdateTable) ToDomain(req *grpc_server.UpdateTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.UpdateTableResponse, error) {
-	return dto.ToDomain[model.Table, grpc_server.UpdateTableRequest, grpc_server.UpdateTableResponse](x, req, call)
+	return gateway.ToDomain[model.Table, grpc_server.UpdateTableRequest, grpc_server.UpdateTableResponse](x, req, call)
 }
 
 func (x *UpdateTable) Input(req *grpc_server.UpdateTableRequest) *model.Table {
@@ -83,7 +83,7 @@ type DeleteTable struct {
 }
 
 func (x *DeleteTable) ToDomain(req *grpc_server.DeleteTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.DeleteTableResponse, error) {
-	return dto.ToDomain[model.Table, grpc_server.DeleteTableRequest, grpc_server.DeleteTableResponse](x, req, call)
+	return gateway.ToDomain[model.Table, grpc_server.DeleteTableRequest, grpc_server.DeleteTableResponse](x, req, call)
 }
 
 func (x *DeleteTable) Input(req *grpc_server.DeleteTableRequest) *model.Table {

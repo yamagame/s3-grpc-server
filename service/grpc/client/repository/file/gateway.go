@@ -3,14 +3,14 @@ package file
 import (
 	"sample/s3-grpc-server/infra/repository/model"
 	"sample/s3-grpc-server/infra/repository/table"
-	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
 )
 
 type CreateFile struct{}
 
 func (x *CreateFile) ToInfra(req *model.File, call func(file *grpc_server.CreateFileRequest) (*grpc_server.CreateFileResponse, error)) (*model.File, error) {
-	return dto.ToInfra[model.File, grpc_server.CreateFileRequest, grpc_server.CreateFileResponse](x, req, call)
+	return gateway.ToInfra[model.File, grpc_server.CreateFileRequest, grpc_server.CreateFileResponse](x, req, call)
 }
 
 func (x *CreateFile) Input(req *model.File) *grpc_server.CreateFileRequest {
@@ -30,7 +30,7 @@ func (x *CreateFile) Output(res *grpc_server.CreateFileResponse) *model.File {
 type ReadFile struct{}
 
 func (x *ReadFile) ToInfra(req *model.File, call func(file *grpc_server.ReadFileRequest) (*grpc_server.ReadFileResponse, error)) (*model.File, error) {
-	return dto.ToInfra[model.File, grpc_server.ReadFileRequest, grpc_server.ReadFileResponse](x, req, call)
+	return gateway.ToInfra[model.File, grpc_server.ReadFileRequest, grpc_server.ReadFileResponse](x, req, call)
 }
 
 func (x *ReadFile) Input(req *model.File) *grpc_server.ReadFileRequest {
@@ -54,7 +54,7 @@ func (x *ReadFile) Output(res *grpc_server.ReadFileResponse) *model.File {
 type UpdateFile struct{}
 
 func (x *UpdateFile) ToInfra(req *model.File, call func(file *grpc_server.UpdateFileRequest) (*grpc_server.UpdateFileResponse, error)) (*model.File, error) {
-	return dto.ToInfra[model.File, grpc_server.UpdateFileRequest, grpc_server.UpdateFileResponse](x, req, call)
+	return gateway.ToInfra[model.File, grpc_server.UpdateFileRequest, grpc_server.UpdateFileResponse](x, req, call)
 }
 
 func (x *UpdateFile) Input(req *model.File) *grpc_server.UpdateFileRequest {
@@ -75,7 +75,7 @@ func (x *UpdateFile) Output(res *grpc_server.UpdateFileResponse) *model.File {
 type DeleteFile struct{}
 
 func (x *DeleteFile) ToInfra(req *model.File, call func(file *grpc_server.DeleteFileRequest) (*grpc_server.DeleteFileResponse, error)) (*model.File, error) {
-	return dto.ToInfra[model.File, grpc_server.DeleteFileRequest, grpc_server.DeleteFileResponse](x, req, call)
+	return gateway.ToInfra[model.File, grpc_server.DeleteFileRequest, grpc_server.DeleteFileResponse](x, req, call)
 }
 
 func (x *DeleteFile) Input(req *model.File) *grpc_server.DeleteFileRequest {

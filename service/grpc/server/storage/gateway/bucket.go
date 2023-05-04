@@ -1,8 +1,8 @@
-package dto
+package gateway
 
 import (
 	"sample/s3-grpc-server/infra/storage/model"
-	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
 )
 
@@ -10,7 +10,7 @@ type CreateBucket struct {
 }
 
 func (x *CreateBucket) ToDomain(req *grpc_server.CreateBucketRequest, call func(table *model.CreateBucket) (*model.CreateBucket, error)) (*grpc_server.CreateBucketResponse, error) {
-	return dto.ToDomain[model.CreateBucket, grpc_server.CreateBucketRequest, grpc_server.CreateBucketResponse](x, req, call)
+	return gateway.ToDomain[model.CreateBucket, grpc_server.CreateBucketRequest, grpc_server.CreateBucketResponse](x, req, call)
 }
 
 func (x *CreateBucket) Input(req *grpc_server.CreateBucketRequest) *model.CreateBucket {
@@ -27,7 +27,7 @@ type ListBuckets struct {
 }
 
 func (x *ListBuckets) ToDomain(req *grpc_server.ListBucketsRequest, call func(table *model.ListBuckets) (*model.ListBuckets, error)) (*grpc_server.ListBucketsResponse, error) {
-	return dto.ToDomain[model.ListBuckets, grpc_server.ListBucketsRequest, grpc_server.ListBucketsResponse](x, req, call)
+	return gateway.ToDomain[model.ListBuckets, grpc_server.ListBucketsRequest, grpc_server.ListBucketsResponse](x, req, call)
 }
 
 func (x *ListBuckets) Input(req *grpc_server.ListBucketsRequest) *model.ListBuckets {

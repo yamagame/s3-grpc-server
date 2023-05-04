@@ -2,7 +2,7 @@ package table
 
 import (
 	"sample/s3-grpc-server/infra/repository/model"
-	"sample/s3-grpc-server/libs/dto"
+	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
 )
 
@@ -10,7 +10,7 @@ type CreateTable struct {
 }
 
 func (x *CreateTable) ToInfra(req *model.Table, call func(req *grpc_server.CreateTableRequest) (*grpc_server.CreateTableResponse, error)) (*model.Table, error) {
-	return dto.ToInfra[model.Table, grpc_server.CreateTableRequest, grpc_server.CreateTableResponse](x, req, call)
+	return gateway.ToInfra[model.Table, grpc_server.CreateTableRequest, grpc_server.CreateTableResponse](x, req, call)
 }
 
 func (x *CreateTable) Input(req *model.Table) *grpc_server.CreateTableRequest {
@@ -31,7 +31,7 @@ func (x *CreateTable) Output(res *grpc_server.CreateTableResponse) *model.Table 
 type ReadTable struct{}
 
 func (x *ReadTable) ToInfra(req *model.Table, call func(table *grpc_server.ReadTableRequest) (*grpc_server.ReadTableResponse, error)) (*model.Table, error) {
-	return dto.ToInfra[model.Table, grpc_server.ReadTableRequest, grpc_server.ReadTableResponse](x, req, call)
+	return gateway.ToInfra[model.Table, grpc_server.ReadTableRequest, grpc_server.ReadTableResponse](x, req, call)
 }
 
 func (x *ReadTable) Input(req *model.Table) *grpc_server.ReadTableRequest {
@@ -59,7 +59,7 @@ func (x *ReadTable) Output(res *grpc_server.ReadTableResponse) *model.Table {
 type UpdateTable struct{}
 
 func (x *UpdateTable) ToInfra(req *model.Table, call func(table *grpc_server.UpdateTableRequest) (*grpc_server.UpdateTableResponse, error)) (*model.Table, error) {
-	return dto.ToInfra[model.Table, grpc_server.UpdateTableRequest, grpc_server.UpdateTableResponse](x, req, call)
+	return gateway.ToInfra[model.Table, grpc_server.UpdateTableRequest, grpc_server.UpdateTableResponse](x, req, call)
 }
 
 func (x *UpdateTable) Input(req *model.Table) *grpc_server.UpdateTableRequest {
@@ -80,7 +80,7 @@ func (x *UpdateTable) Output(res *grpc_server.UpdateTableResponse) *model.Table 
 type DeleteTable struct{}
 
 func (x *DeleteTable) ToInfra(req *model.Table, call func(table *grpc_server.DeleteTableRequest) (*grpc_server.DeleteTableResponse, error)) (*model.Table, error) {
-	return dto.ToInfra[model.Table, grpc_server.DeleteTableRequest, grpc_server.DeleteTableResponse](x, req, call)
+	return gateway.ToInfra[model.Table, grpc_server.DeleteTableRequest, grpc_server.DeleteTableResponse](x, req, call)
 }
 
 func (x *DeleteTable) Input(req *model.Table) *grpc_server.DeleteTableRequest {

@@ -7,7 +7,7 @@ import (
 	"sample/s3-grpc-server/proto/grpc_server"
 )
 
-type serverDTO struct {
+type serverGateway struct {
 	create CreateCell
 	read   ReadCell
 	update UpdateCell
@@ -15,7 +15,7 @@ type serverDTO struct {
 }
 
 type CellRepositoryServer struct {
-	serverDTO
+	serverGateway
 	repository cell.RepositoryInterface
 	grpc_server.UnimplementedCellRepositoryServer
 }
