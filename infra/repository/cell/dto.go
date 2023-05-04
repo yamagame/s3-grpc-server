@@ -2,10 +2,10 @@ package cell
 
 import (
 	"sample/s3-grpc-server/infra/repository/model"
-	server "sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/proto/grpc_server"
 )
 
-func ToDomain(cell *server.Cell) *model.Cell {
+func ToDomain(cell *grpc_server.Cell) *model.Cell {
 	return &model.Cell{
 		ID:   cell.Id,
 		Row:  cell.Row,
@@ -14,8 +14,8 @@ func ToDomain(cell *server.Cell) *model.Cell {
 	}
 }
 
-func ToInfra(cell *model.Cell) *server.Cell {
-	return &server.Cell{
+func ToInfra(cell *model.Cell) *grpc_server.Cell {
+	return &grpc_server.Cell{
 		Id:   cell.ID,
 		Row:  cell.Row,
 		Col:  cell.Col,
