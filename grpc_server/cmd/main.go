@@ -14,10 +14,6 @@ import (
 	"sample/s3-grpc-server/infra/repository/table"
 	"sample/s3-grpc-server/infra/storage"
 
-	cellRepo "sample/s3-grpc-server/infra/repository/cell"
-	fileRepo "sample/s3-grpc-server/infra/repository/file"
-	tableRepo "sample/s3-grpc-server/infra/repository/table"
-
 	cellService "sample/s3-grpc-server/service/grpc/server/repository/cell"
 	fileService "sample/s3-grpc-server/service/grpc/server/repository/file"
 	tableService "sample/s3-grpc-server/service/grpc/server/repository/table"
@@ -51,9 +47,9 @@ func main() {
 	gorm := repository.GormDB()
 	server := NewServer(
 		storage.GetClient(mode),
-		fileRepo.NewFileRepository(gorm),
-		tableRepo.NewTableRepository(gorm),
-		cellRepo.NewCellRepository(gorm),
+		file.NewFileRepository(gorm),
+		table.NewTableRepository(gorm),
+		cell.NewCellRepository(gorm),
 	)
 	// log.Printf("server listening at %v", lis.Addr())
 	sugar.Infof("server listening at %v", lis.Addr())
