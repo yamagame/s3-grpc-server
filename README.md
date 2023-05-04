@@ -28,6 +28,8 @@ graph LR;
   3306:3306")
 ```
 
+![構成図](./docs/graph.drawio.svg)
+
 ## 実行方法
 
 docker-compose up -d で開発用のコンテナが稼働する。コンテナのメモリは3Gは欲しい。
