@@ -2,8 +2,8 @@ package cell
 
 import (
 	"context"
+	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/infra/repository/cell"
-	"sample/s3-grpc-server/infra/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
 )
 

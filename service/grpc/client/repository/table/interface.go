@@ -1,6 +1,6 @@
 package table
 
-import "sample/s3-grpc-server/infra/repository/model"
+import "sample/s3-grpc-server/entitiy/repository/model"
 
 type ScannerInterface interface {
 	Create() *model.Table

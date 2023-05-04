@@ -3,7 +3,7 @@ package cell
 import (
 	"bufio"
 	"fmt"
-	"sample/s3-grpc-server/infra/repository/model"
+	"sample/s3-grpc-server/entitiy/repository/model"
 	"strconv"
 )
 

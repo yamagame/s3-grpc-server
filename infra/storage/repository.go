@@ -3,7 +3,7 @@ package storage
 import (
 	"context"
 	"fmt"
-	"sample/s3-grpc-server/infra/storage/model"
+	"sample/s3-grpc-server/entitiy/storage/model"
 	aws "sample/s3-grpc-server/proto/grpc_server"
 )
 

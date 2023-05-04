@@ -1,7 +1,7 @@
 package cell
 
 import (
-	"sample/s3-grpc-server/infra/repository/model"
+	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
 

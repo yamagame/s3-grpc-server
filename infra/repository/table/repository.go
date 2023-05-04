@@ -2,8 +2,8 @@ package table
 
 import (
 	"context"
+	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/infra/repository"
-	"sample/s3-grpc-server/infra/repository/model"
 
 	"gorm.io/gorm"
 )

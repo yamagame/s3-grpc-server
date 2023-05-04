@@ -1,8 +1,8 @@
 package main
 
 import (
+	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/infra/repository"
-	"sample/s3-grpc-server/infra/repository/model"
 )
 
 func main() {

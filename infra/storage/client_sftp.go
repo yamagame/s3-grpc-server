@@ -7,7 +7,7 @@ import (
 	"io"
 	"path"
 	"path/filepath"
-	"sample/s3-grpc-server/infra/storage/model"
+	"sample/s3-grpc-server/entitiy/storage/model"
 	"strings"
 
 	"github.com/pkg/sftp"

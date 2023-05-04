@@ -3,7 +3,7 @@ package storage
 import (
 	"context"
 	"io"
-	"sample/s3-grpc-server/infra/storage/model"
+	"sample/s3-grpc-server/entitiy/storage/model"
 )
 
 type RepositoryClientInterface interface {

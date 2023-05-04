@@ -2,8 +2,8 @@ package file
 
 import (
 	"context"
+	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/infra/repository/file"
-	"sample/s3-grpc-server/infra/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
 )
 

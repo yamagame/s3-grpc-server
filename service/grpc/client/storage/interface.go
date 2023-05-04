@@ -1,6 +1,6 @@
 package storage
 
-import "sample/s3-grpc-server/infra/storage/model"
+import "sample/s3-grpc-server/entitiy/storage/model"
 
 type StorageScannerInterface interface {
 	CreateBucket() *model.CreateBucket

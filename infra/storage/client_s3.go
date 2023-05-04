@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"io"
-	"sample/s3-grpc-server/infra/storage/model"
+	"sample/s3-grpc-server/entitiy/storage/model"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"

@@ -2,8 +2,8 @@ package storage
 
 import (
 	"context"
+	"sample/s3-grpc-server/entitiy/storage/model"
 	"sample/s3-grpc-server/infra/storage"
-	"sample/s3-grpc-server/infra/storage/model"
 	"sample/s3-grpc-server/proto/grpc_server"
 	"sample/s3-grpc-server/service/grpc/server/storage/gateway"
 )

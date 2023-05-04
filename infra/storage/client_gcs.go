@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"sample/s3-grpc-server/infra/storage/model"
+	"sample/s3-grpc-server/entitiy/storage/model"
 	"strings"
 
 	"cloud.google.com/go/storage"
