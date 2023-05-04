@@ -8,11 +8,11 @@ import (
 	"os"
 	"strconv"
 
-	"sample/s3-grpc-server/service/dbwriter"
 	"sample/s3-grpc-server/service/grpc/client/repository/cell"
 	"sample/s3-grpc-server/service/grpc/client/repository/file"
 	"sample/s3-grpc-server/service/grpc/client/repository/table"
 	"sample/s3-grpc-server/service/grpc/client/storage"
+	"sample/s3-grpc-server/usecase"
 
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
 
@@ -52,7 +52,7 @@ func main() {
 	cellScanner := cell.NewKeyInput(keyboard)
 	storageScanner := storage.NewKeyInput(keyboard)
 
-	dbwriterService := dbwriter.NewDBWriter(
+	dbwriter := usecase.NewDBWriter(
 		fileRepository,
 		tableRepository,
 		cellRepository,
@@ -148,8 +148,8 @@ func main() {
 		}},
 		{"", nil},
 		{"WriteCSV", func() {
-			dbwriterService.CreateFakeCSV(ctx, "sample.csv")
-			dbwriterService.CreateAll(ctx, "sample.csv")
+			dbwriter.CreateFakeCSV(ctx, "sample.csv")
+			dbwriter.CreateAll(ctx, "sample.csv")
 		}},
 		{"", nil},
 	}

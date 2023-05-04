@@ -1,4 +1,4 @@
-package dbwriter
+package usecase
 
 import (
 	"context"
