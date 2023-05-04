@@ -12,6 +12,7 @@ import (
 	"sample/s3-grpc-server/service/grpc/client/repository/file"
 	"sample/s3-grpc-server/service/grpc/client/repository/table"
 	"sample/s3-grpc-server/service/grpc/client/storage"
+	"sample/s3-grpc-server/service/sheet"
 	"sample/s3-grpc-server/usecase"
 
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
@@ -57,6 +58,7 @@ func main() {
 		tableRepository,
 		cellRepository,
 		storageRepository,
+		sheet.NewCSVSheet(),
 	)
 
 	tbl := []struct {

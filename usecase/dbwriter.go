@@ -9,7 +9,7 @@ import (
 	"sample/s3-grpc-server/infra/repository/file"
 	"sample/s3-grpc-server/infra/repository/table"
 	"sample/s3-grpc-server/infra/storage"
-	"sample/s3-grpc-server/libs/sheet"
+	"sample/s3-grpc-server/service/sheet"
 	"strings"
 	"time"
 )
@@ -19,6 +19,7 @@ type dbWriter struct {
 	tableRepository   table.RepositoryInterface
 	cellRepository    cell.RepositoryInterface
 	storageRepository storage.RepositoryInterface
+	sheet             sheet.SpreadsheetInterface
 }
 
 func NewDBWriter(
@@ -26,17 +27,19 @@ func NewDBWriter(
 	tableRepository table.RepositoryInterface,
 	cellRepository cell.RepositoryInterface,
 	storageRepository storage.RepositoryInterface,
+	sheet sheet.SpreadsheetInterface,
 ) *dbWriter {
 	return &dbWriter{
 		fileRepository:    fileRepository,
 		tableRepository:   tableRepository,
 		cellRepository:    cellRepository,
 		storageRepository: storageRepository,
+		sheet:             sheet,
 	}
 }
 
-func fakeCSV(num int) string {
-	csv := sheet.NewCSVSheet()
+func fakeCSV(num int, sheet sheet.SpreadsheetInterface) string {
+	csv := sheet
 	for i := 0; i < num; i++ {
 		csv.SetCell(i, 0, fmt.Sprintf("file%05d.csv", i))
 	}
@@ -47,7 +50,7 @@ func (x *dbWriter) CreateFakeCSV(ctx context.Context, filename string) error {
 	fmt.Println(time.Now(), "makecsv")
 	req := &storageModel.PutObject{
 		Key:     filename,
-		Content: fakeCSV(10000),
+		Content: fakeCSV(10000, x.sheet),
 	}
 	_, err := x.storageRepository.PutObject(ctx, req)
 	if err != nil {
@@ -65,7 +68,7 @@ func (x *dbWriter) CreateAll(ctx context.Context, filename string) error {
 	if err != nil {
 		return err
 	}
-	csv := sheet.NewCSVSheet()
+	csv := x.sheet
 	csv.Read(strings.NewReader(ent.Content))
 	records := csv.GetCells()
 	fmt.Println(time.Now(), "write")
