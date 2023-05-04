@@ -2,8 +2,8 @@ package gateway
 
 import (
 	"sample/s3-grpc-server/entitiy/storage/model"
-	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/gateway"
 )
 
 type PutObject struct {

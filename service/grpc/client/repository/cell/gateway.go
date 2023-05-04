@@ -3,8 +3,8 @@ package cell
 import (
 	"sample/s3-grpc-server/entitiy/repository/gateway/cell"
 	"sample/s3-grpc-server/entitiy/repository/model"
-	"sample/s3-grpc-server/libs/gateway"
 	"sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/gateway"
 )
 
 type CreateCell struct{}
