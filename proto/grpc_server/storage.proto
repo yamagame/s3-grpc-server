@@ -2,10 +2,10 @@ syntax = "proto3";
 
 option go_package = "sample/grpc-server";
 
-import "proto/grpc_server/model.proto";
+import "proto/grpc_server/common.proto";
 
 // The greeting service definition.
-service storage {
+service StorageRepository {
   // CreateBucket
   rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {}
   // ListBuckets

@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option go_package = "sample/grpc-server";
+
+import "proto/grpc_server/common.proto";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// service
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+service CellRepository {
+  // Create
+  rpc Create(CreateCellRequest) returns (CreateCellResponse) {}
+  // Read
+  rpc Read(ReadCellRequest) returns (ReadCellResponse) {}
+  // Update
+  rpc Update(UpdateCellRequest) returns (UpdateCellResponse) {}
+  // Delete
+  rpc Delete(DeleteCellRequest) returns (DeleteCellResponse) {}
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// cell repository messages
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+message CreateCellRequest {
+  Cell cell = 1;
+}
+
+message CreateCellResponse {
+  uint64 ID = 1;
+}
+
+message ReadCellRequest {
+  uint64 ID = 1;
+}
+
+message ReadCellResponse {
+  Cell cell = 1;
+}
+
+message UpdateCellRequest {
+  Cell cell = 1;
+}
+
+message UpdateCellResponse {
+  uint64 ID = 1;
+}
+
+message DeleteCellRequest {
+  uint64 ID = 1;
+}
+
+message DeleteCellResponse {
+  uint64 ID = 1;
+}

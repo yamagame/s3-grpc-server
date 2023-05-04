@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option go_package = "sample/grpc-server";
+
+import "proto/grpc_server/common.proto";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// service
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+service TableRepository {
+  // Create
+  rpc Create(CreateTableRequest) returns (CreateTableResponse) {}
+  // Read
+  rpc Read(ReadTableRequest) returns (ReadTableResponse) {}
+  // Update
+  rpc Update(UpdateTableRequest) returns (UpdateTableResponse) {}
+  // Delete
+  rpc Delete(DeleteTableRequest) returns (DeleteTableResponse) {}
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// table repository messages
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+message CreateTableRequest {
+  Table table = 1;
+}
+
+message CreateTableResponse {
+  uint64 ID = 1;
+}
+
+message ReadTableRequest {
+  uint64 ID = 1;
+}
+
+message ReadTableResponse {
+  uint64 ID = 1;
+  Table table = 2;
+}
+
+message UpdateTableRequest {
+  uint64 ID = 1;
+  Table table = 2;
+}
+
+message UpdateTableResponse {
+  uint64 ID = 1;
+}
+
+message DeleteTableRequest {
+  uint64 ID = 1;
+}
+
+message DeleteTableResponse {
+  uint64 ID = 1;
+}

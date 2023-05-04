@@ -19,7 +19,7 @@ type serverDTO struct {
 type storageServer struct {
 	serverDTO
 	service *storage.StorageService
-	server.UnimplementedStorageServer
+	server.UnimplementedStorageRepositoryServer
 }
 
 func NewStorageServer(service *storage.StorageService) *storageServer {

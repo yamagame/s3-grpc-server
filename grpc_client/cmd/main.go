@@ -42,10 +42,10 @@ func main() {
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
-	fileRepository := file.NewFileRepository(grpc_server.NewRepositoryClient(conn))
-	tableRepository := table.NewTableRepository(grpc_server.NewRepositoryClient(conn))
-	cellRepository := cell.NewCellRepository(grpc_server.NewRepositoryClient(conn))
-	storageRepository := storage.NewRepository(grpc_server.NewStorageClient(conn))
+	fileRepository := file.NewFileRepository(grpc_server.NewFileRepositoryClient(conn))
+	tableRepository := table.NewTableRepository(grpc_server.NewTableRepositoryClient(conn))
+	cellRepository := cell.NewCellRepository(grpc_server.NewCellRepositoryClient(conn))
+	storageRepository := storage.NewRepository(grpc_server.NewStorageRepositoryClient(conn))
 
 	fileScanner := file.NewKeyInput(keyboard)
 	tableScanner := table.NewKeyInput(keyboard)

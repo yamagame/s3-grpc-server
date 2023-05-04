@@ -18,10 +18,10 @@ type clientDTO struct {
 
 type storageRepository struct {
 	clientDTO
-	client server.StorageClient
+	client server.StorageRepositoryClient
 }
 
-func NewRepository(client server.StorageClient) *storageRepository {
+func NewRepository(client server.StorageRepositoryClient) *storageRepository {
 	return &storageRepository{
 		client: client,
 	}

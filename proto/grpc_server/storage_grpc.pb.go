@@ -19,18 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Storage_CreateBucket_FullMethodName = "/storage/CreateBucket"
-	Storage_ListBuckets_FullMethodName  = "/storage/ListBuckets"
-	Storage_PutObject_FullMethodName    = "/storage/PutObject"
-	Storage_GetObject_FullMethodName    = "/storage/GetObject"
-	Storage_DeleteObject_FullMethodName = "/storage/DeleteObject"
-	Storage_ListObjects_FullMethodName  = "/storage/ListObjects"
+	StorageRepository_CreateBucket_FullMethodName = "/StorageRepository/CreateBucket"
+	StorageRepository_ListBuckets_FullMethodName  = "/StorageRepository/ListBuckets"
+	StorageRepository_PutObject_FullMethodName    = "/StorageRepository/PutObject"
+	StorageRepository_GetObject_FullMethodName    = "/StorageRepository/GetObject"
+	StorageRepository_DeleteObject_FullMethodName = "/StorageRepository/DeleteObject"
+	StorageRepository_ListObjects_FullMethodName  = "/StorageRepository/ListObjects"
 )
 
-// StorageClient is the client API for Storage service.
+// StorageRepositoryClient is the client API for StorageRepository service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type StorageClient interface {
+type StorageRepositoryClient interface {
 	// CreateBucket
 	CreateBucket(ctx context.Context, in *CreateBucketRequest, opts ...grpc.CallOption) (*CreateBucketResponse, error)
 	// ListBuckets
@@ -45,72 +45,72 @@ type StorageClient interface {
 	ListObjects(ctx context.Context, in *ListObjectsRequest, opts ...grpc.CallOption) (*ListObjectsResponse, error)
 }
 
-type storageClient struct {
+type storageRepositoryClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewStorageClient(cc grpc.ClientConnInterface) StorageClient {
-	return &storageClient{cc}
+func NewStorageRepositoryClient(cc grpc.ClientConnInterface) StorageRepositoryClient {
+	return &storageRepositoryClient{cc}
 }
 
-func (c *storageClient) CreateBucket(ctx context.Context, in *CreateBucketRequest, opts ...grpc.CallOption) (*CreateBucketResponse, error) {
+func (c *storageRepositoryClient) CreateBucket(ctx context.Context, in *CreateBucketRequest, opts ...grpc.CallOption) (*CreateBucketResponse, error) {
 	out := new(CreateBucketResponse)
-	err := c.cc.Invoke(ctx, Storage_CreateBucket_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, StorageRepository_CreateBucket_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *storageClient) ListBuckets(ctx context.Context, in *ListBucketsRequest, opts ...grpc.CallOption) (*ListBucketsResponse, error) {
+func (c *storageRepositoryClient) ListBuckets(ctx context.Context, in *ListBucketsRequest, opts ...grpc.CallOption) (*ListBucketsResponse, error) {
 	out := new(ListBucketsResponse)
-	err := c.cc.Invoke(ctx, Storage_ListBuckets_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, StorageRepository_ListBuckets_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *storageClient) PutObject(ctx context.Context, in *PutObjectRequest, opts ...grpc.CallOption) (*PutObjectResponse, error) {
+func (c *storageRepositoryClient) PutObject(ctx context.Context, in *PutObjectRequest, opts ...grpc.CallOption) (*PutObjectResponse, error) {
 	out := new(PutObjectResponse)
-	err := c.cc.Invoke(ctx, Storage_PutObject_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, StorageRepository_PutObject_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *storageClient) GetObject(ctx context.Context, in *GetObjectRequest, opts ...grpc.CallOption) (*GetObjectResponse, error) {
+func (c *storageRepositoryClient) GetObject(ctx context.Context, in *GetObjectRequest, opts ...grpc.CallOption) (*GetObjectResponse, error) {
 	out := new(GetObjectResponse)
-	err := c.cc.Invoke(ctx, Storage_GetObject_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, StorageRepository_GetObject_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *storageClient) DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error) {
+func (c *storageRepositoryClient) DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error) {
 	out := new(DeleteObjectResponse)
-	err := c.cc.Invoke(ctx, Storage_DeleteObject_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, StorageRepository_DeleteObject_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *storageClient) ListObjects(ctx context.Context, in *ListObjectsRequest, opts ...grpc.CallOption) (*ListObjectsResponse, error) {
+func (c *storageRepositoryClient) ListObjects(ctx context.Context, in *ListObjectsRequest, opts ...grpc.CallOption) (*ListObjectsResponse, error) {
 	out := new(ListObjectsResponse)
-	err := c.cc.Invoke(ctx, Storage_ListObjects_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, StorageRepository_ListObjects_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// StorageServer is the server API for Storage service.
-// All implementations must embed UnimplementedStorageServer
+// StorageRepositoryServer is the server API for StorageRepository service.
+// All implementations must embed UnimplementedStorageRepositoryServer
 // for forward compatibility
-type StorageServer interface {
+type StorageRepositoryServer interface {
 	// CreateBucket
 	CreateBucket(context.Context, *CreateBucketRequest) (*CreateBucketResponse, error)
 	// ListBuckets
@@ -123,182 +123,182 @@ type StorageServer interface {
 	DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error)
 	// ListObjects
 	ListObjects(context.Context, *ListObjectsRequest) (*ListObjectsResponse, error)
-	mustEmbedUnimplementedStorageServer()
+	mustEmbedUnimplementedStorageRepositoryServer()
 }
 
-// UnimplementedStorageServer must be embedded to have forward compatible implementations.
-type UnimplementedStorageServer struct {
+// UnimplementedStorageRepositoryServer must be embedded to have forward compatible implementations.
+type UnimplementedStorageRepositoryServer struct {
 }
 
-func (UnimplementedStorageServer) CreateBucket(context.Context, *CreateBucketRequest) (*CreateBucketResponse, error) {
+func (UnimplementedStorageRepositoryServer) CreateBucket(context.Context, *CreateBucketRequest) (*CreateBucketResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateBucket not implemented")
 }
-func (UnimplementedStorageServer) ListBuckets(context.Context, *ListBucketsRequest) (*ListBucketsResponse, error) {
+func (UnimplementedStorageRepositoryServer) ListBuckets(context.Context, *ListBucketsRequest) (*ListBucketsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListBuckets not implemented")
 }
-func (UnimplementedStorageServer) PutObject(context.Context, *PutObjectRequest) (*PutObjectResponse, error) {
+func (UnimplementedStorageRepositoryServer) PutObject(context.Context, *PutObjectRequest) (*PutObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PutObject not implemented")
 }
-func (UnimplementedStorageServer) GetObject(context.Context, *GetObjectRequest) (*GetObjectResponse, error) {
+func (UnimplementedStorageRepositoryServer) GetObject(context.Context, *GetObjectRequest) (*GetObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetObject not implemented")
 }
-func (UnimplementedStorageServer) DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error) {
+func (UnimplementedStorageRepositoryServer) DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteObject not implemented")
 }
-func (UnimplementedStorageServer) ListObjects(context.Context, *ListObjectsRequest) (*ListObjectsResponse, error) {
+func (UnimplementedStorageRepositoryServer) ListObjects(context.Context, *ListObjectsRequest) (*ListObjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListObjects not implemented")
 }
-func (UnimplementedStorageServer) mustEmbedUnimplementedStorageServer() {}
+func (UnimplementedStorageRepositoryServer) mustEmbedUnimplementedStorageRepositoryServer() {}
 
-// UnsafeStorageServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to StorageServer will
+// UnsafeStorageRepositoryServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to StorageRepositoryServer will
 // result in compilation errors.
-type UnsafeStorageServer interface {
-	mustEmbedUnimplementedStorageServer()
+type UnsafeStorageRepositoryServer interface {
+	mustEmbedUnimplementedStorageRepositoryServer()
 }
 
-func RegisterStorageServer(s grpc.ServiceRegistrar, srv StorageServer) {
-	s.RegisterService(&Storage_ServiceDesc, srv)
+func RegisterStorageRepositoryServer(s grpc.ServiceRegistrar, srv StorageRepositoryServer) {
+	s.RegisterService(&StorageRepository_ServiceDesc, srv)
 }
 
-func _Storage_CreateBucket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _StorageRepository_CreateBucket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateBucketRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageServer).CreateBucket(ctx, in)
+		return srv.(StorageRepositoryServer).CreateBucket(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Storage_CreateBucket_FullMethodName,
+		FullMethod: StorageRepository_CreateBucket_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).CreateBucket(ctx, req.(*CreateBucketRequest))
+		return srv.(StorageRepositoryServer).CreateBucket(ctx, req.(*CreateBucketRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Storage_ListBuckets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _StorageRepository_ListBuckets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListBucketsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageServer).ListBuckets(ctx, in)
+		return srv.(StorageRepositoryServer).ListBuckets(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Storage_ListBuckets_FullMethodName,
+		FullMethod: StorageRepository_ListBuckets_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).ListBuckets(ctx, req.(*ListBucketsRequest))
+		return srv.(StorageRepositoryServer).ListBuckets(ctx, req.(*ListBucketsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Storage_PutObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _StorageRepository_PutObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PutObjectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageServer).PutObject(ctx, in)
+		return srv.(StorageRepositoryServer).PutObject(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Storage_PutObject_FullMethodName,
+		FullMethod: StorageRepository_PutObject_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).PutObject(ctx, req.(*PutObjectRequest))
+		return srv.(StorageRepositoryServer).PutObject(ctx, req.(*PutObjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Storage_GetObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _StorageRepository_GetObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetObjectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageServer).GetObject(ctx, in)
+		return srv.(StorageRepositoryServer).GetObject(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Storage_GetObject_FullMethodName,
+		FullMethod: StorageRepository_GetObject_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).GetObject(ctx, req.(*GetObjectRequest))
+		return srv.(StorageRepositoryServer).GetObject(ctx, req.(*GetObjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Storage_DeleteObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _StorageRepository_DeleteObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteObjectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageServer).DeleteObject(ctx, in)
+		return srv.(StorageRepositoryServer).DeleteObject(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Storage_DeleteObject_FullMethodName,
+		FullMethod: StorageRepository_DeleteObject_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).DeleteObject(ctx, req.(*DeleteObjectRequest))
+		return srv.(StorageRepositoryServer).DeleteObject(ctx, req.(*DeleteObjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Storage_ListObjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _StorageRepository_ListObjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListObjectsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageServer).ListObjects(ctx, in)
+		return srv.(StorageRepositoryServer).ListObjects(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Storage_ListObjects_FullMethodName,
+		FullMethod: StorageRepository_ListObjects_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).ListObjects(ctx, req.(*ListObjectsRequest))
+		return srv.(StorageRepositoryServer).ListObjects(ctx, req.(*ListObjectsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Storage_ServiceDesc is the grpc.ServiceDesc for Storage service.
+// StorageRepository_ServiceDesc is the grpc.ServiceDesc for StorageRepository service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Storage_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "storage",
-	HandlerType: (*StorageServer)(nil),
+var StorageRepository_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "StorageRepository",
+	HandlerType: (*StorageRepositoryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreateBucket",
-			Handler:    _Storage_CreateBucket_Handler,
+			Handler:    _StorageRepository_CreateBucket_Handler,
 		},
 		{
 			MethodName: "ListBuckets",
-			Handler:    _Storage_ListBuckets_Handler,
+			Handler:    _StorageRepository_ListBuckets_Handler,
 		},
 		{
 			MethodName: "PutObject",
-			Handler:    _Storage_PutObject_Handler,
+			Handler:    _StorageRepository_PutObject_Handler,
 		},
 		{
 			MethodName: "GetObject",
-			Handler:    _Storage_GetObject_Handler,
+			Handler:    _StorageRepository_GetObject_Handler,
 		},
 		{
 			MethodName: "DeleteObject",
-			Handler:    _Storage_DeleteObject_Handler,
+			Handler:    _StorageRepository_DeleteObject_Handler,
 		},
 		{
 			MethodName: "ListObjects",
-			Handler:    _Storage_ListObjects_Handler,
+			Handler:    _StorageRepository_ListObjects_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

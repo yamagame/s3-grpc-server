@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option go_package = "sample/grpc-server";
+
+import "proto/grpc_server/common.proto";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// service
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+service FileRepository {
+  // Create
+  rpc Create(CreateFileRequest) returns (CreateFileResponse) {}
+  // Read
+  rpc Read(ReadFileRequest) returns (ReadFileResponse) {}
+  // Update
+  rpc Update(UpdateFileRequest) returns (UpdateFileResponse) {}
+  // Delete
+  rpc Delete(DeleteFileRequest) returns (DeleteFileResponse) {}
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// file repository messages
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+message CreateFileRequest {
+  File file = 1;
+}
+
+message CreateFileResponse {
+  uint64 ID = 1;
+}
+
+message ReadFileRequest {
+  uint64 ID = 1;
+}
+
+message ReadFileResponse {
+  uint64 ID = 1;
+  File file = 2;
+}
+
+message UpdateFileRequest {
+  uint64 ID = 1;
+  File file = 2;
+}
+
+message UpdateFileResponse {
+  uint64 ID = 1;
+}
+
+message DeleteFileRequest {
+  uint64 ID = 1;
+}
+
+message DeleteFileResponse {
+  uint64 ID = 1;
+}

@@ -4,6 +4,7 @@ import (
 	"context"
 	"sample/s3-grpc-server/infra/repository/model"
 	"sample/s3-grpc-server/infra/repository/table"
+	"sample/s3-grpc-server/proto/grpc_server"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
@@ -17,6 +18,7 @@ type serverDTO struct {
 type TableRepository struct {
 	serverDTO
 	repository table.RepositoryInterface
+	grpc_server.UnimplementedTableRepositoryServer
 }
 
 func NewTableRepository(repository table.RepositoryInterface) *TableRepository {

@@ -15,10 +15,10 @@ type clientDTO struct {
 
 type FileRepository struct {
 	clientDTO
-	client server.RepositoryClient
+	client server.FileRepositoryClient
 }
 
-func NewFileRepository(client server.RepositoryClient) *FileRepository {
+func NewFileRepository(client server.FileRepositoryClient) *FileRepository {
 	return &FileRepository{
 		client: client,
 	}
@@ -27,27 +27,27 @@ func NewFileRepository(client server.RepositoryClient) *FileRepository {
 // Create implements fileRepository.Create
 func (x *FileRepository) Create(ctx context.Context, file *model.File) (*model.File, error) {
 	return x.create.Domain(file, func(req *server.CreateFileRequest) (*server.CreateFileResponse, error) {
-		return x.client.CreateFile(ctx, req)
+		return x.client.Create(ctx, req)
 	})
 }
 
 // Read implements fileRepository.Read
 func (x *FileRepository) Read(ctx context.Context, file *model.File) (*model.File, error) {
 	return x.read.Domain(file, func(req *server.ReadFileRequest) (*server.ReadFileResponse, error) {
-		return x.client.ReadFile(ctx, req)
+		return x.client.Read(ctx, req)
 	})
 }
 
 // Update implements fileRepository.Create
 func (x *FileRepository) Update(ctx context.Context, file *model.File) (*model.File, error) {
 	return x.update.Domain(file, func(req *server.UpdateFileRequest) (*server.UpdateFileResponse, error) {
-		return x.client.UpdateFile(ctx, req)
+		return x.client.Update(ctx, req)
 	})
 }
 
 // Delete implements fileRepository.Delete
 func (x *FileRepository) Delete(ctx context.Context, file *model.File) (*model.File, error) {
 	return x.delete.Domain(file, func(req *server.DeleteFileRequest) (*server.DeleteFileResponse, error) {
-		return x.client.DeleteFile(ctx, req)
+		return x.client.Delete(ctx, req)
 	})
 }

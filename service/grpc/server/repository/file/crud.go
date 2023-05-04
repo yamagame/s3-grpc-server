@@ -4,6 +4,7 @@ import (
 	"context"
 	"sample/s3-grpc-server/infra/repository/file"
 	"sample/s3-grpc-server/infra/repository/model"
+	"sample/s3-grpc-server/proto/grpc_server"
 	server "sample/s3-grpc-server/proto/grpc_server"
 )
 
@@ -17,6 +18,7 @@ type serverDTO struct {
 type FileRepository struct {
 	serverDTO
 	repository file.RepositoryInterface
+	grpc_server.UnimplementedFileRepositoryServer
 }
 
 func NewFileRepository(repository file.RepositoryInterface) *FileRepository {
