@@ -30,12 +30,11 @@ var (
 )
 
 func main() {
-	mode := "s3"
-	if len(os.Args) > 1 {
-		mode = os.Args[1]
-	}
+	flag.Parse()
+	mode := flag.Arg(0)
 	logger, _ := zap.NewProduction()
-	defer logger.Sync() // flushes buffer, if any
+	defer logger.Sync() //nolint
+
 	sugar := logger.Sugar()
 	zap.ReplaceGlobals(logger)
 

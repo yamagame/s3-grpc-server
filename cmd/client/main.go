@@ -63,95 +63,116 @@ func main() {
 
 	tbl := []struct {
 		name string
-		call func()
+		call func() error
 	}{
 		{"", nil},
-		{"CreateBucket", func() {
+		{"CreateBucket", func() error {
 			ent, _ := storageRepository.CreateBucket(ctx, storageScanner.CreateBucket())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"ListBuckets", func() {
+		{"ListBuckets", func() error {
 			ent, _ := storageRepository.ListBuckets(ctx, storageScanner.ListBuckets())
 			fmt.Println(ent)
+			return nil
 		}},
 		{"", nil},
-		{"PutObject", func() {
+		{"PutObject", func() error {
 			ent, _ := storageRepository.PutObject(ctx, storageScanner.PutObject())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"GetObject", func() {
+		{"GetObject", func() error {
 			ent, _ := storageRepository.GetObject(ctx, storageScanner.GetObject())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"DeleteObject", func() {
+		{"DeleteObject", func() error {
 			ent, _ := storageRepository.DeleteObject(ctx, storageScanner.DeleteObject())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"ListObjects", func() {
+		{"ListObjects", func() error {
 			ent, _ := storageRepository.ListObjects(ctx, storageScanner.ListObjects())
 			fmt.Println(ent)
+			return nil
 		}},
 		{"", nil},
-		{"CreateFile", func() {
+		{"CreateFile", func() error {
 			ent, _ := fileRepository.Create(ctx, fileScanner.Create())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"ReadFile", func() {
+		{"ReadFile", func() error {
 			ent, _ := fileRepository.Read(ctx, fileScanner.Read())
 			fmt.Println(ent)
 			for _, v := range ent.Tables {
 				fmt.Println(v)
 			}
+			return nil
 		}},
-		{"UpdateFile", func() {
+		{"UpdateFile", func() error {
 			ent, _ := fileRepository.Update(ctx, fileScanner.Update())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"DeleteFile", func() {
+		{"DeleteFile", func() error {
 			ent, _ := fileRepository.Delete(ctx, fileScanner.Delete())
 			fmt.Println(ent)
+			return nil
 		}},
 		{"", nil},
-		{"CreateTable", func() {
+		{"CreateTable", func() error {
 			ent, _ := tableRepository.Create(ctx, tableScanner.Create())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"ReadTable", func() {
+		{"ReadTable", func() error {
 			ent, _ := tableRepository.Read(ctx, tableScanner.Read())
 			fmt.Println(ent)
 			for _, v := range ent.Cells {
 				fmt.Println(v)
 			}
+			return nil
 		}},
-		{"UpdateTable", func() {
+		{"UpdateTable", func() error {
 			ent, _ := tableRepository.Update(ctx, tableScanner.Update())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"DeleteTable", func() {
+		{"DeleteTable", func() error {
 			ent, _ := tableRepository.Delete(ctx, tableScanner.Delete())
 			fmt.Println(ent)
+			return nil
 		}},
 		{"", nil},
-		{"CreateCell", func() {
+		{"CreateCell", func() error {
 			ent, _ := cellRepository.Create(ctx, cellScanner.Create())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"ReadCell", func() {
+		{"ReadCell", func() error {
 			ent, _ := cellRepository.Read(ctx, cellScanner.Read())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"UpdateCell", func() {
+		{"UpdateCell", func() error {
 			ent, _ := cellRepository.Update(ctx, cellScanner.Update())
 			fmt.Println(ent)
+			return nil
 		}},
-		{"DeleteCell", func() {
+		{"DeleteCell", func() error {
 			ent, _ := cellRepository.Delete(ctx, cellScanner.Delete())
 			fmt.Println(ent)
+			return nil
 		}},
 		{"", nil},
-		{"WriteCSV", func() {
-			dbwriter.CreateFakeCSV(ctx, "sample.csv")
+		{"WriteCSV", func() error {
+			if err := dbwriter.CreateFakeCSV(ctx, "sample.csv"); err != nil {
+				return err
+			}
 			dbwriter.CreateAll(ctx, "sample.csv")
+			return nil
 		}},
 		{"", nil},
 	}
@@ -180,7 +201,9 @@ func main() {
 			}
 			if i == ids[id-1] {
 				if v.call != nil {
-					v.call()
+					if err := v.call(); err != nil {
+						panic("fail")
+					}
 				}
 				skip = true
 			}
