@@ -28,28 +28,28 @@ func NewTableRepositoryServer(repository table.RepositoryInterface) *TableReposi
 
 // Create implements RepositoryServer.Create
 func (s *TableRepositoryServer) Create(ctx context.Context, in *grpc_server.CreateTableRequest) (*grpc_server.CreateTableResponse, error) {
-	return s.create.Domain(in, func(table *model.Table) (*model.Table, error) {
+	return s.create.ToDomain(in, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Create(ctx, table)
 	})
 }
 
 // Read implements RepositoryServer.Read
 func (s *TableRepositoryServer) Read(ctx context.Context, in *grpc_server.ReadTableRequest) (*grpc_server.ReadTableResponse, error) {
-	return s.read.Domain(in, func(table *model.Table) (*model.Table, error) {
+	return s.read.ToDomain(in, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Read(ctx, table)
 	})
 }
 
 // Update implements RepositoryServer.Update
 func (s *TableRepositoryServer) Update(ctx context.Context, in *grpc_server.UpdateTableRequest) (*grpc_server.UpdateTableResponse, error) {
-	return s.update.Domain(in, func(table *model.Table) (*model.Table, error) {
+	return s.update.ToDomain(in, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Update(ctx, table)
 	})
 }
 
 // Delete implements RepositoryServer.Delete
 func (s *TableRepositoryServer) Delete(ctx context.Context, in *grpc_server.DeleteTableRequest) (*grpc_server.DeleteTableResponse, error) {
-	return s.delete.Domain(in, func(table *model.Table) (*model.Table, error) {
+	return s.delete.ToDomain(in, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Delete(ctx, table)
 	})
 }

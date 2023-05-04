@@ -12,7 +12,7 @@ import (
 type CreateTable struct {
 }
 
-func (x *CreateTable) Domain(req *grpc_server.CreateTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.CreateTableResponse, error) {
+func (x *CreateTable) ToDomain(req *grpc_server.CreateTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.CreateTableResponse, error) {
 	return dto.ToDomain[model.Table, grpc_server.CreateTableRequest, grpc_server.CreateTableResponse](x, req, call)
 }
 
@@ -34,7 +34,7 @@ func (x *CreateTable) Output(res *model.Table) *grpc_server.CreateTableResponse 
 type ReadTable struct {
 }
 
-func (x *ReadTable) Domain(req *grpc_server.ReadTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.ReadTableResponse, error) {
+func (x *ReadTable) ToDomain(req *grpc_server.ReadTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.ReadTableResponse, error) {
 	return dto.ToDomain[model.Table, grpc_server.ReadTableRequest, grpc_server.ReadTableResponse](x, req, call)
 }
 
@@ -61,7 +61,7 @@ func (x *ReadTable) Output(res *model.Table) *grpc_server.ReadTableResponse {
 type UpdateTable struct {
 }
 
-func (x *UpdateTable) Domain(req *grpc_server.UpdateTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.UpdateTableResponse, error) {
+func (x *UpdateTable) ToDomain(req *grpc_server.UpdateTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.UpdateTableResponse, error) {
 	return dto.ToDomain[model.Table, grpc_server.UpdateTableRequest, grpc_server.UpdateTableResponse](x, req, call)
 }
 
@@ -82,7 +82,7 @@ func (x *UpdateTable) Output(res *model.Table) *grpc_server.UpdateTableResponse 
 type DeleteTable struct {
 }
 
-func (x *DeleteTable) Domain(req *grpc_server.DeleteTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.DeleteTableResponse, error) {
+func (x *DeleteTable) ToDomain(req *grpc_server.DeleteTableRequest, call func(table *model.Table) (*model.Table, error)) (*grpc_server.DeleteTableResponse, error) {
 	return dto.ToDomain[model.Table, grpc_server.DeleteTableRequest, grpc_server.DeleteTableResponse](x, req, call)
 }
 

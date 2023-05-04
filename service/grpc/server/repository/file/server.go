@@ -28,28 +28,28 @@ func NewFileRepositoryServer(repository file.RepositoryInterface) *FileRepositor
 
 // Create implements RepositoryServer.Create
 func (s *FileRepositoryServer) Create(ctx context.Context, in *grpc_server.CreateFileRequest) (*grpc_server.CreateFileResponse, error) {
-	return s.create.Domain(in, func(file *model.File) (*model.File, error) {
+	return s.create.ToDomain(in, func(file *model.File) (*model.File, error) {
 		return s.repository.Create(ctx, file)
 	})
 }
 
 // Read implements RepositoryServer.Read
 func (s *FileRepositoryServer) Read(ctx context.Context, in *grpc_server.ReadFileRequest) (*grpc_server.ReadFileResponse, error) {
-	return s.read.Domain(in, func(file *model.File) (*model.File, error) {
+	return s.read.ToDomain(in, func(file *model.File) (*model.File, error) {
 		return s.repository.Read(ctx, file)
 	})
 }
 
 // Update implements RepositoryServer.Update
 func (s *FileRepositoryServer) Update(ctx context.Context, in *grpc_server.UpdateFileRequest) (*grpc_server.UpdateFileResponse, error) {
-	return s.update.Domain(in, func(file *model.File) (*model.File, error) {
+	return s.update.ToDomain(in, func(file *model.File) (*model.File, error) {
 		return s.repository.Update(ctx, file)
 	})
 }
 
 // Delete implements RepositoryServer.Delete
 func (s *FileRepositoryServer) Delete(ctx context.Context, in *grpc_server.DeleteFileRequest) (*grpc_server.DeleteFileResponse, error) {
-	return s.delete.Domain(in, func(file *model.File) (*model.File, error) {
+	return s.delete.ToDomain(in, func(file *model.File) (*model.File, error) {
 		return s.repository.Delete(ctx, file)
 	})
 }

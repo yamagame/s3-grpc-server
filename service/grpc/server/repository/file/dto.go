@@ -12,7 +12,7 @@ import (
 type CreateFile struct {
 }
 
-func (x *CreateFile) Domain(req *grpc_server.CreateFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.CreateFileResponse, error) {
+func (x *CreateFile) ToDomain(req *grpc_server.CreateFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.CreateFileResponse, error) {
 	return dto.ToDomain[model.File, grpc_server.CreateFileRequest, grpc_server.CreateFileResponse](x, req, call)
 }
 
@@ -33,7 +33,7 @@ func (x *CreateFile) Output(res *model.File) *grpc_server.CreateFileResponse {
 type ReadFile struct {
 }
 
-func (x *ReadFile) Domain(req *grpc_server.ReadFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.ReadFileResponse, error) {
+func (x *ReadFile) ToDomain(req *grpc_server.ReadFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.ReadFileResponse, error) {
 	return dto.ToDomain[model.File, grpc_server.ReadFileRequest, grpc_server.ReadFileResponse](x, req, call)
 }
 
@@ -60,7 +60,7 @@ func (x *ReadFile) Output(res *model.File) *grpc_server.ReadFileResponse {
 type UpdateFile struct {
 }
 
-func (x *UpdateFile) Domain(req *grpc_server.UpdateFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.UpdateFileResponse, error) {
+func (x *UpdateFile) ToDomain(req *grpc_server.UpdateFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.UpdateFileResponse, error) {
 	return dto.ToDomain[model.File, grpc_server.UpdateFileRequest, grpc_server.UpdateFileResponse](x, req, call)
 }
 
@@ -81,7 +81,7 @@ func (x *UpdateFile) Output(res *model.File) *grpc_server.UpdateFileResponse {
 type DeleteFile struct {
 }
 
-func (x *DeleteFile) Domain(req *grpc_server.DeleteFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.DeleteFileResponse, error) {
+func (x *DeleteFile) ToDomain(req *grpc_server.DeleteFileRequest, call func(table *model.File) (*model.File, error)) (*grpc_server.DeleteFileResponse, error) {
 	return dto.ToDomain[model.File, grpc_server.DeleteFileRequest, grpc_server.DeleteFileResponse](x, req, call)
 }
 

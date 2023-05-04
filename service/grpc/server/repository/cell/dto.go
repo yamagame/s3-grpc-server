@@ -11,7 +11,7 @@ import (
 type CreateCell struct {
 }
 
-func (x *CreateCell) Domain(req *grpc_server.CreateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.CreateCellResponse, error) {
+func (x *CreateCell) ToDomain(req *grpc_server.CreateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.CreateCellResponse, error) {
 	return dto.ToDomain[model.Cell, grpc_server.CreateCellRequest, grpc_server.CreateCellResponse](x, req, call)
 }
 
@@ -35,7 +35,7 @@ func (x *CreateCell) Output(res *model.Cell) *grpc_server.CreateCellResponse {
 type ReadCell struct {
 }
 
-func (x *ReadCell) Domain(req *grpc_server.ReadCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.ReadCellResponse, error) {
+func (x *ReadCell) ToDomain(req *grpc_server.ReadCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.ReadCellResponse, error) {
 	return dto.ToDomain[model.Cell, grpc_server.ReadCellRequest, grpc_server.ReadCellResponse](x, req, call)
 }
 
@@ -56,7 +56,7 @@ func (x *ReadCell) Output(res *model.Cell) *grpc_server.ReadCellResponse {
 type UpdateCell struct {
 }
 
-func (x *UpdateCell) Domain(req *grpc_server.UpdateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.UpdateCellResponse, error) {
+func (x *UpdateCell) ToDomain(req *grpc_server.UpdateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.UpdateCellResponse, error) {
 	return dto.ToDomain[model.Cell, grpc_server.UpdateCellRequest, grpc_server.UpdateCellResponse](x, req, call)
 }
 
@@ -77,7 +77,7 @@ func (x *UpdateCell) Output(res *model.Cell) *grpc_server.UpdateCellResponse {
 type DeleteCell struct {
 }
 
-func (x *DeleteCell) Domain(req *grpc_server.DeleteCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.DeleteCellResponse, error) {
+func (x *DeleteCell) ToDomain(req *grpc_server.DeleteCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.DeleteCellResponse, error) {
 	return dto.ToDomain[model.Cell, grpc_server.DeleteCellRequest, grpc_server.DeleteCellResponse](x, req, call)
 }
 
