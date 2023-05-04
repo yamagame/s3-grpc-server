@@ -60,6 +60,7 @@ func NewSFTPClient(ctx context.Context, options SFTPClientConfig) (*SFTPClient, 
 	}, nil
 }
 
+// ListBuckets implements SFTPClient.ListBuckets
 func (x *SFTPClient) ListBuckets(ctx context.Context) ([]model.Bucket, error) {
 	var buckets []model.Bucket
 	fmt.Println("ListBuckets")
@@ -69,11 +70,13 @@ func (x *SFTPClient) ListBuckets(ctx context.Context) ([]model.Bucket, error) {
 	return buckets, nil
 }
 
+// CreateBucket implements SFTPClient.CreateBucket
 func (x *SFTPClient) CreateBucket(ctx context.Context) error {
 	fmt.Println("CreateBucket", x.share)
 	return nil
 }
 
+// PutObject implements SFTPClient.PutObject
 func (x *SFTPClient) PutObject(ctx context.Context, key string, body io.Reader) error {
 	fmt.Println("leave your mark")
 	wc, err := x.client.Create(path.Join(x.share, key))
@@ -93,16 +96,19 @@ func (x *SFTPClient) PutObject(ctx context.Context, key string, body io.Reader) 
 	return nil
 }
 
+// PutObjectWithString implements SFTPClient.PutObjectWithString
 func (x *SFTPClient) PutObjectWithString(ctx context.Context, key, content string) error {
 	return x.PutObject(ctx, key, strings.NewReader(content))
 }
 
+// GetObject implements SFTPClient.GetObject
 func (x *SFTPClient) GetObject(ctx context.Context, key string) (io.Reader, error) {
 	fmt.Println("GetObject", key)
 	p := path.Join(x.share, key)
 	return x.client.Open(p)
 }
 
+// GetObjectWithString implements SFTPClient.GetObjectWithString
 func (x *SFTPClient) GetObjectWithString(ctx context.Context, key string) (string, error) {
 	out, err := x.GetObject(ctx, key)
 	if err != nil {
@@ -118,11 +124,13 @@ func (x *SFTPClient) GetObjectWithString(ctx context.Context, key string) (strin
 	return streamToString(out), nil
 }
 
+// DeleteObject implements SFTPClient.DeleteObject
 func (x *SFTPClient) DeleteObject(ctx context.Context, key string) error {
 	fmt.Println("DeleteObject", key)
 	return x.client.Remove(path.Join(x.share, key))
 }
 
+// ListObjects implements SFTPClient.ListObjects
 func (x *SFTPClient) ListObjects(ctx context.Context, prefix string, nexttoken *string) ([]model.Object, error) {
 	var objects []model.Object
 	fmt.Println("ListObjects", prefix)
