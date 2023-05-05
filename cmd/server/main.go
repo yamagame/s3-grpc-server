@@ -10,10 +10,11 @@ import (
 	"sample/s3-grpc-server/proto/grpc_server"
 
 	"sample/s3-grpc-server/infra/repository"
-	"sample/s3-grpc-server/infra/repository/cell"
-	"sample/s3-grpc-server/infra/repository/file"
-	"sample/s3-grpc-server/infra/repository/table"
-	"sample/s3-grpc-server/infra/storage"
+
+	cellInfra "sample/s3-grpc-server/infra/repository/cell"
+	fileInfra "sample/s3-grpc-server/infra/repository/file"
+	tableInfra "sample/s3-grpc-server/infra/repository/table"
+	storageInfra "sample/s3-grpc-server/infra/storage"
 
 	cellService "sample/s3-grpc-server/service/grpc/server/repository/cell"
 	fileService "sample/s3-grpc-server/service/grpc/server/repository/file"
@@ -46,10 +47,10 @@ func main() {
 	}
 	gorm := repository.GormDB()
 	server := NewServer(
-		GetClient(mode),
-		file.NewFileRepository(gorm),
-		table.NewTableRepository(gorm),
-		cell.NewCellRepository(gorm),
+		GetStorageInfraImpl(mode),
+		fileInfra.NewFileRepository(gorm),
+		tableInfra.NewTableRepository(gorm),
+		cellInfra.NewCellRepository(gorm),
 	)
 	// log.Printf("server listening at %v", lis.Addr())
 	sugar.Infof("server listening at %v", lis.Addr())
@@ -59,11 +60,11 @@ func main() {
 	}
 }
 
-func GetClient(mode string) storage.RepositoryClientInterface {
-	getClient := func(mode string) (storage.RepositoryClientInterface, error) {
+func GetStorageInfraImpl(mode string) storageInfra.RepositoryClientInterface {
+	getClient := func(mode string) (storageInfra.RepositoryClientInterface, error) {
 		if mode == "sftp" {
 			fmt.Println("start sftp")
-			return storage.NewSFTPClient(context.Background(), storage.SFTPClientConfig{
+			return storageInfra.NewSFTPClient(context.Background(), storageInfra.SFTPClientConfig{
 				Host:  os.Getenv("SFTP_HOST"),
 				Port:  os.Getenv("SFTP_PORT"),
 				User:  os.Getenv("SFTP_USERNAME"),
@@ -73,13 +74,13 @@ func GetClient(mode string) storage.RepositoryClientInterface {
 		}
 		if mode == "gcs" {
 			fmt.Println("start gcs")
-			return storage.NewGCSClient(context.Background(), storage.GCSClientConfig{
+			return storageInfra.NewGCSClient(context.Background(), storageInfra.GCSClientConfig{
 				Bucket:    os.Getenv("BUCKET_NAME"),
 				ProjectID: os.Getenv("GCS_PROJECT_ID"),
 			})
 		}
 		fmt.Println("start s3")
-		return storage.NewS3Client(context.Background(), storage.S3ClientConfig{
+		return storageInfra.NewS3Client(context.Background(), storageInfra.S3ClientConfig{
 			Bucket:   os.Getenv("BUCKET_NAME"),
 			Endpoint: os.Getenv("S3_ENDPOINT"),
 		})
@@ -92,14 +93,14 @@ func GetClient(mode string) storage.RepositoryClientInterface {
 }
 
 func NewServer(
-	storageRepository storage.RepositoryClientInterface,
-	fileRepository file.RepositoryInterface,
-	tableRepository table.RepositoryInterface,
-	cellRepository cell.RepositoryInterface,
+	storageRepository storageInfra.RepositoryClientInterface,
+	fileRepository fileInfra.RepositoryInterface,
+	tableRepository tableInfra.RepositoryInterface,
+	cellRepository cellInfra.RepositoryInterface,
 ) *grpc.Server {
 	server := grpc.NewServer()
 	grpc_server.RegisterStorageRepositoryServer(server,
-		storageService.NewStorageRepositoryServer(storage.NewStorageRepository(storageRepository)),
+		storageService.NewStorageRepositoryServer(storageInfra.NewStorageRepository(storageRepository)),
 	)
 	grpc_server.RegisterFileRepositoryServer(server,
 		fileService.NewFileRepositoryServer(fileRepository),
