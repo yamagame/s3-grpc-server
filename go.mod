@@ -9,6 +9,8 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.31.2
 	github.com/pkg/sftp v1.13.5
 	github.com/xuri/excelize/v2 v2.7.1
+	go.uber.org/dig v1.17.0
+	go.uber.org/fx v1.19.2
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.8.0
 	google.golang.org/api v0.114.0

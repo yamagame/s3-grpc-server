@@ -100,16 +100,16 @@ func NewServer(
 ) *grpc.Server {
 	server := grpc.NewServer()
 	grpc_server.RegisterStorageRepositoryServer(server,
-		storageService.NewStorageRepositoryServer(storageInfra.NewStorageRepository(storageRepository)),
+		storageService.NewStorageServerRepository(storageInfra.NewStorageRepository(storageRepository)),
 	)
 	grpc_server.RegisterFileRepositoryServer(server,
-		fileService.NewFileRepositoryServer(fileRepository),
+		fileService.NewFileServerRepository(fileRepository),
 	)
 	grpc_server.RegisterTableRepositoryServer(server,
-		tableService.NewTableRepositoryServer(tableRepository),
+		tableService.NewTableServerRepository(tableRepository),
 	)
 	grpc_server.RegisterCellRepositoryServer(server,
-		cellService.NewCellRepositoryServer(cellRepository),
+		cellService.NewCellServerRepository(cellRepository),
 	)
 	reflection.Register(server)
 	return server

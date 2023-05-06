@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-type dbWriter struct {
+type DBWriter struct {
 	fileRepository    file.RepositoryInterface
 	tableRepository   table.RepositoryInterface
 	cellRepository    cell.RepositoryInterface
@@ -28,8 +28,8 @@ func NewDBWriter(
 	cellRepository cell.RepositoryInterface,
 	storageRepository storage.RepositoryInterface,
 	sheet sheet.SpreadsheetInterface,
-) *dbWriter {
-	return &dbWriter{
+) *DBWriter {
+	return &DBWriter{
 		fileRepository:    fileRepository,
 		tableRepository:   tableRepository,
 		cellRepository:    cellRepository,
@@ -46,7 +46,7 @@ func fakeCSV(num int, sheet sheet.SpreadsheetInterface) string {
 	return csv.CSVString()
 }
 
-func (x *dbWriter) CreateFakeCSV(ctx context.Context, filename string) error {
+func (x *DBWriter) CreateFakeCSV(ctx context.Context, filename string) error {
 	fmt.Println(time.Now(), "makecsv")
 	req := &storageModel.PutObject{
 		Key:     filename,
@@ -59,7 +59,7 @@ func (x *dbWriter) CreateFakeCSV(ctx context.Context, filename string) error {
 	return nil
 }
 
-func (x *dbWriter) CreateAll(ctx context.Context, filename string) error {
+func (x *DBWriter) CreateAll(ctx context.Context, filename string) error {
 	fmt.Println(time.Now(), "start")
 	req := &storageModel.GetObject{
 		Key: filename,

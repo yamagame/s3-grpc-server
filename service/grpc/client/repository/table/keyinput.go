@@ -7,17 +7,17 @@ import (
 	"strconv"
 )
 
-type keyInput struct {
+type KeyInput struct {
 	scanner *bufio.Scanner
 }
 
-func NewKeyInput(scanner *bufio.Scanner) *keyInput {
-	return &keyInput{
+func NewKeyInput(scanner *bufio.Scanner) *KeyInput {
+	return &KeyInput{
 		scanner: scanner,
 	}
 }
 
-func (x *keyInput) Create() *model.Table {
+func (x *KeyInput) Create() *model.Table {
 	fmt.Print("file_id >")
 	x.scanner.Scan()
 	fileID, _ := strconv.ParseUint(x.scanner.Text(), 10, 64)
@@ -30,7 +30,7 @@ func (x *keyInput) Create() *model.Table {
 	}
 }
 
-func (x *keyInput) Read() *model.Table {
+func (x *KeyInput) Read() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.ParseUint(x.scanner.Text(), 10, 64)
@@ -39,7 +39,7 @@ func (x *keyInput) Read() *model.Table {
 	}
 }
 
-func (x *keyInput) Update() *model.Table {
+func (x *KeyInput) Update() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.ParseUint(x.scanner.Text(), 10, 64)
@@ -52,7 +52,7 @@ func (x *keyInput) Update() *model.Table {
 	}
 }
 
-func (x *keyInput) Delete() *model.Table {
+func (x *KeyInput) Delete() *model.Table {
 	fmt.Print("ID >")
 	x.scanner.Scan()
 	id, _ := strconv.ParseUint(x.scanner.Text(), 0, 32)

@@ -6,25 +6,25 @@ import (
 	"sample/s3-grpc-server/entitiy/storage/model"
 )
 
-type StorageKeyInput struct {
+type KeyInput struct {
 	scanner *bufio.Scanner
 }
 
-func NewKeyInput(scanner *bufio.Scanner) *StorageKeyInput {
-	return &StorageKeyInput{
+func NewKeyInput(scanner *bufio.Scanner) *KeyInput {
+	return &KeyInput{
 		scanner: scanner,
 	}
 }
 
-func (x *StorageKeyInput) CreateBucket() *model.CreateBucket {
+func (x *KeyInput) CreateBucket() *model.CreateBucket {
 	return &model.CreateBucket{}
 }
 
-func (x *StorageKeyInput) ListBuckets() *model.ListBuckets {
+func (x *KeyInput) ListBuckets() *model.ListBuckets {
 	return &model.ListBuckets{}
 }
 
-func (x *StorageKeyInput) PutObject() *model.PutObject {
+func (x *KeyInput) PutObject() *model.PutObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
@@ -37,7 +37,7 @@ func (x *StorageKeyInput) PutObject() *model.PutObject {
 	}
 }
 
-func (x *StorageKeyInput) GetObject() *model.GetObject {
+func (x *KeyInput) GetObject() *model.GetObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
@@ -46,7 +46,7 @@ func (x *StorageKeyInput) GetObject() *model.GetObject {
 	}
 }
 
-func (x *StorageKeyInput) DeleteObject() *model.DeleteObject {
+func (x *KeyInput) DeleteObject() *model.DeleteObject {
 	fmt.Print("key >")
 	x.scanner.Scan()
 	key := x.scanner.Text()
@@ -55,7 +55,7 @@ func (x *StorageKeyInput) DeleteObject() *model.DeleteObject {
 	}
 }
 
-func (x *StorageKeyInput) ListObjects() *model.ListObjects {
+func (x *KeyInput) ListObjects() *model.ListObjects {
 	fmt.Print("prefix >")
 	x.scanner.Scan()
 	prefix := x.scanner.Text()
