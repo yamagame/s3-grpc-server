@@ -5,6 +5,7 @@ import (
 	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/infra/repository/table"
 	"sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/gateway"
 )
 
 type serverGateway struct {
@@ -28,28 +29,28 @@ func NewTableServerRepository(repository table.RepositoryInterface) *TableServer
 
 // Create implements RepositoryServer.Create
 func (s *TableServerRepository) Create(ctx context.Context, in *grpc_server.CreateTableRequest) (*grpc_server.CreateTableResponse, error) {
-	return s.create.ToDomain(in, func(table *model.Table) (*model.Table, error) {
+	return gateway.ToDomain(in, s.create.Input, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Create(ctx, table)
-	})
+	}, s.create.Output)
 }
 
 // Read implements RepositoryServer.Read
 func (s *TableServerRepository) Read(ctx context.Context, in *grpc_server.ReadTableRequest) (*grpc_server.ReadTableResponse, error) {
-	return s.read.ToDomain(in, func(table *model.Table) (*model.Table, error) {
+	return gateway.ToDomain(in, s.read.Input, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Read(ctx, table)
-	})
+	}, s.read.Output)
 }
 
 // Update implements RepositoryServer.Update
 func (s *TableServerRepository) Update(ctx context.Context, in *grpc_server.UpdateTableRequest) (*grpc_server.UpdateTableResponse, error) {
-	return s.update.ToDomain(in, func(table *model.Table) (*model.Table, error) {
+	return gateway.ToDomain(in, s.update.Input, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Update(ctx, table)
-	})
+	}, s.update.Output)
 }
 
 // Delete implements RepositoryServer.Delete
 func (s *TableServerRepository) Delete(ctx context.Context, in *grpc_server.DeleteTableRequest) (*grpc_server.DeleteTableResponse, error) {
-	return s.delete.ToDomain(in, func(table *model.Table) (*model.Table, error) {
+	return gateway.ToDomain(in, s.delete.Input, func(table *model.Table) (*model.Table, error) {
 		return s.repository.Delete(ctx, table)
-	})
+	}, s.delete.Output)
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
+	"sample/s3-grpc-server/service/grpc/gateway"
 )
 
 type clientGateway struct {
@@ -26,28 +27,28 @@ func NewTableRepository(client grpc_server.TableRepositoryClient) *TableClientRe
 
 // Create implements tableRepository.Create
 func (x *TableClientRepository) Create(ctx context.Context, table *model.Table) (*model.Table, error) {
-	return x.create.ToInfra(table, func(req *grpc_server.CreateTableRequest) (*grpc_server.CreateTableResponse, error) {
+	return gateway.ToInfra(table, x.create.Input, func(req *grpc_server.CreateTableRequest) (*grpc_server.CreateTableResponse, error) {
 		return x.client.Create(ctx, req)
-	})
+	}, x.create.Output)
 }
 
 // Read implements tableRepository.Read
 func (x *TableClientRepository) Read(ctx context.Context, table *model.Table) (*model.Table, error) {
-	return x.read.ToInfra(table, func(req *grpc_server.ReadTableRequest) (*grpc_server.ReadTableResponse, error) {
+	return gateway.ToInfra(table, x.read.Input, func(req *grpc_server.ReadTableRequest) (*grpc_server.ReadTableResponse, error) {
 		return x.client.Read(ctx, req)
-	})
+	}, x.read.Output)
 }
 
 // Update implements tableRepository.Update
 func (x *TableClientRepository) Update(ctx context.Context, table *model.Table) (*model.Table, error) {
-	return x.update.ToInfra(table, func(req *grpc_server.UpdateTableRequest) (*grpc_server.UpdateTableResponse, error) {
+	return gateway.ToInfra(table, x.update.Input, func(req *grpc_server.UpdateTableRequest) (*grpc_server.UpdateTableResponse, error) {
 		return x.client.Update(ctx, req)
-	})
+	}, x.update.Output)
 }
 
 // Delete implements tableRepository.Delete
 func (x *TableClientRepository) Delete(ctx context.Context, table *model.Table) (*model.Table, error) {
-	return x.delete.ToInfra(table, func(req *grpc_server.DeleteTableRequest) (*grpc_server.DeleteTableResponse, error) {
+	return gateway.ToInfra(table, x.delete.Input, func(req *grpc_server.DeleteTableRequest) (*grpc_server.DeleteTableResponse, error) {
 		return x.client.Delete(ctx, req)
-	})
+	}, x.delete.Output)
 }

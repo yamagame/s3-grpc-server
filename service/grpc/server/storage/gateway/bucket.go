@@ -3,14 +3,9 @@ package gateway
 import (
 	"sample/s3-grpc-server/entitiy/storage/model"
 	"sample/s3-grpc-server/proto/grpc_server"
-	"sample/s3-grpc-server/service/grpc/gateway"
 )
 
 type CreateBucket struct {
-}
-
-func (x *CreateBucket) ToDomain(req *grpc_server.CreateBucketRequest, call func(table *model.CreateBucket) (*model.CreateBucket, error)) (*grpc_server.CreateBucketResponse, error) {
-	return gateway.ToDomain[model.CreateBucket, grpc_server.CreateBucketRequest, grpc_server.CreateBucketResponse](x, req, call)
 }
 
 func (x *CreateBucket) Input(req *grpc_server.CreateBucketRequest) *model.CreateBucket {
@@ -24,10 +19,6 @@ func (x *CreateBucket) Output(res *model.CreateBucket) *grpc_server.CreateBucket
 }
 
 type ListBuckets struct {
-}
-
-func (x *ListBuckets) ToDomain(req *grpc_server.ListBucketsRequest, call func(table *model.ListBuckets) (*model.ListBuckets, error)) (*grpc_server.ListBucketsResponse, error) {
-	return gateway.ToDomain[model.ListBuckets, grpc_server.ListBucketsRequest, grpc_server.ListBucketsResponse](x, req, call)
 }
 
 func (x *ListBuckets) Input(req *grpc_server.ListBucketsRequest) *model.ListBuckets {

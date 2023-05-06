@@ -3,14 +3,9 @@ package gateway
 import (
 	"sample/s3-grpc-server/entitiy/storage/model"
 	"sample/s3-grpc-server/proto/grpc_server"
-	"sample/s3-grpc-server/service/grpc/gateway"
 )
 
 type CreateBucket struct {
-}
-
-func (x *CreateBucket) ToInfra(req *model.CreateBucket, call func(req *grpc_server.CreateBucketRequest) (*grpc_server.CreateBucketResponse, error)) (*model.CreateBucket, error) {
-	return gateway.ToInfra[model.CreateBucket, grpc_server.CreateBucketRequest, grpc_server.CreateBucketResponse](x, req, call)
 }
 
 func (x *CreateBucket) Input(_ *model.CreateBucket) *grpc_server.CreateBucketRequest {
@@ -24,10 +19,6 @@ func (x *CreateBucket) Output(res *grpc_server.CreateBucketResponse) *model.Crea
 }
 
 type ListBuckets struct {
-}
-
-func (x *ListBuckets) ToInfra(req *model.ListBuckets, call func(req *grpc_server.ListBucketsRequest) (*grpc_server.ListBucketsResponse, error)) (*model.ListBuckets, error) {
-	return gateway.ToInfra[model.ListBuckets, grpc_server.ListBucketsRequest, grpc_server.ListBucketsResponse](x, req, call)
 }
 
 func (x *ListBuckets) Input(_ *model.ListBuckets) *grpc_server.ListBucketsRequest {

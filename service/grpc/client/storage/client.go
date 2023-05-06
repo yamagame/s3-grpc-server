@@ -4,16 +4,17 @@ import (
 	"context"
 	"sample/s3-grpc-server/entitiy/storage/model"
 	"sample/s3-grpc-server/proto/grpc_server"
-	"sample/s3-grpc-server/service/grpc/client/storage/gateway"
+	gw "sample/s3-grpc-server/service/grpc/client/storage/gateway"
+	"sample/s3-grpc-server/service/grpc/gateway"
 )
 
 type clientGateway struct {
-	createBucket gateway.CreateBucket
-	listBuckets  gateway.ListBuckets
-	putObject    gateway.PutObject
-	getObject    gateway.GetObject
-	deleteObject gateway.DeleteObject
-	listobjects  gateway.ListObjects
+	createBucket gw.CreateBucket
+	listBuckets  gw.ListBuckets
+	putObject    gw.PutObject
+	getObject    gw.GetObject
+	deleteObject gw.DeleteObject
+	listobjects  gw.ListObjects
 }
 
 type StorageClientRepository struct {
@@ -28,37 +29,37 @@ func NewStorageRepository(client grpc_server.StorageRepositoryClient) *StorageCl
 }
 
 func (x *StorageClientRepository) CreateBucket(ctx context.Context, object *model.CreateBucket) (*model.CreateBucket, error) {
-	return x.createBucket.ToInfra(object, func(req *grpc_server.CreateBucketRequest) (*grpc_server.CreateBucketResponse, error) {
+	return gateway.ToInfra(object, x.createBucket.Input, func(req *grpc_server.CreateBucketRequest) (*grpc_server.CreateBucketResponse, error) {
 		return x.client.CreateBucket(ctx, req)
-	})
+	}, x.createBucket.Output)
 }
 
 func (x *StorageClientRepository) ListBuckets(ctx context.Context, object *model.ListBuckets) (*model.ListBuckets, error) {
-	return x.listBuckets.ToInfra(object, func(req *grpc_server.ListBucketsRequest) (*grpc_server.ListBucketsResponse, error) {
+	return gateway.ToInfra(object, x.listBuckets.Input, func(req *grpc_server.ListBucketsRequest) (*grpc_server.ListBucketsResponse, error) {
 		return x.client.ListBuckets(ctx, req)
-	})
+	}, x.listBuckets.Output)
 }
 
 func (x *StorageClientRepository) PutObject(ctx context.Context, object *model.PutObject) (*model.PutObject, error) {
-	return x.putObject.ToInfra(object, func(req *grpc_server.PutObjectRequest) (*grpc_server.PutObjectResponse, error) {
+	return gateway.ToInfra(object, x.putObject.Input, func(req *grpc_server.PutObjectRequest) (*grpc_server.PutObjectResponse, error) {
 		return x.client.PutObject(ctx, req)
-	})
+	}, x.putObject.Output)
 }
 
 func (x *StorageClientRepository) GetObject(ctx context.Context, object *model.GetObject) (*model.GetObject, error) {
-	return x.getObject.ToInfra(object, func(req *grpc_server.GetObjectRequest) (*grpc_server.GetObjectResponse, error) {
+	return gateway.ToInfra(object, x.getObject.Input, func(req *grpc_server.GetObjectRequest) (*grpc_server.GetObjectResponse, error) {
 		return x.client.GetObject(ctx, req)
-	})
+	}, x.getObject.Output)
 }
 
 func (x *StorageClientRepository) DeleteObject(ctx context.Context, object *model.DeleteObject) (*model.DeleteObject, error) {
-	return x.deleteObject.ToInfra(object, func(req *grpc_server.DeleteObjectRequest) (*grpc_server.DeleteObjectResponse, error) {
+	return gateway.ToInfra(object, x.deleteObject.Input, func(req *grpc_server.DeleteObjectRequest) (*grpc_server.DeleteObjectResponse, error) {
 		return x.client.DeleteObject(ctx, req)
-	})
+	}, x.deleteObject.Output)
 }
 
 func (x *StorageClientRepository) ListObjects(ctx context.Context, object *model.ListObjects) (*model.ListObjects, error) {
-	return x.listobjects.ToInfra(object, func(req *grpc_server.ListObjectsRequest) (*grpc_server.ListObjectsResponse, error) {
+	return gateway.ToInfra(object, x.listobjects.Input, func(req *grpc_server.ListObjectsRequest) (*grpc_server.ListObjectsResponse, error) {
 		return x.client.ListObjects(ctx, req)
-	})
+	}, x.listobjects.Output)
 }

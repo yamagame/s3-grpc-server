@@ -25,14 +25,6 @@ func main() {
 	flag.Parse()
 	mode := flag.Arg(0)
 
-	grpcProviders := []interface{}{
-		constructor.RegisterFileServer,
-		constructor.RegisterTableServer,
-		constructor.RegisterCellServer,
-		constructor.RegisterStorageServer,
-		constructor.RegisterReflection,
-	}
-
 	serviceProviders := []interface{}{
 		fileService.NewFileServerRepository,
 		tableService.NewTableServerRepository,
@@ -54,7 +46,7 @@ func main() {
 		fx.Provide(grpc.NewServer),
 		fx.Provide(serviceProviders...),
 		fx.Provide(app.NewApp),
-		fx.Invoke(grpcProviders...),
+		fx.Invoke(constructor.RegisterServer),
 		fx.Invoke(func(app *app.App) {
 			app.Start()
 		}),

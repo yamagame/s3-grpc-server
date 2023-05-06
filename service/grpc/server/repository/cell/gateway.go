@@ -3,16 +3,11 @@ package cell
 import (
 	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
-	"sample/s3-grpc-server/service/grpc/gateway"
 
 	"time"
 )
 
 type CreateCell struct {
-}
-
-func (x *CreateCell) ToDomain(req *grpc_server.CreateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.CreateCellResponse, error) {
-	return gateway.ToDomain[model.Cell, grpc_server.CreateCellRequest, grpc_server.CreateCellResponse](x, req, call)
 }
 
 func (x *CreateCell) Input(req *grpc_server.CreateCellRequest) *model.Cell {
@@ -35,10 +30,6 @@ func (x *CreateCell) Output(res *model.Cell) *grpc_server.CreateCellResponse {
 type ReadCell struct {
 }
 
-func (x *ReadCell) ToDomain(req *grpc_server.ReadCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.ReadCellResponse, error) {
-	return gateway.ToDomain[model.Cell, grpc_server.ReadCellRequest, grpc_server.ReadCellResponse](x, req, call)
-}
-
 func (x *ReadCell) Input(req *grpc_server.ReadCellRequest) *model.Cell {
 	return &model.Cell{
 		ID: req.GetID(),
@@ -56,10 +47,6 @@ func (x *ReadCell) Output(res *model.Cell) *grpc_server.ReadCellResponse {
 type UpdateCell struct {
 }
 
-func (x *UpdateCell) ToDomain(req *grpc_server.UpdateCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.UpdateCellResponse, error) {
-	return gateway.ToDomain[model.Cell, grpc_server.UpdateCellRequest, grpc_server.UpdateCellResponse](x, req, call)
-}
-
 func (x *UpdateCell) Input(req *grpc_server.UpdateCellRequest) *model.Cell {
 	return &model.Cell{
 		ID:        req.Cell.Id,
@@ -75,10 +62,6 @@ func (x *UpdateCell) Output(res *model.Cell) *grpc_server.UpdateCellResponse {
 }
 
 type DeleteCell struct {
-}
-
-func (x *DeleteCell) ToDomain(req *grpc_server.DeleteCellRequest, call func(table *model.Cell) (*model.Cell, error)) (*grpc_server.DeleteCellResponse, error) {
-	return gateway.ToDomain[model.Cell, grpc_server.DeleteCellRequest, grpc_server.DeleteCellResponse](x, req, call)
 }
 
 func (x *DeleteCell) Input(req *grpc_server.DeleteCellRequest) *model.Cell {
