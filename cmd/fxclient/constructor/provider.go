@@ -17,7 +17,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func NewGRPCConnection() *grpc.ClientConn {
+func NewGRPCConnection() (*grpc.ClientConn, error) {
 	address := os.Getenv("GRPC_HOST")
 	conn, err := grpc.Dial(
 		address,
@@ -26,9 +26,9 @@ func NewGRPCConnection() *grpc.ClientConn {
 	)
 	if err != nil {
 		log.Fatal("Connection failed.")
-		return nil
+		return nil, err
 	}
-	return conn
+	return conn, nil
 }
 
 func NewContext() context.Context {

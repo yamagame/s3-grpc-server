@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"sample/s3-grpc-server/cmd/fxclient/app"
 	"sample/s3-grpc-server/cmd/fxclient/constructor"
@@ -25,7 +26,11 @@ func main() {
 
 	// 2. gRPCサーバーとのコネクションを確立
 	// address := os.Getenv("GRPC_HOST")
-	conn := constructor.NewGRPCConnection()
+	conn, err := constructor.NewGRPCConnection()
+	if err != nil {
+		log.Fatal("Connection failed.")
+		return
+	}
 	defer conn.Close()
 
 	// 3. gRPCクライアントを生成
