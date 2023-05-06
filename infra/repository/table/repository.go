@@ -12,7 +12,7 @@ type TableRepository struct {
 	repository.CRUDRepository[model.Table]
 }
 
-func NewTableRepository(db *gorm.DB) *TableRepository {
+func NewTableRepository(db *gorm.DB) RepositoryInterface {
 	return &TableRepository{
 		CRUDRepository: repository.CRUDRepository[model.Table]{DB: db},
 	}

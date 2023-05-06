@@ -12,7 +12,7 @@ type FileRepository struct {
 	repository.CRUDRepository[model.File]
 }
 
-func NewFileRepository(db *gorm.DB) *FileRepository {
+func NewFileRepository(db *gorm.DB) RepositoryInterface {
 	return &FileRepository{
 		CRUDRepository: repository.CRUDRepository[model.File]{DB: db},
 	}

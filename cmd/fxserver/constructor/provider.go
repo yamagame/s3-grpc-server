@@ -5,14 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	cellInfra "sample/s3-grpc-server/infra/repository/cell"
-	fileInfra "sample/s3-grpc-server/infra/repository/file"
-	tableInfra "sample/s3-grpc-server/infra/repository/table"
 	storageInfra "sample/s3-grpc-server/infra/storage"
-
-	cellService "sample/s3-grpc-server/service/grpc/server/repository/cell"
-	fileService "sample/s3-grpc-server/service/grpc/server/repository/file"
-	tableService "sample/s3-grpc-server/service/grpc/server/repository/table"
 )
 
 func GetStorageInfraImpl(mode string) func() (storageInfra.RepositoryClientInterface, error) {
@@ -40,16 +33,4 @@ func GetStorageInfraImpl(mode string) func() (storageInfra.RepositoryClientInter
 			Endpoint: os.Getenv("S3_ENDPOINT"),
 		})
 	}
-}
-
-func NewFileService(repo *fileInfra.FileRepository) *fileService.FileServerRepository {
-	return fileService.NewFileServerRepository(repo)
-}
-
-func NewTableService(repo *tableInfra.TableRepository) *tableService.TableServerRepository {
-	return tableService.NewTableServerRepository(repo)
-}
-
-func NewCellService(repo *cellInfra.CellRepository) *cellService.CellServerRepository {
-	return cellService.NewCellServerRepository(repo)
 }

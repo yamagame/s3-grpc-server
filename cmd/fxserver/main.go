@@ -12,6 +12,9 @@ import (
 	tableInfra "sample/s3-grpc-server/infra/repository/table"
 	storageInfra "sample/s3-grpc-server/infra/storage"
 
+	cellService "sample/s3-grpc-server/service/grpc/server/repository/cell"
+	fileService "sample/s3-grpc-server/service/grpc/server/repository/file"
+	tableService "sample/s3-grpc-server/service/grpc/server/repository/table"
 	storageService "sample/s3-grpc-server/service/grpc/server/storage"
 
 	"go.uber.org/fx"
@@ -31,9 +34,9 @@ func main() {
 	}
 
 	serviceProviders := []interface{}{
-		constructor.NewFileService,
-		constructor.NewTableService,
-		constructor.NewCellService,
+		fileService.NewFileServerRepository,
+		tableService.NewTableServerRepository,
+		cellService.NewCellServerRepository,
 		storageService.NewStorageServerRepository,
 	}
 

@@ -11,7 +11,7 @@ type CellRepository struct {
 	repository.CRUDRepository[model.Cell]
 }
 
-func NewCellRepository(db *gorm.DB) *CellRepository {
+func NewCellRepository(db *gorm.DB) RepositoryInterface {
 	return &CellRepository{
 		CRUDRepository: repository.CRUDRepository[model.Cell]{DB: db},
 	}
