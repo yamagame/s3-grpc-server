@@ -9,7 +9,7 @@ import (
 	"sample/s3-grpc-server/infra/repository/file"
 	"sample/s3-grpc-server/infra/repository/table"
 	"sample/s3-grpc-server/infra/storage"
-	"sample/s3-grpc-server/service/sheet"
+	"sample/s3-grpc-server/share/sheet"
 	"strings"
 	"time"
 )

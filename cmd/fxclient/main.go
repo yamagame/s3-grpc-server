@@ -9,7 +9,7 @@ import (
 	"sample/s3-grpc-server/service/grpc/client/repository/file"
 	"sample/s3-grpc-server/service/grpc/client/repository/table"
 	"sample/s3-grpc-server/service/grpc/client/storage"
-	"sample/s3-grpc-server/service/sheet"
+	"sample/s3-grpc-server/share/sheet"
 
 	"go.uber.org/fx"
 )

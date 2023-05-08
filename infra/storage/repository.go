@@ -11,7 +11,7 @@ type StorageRepository struct {
 	client RepositoryClientInterface
 }
 
-func NewStorageRepository(client RepositoryClientInterface) *StorageRepository {
+func NewStorageRepository(client RepositoryClientInterface) RepositoryInterface {
 	return &StorageRepository{
 		client: client,
 	}

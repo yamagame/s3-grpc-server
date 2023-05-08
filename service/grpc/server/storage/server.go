@@ -20,54 +20,54 @@ type serverGateway struct {
 
 type StorageServerRepository struct {
 	serverGateway
-	service *storage.StorageRepository
+	repository storage.RepositoryInterface
 	grpc_server.UnimplementedStorageRepositoryServer
 }
 
-func NewStorageServerRepository(service *storage.StorageRepository) *StorageServerRepository {
+func NewStorageServerRepository(repository storage.RepositoryInterface) *StorageServerRepository {
 	return &StorageServerRepository{
-		service: service,
+		repository: repository,
 	}
 }
 
 // CreateBucket implements storageRepositoryServer.CreateBucket
 func (s *StorageServerRepository) CreateBucket(ctx context.Context, in *grpc_server.CreateBucketRequest) (*grpc_server.CreateBucketResponse, error) {
 	return gateway.ToDomain(in, s.createBucket.Input, func(entity *model.CreateBucket) (*model.CreateBucket, error) {
-		return s.service.CreateBucket(ctx, entity)
+		return s.repository.CreateBucket(ctx, entity)
 	}, s.createBucket.Output)
 }
 
 // ListBuckets implements storageRepositoryServer.ListBuckets
 func (s *StorageServerRepository) ListBuckets(ctx context.Context, in *grpc_server.ListBucketsRequest) (*grpc_server.ListBucketsResponse, error) {
 	return gateway.ToDomain(in, s.listBuckets.Input, func(entity *model.ListBuckets) (*model.ListBuckets, error) {
-		return s.service.ListBuckets(ctx, entity)
+		return s.repository.ListBuckets(ctx, entity)
 	}, s.listBuckets.Output)
 }
 
 // PutObject implements storageRepositoryServer.PutObject
 func (s *StorageServerRepository) PutObject(ctx context.Context, in *grpc_server.PutObjectRequest) (*grpc_server.PutObjectResponse, error) {
 	return gateway.ToDomain(in, s.putObject.Input, func(entity *model.PutObject) (*model.PutObject, error) {
-		return s.service.PutObject(ctx, entity)
+		return s.repository.PutObject(ctx, entity)
 	}, s.putObject.Output)
 }
 
 // GetObject implements storageRepositoryServer.GetObject
 func (s *StorageServerRepository) GetObject(ctx context.Context, in *grpc_server.GetObjectRequest) (*grpc_server.GetObjectResponse, error) {
 	return gateway.ToDomain(in, s.getObject.Input, func(entity *model.GetObject) (*model.GetObject, error) {
-		return s.service.GetObject(ctx, entity)
+		return s.repository.GetObject(ctx, entity)
 	}, s.getObject.Output)
 }
 
 // DeleteObject implements storageRepositoryServer.DeleteObject
 func (s *StorageServerRepository) DeleteObject(ctx context.Context, in *grpc_server.DeleteObjectRequest) (*grpc_server.DeleteObjectResponse, error) {
 	return gateway.ToDomain(in, s.deleteObject.Input, func(entity *model.DeleteObject) (*model.DeleteObject, error) {
-		return s.service.DeleteObject(ctx, entity)
+		return s.repository.DeleteObject(ctx, entity)
 	}, s.deleteObject.Output)
 }
 
 // ListObjects implements storageRepositoryServer.ListObjects
 func (s *StorageServerRepository) ListObjects(ctx context.Context, in *grpc_server.ListObjectsRequest) (*grpc_server.ListObjectsResponse, error) {
 	return gateway.ToDomain(in, s.listObjects.Input, func(entity *model.ListObjects) (*model.ListObjects, error) {
-		return s.service.ListObjects(ctx, entity)
+		return s.repository.ListObjects(ctx, entity)
 	}, s.listObjects.Output)
 }

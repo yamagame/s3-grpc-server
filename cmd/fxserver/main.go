@@ -4,18 +4,10 @@ import (
 	"flag"
 	"sample/s3-grpc-server/cmd/fxserver/app"
 	"sample/s3-grpc-server/cmd/fxserver/constructor"
+	"sample/s3-grpc-server/infra"
+	"sample/s3-grpc-server/service"
 
 	"sample/s3-grpc-server/infra/repository"
-
-	cellInfra "sample/s3-grpc-server/infra/repository/cell"
-	fileInfra "sample/s3-grpc-server/infra/repository/file"
-	tableInfra "sample/s3-grpc-server/infra/repository/table"
-	storageInfra "sample/s3-grpc-server/infra/storage"
-
-	cellService "sample/s3-grpc-server/service/grpc/server/repository/cell"
-	fileService "sample/s3-grpc-server/service/grpc/server/repository/file"
-	tableService "sample/s3-grpc-server/service/grpc/server/repository/table"
-	storageService "sample/s3-grpc-server/service/grpc/server/storage"
 
 	"go.uber.org/fx"
 	"google.golang.org/grpc"
@@ -26,17 +18,17 @@ func main() {
 	mode := flag.Arg(0)
 
 	serviceProviders := []interface{}{
-		fileService.NewFileServerRepository,
-		tableService.NewTableServerRepository,
-		cellService.NewCellServerRepository,
-		storageService.NewStorageServerRepository,
+		service.NewFileServerRepository,
+		service.NewTableServerRepository,
+		service.NewCellServerRepository,
+		service.NewStorageServerRepository,
 	}
 
 	infraProviders := []interface{}{
-		fileInfra.NewFileRepository,
-		tableInfra.NewTableRepository,
-		cellInfra.NewCellRepository,
-		storageInfra.NewStorageRepository,
+		infra.NewFileRepository,
+		infra.NewTableRepository,
+		infra.NewCellRepository,
+		infra.NewStorageRepository,
 	}
 
 	fx.New(
