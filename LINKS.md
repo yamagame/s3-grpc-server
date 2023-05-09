@@ -20,6 +20,10 @@
 
   https://mitmproxy.org/
 
+- Flutter web、amplify_flutter、Amazon Coginto、KeycloakでSAMLフェデレーション（SSO）
+
+  https://zenn.dev/motu2119/articles/a70b611329d133
+
 - mysql asdfインストール
 
 ```bash
