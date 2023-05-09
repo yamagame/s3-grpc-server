@@ -24,6 +24,10 @@
 
   https://zenn.dev/motu2119/articles/a70b611329d133
 
+- golang 偽名住所ジェネレータ
+
+  https://github.com/mattn/go-gimei
+
 - mysql asdfインストール
 
 ```bash
