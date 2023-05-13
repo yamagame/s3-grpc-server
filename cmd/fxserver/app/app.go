@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"net"
@@ -21,6 +22,7 @@ type AppIn struct {
 	TableService   *table.TableServerRepository
 	CellService    *cell.CellServerRepository
 	StorageService *storage.StorageServerRepository
+	Logger         *zap.SugaredLogger
 }
 
 type App struct {
@@ -29,6 +31,7 @@ type App struct {
 	tableService   *table.TableServerRepository
 	cellService    *cell.CellServerRepository
 	storageService *storage.StorageServerRepository
+	logger         *zap.SugaredLogger
 }
 
 func NewApp(in AppIn) *App {
@@ -38,6 +41,7 @@ func NewApp(in AppIn) *App {
 		tableService:   in.TableService,
 		cellService:    in.CellService,
 		storageService: in.StorageService,
+		logger:         in.Logger,
 	}
 }
 
@@ -46,22 +50,21 @@ var (
 )
 
 func (x *App) Start() {
-	logger, _ := zap.NewProduction()
-	defer logger.Sync() //nolint
-
-	sugar := logger.Sugar()
-	zap.ReplaceGlobals(logger)
-
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 	if err != nil {
 		// log.Fatalf("failed to listen: %v", err)
-		sugar.Infof("failed to listen: %v", err)
+		x.logger.Infof("failed to listen: %v", err)
 	}
 
 	// log.Printf("server listening at %v", lis.Addr())
-	sugar.Infof("server listening at %v", lis.Addr())
+	x.logger.Infof("server listening at %v", lis.Addr())
 	if err := x.server.Serve(lis); err != nil {
 		// log.Fatalf("failed to serve: %v", err)
-		sugar.Infof("failed to serve: %v", err)
+		x.logger.Infof("failed to serve: %v", err)
 	}
+}
+
+func (x *App) Shutdown(ctx context.Context) error {
+	x.logger.Sync()
+	return nil
 }
