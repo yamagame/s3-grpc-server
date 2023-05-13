@@ -6,8 +6,8 @@ import (
 
 type StorageRepository storage.StorageRepository
 type StorageRepositoryInterface storage.RepositoryInterface
-type StorageRepositoryClientInterface storage.RepositoryClientInterface
+type StorageRepositoryClientInterface storage.RepositoryInternalInterface
 
-func NewStorageRepository(client storage.RepositoryClientInterface) StorageRepositoryInterface {
+func NewStorageRepository(client storage.RepositoryInternalInterface) StorageRepositoryInterface {
 	return storage.NewStorageRepository(client)
 }

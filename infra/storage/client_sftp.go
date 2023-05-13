@@ -60,8 +60,19 @@ func NewSFTPClient(ctx context.Context, options SFTPClientConfig) (*SFTPClient, 
 	}, nil
 }
 
+// Close implements SFTPClient.Close
+func (x *SFTPClient) Close() error {
+	return x.client.Close()
+}
+
+// CreateBucket implements SFTPClient.CreateBucket
+func (x *SFTPClient) CreateBucket(ctx context.Context, _ *model.CreateBucket) error {
+	fmt.Println("CreateBucket", x.share)
+	return nil
+}
+
 // ListBuckets implements SFTPClient.ListBuckets
-func (x *SFTPClient) ListBuckets(ctx context.Context) ([]model.Bucket, error) {
+func (x *SFTPClient) ListBuckets(ctx context.Context, _ *model.ListBuckets) ([]model.Bucket, error) {
 	var buckets []model.Bucket
 	fmt.Println("ListBuckets")
 	buckets = append(buckets, model.Bucket{
@@ -70,24 +81,14 @@ func (x *SFTPClient) ListBuckets(ctx context.Context) ([]model.Bucket, error) {
 	return buckets, nil
 }
 
-// CreateBucket implements SFTPClient.CreateBucket
-func (x *SFTPClient) CreateBucket(ctx context.Context) error {
-	fmt.Println("CreateBucket", x.share)
-	return nil
-}
-
 // PutObject implements SFTPClient.PutObject
-func (x *SFTPClient) PutObject(ctx context.Context, key string, body io.Reader) error {
+func (x *SFTPClient) PutObject(ctx context.Context, req *model.PutObject, body io.Reader) error {
 	fmt.Println("leave your mark")
-	wc, err := x.client.Create(path.Join(x.share, key))
+	wc, err := x.client.Create(path.Join(x.share, req.Key))
 	if err != nil {
 		return err
 	}
-	buf := new(bytes.Buffer)
-	if _, err := io.Copy(buf, body); err != nil {
-		return err
-	}
-	if _, err := wc.Write(buf.Bytes()); err != nil {
+	if _, err := io.Copy(wc, body); err != nil {
 		return err
 	}
 	if err := wc.Close(); err != nil {
@@ -97,20 +98,20 @@ func (x *SFTPClient) PutObject(ctx context.Context, key string, body io.Reader) 
 }
 
 // PutObjectWithString implements SFTPClient.PutObjectWithString
-func (x *SFTPClient) PutObjectWithString(ctx context.Context, key, content string) error {
-	return x.PutObject(ctx, key, strings.NewReader(content))
+func (x *SFTPClient) PutObjectWithString(ctx context.Context, req *model.PutObject) error {
+	return x.PutObject(ctx, req, strings.NewReader(req.Content))
 }
 
 // GetObject implements SFTPClient.GetObject
-func (x *SFTPClient) GetObject(ctx context.Context, key string) (io.Reader, error) {
-	fmt.Println("GetObject", key)
-	p := path.Join(x.share, key)
+func (x *SFTPClient) GetObject(ctx context.Context, req *model.GetObject) (io.Reader, error) {
+	fmt.Println("GetObject", req.Key)
+	p := path.Join(x.share, req.Key)
 	return x.client.Open(p)
 }
 
 // GetObjectWithString implements SFTPClient.GetObjectWithString
-func (x *SFTPClient) GetObjectWithString(ctx context.Context, key string) (string, error) {
-	out, err := x.GetObject(ctx, key)
+func (x *SFTPClient) GetObjectWithString(ctx context.Context, req *model.GetObject) (string, error) {
+	out, err := x.GetObject(ctx, req)
 	if err != nil {
 		return "", err
 	}
@@ -125,16 +126,16 @@ func (x *SFTPClient) GetObjectWithString(ctx context.Context, key string) (strin
 }
 
 // DeleteObject implements SFTPClient.DeleteObject
-func (x *SFTPClient) DeleteObject(ctx context.Context, key string) error {
-	fmt.Println("DeleteObject", key)
-	return x.client.Remove(path.Join(x.share, key))
+func (x *SFTPClient) DeleteObject(ctx context.Context, req *model.DeleteObject) error {
+	fmt.Println("DeleteObject", req.Key)
+	return x.client.Remove(path.Join(x.share, req.Key))
 }
 
 // ListObjects implements SFTPClient.ListObjects
-func (x *SFTPClient) ListObjects(ctx context.Context, prefix string, nexttoken *string) ([]model.Object, error) {
+func (x *SFTPClient) ListObjects(ctx context.Context, req *model.ListObjects) ([]model.Object, error) {
 	var objects []model.Object
-	fmt.Println("ListObjects", prefix)
-	w := x.client.Walk(path.Join(x.share, prefix))
+	fmt.Println("ListObjects", req.Prefix)
+	w := x.client.Walk(path.Join(x.share, req.Prefix))
 	for w.Step() {
 		if w.Err() != nil {
 			continue

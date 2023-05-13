@@ -47,7 +47,7 @@ func main() {
 	}
 	gorm := repository.GormDB()
 	server := NewServer(
-		GetStorageInfraImpl(mode),
+		storageInfra.NewStorageRepository(GetStorageInfraImpl(mode)),
 		fileInfra.NewFileRepository(gorm),
 		tableInfra.NewTableRepository(gorm),
 		cellInfra.NewCellRepository(gorm),
@@ -60,8 +60,8 @@ func main() {
 	}
 }
 
-func GetStorageInfraImpl(mode string) storageInfra.RepositoryClientInterface {
-	getClient := func(mode string) (storageInfra.RepositoryClientInterface, error) {
+func GetStorageInfraImpl(mode string) storageInfra.RepositoryInternalInterface {
+	getClient := func(mode string) (storageInfra.RepositoryInternalInterface, error) {
 		if mode == "sftp" {
 			fmt.Println("start sftp")
 			return storageInfra.NewSFTPClient(context.Background(), storageInfra.SFTPClientConfig{
@@ -93,14 +93,14 @@ func GetStorageInfraImpl(mode string) storageInfra.RepositoryClientInterface {
 }
 
 func NewServer(
-	storageRepository storageInfra.RepositoryClientInterface,
+	storageRepository storageInfra.RepositoryInterface,
 	fileRepository fileInfra.RepositoryInterface,
 	tableRepository tableInfra.RepositoryInterface,
 	cellRepository cellInfra.RepositoryInterface,
 ) *grpc.Server {
 	server := grpc.NewServer()
 	grpc_server.RegisterStorageRepositoryServer(server,
-		storageService.NewStorageServerRepository(storageInfra.NewStorageRepository(storageRepository)),
+		storageService.NewStorageServerRepository(storageRepository),
 	)
 	grpc_server.RegisterFileRepositoryServer(server,
 		fileService.NewFileServerRepository(fileRepository),

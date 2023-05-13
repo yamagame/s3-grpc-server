@@ -8,10 +8,10 @@ import (
 )
 
 type StorageRepository struct {
-	client RepositoryClientInterface
+	client RepositoryInternalInterface
 }
 
-func NewStorageRepository(client RepositoryClientInterface) RepositoryInterface {
+func NewStorageRepository(client RepositoryInternalInterface) RepositoryInterface {
 	return &StorageRepository{
 		client: client,
 	}
@@ -19,7 +19,7 @@ func NewStorageRepository(client RepositoryClientInterface) RepositoryInterface 
 
 // CreateBucket implements StorageRepository.CreateBucket
 func (s *StorageRepository) CreateBucket(ctx context.Context, req *model.CreateBucket) (*model.CreateBucket, error) {
-	err := s.client.CreateBucket(ctx)
+	err := s.client.CreateBucket(ctx, req)
 	if err != nil {
 		fmt.Println(err)
 		req.Result = model.StorageResult(grpc_server.Result_ERR)
@@ -31,7 +31,7 @@ func (s *StorageRepository) CreateBucket(ctx context.Context, req *model.CreateB
 
 // ListBuckets implements StorageRepository.ListBuckets
 func (s *StorageRepository) ListBuckets(ctx context.Context, req *model.ListBuckets) (*model.ListBuckets, error) {
-	buckets, err := s.client.ListBuckets(ctx)
+	buckets, err := s.client.ListBuckets(ctx, req)
 	if err != nil {
 		fmt.Println(err)
 		req.Result = model.StorageResult(grpc_server.Result_ERR)
@@ -44,7 +44,7 @@ func (s *StorageRepository) ListBuckets(ctx context.Context, req *model.ListBuck
 
 // PutObject implements StorageRepository.PutObject
 func (s *StorageRepository) PutObject(ctx context.Context, req *model.PutObject) (*model.PutObject, error) {
-	err := s.client.PutObjectWithString(ctx, req.Key, req.Content)
+	err := s.client.PutObjectWithString(ctx, req)
 	if err != nil {
 		fmt.Println(err)
 		req.Result = model.StorageResult(grpc_server.Result_ERR)
@@ -56,7 +56,7 @@ func (s *StorageRepository) PutObject(ctx context.Context, req *model.PutObject)
 
 // GetObject implements StorageRepository.GetObject
 func (s *StorageRepository) GetObject(ctx context.Context, req *model.GetObject) (*model.GetObject, error) {
-	ret, err := s.client.GetObjectWithString(ctx, req.Key)
+	ret, err := s.client.GetObjectWithString(ctx, req)
 	if err != nil {
 		fmt.Println(err)
 		req.Result = model.StorageResult(grpc_server.Result_ERR)
@@ -69,7 +69,7 @@ func (s *StorageRepository) GetObject(ctx context.Context, req *model.GetObject)
 
 // DeleteObject implements StorageRepository.DeleteObject
 func (s *StorageRepository) DeleteObject(ctx context.Context, req *model.DeleteObject) (*model.DeleteObject, error) {
-	err := s.client.DeleteObject(ctx, req.Key)
+	err := s.client.DeleteObject(ctx, req)
 	if err != nil {
 		fmt.Println(err)
 		req.Result = model.StorageResult(grpc_server.Result_ERR)
@@ -81,7 +81,7 @@ func (s *StorageRepository) DeleteObject(ctx context.Context, req *model.DeleteO
 
 // ListObjects implements StorageRepository.ListObjects
 func (s *StorageRepository) ListObjects(ctx context.Context, req *model.ListObjects) (*model.ListObjects, error) {
-	objects, err := s.client.ListObjects(ctx, req.Prefix, req.Next)
+	objects, err := s.client.ListObjects(ctx, req)
 	fmt.Println(objects)
 	if err != nil {
 		fmt.Println(err)

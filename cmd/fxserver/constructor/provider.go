@@ -10,8 +10,8 @@ import (
 	"go.uber.org/zap"
 )
 
-func GetStorageInfraImpl(mode string) func(*zap.SugaredLogger) (storageInfra.RepositoryClientInterface, error) {
-	return func(log *zap.SugaredLogger) (storageInfra.RepositoryClientInterface, error) {
+func GetStorageInfraImpl(mode string) func(*zap.SugaredLogger) (storageInfra.RepositoryInternalInterface, error) {
+	return func(log *zap.SugaredLogger) (storageInfra.RepositoryInternalInterface, error) {
 		if mode == "sftp" {
 			log.Infof("start sftp")
 			return storageInfra.NewSFTPClient(context.Background(), storageInfra.SFTPClientConfig{

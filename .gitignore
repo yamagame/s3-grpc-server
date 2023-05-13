@@ -18,3 +18,5 @@ work/*
 *.cert
 *.crt
 /build
+prof/*
+!prof/.gitkeep
