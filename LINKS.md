@@ -42,3 +42,67 @@ $ asdf global mysql 8.0.32
 ```bash
 $ mysql -h localhost --port 3306 --protocol tcp -u root -ppass
 ```
+
+- cobra sample
+
+```golang
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/spf13/cobra"
+)
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/spf13/cobra"
+)
+
+var (
+	rootCmd = &cobra.Command{
+		Use:   "root",
+		Short: "usage of command",
+		Long:  "usage of command",
+	}
+
+	subCmd = &cobra.Command{
+		Use:   "sub",
+		Short: "usage of sub command",
+		Long:  "usage of sub command",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			fmt.Println(cmd.PersistentFlags().Lookup("host").Value)
+			fmt.Println(cmd.PersistentFlags().Lookup("port").Value)
+			return nil
+		},
+	}
+
+	versionCmd = &cobra.Command{
+		Use:     "version",
+		Short:   "Print the version number of this command",
+		Long:    "Print the version number of this command",
+		Version: "0.1",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			fmt.Println("sample v" + cmd.Version)
+			return nil
+		},
+	}
+)
+
+func main() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+
+func init() {
+	subCmd.PersistentFlags().String("host", "localhost", "hostname")
+	subCmd.PersistentFlags().Int("port", 3000, "port number")
+	rootCmd.AddCommand(subCmd)
+	rootCmd.AddCommand(versionCmd)
+}
+```
