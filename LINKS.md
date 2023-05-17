@@ -106,3 +106,27 @@ func init() {
 	rootCmd.AddCommand(versionCmd)
 }
 ```
+
+- pprof sample
+
+```golang
+func saveMemoryProfile(filepath string) {
+	f, err := os.Create(filepath)
+	if err != nil {
+		log.Fatal("could not create memory profile: ", err)
+	}
+	defer f.Close() // error handling omitted for example
+	runtime.GC()    // get up-to-date statistics
+	if err := pprof.WriteHeapProfile(f); err != nil {
+		log.Fatal("could not write memory profile: ", err)
+	}
+}
+```
+
+```golang
+saveMemoryProfile(filepath.Join("./prof", "mem.pprof"))
+```
+
+```bash
+go tool pprof -inuse_space -top ./prof/mem.pprof | head -n 3
+```
