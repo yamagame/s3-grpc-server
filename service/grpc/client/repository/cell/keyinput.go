@@ -68,3 +68,7 @@ func (x *KeyInput) Delete() *model.Cell {
 		ID: id,
 	}
 }
+
+func (x *KeyInput) List() *model.Cell {
+	return &model.Cell{}
+}

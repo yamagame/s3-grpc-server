@@ -59,3 +59,19 @@ func (x *DeleteCell) Output(res *grpc_server.DeleteCellResponse) *model.Cell {
 		ID: res.GetID(),
 	}
 }
+
+type ListCell struct{}
+
+func (x *ListCell) Input(req *model.Cell) *grpc_server.ListCellRequest {
+	return &grpc_server.ListCellRequest{
+		//
+	}
+}
+
+func (x *ListCell) Output(res *grpc_server.ListCellResponse) []*model.Cell {
+	ret := []*model.Cell{}
+	for _, v := range res.Cells {
+		ret = append(ret, cell.ToDomain(v))
+	}
+	return ret
+}

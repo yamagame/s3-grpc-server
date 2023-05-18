@@ -17,7 +17,7 @@ func GormDB() *gorm.DB {
 		panic("failed to connect database")
 	}
 	// db.Logger = db.Logger.LogMode(logger.Info)
-	return db
+	return db.Debug()
 }
 
 func StartTestDatabase(cb func(db *gorm.DB)) {

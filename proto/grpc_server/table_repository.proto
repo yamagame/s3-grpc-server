@@ -17,6 +17,8 @@ service TableRepository {
   rpc Update(UpdateTableRequest) returns (UpdateTableResponse) {}
   // Delete
   rpc Delete(DeleteTableRequest) returns (DeleteTableResponse) {}
+  // List
+  rpc List(ListTableRequest) returns (ListTableResponse) {}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,4 +57,12 @@ message DeleteTableRequest {
 
 message DeleteTableResponse {
   uint64 ID = 1;
+}
+
+message ListTableRequest {
+  //
+}
+
+message ListTableResponse {
+  repeated Table tables = 1;
 }

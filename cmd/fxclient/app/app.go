@@ -129,6 +129,11 @@ func (x *App) Start() {
 			fmt.Println(ent)
 			return nil
 		}},
+		{"ListFile", func() error {
+			ent, _ := x.fileRepository.List(ctx, x.fileScanner.List())
+			fmt.Println(ent)
+			return nil
+		}},
 		{"", nil},
 		{"CreateTable", func() error {
 			ent, _ := x.tableRepository.Create(ctx, x.tableScanner.Create())
@@ -155,6 +160,11 @@ func (x *App) Start() {
 			fmt.Println(ent)
 			return nil
 		}},
+		{"ListTable", func() error {
+			ent, _ := x.tableRepository.List(ctx, x.tableScanner.List())
+			fmt.Println(ent)
+			return nil
+		}},
 		{"", nil},
 		{"CreateCell", func() error {
 			ent, _ := x.cellRepository.Create(ctx, x.cellScanner.Create())
@@ -173,6 +183,11 @@ func (x *App) Start() {
 		}},
 		{"DeleteCell", func() error {
 			ent, _ := x.cellRepository.Delete(ctx, x.cellScanner.Delete())
+			fmt.Println(ent)
+			return nil
+		}},
+		{"ListCell", func() error {
+			ent, _ := x.cellRepository.List(ctx, x.cellScanner.List())
 			fmt.Println(ent)
 			return nil
 		}},

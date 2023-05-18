@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"time"
 
 	"gorm.io/gorm"
@@ -15,4 +16,8 @@ type Cell struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
+}
+
+func (x *Cell) String() string {
+	return fmt.Sprintf("{%d, %s}", x.ID, x.Text)
 }

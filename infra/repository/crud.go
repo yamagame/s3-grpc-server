@@ -11,6 +11,7 @@ type CRUDRepositoryInterface[T any] interface {
 	Read(ctx context.Context, file *T) (*T, error)
 	Update(ctx context.Context, file *T) (*T, error)
 	Delete(ctx context.Context, file *T) (*T, error)
+	List(ctx context.Context, file *T) ([]*T, error)
 }
 
 type CRUDRepository[T any] struct {
@@ -19,7 +20,7 @@ type CRUDRepository[T any] struct {
 
 // Create implements CRUDRepository.Create
 func (s *CRUDRepository[T]) Create(ctx context.Context, object *T) (*T, error) {
-	if err := s.DB.Create(object).Error; err != nil {
+	if err := s.DB.CreateInBatches([]*T{object}, 1).Error; err != nil {
 		return nil, err
 	}
 	return object, nil
@@ -47,4 +48,13 @@ func (s *CRUDRepository[T]) Delete(ctx context.Context, object *T) (*T, error) {
 		return nil, err
 	}
 	return object, nil
+}
+
+// List implements CRUDRepository.List
+func (s *CRUDRepository[T]) List(ctx context.Context, object *T) ([]*T, error) {
+	t := []*T{}
+	if err := s.DB.Find(&t).Error; err != nil {
+		return nil, err
+	}
+	return t, nil
 }

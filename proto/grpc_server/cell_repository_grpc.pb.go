@@ -23,6 +23,7 @@ const (
 	CellRepository_Read_FullMethodName   = "/CellRepository/Read"
 	CellRepository_Update_FullMethodName = "/CellRepository/Update"
 	CellRepository_Delete_FullMethodName = "/CellRepository/Delete"
+	CellRepository_List_FullMethodName   = "/CellRepository/List"
 )
 
 // CellRepositoryClient is the client API for CellRepository service.
@@ -37,6 +38,8 @@ type CellRepositoryClient interface {
 	Update(ctx context.Context, in *UpdateCellRequest, opts ...grpc.CallOption) (*UpdateCellResponse, error)
 	// Delete
 	Delete(ctx context.Context, in *DeleteCellRequest, opts ...grpc.CallOption) (*DeleteCellResponse, error)
+	// List
+	List(ctx context.Context, in *ListCellRequest, opts ...grpc.CallOption) (*ListCellResponse, error)
 }
 
 type cellRepositoryClient struct {
@@ -83,6 +86,15 @@ func (c *cellRepositoryClient) Delete(ctx context.Context, in *DeleteCellRequest
 	return out, nil
 }
 
+func (c *cellRepositoryClient) List(ctx context.Context, in *ListCellRequest, opts ...grpc.CallOption) (*ListCellResponse, error) {
+	out := new(ListCellResponse)
+	err := c.cc.Invoke(ctx, CellRepository_List_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CellRepositoryServer is the server API for CellRepository service.
 // All implementations must embed UnimplementedCellRepositoryServer
 // for forward compatibility
@@ -95,6 +107,8 @@ type CellRepositoryServer interface {
 	Update(context.Context, *UpdateCellRequest) (*UpdateCellResponse, error)
 	// Delete
 	Delete(context.Context, *DeleteCellRequest) (*DeleteCellResponse, error)
+	// List
+	List(context.Context, *ListCellRequest) (*ListCellResponse, error)
 	mustEmbedUnimplementedCellRepositoryServer()
 }
 
@@ -113,6 +127,9 @@ func (UnimplementedCellRepositoryServer) Update(context.Context, *UpdateCellRequ
 }
 func (UnimplementedCellRepositoryServer) Delete(context.Context, *DeleteCellRequest) (*DeleteCellResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedCellRepositoryServer) List(context.Context, *ListCellRequest) (*ListCellResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
 }
 func (UnimplementedCellRepositoryServer) mustEmbedUnimplementedCellRepositoryServer() {}
 
@@ -199,6 +216,24 @@ func _CellRepository_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CellRepository_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCellRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CellRepositoryServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CellRepository_List_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CellRepositoryServer).List(ctx, req.(*ListCellRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CellRepository_ServiceDesc is the grpc.ServiceDesc for CellRepository service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -221,6 +256,10 @@ var CellRepository_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _CellRepository_Delete_Handler,
+		},
+		{
+			MethodName: "List",
+			Handler:    _CellRepository_List_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

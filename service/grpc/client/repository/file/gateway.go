@@ -1,6 +1,7 @@
 package file
 
 import (
+	"sample/s3-grpc-server/entitiy/repository/gateway/file"
 	"sample/s3-grpc-server/entitiy/repository/gateway/table"
 	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
@@ -71,4 +72,20 @@ func (x *DeleteFile) Output(res *grpc_server.DeleteFileResponse) *model.File {
 	return &model.File{
 		ID: res.GetID(),
 	}
+}
+
+type ListFile struct{}
+
+func (x *ListFile) Input(req *model.File) *grpc_server.ListFileRequest {
+	return &grpc_server.ListFileRequest{
+		//
+	}
+}
+
+func (x *ListFile) Output(res *grpc_server.ListFileResponse) []*model.File {
+	ret := []*model.File{}
+	for _, v := range res.Files {
+		ret = append(ret, file.ToDomain(v))
+	}
+	return ret
 }

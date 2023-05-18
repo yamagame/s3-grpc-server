@@ -17,6 +17,8 @@ service CellRepository {
   rpc Update(UpdateCellRequest) returns (UpdateCellResponse) {}
   // Delete
   rpc Delete(DeleteCellRequest) returns (DeleteCellResponse) {}
+  // List
+  rpc List(ListCellRequest) returns (ListCellResponse) {}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,4 +55,12 @@ message DeleteCellRequest {
 
 message DeleteCellResponse {
   uint64 ID = 1;
+}
+
+message ListCellRequest {
+  //
+}
+
+message ListCellResponse {
+  repeated Cell cells = 1;
 }

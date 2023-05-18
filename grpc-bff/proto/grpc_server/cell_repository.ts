@@ -37,6 +37,14 @@ export interface DeleteCellResponse {
   ID: number;
 }
 
+/**  */
+export interface ListCellRequest {
+}
+
+export interface ListCellResponse {
+  cells: Cell[];
+}
+
 function createBaseCreateCellRequest(): CreateCellRequest {
   return { cell: undefined };
 }
@@ -485,6 +493,110 @@ export const DeleteCellResponse = {
   },
 };
 
+function createBaseListCellRequest(): ListCellRequest {
+  return {};
+}
+
+export const ListCellRequest = {
+  encode(_: ListCellRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListCellRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListCellRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ListCellRequest {
+    return {};
+  },
+
+  toJSON(_: ListCellRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListCellRequest>, I>>(base?: I): ListCellRequest {
+    return ListCellRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ListCellRequest>, I>>(_: I): ListCellRequest {
+    const message = createBaseListCellRequest();
+    return message;
+  },
+};
+
+function createBaseListCellResponse(): ListCellResponse {
+  return { cells: [] };
+}
+
+export const ListCellResponse = {
+  encode(message: ListCellResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.cells) {
+      Cell.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListCellResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListCellResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.cells.push(Cell.decode(reader, reader.uint32()));
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListCellResponse {
+    return { cells: Array.isArray(object?.cells) ? object.cells.map((e: any) => Cell.fromJSON(e)) : [] };
+  },
+
+  toJSON(message: ListCellResponse): unknown {
+    const obj: any = {};
+    if (message.cells) {
+      obj.cells = message.cells.map((e) => e ? Cell.toJSON(e) : undefined);
+    } else {
+      obj.cells = [];
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListCellResponse>, I>>(base?: I): ListCellResponse {
+    return ListCellResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ListCellResponse>, I>>(object: I): ListCellResponse {
+    const message = createBaseListCellResponse();
+    message.cells = object.cells?.map((e) => Cell.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 export interface CellRepository {
   /** Create */
   Create(request: CreateCellRequest): Promise<CreateCellResponse>;
@@ -494,6 +606,8 @@ export interface CellRepository {
   Update(request: UpdateCellRequest): Promise<UpdateCellResponse>;
   /** Delete */
   Delete(request: DeleteCellRequest): Promise<DeleteCellResponse>;
+  /** List */
+  List(request: ListCellRequest): Promise<ListCellResponse>;
 }
 
 export class CellRepositoryClientImpl implements CellRepository {
@@ -506,6 +620,7 @@ export class CellRepositoryClientImpl implements CellRepository {
     this.Read = this.Read.bind(this);
     this.Update = this.Update.bind(this);
     this.Delete = this.Delete.bind(this);
+    this.List = this.List.bind(this);
   }
   Create(request: CreateCellRequest): Promise<CreateCellResponse> {
     const data = CreateCellRequest.encode(request).finish();
@@ -529,6 +644,12 @@ export class CellRepositoryClientImpl implements CellRepository {
     const data = DeleteCellRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "Delete", data);
     return promise.then((data) => DeleteCellResponse.decode(_m0.Reader.create(data)));
+  }
+
+  List(request: ListCellRequest): Promise<ListCellResponse> {
+    const data = ListCellRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "List", data);
+    return promise.then((data) => ListCellResponse.decode(_m0.Reader.create(data)));
   }
 }
 

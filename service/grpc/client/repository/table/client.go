@@ -12,6 +12,7 @@ type clientGateway struct {
 	read   ReadTable
 	update UpdateTable
 	delete DeleteTable
+	list   ListTable
 }
 
 type TableClientRepository struct {
@@ -51,4 +52,11 @@ func (x *TableClientRepository) Delete(ctx context.Context, table *model.Table) 
 	return gateway.ToInfra(table, x.delete.Input, func(req *grpc_server.DeleteTableRequest) (*grpc_server.DeleteTableResponse, error) {
 		return x.client.Delete(ctx, req)
 	}, x.delete.Output)
+}
+
+// List implements tableRepository.List
+func (x *TableClientRepository) List(ctx context.Context, cell *model.Table) ([]*model.Table, error) {
+	return gateway.ToInfraList(cell, x.list.Input, func(cell *grpc_server.ListTableRequest) (*grpc_server.ListTableResponse, error) {
+		return x.client.List(ctx, cell)
+	}, x.list.Output)
 }

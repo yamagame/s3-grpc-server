@@ -13,6 +13,7 @@ type serverGateway struct {
 	read   ReadFile
 	update UpdateFile
 	delete DeleteFile
+	list   ListFile
 }
 
 type FileServerRepository struct {
@@ -53,4 +54,11 @@ func (s *FileServerRepository) Delete(ctx context.Context, in *grpc_server.Delet
 	return gateway.ToDomain(in, s.delete.Input, func(file *model.File) (*model.File, error) {
 		return s.repository.Delete(ctx, file)
 	}, s.delete.Output)
+}
+
+// List implements RepositoryServer.List
+func (s *FileServerRepository) List(ctx context.Context, in *grpc_server.ListFileRequest) (*grpc_server.ListFileResponse, error) {
+	return gateway.ToDomainList(in, s.list.Input, func(table *model.File) ([]*model.File, error) {
+		return s.repository.List(ctx, table)
+	}, s.list.Output)
 }

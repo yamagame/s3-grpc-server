@@ -12,6 +12,7 @@ type clientGateway struct {
 	read   ReadFile
 	update UpdateFile
 	delete DeleteFile
+	list   ListFile
 }
 
 type FileClientRepository struct {
@@ -51,4 +52,11 @@ func (x *FileClientRepository) Delete(ctx context.Context, file *model.File) (*m
 	return gateway.ToInfra(file, x.delete.Input, func(req *grpc_server.DeleteFileRequest) (*grpc_server.DeleteFileResponse, error) {
 		return x.client.Delete(ctx, req)
 	}, x.delete.Output)
+}
+
+// List implements fileRepository.List
+func (x *FileClientRepository) List(ctx context.Context, cell *model.File) ([]*model.File, error) {
+	return gateway.ToInfraList(cell, x.list.Input, func(cell *grpc_server.ListFileRequest) (*grpc_server.ListFileResponse, error) {
+		return x.client.List(ctx, cell)
+	}, x.list.Output)
 }

@@ -23,6 +23,7 @@ const (
 	FileRepository_Read_FullMethodName   = "/FileRepository/Read"
 	FileRepository_Update_FullMethodName = "/FileRepository/Update"
 	FileRepository_Delete_FullMethodName = "/FileRepository/Delete"
+	FileRepository_List_FullMethodName   = "/FileRepository/List"
 )
 
 // FileRepositoryClient is the client API for FileRepository service.
@@ -37,6 +38,8 @@ type FileRepositoryClient interface {
 	Update(ctx context.Context, in *UpdateFileRequest, opts ...grpc.CallOption) (*UpdateFileResponse, error)
 	// Delete
 	Delete(ctx context.Context, in *DeleteFileRequest, opts ...grpc.CallOption) (*DeleteFileResponse, error)
+	// List
+	List(ctx context.Context, in *ListFileRequest, opts ...grpc.CallOption) (*ListFileResponse, error)
 }
 
 type fileRepositoryClient struct {
@@ -83,6 +86,15 @@ func (c *fileRepositoryClient) Delete(ctx context.Context, in *DeleteFileRequest
 	return out, nil
 }
 
+func (c *fileRepositoryClient) List(ctx context.Context, in *ListFileRequest, opts ...grpc.CallOption) (*ListFileResponse, error) {
+	out := new(ListFileResponse)
+	err := c.cc.Invoke(ctx, FileRepository_List_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FileRepositoryServer is the server API for FileRepository service.
 // All implementations must embed UnimplementedFileRepositoryServer
 // for forward compatibility
@@ -95,6 +107,8 @@ type FileRepositoryServer interface {
 	Update(context.Context, *UpdateFileRequest) (*UpdateFileResponse, error)
 	// Delete
 	Delete(context.Context, *DeleteFileRequest) (*DeleteFileResponse, error)
+	// List
+	List(context.Context, *ListFileRequest) (*ListFileResponse, error)
 	mustEmbedUnimplementedFileRepositoryServer()
 }
 
@@ -113,6 +127,9 @@ func (UnimplementedFileRepositoryServer) Update(context.Context, *UpdateFileRequ
 }
 func (UnimplementedFileRepositoryServer) Delete(context.Context, *DeleteFileRequest) (*DeleteFileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedFileRepositoryServer) List(context.Context, *ListFileRequest) (*ListFileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
 }
 func (UnimplementedFileRepositoryServer) mustEmbedUnimplementedFileRepositoryServer() {}
 
@@ -199,6 +216,24 @@ func _FileRepository_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FileRepository_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListFileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FileRepositoryServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FileRepository_List_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FileRepositoryServer).List(ctx, req.(*ListFileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FileRepository_ServiceDesc is the grpc.ServiceDesc for FileRepository service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -221,6 +256,10 @@ var FileRepository_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _FileRepository_Delete_Handler,
+		},
+		{
+			MethodName: "List",
+			Handler:    _FileRepository_List_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

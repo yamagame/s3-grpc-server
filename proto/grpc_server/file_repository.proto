@@ -17,6 +17,8 @@ service FileRepository {
   rpc Update(UpdateFileRequest) returns (UpdateFileResponse) {}
   // Delete
   rpc Delete(DeleteFileRequest) returns (DeleteFileResponse) {}
+  // List
+  rpc List(ListFileRequest) returns (ListFileResponse) {}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,4 +57,12 @@ message DeleteFileRequest {
 
 message DeleteFileResponse {
   uint64 ID = 1;
+}
+
+message ListFileRequest {
+  //
+}
+
+message ListFileResponse {
+  repeated File files = 1;
 }

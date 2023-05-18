@@ -39,6 +39,14 @@ export interface DeleteFileResponse {
   ID: number;
 }
 
+/**  */
+export interface ListFileRequest {
+}
+
+export interface ListFileResponse {
+  files: File[];
+}
+
 function createBaseCreateFileRequest(): CreateFileRequest {
   return { file: undefined };
 }
@@ -517,6 +525,110 @@ export const DeleteFileResponse = {
   },
 };
 
+function createBaseListFileRequest(): ListFileRequest {
+  return {};
+}
+
+export const ListFileRequest = {
+  encode(_: ListFileRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListFileRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListFileRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ListFileRequest {
+    return {};
+  },
+
+  toJSON(_: ListFileRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListFileRequest>, I>>(base?: I): ListFileRequest {
+    return ListFileRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ListFileRequest>, I>>(_: I): ListFileRequest {
+    const message = createBaseListFileRequest();
+    return message;
+  },
+};
+
+function createBaseListFileResponse(): ListFileResponse {
+  return { files: [] };
+}
+
+export const ListFileResponse = {
+  encode(message: ListFileResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.files) {
+      File.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListFileResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListFileResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.files.push(File.decode(reader, reader.uint32()));
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListFileResponse {
+    return { files: Array.isArray(object?.files) ? object.files.map((e: any) => File.fromJSON(e)) : [] };
+  },
+
+  toJSON(message: ListFileResponse): unknown {
+    const obj: any = {};
+    if (message.files) {
+      obj.files = message.files.map((e) => e ? File.toJSON(e) : undefined);
+    } else {
+      obj.files = [];
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListFileResponse>, I>>(base?: I): ListFileResponse {
+    return ListFileResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ListFileResponse>, I>>(object: I): ListFileResponse {
+    const message = createBaseListFileResponse();
+    message.files = object.files?.map((e) => File.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 export interface FileRepository {
   /** Create */
   Create(request: CreateFileRequest): Promise<CreateFileResponse>;
@@ -526,6 +638,8 @@ export interface FileRepository {
   Update(request: UpdateFileRequest): Promise<UpdateFileResponse>;
   /** Delete */
   Delete(request: DeleteFileRequest): Promise<DeleteFileResponse>;
+  /** List */
+  List(request: ListFileRequest): Promise<ListFileResponse>;
 }
 
 export class FileRepositoryClientImpl implements FileRepository {
@@ -538,6 +652,7 @@ export class FileRepositoryClientImpl implements FileRepository {
     this.Read = this.Read.bind(this);
     this.Update = this.Update.bind(this);
     this.Delete = this.Delete.bind(this);
+    this.List = this.List.bind(this);
   }
   Create(request: CreateFileRequest): Promise<CreateFileResponse> {
     const data = CreateFileRequest.encode(request).finish();
@@ -561,6 +676,12 @@ export class FileRepositoryClientImpl implements FileRepository {
     const data = DeleteFileRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "Delete", data);
     return promise.then((data) => DeleteFileResponse.decode(_m0.Reader.create(data)));
+  }
+
+  List(request: ListFileRequest): Promise<ListFileResponse> {
+    const data = ListFileRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "List", data);
+    return promise.then((data) => ListFileResponse.decode(_m0.Reader.create(data)));
   }
 }
 

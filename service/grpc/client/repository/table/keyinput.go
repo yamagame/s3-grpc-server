@@ -60,3 +60,7 @@ func (x *KeyInput) Delete() *model.Table {
 		ID: id,
 	}
 }
+
+func (x *KeyInput) List() *model.Table {
+	return &model.Table{}
+}

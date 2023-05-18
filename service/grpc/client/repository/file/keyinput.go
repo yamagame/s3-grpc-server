@@ -56,3 +56,7 @@ func (x *KeyInput) Delete() *model.File {
 		ID: id,
 	}
 }
+
+func (x *KeyInput) List() *model.File {
+	return &model.File{}
+}

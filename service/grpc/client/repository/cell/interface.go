@@ -9,4 +9,5 @@ type ScannerInterface interface {
 	Read() *model.Cell
 	Update() *model.Cell
 	Delete() *model.Cell
+	List() []*model.Cell
 }

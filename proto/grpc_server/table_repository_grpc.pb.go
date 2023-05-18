@@ -23,6 +23,7 @@ const (
 	TableRepository_Read_FullMethodName   = "/TableRepository/Read"
 	TableRepository_Update_FullMethodName = "/TableRepository/Update"
 	TableRepository_Delete_FullMethodName = "/TableRepository/Delete"
+	TableRepository_List_FullMethodName   = "/TableRepository/List"
 )
 
 // TableRepositoryClient is the client API for TableRepository service.
@@ -37,6 +38,8 @@ type TableRepositoryClient interface {
 	Update(ctx context.Context, in *UpdateTableRequest, opts ...grpc.CallOption) (*UpdateTableResponse, error)
 	// Delete
 	Delete(ctx context.Context, in *DeleteTableRequest, opts ...grpc.CallOption) (*DeleteTableResponse, error)
+	// List
+	List(ctx context.Context, in *ListTableRequest, opts ...grpc.CallOption) (*ListTableResponse, error)
 }
 
 type tableRepositoryClient struct {
@@ -83,6 +86,15 @@ func (c *tableRepositoryClient) Delete(ctx context.Context, in *DeleteTableReque
 	return out, nil
 }
 
+func (c *tableRepositoryClient) List(ctx context.Context, in *ListTableRequest, opts ...grpc.CallOption) (*ListTableResponse, error) {
+	out := new(ListTableResponse)
+	err := c.cc.Invoke(ctx, TableRepository_List_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TableRepositoryServer is the server API for TableRepository service.
 // All implementations must embed UnimplementedTableRepositoryServer
 // for forward compatibility
@@ -95,6 +107,8 @@ type TableRepositoryServer interface {
 	Update(context.Context, *UpdateTableRequest) (*UpdateTableResponse, error)
 	// Delete
 	Delete(context.Context, *DeleteTableRequest) (*DeleteTableResponse, error)
+	// List
+	List(context.Context, *ListTableRequest) (*ListTableResponse, error)
 	mustEmbedUnimplementedTableRepositoryServer()
 }
 
@@ -113,6 +127,9 @@ func (UnimplementedTableRepositoryServer) Update(context.Context, *UpdateTableRe
 }
 func (UnimplementedTableRepositoryServer) Delete(context.Context, *DeleteTableRequest) (*DeleteTableResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedTableRepositoryServer) List(context.Context, *ListTableRequest) (*ListTableResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
 }
 func (UnimplementedTableRepositoryServer) mustEmbedUnimplementedTableRepositoryServer() {}
 
@@ -199,6 +216,24 @@ func _TableRepository_Delete_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TableRepository_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTableRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TableRepositoryServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TableRepository_List_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TableRepositoryServer).List(ctx, req.(*ListTableRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TableRepository_ServiceDesc is the grpc.ServiceDesc for TableRepository service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -221,6 +256,10 @@ var TableRepository_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _TableRepository_Delete_Handler,
+		},
+		{
+			MethodName: "List",
+			Handler:    _TableRepository_List_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

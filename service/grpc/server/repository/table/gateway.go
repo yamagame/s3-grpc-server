@@ -2,6 +2,7 @@ package table
 
 import (
 	"sample/s3-grpc-server/entitiy/repository/gateway/cell"
+	"sample/s3-grpc-server/entitiy/repository/gateway/table"
 	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
 
@@ -78,5 +79,22 @@ func (x *DeleteTable) Input(req *grpc_server.DeleteTableRequest) *model.Table {
 func (x *DeleteTable) Output(res *model.Table) *grpc_server.DeleteTableResponse {
 	return &grpc_server.DeleteTableResponse{
 		ID: res.ID,
+	}
+}
+
+type ListTable struct {
+}
+
+func (x *ListTable) Input(req *grpc_server.ListTableRequest) *model.Table {
+	return &model.Table{}
+}
+
+func (x *ListTable) Output(res []*model.Table) *grpc_server.ListTableResponse {
+	tables := make([]*grpc_server.Table, 0)
+	for _, v := range res {
+		tables = append(tables, table.ToInfra(v))
+	}
+	return &grpc_server.ListTableResponse{
+		Tables: tables,
 	}
 }

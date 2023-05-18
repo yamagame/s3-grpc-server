@@ -39,6 +39,14 @@ export interface DeleteTableResponse {
   ID: number;
 }
 
+/**  */
+export interface ListTableRequest {
+}
+
+export interface ListTableResponse {
+  tables: Table[];
+}
+
 function createBaseCreateTableRequest(): CreateTableRequest {
   return { table: undefined };
 }
@@ -517,6 +525,110 @@ export const DeleteTableResponse = {
   },
 };
 
+function createBaseListTableRequest(): ListTableRequest {
+  return {};
+}
+
+export const ListTableRequest = {
+  encode(_: ListTableRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListTableRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListTableRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ListTableRequest {
+    return {};
+  },
+
+  toJSON(_: ListTableRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListTableRequest>, I>>(base?: I): ListTableRequest {
+    return ListTableRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ListTableRequest>, I>>(_: I): ListTableRequest {
+    const message = createBaseListTableRequest();
+    return message;
+  },
+};
+
+function createBaseListTableResponse(): ListTableResponse {
+  return { tables: [] };
+}
+
+export const ListTableResponse = {
+  encode(message: ListTableResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.tables) {
+      Table.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListTableResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListTableResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.tables.push(Table.decode(reader, reader.uint32()));
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListTableResponse {
+    return { tables: Array.isArray(object?.tables) ? object.tables.map((e: any) => Table.fromJSON(e)) : [] };
+  },
+
+  toJSON(message: ListTableResponse): unknown {
+    const obj: any = {};
+    if (message.tables) {
+      obj.tables = message.tables.map((e) => e ? Table.toJSON(e) : undefined);
+    } else {
+      obj.tables = [];
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ListTableResponse>, I>>(base?: I): ListTableResponse {
+    return ListTableResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ListTableResponse>, I>>(object: I): ListTableResponse {
+    const message = createBaseListTableResponse();
+    message.tables = object.tables?.map((e) => Table.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 export interface TableRepository {
   /** Create */
   Create(request: CreateTableRequest): Promise<CreateTableResponse>;
@@ -526,6 +638,8 @@ export interface TableRepository {
   Update(request: UpdateTableRequest): Promise<UpdateTableResponse>;
   /** Delete */
   Delete(request: DeleteTableRequest): Promise<DeleteTableResponse>;
+  /** List */
+  List(request: ListTableRequest): Promise<ListTableResponse>;
 }
 
 export class TableRepositoryClientImpl implements TableRepository {
@@ -538,6 +652,7 @@ export class TableRepositoryClientImpl implements TableRepository {
     this.Read = this.Read.bind(this);
     this.Update = this.Update.bind(this);
     this.Delete = this.Delete.bind(this);
+    this.List = this.List.bind(this);
   }
   Create(request: CreateTableRequest): Promise<CreateTableResponse> {
     const data = CreateTableRequest.encode(request).finish();
@@ -561,6 +676,12 @@ export class TableRepositoryClientImpl implements TableRepository {
     const data = DeleteTableRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "Delete", data);
     return promise.then((data) => DeleteTableResponse.decode(_m0.Reader.create(data)));
+  }
+
+  List(request: ListTableRequest): Promise<ListTableResponse> {
+    const data = ListTableRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "List", data);
+    return promise.then((data) => ListTableResponse.decode(_m0.Reader.create(data)));
   }
 }
 

@@ -1,6 +1,7 @@
 package cell
 
 import (
+	"sample/s3-grpc-server/entitiy/repository/gateway/cell"
 	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
 
@@ -73,5 +74,22 @@ func (x *DeleteCell) Input(req *grpc_server.DeleteCellRequest) *model.Cell {
 func (x *DeleteCell) Output(res *model.Cell) *grpc_server.DeleteCellResponse {
 	return &grpc_server.DeleteCellResponse{
 		ID: res.ID,
+	}
+}
+
+type ListCell struct {
+}
+
+func (x *ListCell) Input(req *grpc_server.ListCellRequest) *model.Cell {
+	return &model.Cell{}
+}
+
+func (x *ListCell) Output(res []*model.Cell) *grpc_server.ListCellResponse {
+	cells := make([]*grpc_server.Cell, 0)
+	for _, v := range res {
+		cells = append(cells, cell.ToInfra(v))
+	}
+	return &grpc_server.ListCellResponse{
+		Cells: cells,
 	}
 }

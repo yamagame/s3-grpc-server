@@ -13,6 +13,7 @@ type serverGateway struct {
 	read   ReadCell
 	update UpdateCell
 	delete DeleteCell
+	list   ListCell
 }
 
 type CellServerRepository struct {
@@ -53,4 +54,11 @@ func (s *CellServerRepository) Delete(ctx context.Context, in *grpc_server.Delet
 	return gateway.ToDomain(in, s.delete.Input, func(cell *model.Cell) (*model.Cell, error) {
 		return s.repository.Delete(ctx, cell)
 	}, s.delete.Output)
+}
+
+// List implements RepositoryServer.List
+func (s *CellServerRepository) List(ctx context.Context, in *grpc_server.ListCellRequest) (*grpc_server.ListCellResponse, error) {
+	return gateway.ToDomainList(in, s.list.Input, func(table *model.Cell) ([]*model.Cell, error) {
+		return s.repository.List(ctx, table)
+	}, s.list.Output)
 }

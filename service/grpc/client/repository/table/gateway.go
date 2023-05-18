@@ -1,6 +1,7 @@
 package table
 
 import (
+	"sample/s3-grpc-server/entitiy/repository/gateway/table"
 	"sample/s3-grpc-server/entitiy/repository/model"
 	"sample/s3-grpc-server/proto/grpc_server"
 )
@@ -76,4 +77,20 @@ func (x *DeleteTable) Output(res *grpc_server.DeleteTableResponse) *model.Table 
 	return &model.Table{
 		ID: res.GetID(),
 	}
+}
+
+type ListTable struct{}
+
+func (x *ListTable) Input(req *model.Table) *grpc_server.ListTableRequest {
+	return &grpc_server.ListTableRequest{
+		//
+	}
+}
+
+func (x *ListTable) Output(res *grpc_server.ListTableResponse) []*model.Table {
+	ret := []*model.Table{}
+	for _, v := range res.Tables {
+		ret = append(ret, table.ToDomain(v))
+	}
+	return ret
 }
