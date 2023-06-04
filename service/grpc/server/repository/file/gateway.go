@@ -13,8 +13,16 @@ type CreateFile struct {
 }
 
 func (x *CreateFile) Input(req *grpc_server.CreateFileRequest) *model.File {
+	tables := make([]*model.Table, 0)
+	for _, v := range req.File.Tables {
+		tables = append(tables, table.ToDomain(v))
+	}
 	return &model.File{
-		Filename:  req.File.Filename,
+		Filename: req.File.Filename,
+		Attr: model.Attr{
+			Owner: req.File.Owner,
+		},
+		Tables:    tables,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
@@ -44,6 +52,7 @@ func (x *ReadFile) Output(res *model.File) *grpc_server.ReadFileResponse {
 		ID: res.ID,
 		File: &grpc_server.File{
 			Filename: res.Filename,
+			Owner:    res.Attr.Owner,
 			Tables:   tables,
 		},
 	}
@@ -54,8 +63,12 @@ type UpdateFile struct {
 
 func (x *UpdateFile) Input(req *grpc_server.UpdateFileRequest) *model.File {
 	return &model.File{
-		ID:        req.GetID(),
-		Filename:  req.File.Filename,
+		ID:       req.GetID(),
+		Filename: req.File.Filename,
+		Attr: model.Attr{
+			ID:    req.GetID(),
+			Owner: req.File.Owner,
+		},
 		UpdatedAt: time.Now(),
 	}
 }

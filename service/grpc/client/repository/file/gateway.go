@@ -10,9 +10,15 @@ import (
 type CreateFile struct{}
 
 func (x *CreateFile) Input(req *model.File) *grpc_server.CreateFileRequest {
+	tables := []*grpc_server.Table{}
+	for _, v := range req.Tables {
+		tables = append(tables, table.ToInfra(v))
+	}
 	return &grpc_server.CreateFileRequest{
 		File: &grpc_server.File{
 			Filename: req.Filename,
+			Owner:    req.Attr.Owner,
+			Tables:   tables,
 		},
 	}
 }
@@ -39,7 +45,11 @@ func (x *ReadFile) Output(res *grpc_server.ReadFileResponse) *model.File {
 	return &model.File{
 		ID:       res.GetID(),
 		Filename: res.File.Filename,
-		Tables:   tables,
+		Attr: model.Attr{
+			ID:    res.GetID(),
+			Owner: res.File.Owner,
+		},
+		Tables: tables,
 	}
 }
 
@@ -50,6 +60,7 @@ func (x *UpdateFile) Input(req *model.File) *grpc_server.UpdateFileRequest {
 		ID: req.ID,
 		File: &grpc_server.File{
 			Filename: req.Filename,
+			Owner:    req.Attr.Owner,
 		},
 	}
 }

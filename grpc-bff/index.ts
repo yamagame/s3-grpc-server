@@ -140,6 +140,16 @@ app.post("/api/putObject/*", protect(), async (req, res, next) => {
   }
 })
 
+app.get("/api/listObjects", protect(), async (req, res, next) => {
+  try {
+    // const ret = await storageClient.ListBuckets({})
+    // res.json(ret)
+    res.json([{ result: 0, prefix: "", keys: ["test1.txt", "test2.txt"], next: undefined }])
+  } catch (err) {
+    next(err)
+  }
+})
+
 app.post("/api/deleteObject/*", protect(), async (req, res, next) => {
   try {
     const key = req.params[0]
@@ -153,9 +163,10 @@ app.post("/api/deleteObject/*", protect(), async (req, res, next) => {
 app.get("/api/getObject/*", protect(), async (req, res, next) => {
   try {
     const key = req.params[0]
-    console.log("getObject", key)
-    const ret = await storageClient.GetObject({ key })
-    res.json(ret)
+    // console.log("getObject", key)
+    // const ret = await storageClient.GetObject({ key })
+    // res.json(ret)
+    res.json({ result: 0, key, content: "bbb" })
   } catch (err) {
     next(err)
   }

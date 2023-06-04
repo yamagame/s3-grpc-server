@@ -19,8 +19,16 @@ type CRUDRepository[T any] struct {
 }
 
 // Create implements CRUDRepository.Create
-func (s *CRUDRepository[T]) Create(ctx context.Context, object *T) (*T, error) {
+func (s *CRUDRepository[T]) CreateInBatches(ctx context.Context, object *T) (*T, error) {
 	if err := s.DB.CreateInBatches([]*T{object}, 1).Error; err != nil {
+		return nil, err
+	}
+	return object, nil
+}
+
+// Create implements CRUDRepository.Create
+func (s *CRUDRepository[T]) Create(ctx context.Context, object *T) (*T, error) {
+	if err := s.DB.Create(object).Error; err != nil {
 		return nil, err
 	}
 	return object, nil

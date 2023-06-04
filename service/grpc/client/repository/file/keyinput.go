@@ -23,6 +23,12 @@ func (x *KeyInput) Create() *model.File {
 	filename := x.scanner.Text()
 	return &model.File{
 		Filename: filename,
+		Attr: model.Attr{
+			Owner: "me",
+		},
+		Tables: []*model.Table{{
+			Title: "Sheet1",
+		}},
 	}
 }
 
@@ -32,6 +38,10 @@ func (x *KeyInput) Read() *model.File {
 	id, _ := strconv.ParseUint(x.scanner.Text(), 10, 64)
 	return &model.File{
 		ID: id,
+		// AttrID: id,
+		Attr: model.Attr{
+			ID: id,
+		},
 	}
 }
 
@@ -42,9 +52,16 @@ func (x *KeyInput) Update() *model.File {
 	fmt.Print("filename >")
 	x.scanner.Scan()
 	filename := x.scanner.Text()
+	fmt.Print("owner >")
+	x.scanner.Scan()
+	owner := x.scanner.Text()
 	return &model.File{
 		ID:       id,
 		Filename: filename,
+		Attr: model.Attr{
+			// ID:    id,
+			Owner: owner,
+		},
 	}
 }
 

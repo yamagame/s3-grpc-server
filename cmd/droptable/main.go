@@ -10,4 +10,5 @@ func main() {
 	db.Migrator().DropTable(&model.File{})
 	db.Migrator().DropTable(&model.Cell{})
 	db.Migrator().DropTable(&model.Table{})
+	db.Migrator().DropTable(&model.Attr{})
 }

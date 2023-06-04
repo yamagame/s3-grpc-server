@@ -1,7 +1,7 @@
 package model
 
 import (
-	"fmt"
+	"sample/s3-grpc-server/share"
 	"time"
 
 	"gorm.io/gorm"
@@ -10,6 +10,8 @@ import (
 type File struct {
 	ID        uint64
 	Filename  string
+	FValue    float64
+	Attr      Attr `gorm:"foreignKey:ID"`
 	Tables    []*Table
 	CreatedAt time.Time
 	UpdatedAt time.Time
@@ -17,5 +19,6 @@ type File struct {
 }
 
 func (x *File) String() string {
-	return fmt.Sprintf("{%d, %s}", x.ID, x.Filename)
+	return share.JsonString(x)
+	// return fmt.Sprintf("{%d, %s, %s}", x.ID, x.Filename, x.Attr.Owner)
 }

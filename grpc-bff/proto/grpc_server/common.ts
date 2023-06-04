@@ -46,6 +46,7 @@ export function resultToJSON(object: Result): string {
 export interface File {
   id: number;
   filename: string;
+  owner: string;
   tables: Table[];
 }
 
@@ -65,7 +66,7 @@ export interface Cell {
 }
 
 function createBaseFile(): File {
-  return { id: 0, filename: "", tables: [] };
+  return { id: 0, filename: "", owner: "", tables: [] };
 }
 
 export const File = {
@@ -76,8 +77,11 @@ export const File = {
     if (message.filename !== "") {
       writer.uint32(18).string(message.filename);
     }
+    if (message.owner !== "") {
+      writer.uint32(26).string(message.owner);
+    }
     for (const v of message.tables) {
-      Table.encode(v!, writer.uint32(26).fork()).ldelim();
+      Table.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -108,6 +112,13 @@ export const File = {
             break;
           }
 
+          message.owner = reader.string();
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
           message.tables.push(Table.decode(reader, reader.uint32()));
           continue;
       }
@@ -123,6 +134,7 @@ export const File = {
     return {
       id: isSet(object.id) ? Number(object.id) : 0,
       filename: isSet(object.filename) ? String(object.filename) : "",
+      owner: isSet(object.owner) ? String(object.owner) : "",
       tables: Array.isArray(object?.tables) ? object.tables.map((e: any) => Table.fromJSON(e)) : [],
     };
   },
@@ -131,6 +143,7 @@ export const File = {
     const obj: any = {};
     message.id !== undefined && (obj.id = Math.round(message.id));
     message.filename !== undefined && (obj.filename = message.filename);
+    message.owner !== undefined && (obj.owner = message.owner);
     if (message.tables) {
       obj.tables = message.tables.map((e) => e ? Table.toJSON(e) : undefined);
     } else {
@@ -147,6 +160,7 @@ export const File = {
     const message = createBaseFile();
     message.id = object.id ?? 0;
     message.filename = object.filename ?? "";
+    message.owner = object.owner ?? "";
     message.tables = object.tables?.map((e) => Table.fromPartial(e)) || [];
     return message;
   },

@@ -11,7 +11,8 @@ enum Result {
 message File {
   uint64 id = 1;
   string filename = 2;
-  repeated Table tables = 3;
+  string owner = 3;
+  repeated Table tables = 4;
 }
 
 message Table {
