@@ -19,6 +19,23 @@ async function callApi(url, options) {
   return data
 }
 
+function flatten(val) {
+  const sum = {}
+  const flat = (key, val) => {
+    if (typeof val != "object") {
+      sum[key] = val
+      return
+    }
+    return Object.
+      keys(val).
+      forEach((k) => {
+        flat(key != "" ? `${key} / ${k}` : k, val[k])
+      })
+  }
+  flat("", val)
+  return sum
+}
+
 async function listObjects() {
   const data = await callApi(`${baseurl}/api/listObjects`, {
     redirect: "error",
@@ -29,7 +46,7 @@ async function getObject(key) {
   const data = await callApi(`${baseurl}/api/getObject/${key}`, {
     redirect: "error",
   })
-  if (data) getBucketsRef.value = data.value
+  if (data) getBucketsRef.value = flatten(data.value)
 }
 async function select(itemname) {
   getObject(itemname)

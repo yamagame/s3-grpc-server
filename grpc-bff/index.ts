@@ -166,7 +166,11 @@ app.get("/api/getObject/*", protect(), async (req, res, next) => {
     // console.log("getObject", key)
     // const ret = await storageClient.GetObject({ key })
     // res.json(ret)
-    res.json({ result: 0, key, content: "bbb" })
+    res.json({
+      result: 0,
+      key,
+      content: { aaaa: 0, bbbb: { cccc: 1, dddd: 2, aaaa: { name: "hogehoge" } } },
+    })
   } catch (err) {
     next(err)
   }
