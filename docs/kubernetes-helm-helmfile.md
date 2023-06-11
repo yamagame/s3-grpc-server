@@ -62,6 +62,9 @@ helm は Kubernetes 用パッケージマネージャー
 
 https://helm.sh/ja/
 
+- [参考：Helmの概要とChart(チャート)の作り方](https://qiita.com/thinksphere/items/5f3e918015cf4e63a0bc)
+- [参考：helmとは & helmの使い方](https://qiita.com/sheepland/items/75b647b71c34c7d38804)
+
 ```bash
 # パッケージの作成
 $ helm create sample-app
@@ -83,7 +86,7 @@ $ helm create sample-app
 - values.yaml
 
 templates ディレクトリに作成されたファイルは golang の template になっている。
-helm apply 時に、values.yaml の値が埋め込まれる。
+helm apply 時に values.yaml の値が埋め込まれる。
 
 ```bash
 $ cat ./sample-app/templates/service.yaml 
@@ -148,7 +151,10 @@ $ helm apply ./sample-app/
 $ helm sync ./sample-app/ 
 
 # アプリケーションの削除
-$ helm delete ./sample-app/ 
+$ helm delete ./sample-app/
+
+# インストール済みのリリースを一覧表示
+$ helm list
 ```
 
 # helmfile
