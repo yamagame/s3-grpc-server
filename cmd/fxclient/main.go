@@ -10,6 +10,7 @@ import (
 	"sample/s3-grpc-server/service/grpc/client/repository/table"
 	"sample/s3-grpc-server/service/grpc/client/storage"
 	"sample/s3-grpc-server/share/sheet"
+	"sample/s3-grpc-server/usecase"
 
 	"go.uber.org/fx"
 )
@@ -42,7 +43,7 @@ func main() {
 		fx.Provide(repoRpviders...),
 		fx.Provide(storage.NewStorageRepository),
 		fx.Provide(sheet.NewCSVSheet),
-		fx.Provide(constructor.NewDBWriter),
+		fx.Provide(usecase.NewDBWriter),
 		fx.Provide(app.NewApp),
 		fx.Invoke(func(app *app.App) {
 			fmt.Println("start gRPC Client.")

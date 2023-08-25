@@ -12,6 +12,7 @@ import (
 	"sample/s3-grpc-server/service/grpc/client/repository/table"
 	"sample/s3-grpc-server/service/grpc/client/storage"
 	"sample/s3-grpc-server/share/sheet"
+	"sample/s3-grpc-server/usecase"
 
 	grpc_server "sample/s3-grpc-server/proto/grpc_server"
 )
@@ -44,7 +45,7 @@ func main() {
 	cellScanner := cell.NewKeyInput(keyboard)
 	storageScanner := storage.NewKeyInput(keyboard)
 
-	dbwriter := constructor.NewDBWriter(constructor.DBWriterIn{
+	dbwriter := usecase.NewDBWriter(usecase.DBWriterIn{
 		FileRepository:    fileRepository,
 		TableRepository:   tableRepository,
 		CellRepository:    cellRepository,

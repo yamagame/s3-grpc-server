@@ -5,14 +5,7 @@ import (
 	"context"
 	"log"
 	"os"
-	"sample/s3-grpc-server/service/grpc/client/repository/cell"
-	"sample/s3-grpc-server/service/grpc/client/repository/file"
-	"sample/s3-grpc-server/service/grpc/client/repository/table"
-	"sample/s3-grpc-server/service/grpc/client/storage"
-	"sample/s3-grpc-server/share/sheet"
-	"sample/s3-grpc-server/usecase"
 
-	"go.uber.org/dig"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -37,25 +30,6 @@ func NewContext() context.Context {
 
 func NewKeyboardScanner() *bufio.Scanner {
 	return bufio.NewScanner(os.Stdin)
-}
-
-type DBWriterIn struct {
-	dig.In
-	FileRepository    *file.FileClientRepository
-	TableRepository   *table.TableClientRepository
-	CellRepository    *cell.CellClientRepository
-	StorageRepository *storage.StorageClientRepository
-	Sheet             *sheet.CSVSheet
-}
-
-func NewDBWriter(in DBWriterIn) *usecase.DBWriter {
-	return usecase.NewDBWriter(
-		in.FileRepository,
-		in.TableRepository,
-		in.CellRepository,
-		in.StorageRepository,
-		in.Sheet,
-	)
 }
 
 func GRPCClientConnection(conn *grpc.ClientConn) grpc.ClientConnInterface {

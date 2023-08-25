@@ -12,7 +12,18 @@ import (
 	"sample/s3-grpc-server/share/sheet"
 	"strings"
 	"time"
+
+	"go.uber.org/dig"
 )
+
+type DBWriterIn struct {
+	dig.In
+	FileRepository    file.RepositoryInterface
+	TableRepository   table.RepositoryInterface
+	CellRepository    cell.RepositoryInterface
+	StorageRepository storage.RepositoryInterface
+	Sheet             sheet.SpreadsheetInterface
+}
 
 type DBWriter struct {
 	fileRepository    file.RepositoryInterface
@@ -22,19 +33,13 @@ type DBWriter struct {
 	sheet             sheet.SpreadsheetInterface
 }
 
-func NewDBWriter(
-	fileRepository file.RepositoryInterface,
-	tableRepository table.RepositoryInterface,
-	cellRepository cell.RepositoryInterface,
-	storageRepository storage.RepositoryInterface,
-	sheet sheet.SpreadsheetInterface,
-) *DBWriter {
+func NewDBWriter(in DBWriterIn) *DBWriter {
 	return &DBWriter{
-		fileRepository:    fileRepository,
-		tableRepository:   tableRepository,
-		cellRepository:    cellRepository,
-		storageRepository: storageRepository,
-		sheet:             sheet,
+		fileRepository:    in.FileRepository,
+		tableRepository:   in.TableRepository,
+		cellRepository:    in.CellRepository,
+		storageRepository: in.StorageRepository,
+		sheet:             in.Sheet,
 	}
 }
 
