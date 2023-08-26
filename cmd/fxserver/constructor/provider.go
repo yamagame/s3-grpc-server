@@ -8,6 +8,7 @@ import (
 
 	"go.uber.org/dig"
 	"go.uber.org/zap"
+	"google.golang.org/grpc"
 )
 
 func GetStorageInfraImpl(mode string) func(*zap.SugaredLogger) (storageInfra.RepositoryInternalInterface, error) {
@@ -51,4 +52,8 @@ func NewLogger() func() LoggerOut {
 			Sugar:  logger.Sugar(),
 		}
 	}
+}
+
+func NewGRPCServer() *grpc.Server {
+	return grpc.NewServer()
 }

@@ -13,7 +13,6 @@ import (
 
 	"go.uber.org/fx"
 	"go.uber.org/zap"
-	"google.golang.org/grpc"
 )
 
 func main() {
@@ -38,7 +37,7 @@ func main() {
 		fx.Provide(repository.GormDB),
 		fx.Provide(constructor.GetStorageInfraImpl(mode)),
 		fx.Provide(infraProviders...),
-		fx.Provide(grpc.NewServer),
+		fx.Provide(constructor.NewGRPCServer),
 		fx.Provide(serviceProviders...),
 		fx.Provide(constructor.NewLogger()),
 		fx.Provide(app.NewApp),
