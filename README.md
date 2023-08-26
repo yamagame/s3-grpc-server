@@ -1,5 +1,7 @@
 # GRPC-S3 サンプル
 
+参考：[作ってわかる！はじめてのgRPC](https://zenn.dev/hsaki/books/golang-grpc-starting/viewer/intro)
+
 ## 構成
 
 ```mermaid
