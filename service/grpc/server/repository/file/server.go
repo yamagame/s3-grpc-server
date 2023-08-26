@@ -6,6 +6,7 @@ import (
 	"sample/s3-grpc-server/infra/repository/file"
 	"sample/s3-grpc-server/proto/grpc_server"
 	"sample/s3-grpc-server/service/grpc/gateway"
+	"sample/s3-grpc-server/service/grpc/interceptor"
 )
 
 type serverGateway struct {
@@ -22,7 +23,8 @@ type FileServerRepository struct {
 	grpc_server.UnimplementedFileRepositoryServer
 }
 
-func NewFileServerRepository(repository file.RepositoryInterface) *FileServerRepository {
+func NewFileServerRepository(repository file.RepositoryInterface, v *interceptor.Validator) *FileServerRepository {
+	v.AddRules(validators())
 	return &FileServerRepository{
 		repository: repository,
 	}

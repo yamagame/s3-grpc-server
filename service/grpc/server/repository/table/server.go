@@ -6,6 +6,7 @@ import (
 	"sample/s3-grpc-server/infra/repository/table"
 	"sample/s3-grpc-server/proto/grpc_server"
 	"sample/s3-grpc-server/service/grpc/gateway"
+	"sample/s3-grpc-server/service/grpc/interceptor"
 )
 
 type serverGateway struct {
@@ -22,7 +23,8 @@ type TableServerRepository struct {
 	grpc_server.UnimplementedTableRepositoryServer
 }
 
-func NewTableServerRepository(repository table.RepositoryInterface) *TableServerRepository {
+func NewTableServerRepository(repository table.RepositoryInterface, v *interceptor.Validator) *TableServerRepository {
+	v.AddRules(validators())
 	return &TableServerRepository{
 		repository: repository,
 	}

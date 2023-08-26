@@ -37,6 +37,7 @@ func main() {
 		fx.Provide(repository.GormDB),
 		fx.Provide(constructor.GetStorageInfraImpl(mode)),
 		fx.Provide(infraProviders...),
+		fx.Provide(constructor.NewValidator),
 		fx.Provide(constructor.NewGRPCServer),
 		fx.Provide(serviceProviders...),
 		fx.Provide(constructor.NewLogger()),

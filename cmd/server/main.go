@@ -16,6 +16,7 @@ import (
 	tableInfra "sample/s3-grpc-server/infra/repository/table"
 	storageInfra "sample/s3-grpc-server/infra/storage"
 
+	"sample/s3-grpc-server/service/grpc/interceptor"
 	cellService "sample/s3-grpc-server/service/grpc/server/repository/cell"
 	fileService "sample/s3-grpc-server/service/grpc/server/repository/file"
 	tableService "sample/s3-grpc-server/service/grpc/server/repository/table"
@@ -51,6 +52,7 @@ func main() {
 		fileInfra.NewFileRepository(gorm),
 		tableInfra.NewTableRepository(gorm),
 		cellInfra.NewCellRepository(gorm),
+		interceptor.NewValidator(),
 	)
 	// log.Printf("server listening at %v", lis.Addr())
 	sugar.Infof("server listening at %v", lis.Addr())
@@ -97,19 +99,20 @@ func NewServer(
 	fileRepository fileInfra.RepositoryInterface,
 	tableRepository tableInfra.RepositoryInterface,
 	cellRepository cellInfra.RepositoryInterface,
+	validator *interceptor.Validator,
 ) *grpc.Server {
 	server := grpc.NewServer()
 	grpc_server.RegisterStorageRepositoryServer(server,
 		storageService.NewStorageServerRepository(storageRepository),
 	)
 	grpc_server.RegisterFileRepositoryServer(server,
-		fileService.NewFileServerRepository(fileRepository),
+		fileService.NewFileServerRepository(fileRepository, validator),
 	)
 	grpc_server.RegisterTableRepositoryServer(server,
-		tableService.NewTableServerRepository(tableRepository),
+		tableService.NewTableServerRepository(tableRepository, validator),
 	)
 	grpc_server.RegisterCellRepositoryServer(server,
-		cellService.NewCellServerRepository(cellRepository),
+		cellService.NewCellServerRepository(cellRepository, validator),
 	)
 	reflection.Register(server)
 	return server

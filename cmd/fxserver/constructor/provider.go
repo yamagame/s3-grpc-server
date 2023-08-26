@@ -5,6 +5,7 @@ import (
 	"os"
 
 	storageInfra "sample/s3-grpc-server/infra/storage"
+	"sample/s3-grpc-server/service/grpc/interceptor"
 
 	"go.uber.org/dig"
 	"go.uber.org/zap"
@@ -54,6 +55,12 @@ func NewLogger() func() LoggerOut {
 	}
 }
 
-func NewGRPCServer() *grpc.Server {
-	return grpc.NewServer()
+func NewValidator() *interceptor.Validator {
+	return interceptor.NewValidator()
+}
+
+func NewGRPCServer(validator *interceptor.Validator) *grpc.Server {
+	return grpc.NewServer(
+		grpc.UnaryInterceptor(interceptor.ValidateInterceptor(validator)),
+	)
 }
