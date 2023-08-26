@@ -3,7 +3,7 @@ FROM golang:1.20.3-alpine3.17
 # COPY self-signed.cert /usr/local/share/ca-certificates/self-signed.cert
 # RUN update-ca-certificates
 RUN apk add bash curl
-RUN apk add --no-cache nodejs=18.14.2-r0 npm=9.1.2-r0
+RUN apk add --no-cache nodejs npm
 RUN npm install -g yarn
 RUN go install github.com/ktr0731/evans@0.10.11
 RUN apk add protobuf
