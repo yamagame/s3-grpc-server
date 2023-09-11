@@ -9,7 +9,6 @@ func TestSheet(t *testing.T) {
 	csv := NewCSVSheet()
 	// CSV 読み込みテスト
 	{
-
 		fp, _ := os.Open("./testdata/sample.csv")
 		defer fp.Close()
 		csv.Read(fp)
