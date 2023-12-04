@@ -117,3 +117,12 @@ $ docker compose exec grpc-server /bin/bash
 
 Windows のシェルではパスを自動的に変換してしまうため正常に動作しない。
 パスの先頭に「//」を付けるか、環境変数に　MSYS_NO_PATHCONV=1　を設定して実行する。
+
+## API 設計ガイド
+
+https://cloud.google.com/apis/design?hl=ja
+
+https://blog.kazu69.net/2019/07/02/grpc-error-hadling/
+https://cloud.google.com/apis/design/errors?hl=ja
+https://grpc.io/docs/guides/error/
+https://gorm.io/ja_JP/docs/error_handling.html
