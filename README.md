@@ -120,9 +120,9 @@ Windows のシェルではパスを自動的に変換してしまうため正常
 
 ## API 設計ガイド
 
-https://cloud.google.com/apis/design?hl=ja
+[Google Cloud : API 設計ガイド](https://cloud.google.com/apis/design?hl=ja)
 
-https://blog.kazu69.net/2019/07/02/grpc-error-hadling/
-https://cloud.google.com/apis/design/errors?hl=ja
-https://grpc.io/docs/guides/error/
-https://gorm.io/ja_JP/docs/error_handling.html
+[69log : Golangでのgrpcエラーハンドリング](https://blog.kazu69.net/2019/07/02/grpc-error-hadling/)  
+[Google Cloud : API 設計ガイド : エラー](https://cloud.google.com/apis/design/errors?hl=ja)  
+[gRPC : Error handling](https://grpc.io/docs/guides/error/)  
+[GORM : エラーハンドリング](https://gorm.io/ja_JP/docs/error_handling.html)
